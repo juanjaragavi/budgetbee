@@ -1,1 +1,7 @@
-Sync: Repository synchronization - no code changes
+Add project guidelines and update gitignore
+
+- Add .clinerules/ directory with project guidelines
+  - PLANNING.md: Project planning and status documentation
+  - PUSH-AND-COMMIT.md: Git workflow guidelines
+  - RULES.md: Project development rules and standards
+- Update .gitignore file
