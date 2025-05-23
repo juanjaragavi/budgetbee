@@ -23,3 +23,7 @@ package-lock.json
 
 # ignore .astro directory
 .astro
+
+# LLM-related files
+.clinerules
+src/lib/documents
