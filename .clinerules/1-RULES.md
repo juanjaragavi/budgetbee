@@ -2,17 +2,19 @@
 
 ## Documentation Requirements
 
-- Update relevant documentation in src/lib/documents/DOCUMENTATION.md when modifying features
-- Keep README.md in sync with new capabilities
-- Maintain changelog entries in CHANGELOG.md
+- Update relevant documentation in `src/lib/documents/DOCUMENTATION.md` when modifying features
+- Keep `README.md` in sync with new capabilities
+- Maintain changelog entries in `/CHANGELOG.md`
 
 ## Project Awareness & Context
 
-- Always read `PLANNING.md` at the start of a new conversation to understand the project's architecture, goals, style, and constraints.
+- Always read `2-PLANNING.md` at the start of a new conversation to understand the project's architecture, goals, style, and constraints.
+- Check and update `3-TASKS.md` before starting a new task. If the task isn’t listed, add it with a brief description and today's date.
+- Refer to `4-PUSH-AND-COMMIT.md` for commit and push guidelines.
 
 ## Architecture Decision Records
 
-Create ADRs in src/lib/documents/ADRs.md for:
+Create ADRs in `src/lib/documents/ADRs.md` for:
 
 - Major dependency changes
 - Architectural pattern changes
