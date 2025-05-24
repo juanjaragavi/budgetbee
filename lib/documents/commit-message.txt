@@ -1,8 +1,7 @@
-Add branding strategy document with typography guidelines
+Connect TODO tasks to branding guidelines
 
-- Create comprehensive branding strategy document (5-BRANDING.md)
-- Define brand essence, personality, and target audience (Gen-Z/Millennials)
-- Establish brand voice and tone guidelines for different content types
-- Include color palette specifications with primary and secondary colors
-- Add typography directive specifying Montserrat by Google Fonts as primary font
-- Document key messaging points and competitive differentiation
+- Update .clinerules/3-TASKS.md to reference branding document for style-related tasks
+- Add specific directives for each branding task pointing to .clinerules/5-BRANDING.md
+- Include color codes, typography (Montserrat), voice/tone, and audience references
+- Ensure brand consistency guidance for site configuration, content, and visual assets
+- Minor updates to rules and branding documentation formatting

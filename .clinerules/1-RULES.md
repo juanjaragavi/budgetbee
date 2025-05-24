@@ -11,6 +11,7 @@
 - Always read `2-PLANNING.md` at the start of a new conversation to understand the project's architecture, goals, style, and constraints.
 - Check and update `3-TASKS.md` before starting a new task. If the task isn’t listed, add it with a brief description and today's date.
 - Refer to `4-PUSH-AND-COMMIT.md` for commit and push guidelines.
+- Review `5-BRANDING.md` for branding guidelines, including color palette, typography, and voice/tone.
 
 ## Architecture Decision Records
 
