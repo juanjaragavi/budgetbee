@@ -7,11 +7,11 @@ draft: false
 **Effective Date:** January 10, 2024  
 **Last Updated:** May 24, 2025
 
-**Top Networks Inc.** ("we", "our" or "us") is committed to protecting your personal information. This Privacy Policy describes how we collect, use and share your data, the security measures we employ, and the rights you have over your personal information. We recommend that you read this policy carefully.
+**TopNetworks Inc.** ("we", "our" or "us") is committed to protecting your personal information. This Privacy Policy describes how we collect, use and share your data, the security measures we employ, and the rights you have over your personal information. We recommend that you read this policy carefully.
 
 ## 1. Who We Are
 
-**Top Networks Inc.** operates [budgetbee.co](https://budgetbee.co) ("Platform" or "Site"), a financial information and product recommendation platform. Our mission is to provide users with personalized content about financial services and products. **Top Networks Inc.** is incorporated in Panama, with operations in the United States, and we comply with applicable US federal and state regulations to protect your data.
+**TopNetworks Inc.** operates [budgetbee.co](https://budgetbee.co) ("Platform" or "Site"), a financial information and product recommendation platform. Our mission is to provide users with personalized content about financial services and products. **TopNetworks Inc.** is incorporated in Panama, with operations in the United States, and we comply with applicable US federal and state regulations to protect your data.
 
 If you have any questions about this Privacy Policy or how we handle your data, please contact us at [info@topfinanzas.com](mailto:info@topfinanzas.com).
 
@@ -64,7 +64,7 @@ We may record your activities on our Site to create logs (records of activities)
 
 We may also use certain proprietary or third-party technologies to monitor activity on our Site, including:
 
-- **Cookies:** These internet files temporarily store information about your browsing, such as pages visited and preferences, to improve your experience. **Top Networks Inc.** and third-party partners may use cookies to enhance personalization. You may control cookies in your browser settings, but disabling them may affect your experience.
+- **Cookies:** These internet files temporarily store information about your browsing, such as pages visited and preferences, to improve your experience. **TopNetworks Inc.** and third-party partners may use cookies to enhance personalization. You may control cookies in your browser settings, but disabling them may affect your experience.
 - **Web Beacons:** These techniques allow us to identify and analyze website visit behaviors across different platforms and devices.
 - **Google AdSense Cookie Dart:** We may display ads through Google AdSense. This uses the DART cookie to tailor ads based on user preferences. Users can opt out via Google's Ad Preferences at [http://www.google.com/ads/preferences/](http://www.google.com/ads/preferences/).
 - **Analytics Tools:** These tools gather details on your browsing patterns, such as page visits, site interactions, and referral sites.
@@ -143,7 +143,7 @@ Our website uses cookies and similar technologies to enhance your browsing exper
 
 If you have any questions, comments, or requests regarding this Privacy Policy, please contact us at:
 
-**Top Networks Inc.**
+**TopNetworks Inc.**
 
 - **Email:** [info@topfinanzas.com](mailto:info@topfinanzas.com)
 - **Address:** PANAMA, PANAMA CITY, AV. AQUILINO DE LA GUARDIA, OCEAN BUSINESS PLAZA BUILDING, FLOOR 12

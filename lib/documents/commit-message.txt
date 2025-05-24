@@ -15,7 +15,7 @@ Legal pages updates:
 All pages now use:
 - budgetbee.co domain
 - US market localization
-- Top Networks Inc. as parent company
+- TopNetworks Inc. as parent company
 - Contact: info@topfinanzas.com
 
 Updated task list to reflect completed items.

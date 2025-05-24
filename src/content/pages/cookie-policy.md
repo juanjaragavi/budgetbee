@@ -7,7 +7,7 @@ draft: false
 **Effective Date:** April 6, 2025  
 **Last Updated:** May 24, 2025
 
-This Cookie Policy explains how **Top Networks Inc.** ("we", "us", or "our") uses cookies and similar technologies on our website [budgetbee.co](https://budgetbee.co) (the "Site"). It explains what these technologies are and why we use them, as well as your rights to control our use of them.
+This Cookie Policy explains how **TopNetworks Inc.** ("we", "us", or "our") uses cookies and similar technologies on our website [budgetbee.co](https://budgetbee.co) (the "Site"). It explains what these technologies are and why we use them, as well as your rights to control our use of them.
 
 This policy should be read together with our [Privacy Policy](/privacy-policy), which explains how we use personal information.
 
@@ -15,7 +15,7 @@ This policy should be read together with our [Privacy Policy](/privacy-policy), 
 
 Cookies are small data files that are placed on your computer or mobile device when you visit a website. Cookies are widely used by website owners in order to make their websites work, or to work more efficiently, as well as to provide reporting information.
 
-Cookies set by the website owner (in this case, **Top Networks Inc.**) are called "first-party cookies". Cookies set by parties other than the website owner are called "third-party cookies". Third-party cookies enable third-party features or functionality to be provided on or through the website (e.g., advertising, interactive content, and analytics). The parties that set these third-party cookies can recognize your computer both when it visits the website in question and also when it visits certain other websites.
+Cookies set by the website owner (in this case, **TopNetworks Inc.**) are called "first-party cookies". Cookies set by parties other than the website owner are called "third-party cookies". Third-party cookies enable third-party features or functionality to be provided on or through the website (e.g., advertising, interactive content, and analytics). The parties that set these third-party cookies can recognize your computer both when it visits the website in question and also when it visits certain other websites.
 
 ## 2. Why Do We Use Cookies?
 
@@ -78,7 +78,7 @@ The date at the top of this Cookie Policy indicates when it was last updated.
 
 If you have any questions about our use of cookies or other technologies, please email us at [info@topfinanzas.com](mailto:info@topfinanzas.com) or contact us by post at:
 
-**Top Networks Inc.**
+**TopNetworks Inc.**
 
 - **Email:** <info@topfinanzas.com>
 - **Address:** PANAMA, PANAMA CITY, AV. AQUILINO DE LA GUARDIA, OCEAN BUSINESS PLAZA BUILDING, FLOOR 12
