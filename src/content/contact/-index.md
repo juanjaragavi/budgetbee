@@ -1,12 +1,12 @@
 ---
 title: "Contact Us"
-description: "meta description"
+description: "Get in touch with BudgetBee for financial guidance and support"
 draft: false
 info:
   title: Why you should contact us!
-  description: Lorem ipsum dolor sit amet, consectetur adipisicing elit. Velit recusandae voluptates doloremque veniam temporibus porro culpa ipsa, nisi soluta minima saepe laboriosam debitis nesciunt.
+  description: Have questions about personal finance, budgeting, or our financial recommendations? Our team is here to help you make informed financial decisions. Reach out to us for unbiased financial guidance tailored to your needs.
   contacts:
-    - "phone: +88 125 256 452"
-    - "Mail: [info@bigspring.com](mailto:info@bigspring.com)"
-    - "Address: 360 Main rd, Rio, Brazil"
+    - "phone: +1 (555) 123-4567"
+    - "Mail: [info@topfinanzas.com](mailto:info@topfinanzas.com)"
+    - "Address: PANAMA, PANAMA CITY, AV. AQUILINO DE LA GUARDIA, OCEAN BUSINESS PLAZA BUILDING, FLOOR 12"
 ---

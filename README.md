@@ -1,111 +1,104 @@
-<h1 align=center>Bigspring Light Astro</h1>
-<p align=center>Bigspring is a highly customizable Astro theme designed specifically for SaaS & marketing websites.  
+<h1 align=center>BudgetBee</h1>
+<p align=center>BudgetBee is a financial information and recommendation platform designed to help users make informed financial decisions.
 </p>
-<h2 align="center"> <a target="_blank" href="https://tf-bigspring-light-astro.vercel.app/" rel="nofollow">👀Demo</a> | <a  target="_blank" href="https://pagespeed.web.dev/report?url=https%3A%2F%2Fbigspring-light-astro.vercel.app%2F&form_factor=desktop">Page Speed (100%)🚀</a>
+
+<h2 align="center"> <a target="_blank" href="https://budgetbee.co/" rel="nofollow">👀Demo</a> | <a  target="_blank" href="https://pagespeed.web.dev/report?url=https%3A%2F%2Fbudgetbee.co%2F&form_factor=desktop">Page Speed (100%)🚀</a>
 </h2>
 
 <p align=center>
-  <a href="https://github.com/withastro/astro/releases/tag/astro%405.5.2" alt="Contributors">
-    <img src="https://img.shields.io/static/v1?label=ASTRO&message=5.5&color=000&logo=astro" />
-  </a>
+  <a href="https://github.com/juanjaragavi/budgetbee/blob/main/LICENSE">
+    <img src="https://img.shields.io/github/license/juanjaragavi/budgetbee" alt="license"></a>
 
-  <a href="https://github.com/themefisher/bigspring-light-astro/blob/main/LICENSE">
-    <img src="https://img.shields.io/github/license/themefisher/bigspring-light-astro" alt="license"></a>
+  <img src="https://img.shields.io/github/languages/code-size/juanjaragavi/budgetbee" alt="code size">
 
-  <img src="https://img.shields.io/github/languages/code-size/themefisher/bigspring-light-astro" alt="code size">
-
-  <a href="https://github.com/themefisher/bigspring-light-astro/graphs/contributors">
-    <img src="https://img.shields.io/github/contributors/themefisher/bigspring-light-astro" alt="contributors"></a>
+  <a href="https://github.com/juanjaragavi/budgetbee/graphs/contributors">
+    <img src="https://img.shields.io/github/contributors/juanjaragavi/budgetbee" alt="contributors"></a>
 </p>
 
-![bigspring-light](https://demo.gethugothemes.com/thumbnails/bigspring-light.png)
+![budgetbee](https://demo.gethugothemes.com/thumbnails/budgetbee.png)
 
-Bigspring is a beautifully designed & highly customizable Astro theme created specifically for SaaS & marketing websites. Users can customize the color scheme, fonts, menu, social links, etc. and update the content easily based on their requirements. Bigspring is the perfect theme for showcasing your SaaS products or services and connecting with customers.
+BudgetBee is a beautifully designed & highly customizable Astro-based platform created specifically for financial information and recommendations. Users can explore unbiased financial guidance, budgeting tips, and product recommendations tailored to their needs. BudgetBee is the perfect platform for helping users make smart financial decisions.
 
-## 🔑Key Features
+## Key Features
 
-- 📄 10+ Pre-Designed Pages
-- ✨ Highly Customizable (Color, Font, Menu, Social Links, SEO Meta Tags, etc.)
-- ⚡ Fast by Default (95+ Google PageSpeed Score)
-- ⚙️ Netlify Settings Pre-configured
-- 📬 Contact Form Support
-- 💰 Pricing Table
-- 🌅 Support OG Image
-- ✍️ Write and Update Content in Markdown / MDX
-- 📚 MDX Components Auto Import
-- 📝 Includes Draft Pages and Posts
-- 🚀 Built with Tailwind CSS Framework
-- 📱 Fully Responsive on Desktops, Tablets, and Smartphones
-- 🔍 SEO Friendly
+- **10+ Pre-designed Pages:** Thoughtfully crafted pages for a complete website
+- **Highly Customizable:** Personalize colors, fonts, and content to match your brand
+- **Fast by Default:** Instant page load with prefetch links
+- **Sanity Ready:** Integrated for dynamic content management (optional)
+- **Taxonomy Support:** Tags for organizational structure  
+- **SEO-Friendly:** Built-in sitemap, RSS feed, and robots.txt for better search engine visibility
+- **Multilingual Support:** Easily create multilingual versions of your website
+- **Similar Products Suggestions:** Intelligent content recommendations for better user engagement
+- **Disqus Comment:** Engage your audience with comments
+- **Search Functionality:** Powerful search to help users find content quickly
+- **Dark Mode:** User-friendly experience with light/dark theme options
+- **Table of Contents:** Enhanced navigation for long-form content
+- **Autocomplete Search:** Responsive search with autocomplete suggestions
 
-## 📄 10+ Pre-Designed Pages
+## Installation
 
-- 🏠 Home Page
-- 📚 Blog Page
-- 📝 Blog Single Page
-- 💰 Pricing Page
-- 📞 Contact
-- ❓ FAQ Page
-- 🎨 Elements Page
-- 🔒 Privacy Policy
-- 📜 Terms & Conditions
-- 🚧 404 Page
-<!-- installation -->
+Run the following command on your local environment:
 
-## ⚙️Installation
-
-After downloading the template, you have some prerequisites to install. Then you can run it on your localhost. You can view the package.json file to see which scripts are included.
-
-### 🔧Install prerequisites (once for a machine)
-
-- **Node Installation:** [Install node js](https://nodejs.org/en/download/) [Recommended LTS version]
-
-### 🖥️Local setup
-
-After successfully installing those dependencies, open this template with any IDE [[VS Code](https://code.visualstudio.com/) recommended], and then open the internal terminal of IDM [vs code shortcut <code>ctrl/cmd+\`</code>]
-
-- 👉Install dependencies
-
-```
+```bash
+git clone --depth=1 https://github.com/juanjaragavi/budgetbee.git my-project-name
+cd my-project-name
 npm install
 ```
 
-- 👉Run locally
+Or download as a ZIP file and extract to your desired location.
 
-```
+### Development
+
+Once you've cloned the repository and installed dependencies with `npm install`, start the development server:
+
+```bash
 npm run dev
 ```
 
-After that, it will open up a preview of the template in your default browser, watch for changes to source files, and live-reload the browser when changes are saved.
+### Production
 
-## 🔨Production Build
+To build your production site:
 
-After finishing all the customization, you can create a production build by running this command.
-
-```
+```bash
 npm run build
 ```
 
-<!-- reporting issue -->
+You can preview the production build with `npm run preview`.
 
-## 🐞Reporting Issues
+## Deployment
 
-We use GitHub Issues as the official bug tracker for this Template. Please Search [existing issues](https://github.com/themefisher/bigspring-light-astro/issues). It’s possible someone has already reported the same problem.
-If your problem or idea has not been addressed yet, feel free to [open a new issue](https://github.com/themefisher/bigspring-light-astro/issues).
+### Deploy to Netlify
 
-<!-- licence -->
+<a href="https://app.netlify.com/start/deploy?repository=https://github.com/juanjaragavi/budgetbee" target="_blank"><img src="https://www.netlify.com/img/deploy/button.svg" alt="Deploy to Netlify"></a>
 
-## 📄License
+👉 [Netlify Deployment Guide](https://docs.netlify.com/site-deploys/create-deploys/)
 
-Copyright (c) 2016 - Present, Designed & Developed by [Themefisher](https://themefisher.com)
+### Deploy to Vercel
 
-👉**Code License:** Released under the [MIT](https://github.com/themefisher/bigspring-light-astro/blob/main/LICENSE) license.
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/juanjaragavi/budgetbee)
 
-👉**Image license:** The images are only for demonstration purposes. They have their license, we don't have permission to share those images.
+👉 [Vercel Deployment Guide](https://vercel.com/docs)
 
-## 👨‍💻Need Custom Development Services?
+### Deploy to GitHub Pages
 
-Besides developing beautifully designed and blazing-fast themes, we help businesses create fast, performance-focused, scalable & secure websites based on NextJs, Hugo, Astro, etc.
+👉 [GitHub Pages Deployment Guide](https://docs.astro.build/en/guides/deploy/github/)
 
-If you need a custom theme, theme customization, or complete website development services from scratch you can [Hire Us](https://themefisher.com/contact).
-# budgetbee
+### Deploy to GitLab Pages
+
+👉 [GitLab Pages Deployment Guide](https://docs.astro.build/en/guides/deploy/gitlab/)
+
+## Reporting Issues
+
+We use GitHub Issues as the official bug tracker for this project. Please search [existing issues](https://github.com/juanjaragavi/budgetbee/issues). It's possible someone has already reported the same problem.
+
+If your problem or idea has not been addressed yet, feel free to [open a new issue](https://github.com/juanjaragavi/budgetbee/issues).
+
+## License
+
+Copyright (c) 2025 - present, Designed & Developed by [TopFinanzas](https://topfinanzas.com)
+
+**Code License:** Released under the [MIT](https://github.com/juanjaragavi/budgetbee/blob/main/LICENSE) license.
+
+## Need Help?
+
+If you need help or have any questions about our platform, don't hesitate to reach out to us at [info@topfinanzas.com](mailto:info@topfinanzas.com).

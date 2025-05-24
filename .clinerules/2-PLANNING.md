@@ -3,7 +3,7 @@
 ## Project Overview
 
 **Project Name:** BudgetBee  
-**Base Theme:** Bigspring Light Astro v3.1.0  
+**Base Theme:** Originally forked from Bigspring Light Astro v3.1.0, now customized for BudgetBee
 **Framework:** Astro v5.7.14  
 **Status:** Initial setup phase with placeholder content
 
@@ -113,7 +113,7 @@ All dependencies are up-to-date as of the latest commit. Key dependencies:
 
 #### Phase 1: Branding & Content (Current)
 
-- Update all references from Bigspring to BudgetBee
+- Update all references to BudgetBee branding
 - Create finance/budgeting focused content
 - Design new visual identity
 
@@ -132,7 +132,7 @@ All dependencies are up-to-date as of the latest commit. Key dependencies:
 
 ### 10. Resources & Documentation
 
-- **Original Theme Docs:** Bigspring Light Astro documentation
+- **Original Theme Docs:** Based on Astro framework documentation
 - **Astro Docs:** <https://docs.astro.build>
 - **Component Library:** Custom shortcodes in `/src/layouts/shortcodes/`
 - **Styling Guide:** Tailwind CSS + custom utilities
