@@ -1,8 +1,7 @@
-feat: implement contact form with SendGrid email integration
+feat: Replace footer logo with square version and add slogan
 
-- Created API endpoint at /api/contact using nodemailer with SendGrid SMTP
-- Updated contact form to use JavaScript submission with proper error handling
-- Added nodemailer and @types/nodemailer dependencies
-- Created .env.example documenting required environment variables
-- Updated task list marking contact form configuration as completed
-- Form now sends emails via SendGrid with BudgetBee branding
+- Added square logo configuration to config.json (120x120px)
+- Updated footer to use square logo instead of standard logo
+- Added left padding to footer logo container
+- Added BudgetBee slogan below logo in italic light style
+- Improved footer visual hierarchy and branding consistency
