@@ -2,15 +2,28 @@
 import { Image } from "astro:assets";
 import Base from "@/layouts/Base.astro";
 import Cta from "@/layouts/components/Cta.astro";
-import { markdownify } from "@/lib/utils/textConverter";
+import Pagination from "@/layouts/components/Pagination.astro";
+import Post from "@/layouts/partials/Post.astro";
+import { markdownify, plainify } from "@/lib/utils/textConverter";
 import { getEntry } from "astro:content";
+import { getSinglePage } from "@/lib/contentParser.astro";
+import { sortByDate } from "@/lib/utils/sortFunctions";
 import type { CollectionEntry } from "astro:content";
+import config from "@/config/config.json";
 
 const homepage = (await getEntry(
   "homepage",
   "-index"
 )) as CollectionEntry<"homepage">;
 const { banner, services, workflow, call_to_action } = homepage.data;
+
+// Fetch blog posts for the new sections
+const { summary_length } = config.settings;
+const posts = await getSinglePage("blog");
+const sortedPosts = sortByDate(posts);
+const latestPosts = sortedPosts.slice(0, 3);
+const featuredPost = sortedPosts[0];
+const featuredPosts = sortedPosts.slice(1, 4);
 ---
 
 <Base>
@@ -116,6 +129,115 @@ const { banner, services, workflow, call_to_action } = homepage.data;
     })
   }
   <!-- /End service -->
+
+  <!-- Latest News Section -->
+  <section class="section">
+    <div class="container">
+      <h2 class="text-center font-bold text-[44px] leading-[52px] mb-8">
+        Latest News
+      </h2>
+      <p class="text-center text-lg mb-12">
+        Stay informed with our latest financial insights and tips to help you
+        make smarter money decisions.
+      </p>
+
+      <div class="row">
+        {
+          latestPosts.map((post) => (
+            <div class="col-12 mb-8 sm:col-6 lg:col-4">
+              <Post post={post} />
+            </div>
+          ))
+        }
+      </div>
+
+      <div class="text-center mt-8">
+        <a href="/blog" class="btn btn-primary">View All Articles</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Featured Article Section -->
+  <section class="section bg-light">
+    <div class="container">
+      <h2 class="text-center font-bold text-[44px] leading-[52px] mb-8">
+        Featured Article
+      </h2>
+      <p class="text-center text-lg mb-12">
+        Dive deep into our most impactful financial guide this month.
+      </p>
+
+      <div class="row">
+        <div class="col-12">
+          <div class="row items-center">
+            <div class="md:col-6">
+              {
+                featuredPost.data.image && (
+                  <Image
+                    class="rounded-lg"
+                    src={featuredPost.data.image}
+                    alt={featuredPost.data.title}
+                    width={600}
+                    height={400}
+                  />
+                )
+              }
+            </div>
+            <div class="md:col-6">
+              <h3 class="h2 mb-4 mt-4 md:mt-0">
+                <a
+                  href={`/blog/${featuredPost.id}`}
+                  class="block hover:text-primary"
+                >
+                  {featuredPost.data.title}
+                </a>
+              </h3>
+              <p
+                class="text-lg leading-relaxed mb-6"
+                set:html={plainify(
+                  featuredPost.body.slice(0, summary_length * 2)
+                )}
+              />
+              <a
+                class="btn btn-primary"
+                href={`/blog/${featuredPost.id}`}
+                rel=""
+              >
+                Read Full Article
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Featured Posts Section -->
+  <section class="section">
+    <div class="container">
+      <h2 class="text-center font-bold text-[44px] leading-[52px] mb-8">
+        Featured Posts
+      </h2>
+      <p class="text-center text-lg mb-12">
+        Explore our hand-picked articles to help you build better financial
+        habits.
+      </p>
+
+      <div class="row">
+        {
+          featuredPosts.map((post) => (
+            <div class="col-12 mb-8 sm:col-6 lg:col-4">
+              <Post post={post} />
+            </div>
+          ))
+        }
+      </div>
+
+      <div class="text-center mt-8">
+        <a href="/blog" class="btn btn-outline-primary">Browse More Articles</a>
+      </div>
+    </div>
+  </section>
 
   <!-- Workflow -->
   <section class="section pb-0">

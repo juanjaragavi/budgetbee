@@ -1,7 +1,12 @@
-feat: Replace footer logo with square version and add slogan
+feat: Add blog sections to homepage and optimize section spacing
 
-- Added square logo configuration to config.json (120x120px)
-- Updated footer to use square logo instead of standard logo
-- Added left padding to footer logo container
-- Added BudgetBee slogan below logo in italic light style
-- Improved footer visual hierarchy and branding consistency
+- Added three new blog sections to homepage:
+  - Latest News: Displays 3 most recent blog posts
+  - Featured Article: Showcases the latest post with extended preview
+  - Featured Posts: Shows 3 featured posts (posts 2-4)
+- Integrated blog sections between services and workflow sections
+- Added finance-focused messaging aligned with BudgetBee brand voice
+- Reduced section padding from 70px to 35px for tighter layout
+- All sections are fully responsive and use existing Post component
+
+This enhances the homepage by prominently featuring blog content while maintaining consistent styling and improving vertical spacing throughout the site.
