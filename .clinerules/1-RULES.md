@@ -37,6 +37,17 @@ Create ADRs in `src/lib/documents/ADRs.md` for:
 
 A suite of MCP Server tools is available for your use. These tools should be employed as needed to perform various tasks.
 
+### MCP Server Discovery
+
+To identify available MCP Servers, utilize the `@modelcontextprotocol/server-filesystem` to read the configuration file located at:
+`/Users/macbookpro/Library/Application Support/Code/User/globalStorage/saoudrizwan.claude-dev/settings/cline_mcp_settings.json`
+
+This will provide you with a complete list of configured MCP servers and their capabilities.
+
+### Astro Project Documentation
+
+As this is an Astro project, before executing any task related to the structure of the project, you should use the `@upstash/context7-mcp@latest` MCP server tool to look for Astro documentation. This will ensure you have the most up-to-date information about Astro's patterns, conventions, and best practices.
+
 ### Effective Tool Selection
 
 Analyze the capabilities of these tools to determine the most appropriate approach for your tasks.

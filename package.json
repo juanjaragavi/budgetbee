@@ -1,8 +1,8 @@
 {
-  "name": "bigspring-light-astro",
-  "version": "3.1.0",
-  "description": "astro personal blog theme",
-  "author": "themefisher",
+  "name": "budgetbee",
+  "version": "1.0.0",
+  "description": "BudgetBee | Your Hive for Unbiased Financial Buzz",
+  "author": "TopFinanzas",
   "license": "MIT",
   "scripts": {
     "dev": "astro dev",

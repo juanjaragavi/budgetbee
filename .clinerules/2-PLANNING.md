@@ -17,6 +17,8 @@
 - **Content Format:** Markdown/MDX with auto-import support
 - **Build Tools:** Vite, PostCSS, Sass
 - **Type System:** TypeScript 5.8.2
+- **Primary Font:** Montserrat (Google Fonts)
+- **Primary Color:** #E7B739 (Warm Yellow)
 
 ### 2. Architecture
 
@@ -56,18 +58,18 @@ budgetbee/
 
 - **Homepage:** Generic placeholder content (Lorem ipsum)
 - **Blog Posts:** 5 sample posts with placeholder content
-- **Company Info:** Still shows "Bigspring" branding
-- **Images:** Stock images from original theme
-- **Configuration:** Base URLs point to demo site
+- **Company Info:** Partially updated - BudgetBee branding in config files
+- **Images:** Logo files added (logo.png, square-logo.png), but other assets still from original theme
+- **Configuration:** Updated with BudgetBee title and branding, but contact form endpoint still unconfigured
 
 #### Content Requiring Updates
 
-1. Site title and branding (currently "Bigspring Light Astro")
-2. Logo and favicon
+1. ~~Site title and branding~~ ✓ COMPLETED (config.json, package.json, Base.astro)
+2. ~~Logo~~ ✓ COMPLETED (logo.png, square-logo.png added), favicon still needs update
 3. Homepage banner and service descriptions
 4. Blog posts with real content
 5. Contact information
-6. Footer content and copyright
+6. Footer content and copyright (currently has Lorem ipsum)
 7. Social media links
 8. Meta descriptions and SEO tags
 
@@ -137,5 +139,5 @@ All dependencies are up-to-date as of the latest commit. Key dependencies:
 
 ---
 
-*Last Updated: May 23, 2025*  
+*Last Updated: May 24, 2025*  
 *Status: Initial development phase - converting theme to BudgetBee*

@@ -1,7 +1,10 @@
-Connect TODO tasks to branding guidelines
+Update BudgetBee branding and theme configuration
 
-- Update .clinerules/3-TASKS.md to reference branding document for style-related tasks
-- Add specific directives for each branding task pointing to .clinerules/5-BRANDING.md
-- Include color codes, typography (Montserrat), voice/tone, and audience references
-- Ensure brand consistency guidance for site configuration, content, and visual assets
-- Minor updates to rules and branding documentation formatting
+- Changed primary theme color from blue (#4A90E2) to warm yellow (#E7B739) to match logo
+- Updated theme.json with correct brand colors and Montserrat font
+- Updated all configuration files with BudgetBee branding
+- Added square-logo.png for additional branding assets
+- Updated documentation files (.clinerules) with correct color references
+- Added MCP server discovery instructions to 1-RULES.md
+- Added Astro documentation directive for project structure tasks
+- Synchronized all branding elements across the project
