@@ -1,7 +1,7 @@
 {
   "site": {
     "title": "BudgetBee | Your Hive for Unbiased Financial Buzz",
-    "base_url": "https://budgetbee.vercel.app",
+    "base_url": "https://budgetbee.co",
     "base_path": "/",
     "trailing_slash": false,
     "favicon": "/images/favicon.png",
@@ -20,7 +20,7 @@
   "nav_button": {
     "enable": true,
     "label": "Get Started",
-    "link": "/contact"
+    "link": "/blog"
   },
   "params": {
     "contact_form_action": "",

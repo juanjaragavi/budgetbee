@@ -25,9 +25,9 @@ export const POST: APIRoute = async ({ request }) => {
 
     // Get environment variables
     const apiKey = import.meta.env.SENDGRID_API_KEY;
-    const senderEmail = import.meta.env.SENDER_EMAIL || "noreply@budgetbee.com";
+    const senderEmail = import.meta.env.SENDER_EMAIL || "noreply@budgetbee.co";
     const recipientEmail =
-      import.meta.env.RECIPIENT_EMAIL || "info@budgetbee.com";
+      import.meta.env.RECIPIENT_EMAIL || "info@budgetbee.co";
 
     if (!apiKey) {
       console.error("Missing SendGrid API key");

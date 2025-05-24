@@ -1,9 +1,7 @@
-fix: Resolve Tailwind CSS syntax errors and improve styling
+feat: Update all homepage CTA buttons to link to Blog
 
-- Fixed incorrect !important modifier syntax in components.css
-- Corrected rgba color values by removing spaces (rgba(0,0,0,0.125))
-- Fixed responsive modifier order (md:!-mx-8 instead of !md:-mx-8)
-- Resolved all console errors preventing page from loading
-- Homepage now displays correctly with all blog sections
+- Changed "Get Started" button in header from /contact to /blog
+- All homepage call-to-action buttons now consistently direct to Blog
+- Provides unified user journey focused on financial content
 
-This fixes critical CSS parsing errors that were preventing the site from rendering properly.
+This ensures a consistent experience where all primary CTAs lead users to explore the blog content rather than the contact page.

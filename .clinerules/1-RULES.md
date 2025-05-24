@@ -46,7 +46,7 @@ This will provide you with a complete list of configured MCP servers and their c
 
 ### Astro Project Documentation
 
-As this is an Astro project, before executing any task related to the structure of the project, you should use the `@upstash/context7-mcp@latest` MCP server tool to look for Astro documentation. This will ensure you have the most up-to-date information about Astro's patterns, conventions, and best practices.
+As this is an Astro project, before executing any task related to the structure of the project, you should use the `@upstash/context7-mcp@latest` MCP server tool to look for Astro documentation in <https://docs.astro.build/en/getting-started/>. This will ensure you have the most up-to-date information about Astro's patterns, conventions, and best practices.
 
 ### Effective Tool Selection
 
