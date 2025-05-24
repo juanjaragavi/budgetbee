@@ -32,10 +32,13 @@ const featuredPosts = sortedPosts.slice(1, 4);
     <div class="container">
       <div class="row text-center">
         <div class="mx-auto lg:col-10">
-          <h1 class="font-primary font-bold">{banner?.title}</h1>
+          <h1 class="font-primary text-4xl font-bold">{banner?.title}</h1>
           {
             banner?.content && (
-              <p class="mt-4" set:html={markdownify(banner.content)} />
+              <p
+                class="mt-4 leading-tight"
+                set:html={markdownify(banner.content)}
+              />
             )
           }
 
