@@ -1,6 +1,4 @@
 import React from "react";
-import LiteYouTubeEmbed from "react-lite-youtube-embed";
-import "react-lite-youtube-embed/dist/LiteYouTubeEmbed.css";
 
 const Youtube = ({
   id,
@@ -12,12 +10,17 @@ const Youtube = ({
   [key: string]: any;
 }) => {
   return (
-    <LiteYouTubeEmbed
-      wrapperClass="yt-lite rounded-lg"
-      id={id}
-      title={title}
-      {...rest}
-    />
+    <div className="yt-lite rounded-lg overflow-hidden relative aspect-video">
+      <iframe
+        src={`https://www.youtube.com/embed/${id}`}
+        title={title}
+        frameBorder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        allowFullScreen
+        className="absolute top-0 left-0 w-full h-full"
+        {...rest}
+      />
+    </div>
   );
 };
 
