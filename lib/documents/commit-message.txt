@@ -1,10 +1,21 @@
-Update BudgetBee branding and theme configuration
+Update footer and legal pages for US market
 
-- Changed primary theme color from blue (#4A90E2) to warm yellow (#E7B739) to match logo
-- Updated theme.json with correct brand colors and Montserrat font
-- Updated all configuration files with BudgetBee branding
-- Added square-logo.png for additional branding assets
-- Updated documentation files (.clinerules) with correct color references
-- Added MCP server discovery instructions to 1-RULES.md
-- Added Astro documentation directive for project structure tasks
-- Synchronized all branding elements across the project
+- Updated footer content with proper legal texts and contact information
+- Improved footer layout with better content distribution
+- Changed default email to info@topfinanzas.com
+- Updated address to Panama location
+- Added text justification to legal disclaimer and copyright text
+
+Legal pages updates:
+- Updated Terms and Conditions for US market (from UK version)
+- Updated Privacy Policy with US-specific regulations (CCPA)
+- Created new Cookie Policy page
+- Added Cookie Policy link to footer menu
+
+All pages now use:
+- budgetbee.co domain
+- US market localization
+- Top Networks Inc. as parent company
+- Contact: info@topfinanzas.com
+
+Updated task list to reflect completed items.

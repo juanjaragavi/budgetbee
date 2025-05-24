@@ -11,7 +11,7 @@
    - ✓ Updated Base.astro with theme name
    - ✓ Added logo.png and square-logo.png
    - ✓ Updated theme.json with brand colors (primary: #E7B739) and Montserrat font
-   - ⚠️ Footer content still needs updating (currently has Lorem ipsum)
+   - ✓ Footer content updated with legal texts and contact information
    - ⚠️ Contact form action endpoint needs configuration
 2. [ ] Replace placeholder content on homepage
    - **Important:** Follow brand voice and tone guidelines in `.clinerules/5-BRANDING.md` - approachable, trustworthy, modern voice with clear, jargon-free content
