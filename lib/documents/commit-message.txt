@@ -1,6 +1,8 @@
-Update homepage content and index page
+feat: implement contact form with SendGrid email integration
 
-- Modified homepage content in src/content/homepage/-index.md
-- Updated index page at src/pages/index.astro
-
-Homepage improvements and content updates.
+- Created API endpoint at /api/contact using nodemailer with SendGrid SMTP
+- Updated contact form to use JavaScript submission with proper error handling
+- Added nodemailer and @types/nodemailer dependencies
+- Created .env.example documenting required environment variables
+- Updated task list marking contact form configuration as completed
+- Form now sends emails via SendGrid with BudgetBee branding
