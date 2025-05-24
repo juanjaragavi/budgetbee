@@ -1,10 +1,6 @@
-Replace remaining Bigspring references with BudgetBee branding
+Update homepage content and index page
 
-- Updated contact page with BudgetBee contact information
-- Replaced all Bigspring references in README.md with BudgetBee
-- Updated CHANGELOG.md to reflect BudgetBee platform
-- Modified planning documentation to reference BudgetBee
-- Changed repository URLs to budgetbee repository
-- Updated project descriptions for financial platform focus
+- Modified homepage content in src/content/homepage/-index.md
+- Updated index page at src/pages/index.astro
 
-All user-facing content now properly reflects BudgetBee branding.
+Homepage improvements and content updates.
