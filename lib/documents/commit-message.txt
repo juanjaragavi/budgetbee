@@ -1,8 +1,8 @@
-Fix mobile overflow issues in blog articles
+Optimize mobile footer layout and improve responsive design
 
-- Enhanced mobile-optimizations.css with comprehensive responsive fixes
-- Updated PostSingle.astro layout with better responsive column classes
-- Created blog-mobile.css for blog-specific mobile styling
-- Fixed container overflow, word-wrapping, and responsive elements
-- Improved tables, code blocks, and images for mobile viewing
-- Added proper viewport constraints and touch-friendly scrolling
+- Created CompactFooter component with separate mobile/desktop layouts
+- Added touch-friendly button-style legal links for mobile devices
+- Enhanced mobile-optimizations.css with footer-specific responsive styles
+- Improved visual hierarchy and spacing for better mobile UX
+- Updated Base.astro to support new footer component
+- Updated project documentation (README, CHANGELOG, and tasks)

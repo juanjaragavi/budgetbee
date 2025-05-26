@@ -1,0 +1,123 @@
+---
+import config from "@/config/config.json";
+import menu from "@/config/menu.json";
+import { markdownify } from "@/lib/utils/textConverter";
+import { Image } from "astro:assets";
+
+const { copyright } = config.params;
+
+// Extract legal links from the footer menu
+const legalLinks = menu.footer.find((col) => col.name === "Legal")?.menu || [];
+---
+
+<footer class="compact-footer bg-primary text-dark py-8">
+  <div class="container">
+    {/* Logo Section */}
+    <div class="flex justify-center mb-4">
+      <a href="/" aria-label="BudgetBee">
+        <Image
+          src={config.site.logo}
+          width={120}
+          height={40}
+          alt="BudgetBee"
+          class="h-10 w-auto"
+        />
+      </a>
+    </div>
+
+    {/* Copyright Text Block */}
+    <div class="text-center mb-4 px-4">
+      <p class="text-xs uppercase tracking-wide font-semibold">
+        All rights reserved, ©BudgetBee 2025. Reproduction in whole or in part
+        by any means or form without written and express authorization from the
+        copyright holder is prohibited.
+      </p>
+    </div>
+
+    {/* Bottom Links - Responsive Layout */}
+    <div class="footer-links text-center text-xs px-4">
+      {/* Mobile Layout */}
+      <div class="mobile-links md:hidden">
+        <div class="mb-3">
+          <span class="block mb-2 font-medium">A Product of BudgetBee</span>
+        </div>
+        <div class="legal-links-grid">
+          {
+            legalLinks.map((link) => (
+              <a href={link.url} class="block py-1 hover:underline">
+                {link.text}
+              </a>
+            ))
+          }
+        </div>
+        <div class="mt-3 pt-3 border-t border-yellow-700/20">
+          <span set:html={markdownify(copyright)} />
+        </div>
+      </div>
+
+      {/* Desktop Layout */}
+      <div class="desktop-links hidden md:block">
+        <span>A Product of BudgetBee | </span>
+        {
+          legalLinks.map((link, index) => (
+            <>
+              <a href={link.url} class="hover:underline">
+                {link.text}
+              </a>
+              {index < legalLinks.length - 1 && " | "}
+            </>
+          ))
+        }
+        <span> | </span>
+        <span set:html={markdownify(copyright)} />
+      </div>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .compact-footer {
+    background-color: #e7b739; /* BudgetBee warm yellow */
+  }
+
+  .compact-footer a {
+    color: #333;
+    text-decoration: none;
+  }
+
+  .compact-footer a:hover {
+    text-decoration: underline;
+  }
+
+  /* Ensure text is dark for better contrast on yellow background */
+  .compact-footer .text-dark {
+    color: #333 !important;
+  }
+
+  /* Mobile-specific styles */
+  @media (max-width: 767px) {
+    .legal-links-grid {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.25rem;
+    }
+
+    .legal-links-grid a {
+      padding: 0.5rem 1rem;
+      background-color: rgba(0, 0, 0, 0.05);
+      border-radius: 0.25rem;
+      min-width: 200px;
+      transition: background-color 0.2s;
+    }
+
+    .legal-links-grid a:hover {
+      background-color: rgba(0, 0, 0, 0.1);
+    }
+  }
+
+  /* Add visual separation for better hierarchy */
+  .border-yellow-700\/20 {
+    border-color: rgba(120, 95, 0, 0.2);
+  }
+</style>
