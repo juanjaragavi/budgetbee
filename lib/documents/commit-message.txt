@@ -1,6 +1,5 @@
-Fix pagination error in blog category pages
+Update contact info and improve mobile footer alignment
 
-- Resolved 'pagination is not defined' build error in category pagination component
-- Moved pagination config import inside getStaticPaths function for proper scope
-- Added pagination variable to component body for calculating page offsets
-- Build now completes successfully without errors
+- Remove phone number from contact page
+- Center footer logo and tagline on mobile devices
+- Apply code formatting to CreditCardForm component

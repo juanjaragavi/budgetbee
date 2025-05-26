@@ -59,13 +59,16 @@ const { footer_content, copyright } = config.params;
 
     {/* logo and social media row */}
     <div class="row border-t border-border pt-8 pb-8">
-      <div class="col-12 lg:col-4 mb-8 lg:mb-0 pl-8">
+      <div
+        class="col-12 lg:col-4 mb-8 lg:mb-0 text-center lg:text-left lg:pl-8"
+      >
         <a href="/" aria-label="BudgetBee" class="inline-block">
           <Image
             src={config.site.logo_square}
             width={Number(config.site.logo_square_width)}
             height={Number(config.site.logo_square_height)}
             alt=""
+            class="mx-auto lg:mx-0"
           />
           <p class="mt-0 text-sm font-light italic text-gray-600">
             Your Hive for Unbiased Financial Buzz.

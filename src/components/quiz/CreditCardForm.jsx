@@ -67,7 +67,7 @@ export default function CreditCardForm() {
     const getCookie = (name) => {
       const value = `; ${document.cookie}`;
       const parts = value.split(`; ${name}=`);
-      if (parts.length === 2) return parts.pop().split(';').shift();
+      if (parts.length === 2) return parts.pop().split(";").shift();
     };
 
     const userRegistered = getCookie(COOKIE_NAMES.USER_REGISTERED);
@@ -146,7 +146,7 @@ export default function CreditCardForm() {
         phone: formData.phone,
         acceptedTerms: formData.receiveMessages,
         timestamp: new Date().toISOString(),
-        source: "BudgetBee Quiz"
+        source: "BudgetBee Quiz",
       };
 
       console.log("Quiz data to be sent:", quizData);
@@ -165,7 +165,6 @@ export default function CreditCardForm() {
         throw new Error("Failed to submit quiz");
       }
       */
-
     } catch (error) {
       console.error("Error submitting quiz:", error);
     } finally {
@@ -177,13 +176,15 @@ export default function CreditCardForm() {
         setCookie(COOKIE_NAMES.USER_REGISTERED, "true", 30);
         setCookie(
           COOKIE_NAMES.USER_DATA,
-          encodeURIComponent(JSON.stringify({
-            email: formData.email,
-            name: formData.name,
-            lastName: formData.lastName,
-            phone: formData.phone,
-          })),
-          30
+          encodeURIComponent(
+            JSON.stringify({
+              email: formData.email,
+              name: formData.name,
+              lastName: formData.lastName,
+              phone: formData.phone,
+            }),
+          ),
+          30,
         );
       }
 
@@ -254,9 +255,7 @@ export default function CreditCardForm() {
             </div>
             <div className="text-left text-sm text-gray-600">
               {progress}% complete
-              {progress < 100
-                ? ", keep going!"
-                : "!"}
+              {progress < 100 ? ", keep going!" : "!"}
               {isRegisteredUser && step === 2 && (
                 <div className="text-xs text-[#E7B739] mt-1">
                   Welcome back! We'll use your saved information.
