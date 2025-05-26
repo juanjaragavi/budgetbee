@@ -55,9 +55,136 @@
   }
 }
 
+/* Blog content mobile optimizations */
+@media (max-width: 768px) {
+  /* Fix container overflow issues */
+  .container {
+    @apply !px-4 !max-w-full overflow-hidden;
+  }
+
+  /* Ensure article content doesn't overflow */
+  article {
+    @apply overflow-hidden;
+  }
+
+  /* Blog content specific fixes */
+  .content {
+    @apply !max-w-full overflow-x-hidden;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+  }
+
+  /* Fix prose content overflow */
+  .prose {
+    @apply !max-w-full;
+  }
+
+  /* Ensure all content elements respect viewport */
+  .content * {
+    @apply !max-w-full;
+  }
+
+  /* Handle long words and URLs */
+  .content p,
+  .content li,
+  .content td,
+  .content h1,
+  .content h2,
+  .content h3,
+  .content h4,
+  .content h5,
+  .content h6 {
+    word-break: break-word;
+    overflow-wrap: break-word;
+    hyphens: auto;
+  }
+
+  /* Fix tables on mobile */
+  .content table {
+    @apply block overflow-x-auto whitespace-nowrap max-w-full;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* Fix code blocks */
+  .content pre {
+    @apply overflow-x-auto max-w-full;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .content pre code {
+    @apply block min-w-full;
+  }
+
+  /* Fix images */
+  .content img {
+    @apply !max-w-full h-auto;
+  }
+
+  /* Fix iframes (videos, embeds) */
+  .content iframe {
+    @apply !max-w-full;
+  }
+
+  /* Adjust heading sizes for mobile */
+  .content h1 {
+    @apply !text-2xl;
+  }
+
+  .content h2 {
+    @apply !text-xl;
+  }
+
+  .content h3 {
+    @apply !text-lg;
+  }
+
+  /* Fix list indentation on mobile */
+  .content ul,
+  .content ol {
+    @apply !pl-6;
+  }
+
+  /* Ensure proper column behavior on mobile */
+  .row > [class*="col-"] {
+    @apply px-4;
+  }
+
+  /* Post single specific adjustments */
+  .section article {
+    @apply px-0;
+  }
+
+  /* Title adjustments */
+  .h2 {
+    @apply !text-2xl !leading-tight;
+  }
+}
+
+/* Extra small devices (phones, less than 576px) */
+@media (max-width: 575.98px) {
+  /* Further reduce padding on very small screens */
+  .container {
+    @apply !px-3;
+  }
+
+  .row > [class*="col-"] {
+    @apply px-3;
+  }
+
+  /* Reduce section padding */
+  .section {
+    @apply pt-6 pb-6;
+  }
+}
+
 /* Ensure buttons are properly centered in their containers */
 div:has(> .btn) {
   @apply text-center;
+}
+
+/* Prevent horizontal scroll on body */
+body {
+  @apply overflow-x-hidden;
 }
 
 /* Mobile viewport meta tag optimization reminder */

@@ -1,6 +1,8 @@
-Fix Tailwind CSS build errors in component styles
+Fix mobile overflow issues in blog articles
 
-- Fixed invalid utility class errors by removing spaces after md: breakpoint
-- Corrected rgba color values by removing spaces within parentheses
-- Updated border and shadow utility classes to use proper syntax
-- Build now completes successfully without errors
+- Enhanced mobile-optimizations.css with comprehensive responsive fixes
+- Updated PostSingle.astro layout with better responsive column classes
+- Created blog-mobile.css for blog-specific mobile styling
+- Fixed container overflow, word-wrapping, and responsive elements
+- Improved tables, code blocks, and images for mobile viewing
+- Added proper viewport constraints and touch-friendly scrolling
