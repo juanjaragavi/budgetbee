@@ -28,10 +28,10 @@ const allCategories = [
     <div class="container">
       <div class="max-w-none">
         <!-- Blog Header -->
-        <div class="text-center mb-8">
+        <div class="mb-8">
           <h1
-            class="text-4xl font-bold mb-6"
-            set:html={markdownify(postIndex?.data.title)}
+            class="h2 mb-4"
+            set:html={markdownify(postIndex?.data.title || "Articles")}
           />
           <p class="text-lg text-gray-700 mb-8 leading-tight">
             Your source for practical financial guidance and unbiased advice to
@@ -119,8 +119,8 @@ const allCategories = [
               )
             }
           </div>
-          <div class="md:col-6">
-            <h2 class="h3 mb-2 mt-4">
+          <div class="md:col-6 text-left">
+            <h2 class="h3 mb-2 mt-4 text-left">
               <a
                 href={`/blog/${currentPosts[0].id}`}
                 class="block hover:text-primary"
@@ -129,6 +129,7 @@ const allCategories = [
               </a>
             </h2>
             <p
+              class="text-left"
               set:html={plainify(currentPosts[0].body.slice(0, summary_length))}
             />
             <a

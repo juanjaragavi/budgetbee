@@ -1,6 +1,3 @@
-Refine mobile footer spacing and layout
+feat: Update layouts and page content
 
-- Adjusted vertical spacing in mobile footer layout
-- Increased padding on legal link buttons for better touch targets
-- Simplified copyright section border spacing
-- Fine-tuned margins for improved visual hierarchy
+Refactor various layout components and update content across multiple pages including blog, categories, and main site pages.
