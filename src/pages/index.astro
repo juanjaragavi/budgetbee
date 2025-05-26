@@ -30,7 +30,7 @@ const featuredPosts = sortedPosts.slice(1, 4);
   <!-- banner -->
   <section class="section pb-[50px]">
     <div class="container">
-      <div class="row text-center">
+      <div class="row">
         <div class="mx-auto lg:col-10">
           <h1 class="font-primary text-4xl font-bold">{banner?.title}</h1>
           {
@@ -136,10 +136,8 @@ const featuredPosts = sortedPosts.slice(1, 4);
   <!-- Latest News Section -->
   <section class="section">
     <div class="container">
-      <h2 class="text-center font-bold text-[44px] leading-[52px] mb-8">
-        Latest News
-      </h2>
-      <p class="text-center text-lg mb-12">
+      <h2 class="font-bold text-[44px] leading-[52px] mb-8">Latest News</h2>
+      <p class="text-lg mb-12">
         Stay informed with our latest financial insights and tips to help you
         make smarter money decisions.
       </p>
@@ -154,7 +152,7 @@ const featuredPosts = sortedPosts.slice(1, 4);
         }
       </div>
 
-      <div class="text-center mt-8">
+      <div class="mt-8">
         <a href="/blog" class="btn btn-primary">View All Articles</a>
       </div>
     </div>
@@ -163,10 +161,10 @@ const featuredPosts = sortedPosts.slice(1, 4);
   <!-- Featured Article Section -->
   <section class="section bg-light">
     <div class="container">
-      <h2 class="text-center font-bold text-[44px] leading-[52px] mb-8">
+      <h2 class="font-bold text-[44px] leading-[52px] mb-8">
         Featured Article
       </h2>
-      <p class="text-center text-lg mb-12">
+      <p class="text-lg mb-12">
         Dive deep into our most impactful financial guide this month.
       </p>
 
@@ -186,8 +184,8 @@ const featuredPosts = sortedPosts.slice(1, 4);
                 )
               }
             </div>
-            <div class="md:col-6">
-              <h3 class="h2 mb-4 mt-4 md:mt-0">
+            <div class="md:col-6 text-left">
+              <h3 class="h2 mb-4 mt-4 md:mt-0 text-left">
                 <a
                   href={`/blog/${featuredPost.id}`}
                   class="block hover:text-primary"
@@ -196,7 +194,7 @@ const featuredPosts = sortedPosts.slice(1, 4);
                 </a>
               </h3>
               <p
-                class="text-lg leading-relaxed mb-6"
+                class="text-lg leading-relaxed mb-6 line-clamp-3 text-left"
                 set:html={plainify(
                   featuredPost.body.slice(0, summary_length * 2)
                 )}
@@ -218,10 +216,8 @@ const featuredPosts = sortedPosts.slice(1, 4);
   <!-- Featured Posts Section -->
   <section class="section">
     <div class="container">
-      <h2 class="text-center font-bold text-[44px] leading-[52px] mb-8">
-        Featured Posts
-      </h2>
-      <p class="text-center text-lg mb-12">
+      <h2 class="font-bold text-[44px] leading-[52px] mb-8">Featured Posts</h2>
+      <p class="text-lg mb-12">
         Explore our hand-picked articles to help you build better financial
         habits.
       </p>
@@ -236,7 +232,7 @@ const featuredPosts = sortedPosts.slice(1, 4);
         }
       </div>
 
-      <div class="text-center mt-8">
+      <div class="mt-8">
         <a href="/blog" class="btn btn-outline-primary">Browse More Articles</a>
       </div>
     </div>
@@ -244,9 +240,9 @@ const featuredPosts = sortedPosts.slice(1, 4);
 
   <!-- Workflow -->
   <section class="section pb-0">
-    <div class="mb-8 text-center">
+    <div class="mb-8">
       <h2
-        class="mx-auto max-w-[400px] font-bold leading-[44px]"
+        class="max-w-[400px] font-bold leading-[44px]"
         set:html={workflow?.title}
       />
       <p class="mt-3" set:html={workflow?.description} />

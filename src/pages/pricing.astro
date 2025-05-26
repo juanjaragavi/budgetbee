@@ -14,7 +14,7 @@ const { title, description, plans, call_to_action } = entry.data;
 <Base title={title} description={description}>
   <section class="section pb-0">
     <div class="container">
-      <h1 class="text-center font-normal">{title}</h1>
+      <h1 class="font-normal">{title}</h1>
       <div class="section row -mt-10 justify-center md:mt-0">
         {
           plans?.map((plan) => (
@@ -23,7 +23,7 @@ const { title, description, plans, call_to_action } = entry.data;
                 !plan.recommended ? "lg:px-0" : "col-recommended"
               }`}
             >
-              <div class="card text-center">
+              <div class="card">
                 <h4>{plan.title}</h4>
                 <div class="mt-5">
                   <span class="text-5xl text-text-dark">${plan.price}</span>

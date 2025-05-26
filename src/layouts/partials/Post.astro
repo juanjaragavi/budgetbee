@@ -7,7 +7,7 @@ const { post, index } = Astro.props;
 const { summary_length } = config.settings;
 ---
 
-<div class="post">
+<div class="post text-left">
   {
     post.data.image && (
       <Image
@@ -19,11 +19,14 @@ const { summary_length } = config.settings;
       />
     )
   }
-  <h2 class="h3 mb-2 mt-4">
+  <h2 class="h3 mb-2 mt-4 text-left">
     <a href={`/blog/${post.id}`} class="block hover:text-primary">
       {post.data.title}
     </a>
   </h2>
-  <p set:html={plainify(post.body.slice(0, summary_length))} />
+  <p
+    class="line-clamp-3 text-left"
+    set:html={plainify(post.body.slice(0, summary_length))}
+  />
   <a class="btn btn-primary mt-4" href={`/blog/${post.id}`}> Read More </a>
 </div>
