@@ -1,5 +1,6 @@
-<h1 align=center>BudgetBee</h1>
-<p align=center>BudgetBee is a financial information and recommendation platform designed to help users make informed financial decisions.
+# ![BudgetBee Logo](https://media.topfinanzas.com/budgetbee/images/logo.png)
+
+<p align=center><b>BudgetBee</b> is a financial information and recommendation platform designed to help users make informed financial decisions.
 </p>
 
 <h2 align="center"> <a target="_blank" href="https://budgetbeepro.com/" rel="nofollow">👀Demo</a> | <a  target="_blank" href="https://pagespeed.web.dev/report?url=https%3A%2F%2Fbudgetbeepro.com%2F&form_factor=desktop">Page Speed (100%)🚀</a>
@@ -15,7 +16,7 @@
     <img src="https://img.shields.io/github/contributors/juanjaragavi/budgetbee" alt="contributors"></a>
 </p>
 
-![budgetbee](https://demo.gethugothemes.com/thumbnails/budgetbee.png)
+![budgetbee](https://media.topfinanzas.com/budgetbee/images/og-image.png)
 
 BudgetBee is a beautifully designed & highly customizable Astro-based platform created specifically for financial information and recommendations. Users can explore unbiased financial guidance, budgeting tips, and product recommendations tailored to their needs. BudgetBee is the perfect platform for helping users make smart financial decisions.
 
@@ -34,6 +35,7 @@ BudgetBee is a beautifully designed & highly customizable Astro-based platform c
 - **Modern Design:** BudgetBee branding with custom colors and Montserrat typography
 - **Responsive Tables & Code:** Mobile-friendly display of complex content
 - **Cookie-Based Tracking:** User preference tracking for returning visitors
+- **Marketing Tools Integration (In Progress):** Ongoing migration of marketing components like Google Tag Manager and UTM persistence.
 
 ## Installation
 
