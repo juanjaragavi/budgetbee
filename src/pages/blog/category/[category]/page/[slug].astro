@@ -7,11 +7,10 @@ import Post from "@/layouts/partials/Post.astro";
 import Pagination from "@/layouts/components/Pagination.astro";
 import config from "@/config/config.json";
 
-const { pagination } = config.settings;
-
 export async function getStaticPaths() {
   const allPosts = await getCollection("blog");
   const allCategories = await getTaxonomy("blog", "categories");
+  const { pagination } = config.settings;
 
   return allCategories.flatMap((category) => {
     const filteredPosts = allPosts.filter((post) =>
@@ -38,6 +37,7 @@ export async function getStaticPaths() {
 
 const { category, slug } = Astro.params;
 const { posts, totalPosts, currentPage, totalPages } = Astro.props;
+const { pagination } = config.settings;
 
 // Calculate pagination
 const indexOfLastPost = currentPage * pagination;

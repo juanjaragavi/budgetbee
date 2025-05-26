@@ -1,1 +1,6 @@
-feat: Implement Credit Card Quiz and Categories Page
+Fix pagination error in blog category pages
+
+- Resolved 'pagination is not defined' build error in category pagination component
+- Moved pagination config import inside getStaticPaths function for proper scope
+- Added pagination variable to component body for calculating page offsets
+- Build now completes successfully without errors
