@@ -22,18 +22,18 @@ BudgetBee is a beautifully designed & highly customizable Astro-based platform c
 ## Key Features
 
 - **10+ Pre-designed Pages:** Thoughtfully crafted pages for a complete website
-- **Highly Customizable:** Personalize colors, fonts, and content to match your brand
+- **Credit Card Quiz System:** Interactive multi-step quiz with personalized recommendations
+- **Mobile-Optimized:** Enhanced responsive design with dedicated mobile styles for blog content
+- **TOFU/MOFU Blog Strategy:** Structured content categories for different funnel stages
 - **Fast by Default:** Instant page load with prefetch links
-- **Sanity Ready:** Integrated for dynamic content management (optional)
-- **Taxonomy Support:** Tags for organizational structure  
+- **Category System:** Organized content structure with dedicated category pages
 - **SEO-Friendly:** Built-in sitemap, RSS feed, and robots.txt for better search engine visibility
-- **Multilingual Support:** Easily create multilingual versions of your website
-- **Similar Products Suggestions:** Intelligent content recommendations for better user engagement
-- **Disqus Comment:** Engage your audience with comments
+- **Financial Content Focus:** Specialized for financial advice, budgeting tips, and product comparisons
+- **US Market Localization:** Content and features tailored for US audiences
 - **Search Functionality:** Powerful search to help users find content quickly
-- **Dark Mode:** User-friendly experience with light/dark theme options
-- **Table of Contents:** Enhanced navigation for long-form content
-- **Autocomplete Search:** Responsive search with autocomplete suggestions
+- **Modern Design:** BudgetBee branding with custom colors and Montserrat typography
+- **Responsive Tables & Code:** Mobile-friendly display of complex content
+- **Cookie-Based Tracking:** User preference tracking for returning visitors
 
 ## Installation
 
