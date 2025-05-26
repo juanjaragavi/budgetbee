@@ -7,7 +7,7 @@ draft: false
 **Effective Date:** April 6, 2025  
 **Last Updated:** May 24, 2025
 
-This Cookie Policy explains how **TopNetworks Inc.** ("we", "us", or "our") uses cookies and similar technologies on our website [budgetbee.co](https://budgetbee.co) (the "Site"). It explains what these technologies are and why we use them, as well as your rights to control our use of them.
+This Cookie Policy explains how **TopNetworks Inc.** ("we", "us", or "our") uses cookies and similar technologies on our website [budgetbeepro.com](https://budgetbeepro.com) (the "Site"). It explains what these technologies are and why we use them, as well as your rights to control our use of them.
 
 This policy should be read together with our [Privacy Policy](/privacy-policy), which explains how we use personal information.
 

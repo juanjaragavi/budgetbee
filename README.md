@@ -2,7 +2,7 @@
 <p align=center>BudgetBee is a financial information and recommendation platform designed to help users make informed financial decisions.
 </p>
 
-<h2 align="center"> <a target="_blank" href="https://budgetbee.co/" rel="nofollow">👀Demo</a> | <a  target="_blank" href="https://pagespeed.web.dev/report?url=https%3A%2F%2Fbudgetbee.co%2F&form_factor=desktop">Page Speed (100%)🚀</a>
+<h2 align="center"> <a target="_blank" href="https://budgetbeepro.com/" rel="nofollow">👀Demo</a> | <a  target="_blank" href="https://pagespeed.web.dev/report?url=https%3A%2F%2Fbudgetbeepro.com%2F&form_factor=desktop">Page Speed (100%)🚀</a>
 </h2>
 
 <p align=center>
