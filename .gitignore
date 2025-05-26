@@ -27,3 +27,4 @@ package-lock.json
 
 # LLM-related files
 src/lib/documents
+.vercel

@@ -1,3 +1,1 @@
-docs: Update project documentation
-
-- Updated CHANGELOG.md, README.md, and src/lib/documents/DOCUMENTATION.md to reflect the current project status and ongoing migration of marketing components.
+chore: Add .vercel to .gitignore
