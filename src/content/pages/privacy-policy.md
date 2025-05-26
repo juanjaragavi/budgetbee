@@ -11,7 +11,7 @@ draft: false
 
 ## 1. Who We Are
 
-**TopNetworks Inc.** operates [budgetbee.co](https://budgetbee.co) ("Platform" or "Site"), a financial information and product recommendation platform. Our mission is to provide users with personalized content about financial services and products. **TopNetworks Inc.** is incorporated in Panama, with operations in the United States, and we comply with applicable US federal and state regulations to protect your data.
+**TopNetworks Inc.** operates [budgetbeepro.com](https://budgetbeepro.com) ("Platform" or "Site"), a financial information and product recommendation platform. Our mission is to provide users with personalized content about financial services and products. **TopNetworks Inc.** is incorporated in Panama, with operations in the United States, and we comply with applicable US federal and state regulations to protect your data.
 
 If you have any questions about this Privacy Policy or how we handle your data, please contact us at [info@topfinanzas.com](mailto:info@topfinanzas.com).
 

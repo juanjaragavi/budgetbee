@@ -1,7 +1,7 @@
 {
   "site": {
     "title": "BudgetBee | Your Hive for Unbiased Financial Buzz",
-    "base_url": "https://budgetbee.co",
+    "base_url": "https://budgetbeepro.com",
     "base_path": "/",
     "trailing_slash": false,
     "favicon": "/images/favicon.png",
