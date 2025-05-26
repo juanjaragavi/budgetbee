@@ -1,6 +1,8 @@
-Update domain from budgetbee.co to budgetbeepro.com
+Optimize mobile viewport layout and add Chrome DevTools configuration
 
-- Update all references to new domain budgetbeepro.com
-- Update email addresses in .env.example and contact API
-- Update URLs in README.md, config.json, and all legal pages
-- Ensure consistency across privacy policy, terms, and cookie policy
+- Enhanced container padding from px-4 to px-6 on mobile devices
+- Standardized all buttons to be full-width on mobile, auto-width on desktop
+- Created mobile-optimizations.css with comprehensive mobile-specific styles
+- Updated viewport meta tag to use viewport-fit=cover for better device support
+- Added Chrome DevTools configuration file at /.well-known/appspecific/com.chrome.devtools.json
+- Improved mobile UX with proper tap targets, responsive text, and optimized spacing
