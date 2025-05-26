@@ -1,6 +1,7 @@
 ---
 import "@/styles/main.css";
 import TwSizeIndicator from "@/layouts/components/TwSizeIndicator.astro";
+import AnalyticsWrapper from "../components/analytics/AnalyticsWrapper.tsx";
 import config from "@/config/config.json";
 
 export interface Props {
@@ -85,5 +86,6 @@ const { meta_title, description, image, noindex, canonical } = Astro.props;
   <body>
     <TwSizeIndicator />
     <slot />
+    <AnalyticsWrapper client:idle />
   </body>
 </html>
