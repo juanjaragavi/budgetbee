@@ -1,0 +1,66 @@
+/* Mobile-specific optimizations for better UX */
+
+/* Enhanced mobile spacing */
+@media (max-width: 640px) {
+
+  /* Section padding adjustments for mobile */
+  .section {
+    @apply pt-8 pb-8;
+  }
+
+  /* Content area padding */
+  .content {
+    @apply px-0;
+  }
+
+  /* Button wrapper centering */
+  .btn-wrapper,
+  .text-center {
+    @apply flex flex-col items-center;
+  }
+
+  /* Button mobile enhancements */
+  .btn {
+    @apply min-w-full justify-center;
+  }
+
+  /* Accordion mobile spacing */
+  .accordion-header {
+    @apply px-4 py-3;
+  }
+
+  .accordion-content {
+    @apply px-4;
+  }
+
+  /* Feature list mobile spacing */
+  .flex.items-start.gap-3 {
+    @apply gap-2;
+  }
+
+  /* Image responsive sizing */
+  img {
+    @apply max-w-full h-auto;
+  }
+
+  /* Mobile-optimized text sizes */
+  .text-lg {
+    @apply text-base;
+  }
+
+  /* Mobile-friendly tap targets */
+  a.btn,
+  button {
+    @apply min-h-[48px];
+  }
+}
+
+/* Ensure buttons are properly centered in their containers */
+div:has(> .btn) {
+  @apply text-center;
+}
+
+/* Mobile viewport meta tag optimization reminder */
+/* Ensure your Base.astro includes:
+   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+*/

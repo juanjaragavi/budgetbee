@@ -29,13 +29,22 @@ export interface Props {
   canonical?: string;
   // Add properties for Article schema
   datePublished?: string; // Expecting ISO 8601 format
-  dateModified?: string;  // Expecting ISO 8601 format
+  dateModified?: string; // Expecting ISO 8601 format
   // Optionally, a type indicator if we want to be very explicit
-  pageType?: 'article' | 'website'; 
+  pageType?: "article" | "website";
 }
 
-const { title, meta_title, description, image, noindex, canonical, datePublished, dateModified, pageType } =
-  Astro.props;
+const {
+  title,
+  meta_title,
+  description,
+  image,
+  noindex,
+  canonical,
+  datePublished,
+  dateModified,
+  pageType,
+} = Astro.props;
 ---
 
 <!doctype html>
@@ -77,7 +86,7 @@ const { title, meta_title, description, image, noindex, canonical, datePublished
     <!-- responsive meta -->
     <meta
       name="viewport"
-      content="width=device-width, initial-scale=1, maximum-scale=5"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
     />
 
     <!-- title -->
@@ -158,47 +167,61 @@ const { title, meta_title, description, image, noindex, canonical, datePublished
     />
     <meta name="twitter:card" content="summary_large_image" />
 
-    <script type="application/ld+json" set:html={JSON.stringify({
-      "@context": "https://schema.org",
-      "@type": "WebSite",
-      "name": config.site.title,
-      "url": config.site.base_url,
-      // Potential for search functionality if relevant:
-      // "potentialAction": {
-      //   "@type": "SearchAction",
-      //   "target": `${config.site.base_url}/search?q={search_term_string}`,
-      //   "query-input": "required name=search_term_string"
-      // }
-    })} />
+    <script
+      type="application/ld+json"
+      set:html={JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        name: config.site.title,
+        url: config.site.base_url,
+        // Potential for search functionality if relevant:
+        // "potentialAction": {
+        //   "@type": "SearchAction",
+        //   "target": `${config.site.base_url}/search?q={search_term_string}`,
+        //   "query-input": "required name=search_term_string"
+        // }
+      })}
+    />
 
     {/* Article Schema (Conditional) */}
-    {pageType === 'article' && datePublished && (
-      <script type="application/ld+json" set:html={JSON.stringify({
-        "@context": "https://schema.org",
-        "@type": "Article",
-        "headline": plainify(meta_title ? meta_title : title ? title : config.site.title),
-        "image": [`${config.site.base_url}${image ? image : config.metadata.meta_image}`],
-        "datePublished": datePublished,
-        "dateModified": dateModified ? dateModified : datePublished,
-        "author": {
-          "@type": "Person", // Or "Organization" if more appropriate
-          "name": config.metadata.meta_author // Assumes meta_author is a person's name
-        },
-        "publisher": {
-          "@type": "Organization",
-          "name": config.site.title,
-          "logo": {
-            "@type": "ImageObject",
-            "url": `${config.site.base_url}${config.site.logo_square}` // Or standard logo
-          }
-        },
-        "mainEntityOfPage": {
-          "@type": "WebPage",
-          "@id": `${config.site.base_url}${Astro.url.pathname}`
-        },
-        "description": plainify(description ? description : config.metadata.meta_description)
-      })} />
-    )}
+    {
+      pageType === "article" && datePublished && (
+        <script
+          type="application/ld+json"
+          set:html={JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Article",
+            headline: plainify(
+              meta_title ? meta_title : title ? title : config.site.title
+            ),
+            image: [
+              `${config.site.base_url}${image ? image : config.metadata.meta_image}`,
+            ],
+            datePublished: datePublished,
+            dateModified: dateModified ? dateModified : datePublished,
+            author: {
+              "@type": "Person", // Or "Organization" if more appropriate
+              name: config.metadata.meta_author, // Assumes meta_author is a person's name
+            },
+            publisher: {
+              "@type": "Organization",
+              name: config.site.title,
+              logo: {
+                "@type": "ImageObject",
+                url: `${config.site.base_url}${config.site.logo_square}`, // Or standard logo
+              },
+            },
+            mainEntityOfPage: {
+              "@type": "WebPage",
+              "@id": `${config.site.base_url}${Astro.url.pathname}`,
+            },
+            description: plainify(
+              description ? description : config.metadata.meta_description
+            ),
+          })}
+        />
+      )
+    }
   </head>
   <body>
     <Header />
