@@ -1,0 +1,169 @@
+---
+import Base from "@/layouts/Base.astro";
+
+const categories = [
+  {
+    name: "Personal Finance",
+    description:
+      "Essential guides for managing your money, building wealth, and achieving financial independence.",
+    icon: "💰",
+    url: "/blog/category/personal-finance",
+    color: "#E7B739",
+  },
+  {
+    name: "Budgeting Basics",
+    description:
+      "Learn practical strategies to track spending, save money, and reach your financial goals.",
+    icon: "📊",
+    url: "/blog/category/budgeting-basics",
+    color: "#7ED321",
+  },
+  {
+    name: "Financial Literacy",
+    description:
+      "Build your knowledge of key financial concepts and make informed decisions.",
+    icon: "📚",
+    url: "/blog/category/financial-literacy",
+    color: "#4A90E2",
+  },
+  {
+    name: "Money Management",
+    description:
+      "Master the art of handling your finances effectively for long-term success.",
+    icon: "💸",
+    url: "/blog/category/money-management",
+    color: "#E7B739",
+  },
+  {
+    name: "Financial Planning",
+    description:
+      "Create a roadmap for your financial future with strategic planning techniques.",
+    icon: "🗺️",
+    url: "/blog/category/financial-planning",
+    color: "#7ED321",
+  },
+  {
+    name: "Credit Cards",
+    description:
+      "Compare cards, maximize rewards, and use credit wisely to build your score.",
+    icon: "💳",
+    url: "/blog/category/credit-cards",
+    color: "#4A90E2",
+  },
+  {
+    name: "Personal Loans",
+    description:
+      "Understand loan options, rates, and strategies for borrowing responsibly.",
+    icon: "🏦",
+    url: "/blog/category/personal-loans",
+    color: "#E7B739",
+  },
+  {
+    name: "Banking Products",
+    description:
+      "Navigate checking accounts, savings options, and banking services effectively.",
+    icon: "🏧",
+    url: "/blog/category/banking-products",
+    color: "#7ED321",
+  },
+  {
+    name: "Investment Products",
+    description:
+      "Explore investment options to grow your wealth and secure your future.",
+    icon: "📈",
+    url: "/blog/category/investment-products",
+    color: "#4A90E2",
+  },
+  {
+    name: "Financial Solutions",
+    description:
+      "Discover tools and strategies to solve your specific financial challenges.",
+    icon: "🔧",
+    url: "/blog/category/financial-solutions",
+    color: "#E7B739",
+  },
+];
+
+const meta = {
+  title: "Browse All Categories | BudgetBee",
+  description:
+    "Explore our comprehensive financial content categories. From budgeting basics to investment strategies, find the guidance you need.",
+};
+---
+
+<Base meta_title={meta.title} description={meta.description}>
+  <section class="section-sm">
+    <div class="container">
+      <div class="row">
+        <div class="mx-auto text-center lg:col-10">
+          <h1 class="h2 mb-4">Explore Financial Topics</h1>
+          <p class="text-lg mb-8">
+            Dive into our carefully curated categories to find the financial
+            guidance that matters most to you. Each category is packed with
+            practical advice, unbiased recommendations, and actionable insights.
+          </p>
+        </div>
+      </div>
+
+      <!-- Categories Grid -->
+      <div class="row g-4">
+        {
+          categories.map((category) => (
+            <div class="md:col-6 lg:col-4 mb-6">
+              <a href={category.url} class="block h-full">
+                <div class="category-card h-full bg-white rounded-lg shadow-md hover:shadow-xl transition-all duration-300 p-6 hover:-translate-y-1">
+                  <div class="flex items-start mb-4">
+                    <span class="text-4xl mr-4">{category.icon}</span>
+                    <div class="flex-1">
+                      <h3 class="h5 mb-2" style={`color: ${category.color};`}>
+                        {category.name}
+                      </h3>
+                      <p class="text-gray-600 text-sm">
+                        {category.description}
+                      </p>
+                    </div>
+                  </div>
+                  <div class="flex items-center justify-end">
+                    <span
+                      class="text-sm font-medium"
+                      style={`color: ${category.color};`}
+                    >
+                      Explore →
+                    </span>
+                  </div>
+                </div>
+              </a>
+            </div>
+          ))
+        }
+      </div>
+
+      <!-- Call to Action -->
+      <div class="row mt-10">
+        <div class="mx-auto text-center lg:col-8">
+          <div class="bg-gray-50 rounded-lg p-8">
+            <h2 class="h4 mb-4">Not sure where to start?</h2>
+            <p class="mb-6">
+              Take our quick quiz to get personalized credit card
+              recommendations based on your lifestyle and financial goals.
+            </p>
+            <a href="/quiz" class="btn btn-primary">
+              Take the Credit Card Quiz
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .category-card {
+    border: 2px solid transparent;
+    transition: all 0.3s ease;
+  }
+
+  .category-card:hover {
+    border-color: #e7b739;
+  }
+</style>

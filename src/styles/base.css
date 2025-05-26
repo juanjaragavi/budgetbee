@@ -1,0 +1,59 @@
+html {
+  @apply text-base;
+}
+
+body {
+  @apply bg-body font-primary font-normal leading-relaxed text-text;
+}
+
+p {
+  @apply leading-6;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  @apply font-primary font-bold text-text-dark;
+}
+
+h1,
+.h1 {
+  @apply text-h3 leading-8 md:text-h1 md:leading-tight;
+}
+
+h2,
+.h2 {
+  @apply text-h4 leading-7 md:text-h2 md:leading-tight;
+}
+
+h3,
+.h3 {
+  @apply text-h5 leading-6 md:text-h3 md:leading-tight;
+}
+
+h4,
+.h4 {
+  @apply text-h6 leading-6 md:text-h4 md:leading-tight;
+}
+
+h5,
+.h5 {
+  @apply text-base leading-6 md:text-h5 md:leading-tight;
+}
+
+h6,
+.h6 {
+  @apply text-sm leading-6 md:text-h6 md:leading-tight;
+}
+
+b,
+strong {
+  @apply font-semibold;
+}
+
+code {
+  @apply after:border-none;
+}

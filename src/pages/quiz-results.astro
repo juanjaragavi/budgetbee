@@ -1,0 +1,143 @@
+---
+import Base from "@/layouts/Base.astro";
+import { getCollection } from "astro:content";
+
+// Get blog posts about credit cards
+const allPosts = await getCollection("blog");
+const creditCardPosts = allPosts.filter(
+  (post) =>
+    post.data.categories?.includes("credit-cards") ||
+    post.data.title.toLowerCase().includes("credit card") ||
+    post.data.title.toLowerCase().includes("cashback") ||
+    post.data.title.toLowerCase().includes("rewards")
+);
+
+const meta = {
+  title: "Your Personalized Credit Card Recommendations | BudgetBee",
+  description:
+    "Based on your quiz results, here are the credit cards that best match your financial needs and lifestyle.",
+};
+---
+
+<Base meta_title={meta.title} description={meta.description}>
+  <section class="section-sm">
+    <div class="container">
+      <div class="row">
+        <div class="mx-auto lg:col-10">
+          <!-- Success Banner -->
+          <div
+            class="bg-[#7ED321] bg-opacity-10 border-2 border-[#7ED321] rounded-lg p-6 mb-8 text-center"
+          >
+            <svg
+              class="w-16 h-16 mx-auto mb-4 text-[#7ED321]"
+              fill="currentColor"
+              viewBox="0 0 20 20"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                clip-rule="evenodd"></path>
+            </svg>
+            <h1 class="h2 mb-3">Thank You for Completing the Quiz!</h1>
+            <p class="text-lg">
+              We've analyzed your preferences and found the perfect credit cards
+              for you.
+            </p>
+          </div>
+
+          <!-- Results Introduction -->
+          <div class="mb-10 text-center">
+            <h2 class="h3 mb-4">
+              Your Personalized Credit Card Recommendations
+            </h2>
+            <p class="text-gray-600">
+              Based on your quiz responses, we've curated a selection of credit
+              cards that align with your financial goals and lifestyle. Each
+              recommendation includes detailed information to help you make an
+              informed decision.
+            </p>
+          </div>
+
+          <!-- Credit Card Articles -->
+          <div class="space-y-6 mb-10">
+            <h3 class="h4 text-[#E7B739] mb-4">Recommended Reading:</h3>
+            {
+              creditCardPosts.map((post) => (
+                <article class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow">
+                  <h4 class="h5 mb-2">
+                    <a
+                      href={`/blog/${post.id}`}
+                      class="text-dark hover:text-[#E7B739] transition-colors"
+                    >
+                      {post.data.title}
+                    </a>
+                  </h4>
+                  <p class="text-gray-600 mb-3">{post.data.description}</p>
+                  <div class="flex items-center justify-between">
+                    <span class="text-sm text-gray-500">
+                      {post.data.categories?.join(", ")}
+                    </span>
+                    <a
+                      href={`/blog/${post.id}`}
+                      class="btn btn-sm btn-outline-primary"
+                    >
+                      Read More →
+                    </a>
+                  </div>
+                </article>
+              ))
+            }
+          </div>
+
+          <!-- Next Steps -->
+          <div class="bg-gray-50 rounded-lg p-8 text-center">
+            <h3 class="h4 mb-4">What's Next?</h3>
+            <div class="grid md:grid-cols-3 gap-6 mb-6">
+              <div class="bg-white rounded-lg p-4">
+                <div class="text-3xl mb-2">📚</div>
+                <h4 class="font-bold mb-2">Learn More</h4>
+                <p class="text-sm text-gray-600">
+                  Read our detailed guides to understand credit card features
+                </p>
+              </div>
+              <div class="bg-white rounded-lg p-4">
+                <div class="text-3xl mb-2">🔍</div>
+                <h4 class="font-bold mb-2">Compare Options</h4>
+                <p class="text-sm text-gray-600">
+                  Use our comparison tools to find the best fit
+                </p>
+              </div>
+              <div class="bg-white rounded-lg p-4">
+                <div class="text-3xl mb-2">💳</div>
+                <h4 class="font-bold mb-2">Apply Wisely</h4>
+                <p class="text-sm text-gray-600">
+                  Check requirements before applying to maximize approval odds
+                </p>
+              </div>
+            </div>
+
+            <div class="mt-8">
+              <a href="/blog" class="btn btn-primary me-4"
+                >Explore More Articles</a
+              >
+              <a href="/quiz" class="btn btn-outline-primary">Retake Quiz</a>
+            </div>
+          </div>
+
+          <!-- Disclaimer -->
+          <div
+            class="mt-8 p-4 bg-yellow-50 border border-yellow-200 rounded-lg"
+          >
+            <p class="text-sm text-gray-700">
+              <strong>Disclaimer:</strong> The recommendations provided are based
+              on your quiz responses and general financial principles. Always review
+              the terms and conditions of any financial product before applying.
+              BudgetBee provides unbiased information but does not guarantee approval
+              for any credit card.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</Base>

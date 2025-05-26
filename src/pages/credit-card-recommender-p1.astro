@@ -1,0 +1,307 @@
+---
+import Base from "@/layouts/Base.astro";
+import Accordion from "@/layouts/shortcodes/Accordion.tsx";
+import { Image } from "astro:assets";
+---
+
+<Base
+  title="Discover Your Ideal Credit Card | BudgetBee"
+  meta_title="Credit Card Recommender - Find Your Perfect Match | BudgetBee"
+  description="Finding the right credit card is simple with BudgetBee. Maximize rewards, organize your spending and enjoy exclusive benefits. Explore and choose the ideal card for you!"
+  image="/images/og-image.png"
+>
+  <section class="section pb-0">
+    <div class="container">
+      <div class="row justify-center">
+        <div class="lg:col-10">
+          <div class="content">
+            <h1 class="h2 mb-4">Discover Your Ideal Credit Card</h1>
+
+            <p class="text-lg text-dark mb-6">
+              Finding the right card is simple. Maximize rewards, organize your
+              spending and enjoy exclusive benefits. Explore and choose the
+              ideal card for you!
+            </p>
+
+            <!-- Primary CTA Button -->
+            <div class="mb-8">
+              <a
+                href="/blog/category/credit-cards"
+                class="btn btn-primary btn-lg w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-full"
+                style="background-color: #E7B739; border-color: #E7B739; color: white;"
+              >
+                <span>Accept Recommendation</span>
+                <span
+                  class="bg-white rounded-full w-5 h-5 flex items-center justify-center"
+                >
+                  <svg
+                    width="12"
+                    height="12"
+                    viewBox="0 0 12 12"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M1 6H11M11 6L6 1M11 6L6 11"
+                      stroke="#E7B739"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"></path>
+                  </svg>
+                </span>
+              </a>
+            </div>
+
+            <h2 class="h3 mb-6">Why Choose Our Credit Card Recommender?</h2>
+
+            <!-- Feature highlights -->
+            <div class="space-y-3 mb-6">
+              <div class="flex items-start gap-3">
+                <div
+                  class="flex-shrink-0 rounded-full w-6 h-6 flex items-center justify-center"
+                  style="background-color: #7ED321;"
+                >
+                  <svg
+                    width="14"
+                    height="14"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M20 6L9 17L4 12"
+                      stroke="white"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"></path>
+                  </svg>
+                </div>
+                <div>
+                  <span class="ml-2 font-semibold text-dark"
+                    >Personalized Options</span
+                  >
+                </div>
+              </div>
+
+              <div class="flex items-start gap-3">
+                <div
+                  class="flex-shrink-0 rounded-full w-6 h-6 flex items-center justify-center"
+                  style="background-color: #7ED321;"
+                >
+                  <svg
+                    width="14"
+                    height="14"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M20 6L9 17L4 12"
+                      stroke="white"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"></path>
+                  </svg>
+                </div>
+                <div>
+                  <span class="ml-2 font-semibold text-dark"
+                    >Completely Free</span
+                  >
+                </div>
+              </div>
+
+              <div class="flex items-start gap-3">
+                <div
+                  class="flex-shrink-0 rounded-full w-6 h-6 flex items-center justify-center"
+                  style="background-color: #7ED321;"
+                >
+                  <svg
+                    width="14"
+                    height="14"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M20 6L9 17L4 12"
+                      stroke="white"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"></path>
+                  </svg>
+                </div>
+                <div>
+                  <span class="ml-2 font-semibold text-dark">Expert Advice</span
+                  >
+                </div>
+              </div>
+            </div>
+
+            <p class="mb-4">
+              Our recommendations are designed to connect your financial goals
+              with cards that suit your needs. From cashback to travel rewards,
+              we give you clear, easy-to-understand options so you can make
+              informed decisions.
+            </p>
+
+            <p class="mb-6">
+              With our guide, you'll transform your credit card into a tool that
+              simplifies your finances and helps you achieve your goals without
+              complications.
+            </p>
+
+            <!-- Secondary CTA Button -->
+            <div class="mb-4">
+              <a
+                href="/blog/best-cashback-credit-cards"
+                class="btn btn-primary btn-lg w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-full"
+                style="background-color: #E7B739; border-color: #E7B739; color: white;"
+              >
+                <span>Our Top Recommendation</span>
+                <span
+                  class="bg-white rounded-full w-5 h-5 flex items-center justify-center"
+                >
+                  <svg
+                    width="12"
+                    height="12"
+                    viewBox="0 0 12 12"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M1 6H11M11 6L6 1M11 6L6 11"
+                      stroke="#E7B739"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"></path>
+                  </svg>
+                </span>
+              </a>
+            </div>
+
+            <p class="mb-8">
+              <a
+                class="text-primary hover:underline"
+                href="/blog/understanding-credit-card-interest-rates"
+              >
+                Learn How to Apply for Credit Cards
+              </a>
+            </p>
+
+            <!-- FAQ Section -->
+            <div class="mt-8 mb-8">
+              <Accordion
+                title="What are the benefits of a card with no annual fee?"
+                client:load
+              >
+                <p>
+                  A card with no annual fee helps you save on recurring costs
+                  while enjoying key benefits such as cashback or points for
+                  purchases. This means more money in your pocket to spend on
+                  what matters most.
+                </p>
+              </Accordion>
+
+              <Accordion title="How does cashback work?" client:load>
+                <p>
+                  You receive a percentage of your purchases as cash that you
+                  can use to reduce balances, receive as statement credits, or
+                  in some cases, deposit directly into your bank account. It's
+                  essentially getting paid to spend.
+                </p>
+              </Accordion>
+
+              <Accordion
+                title="What's the best option for travelers?"
+                client:load
+              >
+                <p>
+                  Cards with airline miles accumulation, hotel points, or access
+                  to airport lounges are ideal for frequent travelers. These
+                  cards allow you to save on flights, hotel stays, and enjoy
+                  exclusive travel benefits like priority boarding.
+                </p>
+              </Accordion>
+
+              <Accordion
+                title="Is it safe to use credit cards online?"
+                client:load
+              >
+                <p>
+                  Yes, modern credit cards offer advanced security features such
+                  as fraud monitoring, zero liability protection, virtual card
+                  numbers, and instant transaction alerts to protect your
+                  purchases and personal information.
+                </p>
+              </Accordion>
+            </div>
+
+            <p class="mb-8">
+              Make your credit card an ally in achieving your financial goals.
+              From cashback to travel rewards, choose an option that simplifies
+              your life and maximizes your benefits. Explore our recommendations
+              and find the card that best suits your lifestyle and spending
+              habits.
+            </p>
+
+            <!-- Featured Image -->
+            <div class="text-center mb-8">
+              <a href="/blog/best-cashback-credit-cards">
+                <img
+                  src="/images/cta.png"
+                  alt="Credit Card Recommendations - BudgetBee"
+                  class="mx-auto w-10/12 md:w-6/12 h-auto rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300"
+                  loading="lazy"
+                />
+              </a>
+            </div>
+
+            <!-- Final CTA -->
+            <div class="text-center mb-8">
+              <a
+                href="/blog/category/credit-cards"
+                class="btn btn-primary btn-lg inline-flex items-center justify-center gap-2 rounded-full"
+                style="background-color: #E7B739; border-color: #E7B739; color: white;"
+              >
+                <span>Explore All Credit Card Options</span>
+                <span
+                  class="bg-white rounded-full w-5 h-5 flex items-center justify-center"
+                >
+                  <svg
+                    width="12"
+                    height="12"
+                    viewBox="0 0 12 12"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M1 6H11M11 6L6 1M11 6L6 11"
+                      stroke="#E7B739"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"></path>
+                  </svg>
+                </span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .btn {
+    transition: all 0.3s ease;
+  }
+
+  .btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  }
+
+  .space-y-3 > * + * {
+    margin-top: 0.75rem;
+  }
+</style>

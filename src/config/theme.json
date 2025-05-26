@@ -1,0 +1,26 @@
+{
+  "colors": {
+    "default": {
+      "theme_color": {
+        "primary": "#E7B739",
+        "body": "#fff",
+        "border": "#e9e9e9",
+        "light": "#F5F5F5"
+      },
+      "text_color": {
+        "text": "#555",
+        "text-dark": "#222"
+      }
+    }
+  },
+  "fonts": {
+    "font_family": {
+      "primary": "Montserrat:wght@300;400;600;700",
+      "primary_type": "sans-serif"
+    },
+    "font_size": {
+      "base": "16",
+      "scale": "1.2"
+    }
+  }
+}

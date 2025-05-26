@@ -1,0 +1,51 @@
+{
+  "name": "budgetbee",
+  "version": "1.0.0",
+  "description": "BudgetBee | Your Hive for Unbiased Financial Buzz",
+  "author": "TopFinanzas",
+  "license": "MIT",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "format": "prettier -w .",
+    "check": "astro check",
+    "preview": "astro preview"
+  },
+  "dependencies": {
+    "@astrojs/check": "^0.9.4",
+    "@astrojs/mdx": "^4.2.6",
+    "@astrojs/react": "^4.2.7",
+    "@astrojs/rss": "4.0.11",
+    "@astrojs/sitemap": "^3.4.0",
+    "@tailwindcss/vite": "^4.0.14",
+    "@types/nodemailer": "^6.4.17",
+    "astro": "^5.7.14",
+    "astro-auto-import": "^0.4.4",
+    "astro-font": "^1.0.0",
+    "date-fns": "^4.1.0",
+    "framer-motion": "^12.14.0",
+    "fuse.js": "^7.1.0",
+    "github-slugger": "^2.0.0",
+    "marked": "^15.0.7",
+    "nodemailer": "^7.0.3",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "react-icons": "^5.5.0",
+    "remark-collapse": "^0.1.2",
+    "remark-toc": "^9.0.0",
+    "sharp": "0.33.5",
+    "swiper": "^11.2.5"
+  },
+  "devDependencies": {
+    "@tailwindcss/forms": "^0.5.10",
+    "@tailwindcss/typography": "^0.5.16",
+    "@types/react": "^19.0.10",
+    "postcss": "^8.5.3",
+    "prettier": "^3.5.3",
+    "prettier-plugin-astro": "^0.14.1",
+    "prettier-plugin-tailwindcss": "^0.6.11",
+    "sass": "^1.85.1",
+    "tailwindcss": "^4.0.14",
+    "typescript": "^5.8.2"
+  }
+}

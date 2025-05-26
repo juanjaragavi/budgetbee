@@ -1,0 +1,81 @@
+{
+  "main": [
+    {
+      "name": "Home",
+      "url": "/"
+    },
+    {
+      "name": "Categories",
+      "url": "/categories"
+    },
+    {
+      "name": "Credit Card Quiz",
+      "url": "/quiz"
+    },
+    {
+      "name": "Blog",
+      "url": "/blog"
+    },
+    {
+      "name": "About Us",
+      "url": "/about"
+    },
+    {
+      "name": "Contact",
+      "url": "/contact"
+    }
+  ],
+  "footer": [
+    {
+      "name": "BudgetBee",
+      "menu": [
+        {
+          "text": "About Us",
+          "url": "/about"
+        },
+        {
+          "text": "Our Promise",
+          "url": "/about#our-promise"
+        },
+        {
+          "text": "Credit Card Quiz",
+          "url": "/quiz"
+        }
+      ]
+    },
+    {
+      "name": "Resources",
+      "menu": [
+        {
+          "text": "Financial Guides",
+          "url": "/blog"
+        },
+        {
+          "text": "Credit Card Reviews",
+          "url": "/blog"
+        },
+        {
+          "text": "Budgeting Tips",
+          "url": "/blog"
+        }
+      ]
+    },
+    {
+      "name": "Legal",
+      "menu": [
+        {
+          "text": "Privacy Policy",
+          "url": "/privacy-policy"
+        },
+        {
+          "text": "Terms & Conditions",
+          "url": "/terms-conditions"
+        },
+        {
+          "text": "Cookie Policy",
+          "url": "/cookie-policy"
+        }
+      ]
+    }
+  ]
+}

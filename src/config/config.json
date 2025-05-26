@@ -1,0 +1,36 @@
+{
+  "site": {
+    "title": "BudgetBee | Your Hive for Unbiased Financial Buzz",
+    "base_url": "https://budgetbee.co",
+    "base_path": "/",
+    "trailing_slash": false,
+    "favicon": "/images/favicon.png",
+    "logo": "/images/logo.png",
+    "logo_width": "200",
+    "logo_height": "38",
+    "logo_square": "/images/square-logo.png",
+    "logo_square_width": "120",
+    "logo_square_height": "120",
+    "logo_text": "BudgetBee | Your Hive for Unbiased Financial Buzz"
+  },
+  "settings": {
+    "pagination": 4,
+    "summary_length": 200
+  },
+  "nav_button": {
+    "enable": true,
+    "label": "Get Started",
+    "link": "/blog"
+  },
+  "params": {
+    "contact_form_action": "",
+    "tag_manager_id": "",
+    "footer_content": "ALL RIGHTS RESERVED, ©TOP NETWORKS INC 2025. REPRODUCTION IN WHOLE OR IN PART BY ANY MEANS OR FORM WITHOUT WRITTEN AUTHORIZATION IS PROHIBITED. THE COPYRIGHT HOLDER IS PROHIBITED.",
+    "copyright": "© Copyright TopNetworks Inc. 2025"
+  },
+  "metadata": {
+    "meta_author": "TopFinanzas",
+    "meta_image": "/images/og-image.png",
+    "meta_description": "BudgetBee | Your Hive for Unbiased Financial Buzz"
+  }
+}

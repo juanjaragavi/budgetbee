@@ -1,0 +1,142 @@
+---
+import config from "@/config/config.json";
+import Base from "@/layouts/Base.astro";
+import { markdownify } from "@/lib/utils/textConverter";
+import type { CollectionEntry } from "astro:content";
+import { getEntry } from "astro:content";
+
+const entry = (await getEntry(
+  "contact",
+  "-index"
+)) as CollectionEntry<"contact">;
+const { contact_form_action } = config.params;
+const { title, description, info } = entry.data;
+---
+
+<Base title={title} description={description}>
+  <section class="section">
+    <div class="container">
+      <h1 class="text-center font-normal" set:html={markdownify(title)} />
+      <div class="section row pb-0">
+        <div class="col-12 md:col-6 lg:col-7">
+          <form id="contact-form" class="contact-form">
+            <div class="mb-3">
+              <input
+                class="form-input w-full rounded"
+                name="name"
+                type="text"
+                placeholder="Name"
+                required
+              />
+            </div>
+            <div class="mb-3">
+              <input
+                class="form-input w-full rounded"
+                name="email"
+                type="email"
+                placeholder="Your email"
+                required
+              />
+            </div>
+            <div class="mb-3">
+              <input
+                class="form-input w-full rounded"
+                name="subject"
+                type="text"
+                placeholder="Subject"
+                required
+              />
+            </div>
+            <div class="mb-3">
+              <textarea
+                class="form-textarea w-full rounded-md"
+                name="message"
+                rows="7"
+                placeholder="Your message"
+                required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary" id="submit-btn"
+              >Send Now</button
+            >
+            <div id="form-message" class="mt-4 hidden"></div>
+          </form>
+        </div>
+        <div class="content col-12 md:col-6 lg:col-5">
+          <h4 set:html={markdownify(info?.title)} />
+          <p class="mt-4" set:html={markdownify(info?.description)} />
+          <ul class="contact-list mt-5 list-none pl-0">
+            {
+              info?.contacts?.map((contact) => (
+                <li>
+                  <strong
+                    class="text-text-dark"
+                    set:html={markdownify(contact)}
+                  />
+                </li>
+              ))
+            }
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<script>
+  const form = document.getElementById("contact-form") as HTMLFormElement;
+  const submitBtn = document.getElementById("submit-btn") as HTMLButtonElement;
+  const formMessage = document.getElementById("form-message") as HTMLDivElement;
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    // Get form data
+    const formData = new FormData(form);
+    const data = {
+      name: formData.get("name"),
+      email: formData.get("email"),
+      subject: formData.get("subject"),
+      message: formData.get("message"),
+    };
+
+    // Disable submit button and show loading state
+    submitBtn.disabled = true;
+    submitBtn.textContent = "Sending...";
+    formMessage.classList.add("hidden");
+
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+
+      const result = await response.json();
+
+      if (response.ok) {
+        // Success
+        formMessage.textContent =
+          "Thank you! Your message has been sent successfully.";
+        formMessage.className = "mt-4 p-4 bg-green-100 text-green-700 rounded";
+        form.reset();
+      } else {
+        // Error
+        formMessage.textContent =
+          result.message || "Sorry, there was an error sending your message.";
+        formMessage.className = "mt-4 p-4 bg-red-100 text-red-700 rounded";
+      }
+    } catch (error) {
+      // Network error
+      formMessage.textContent =
+        "Sorry, there was a network error. Please try again later.";
+      formMessage.className = "mt-4 p-4 bg-red-100 text-red-700 rounded";
+    } finally {
+      // Re-enable submit button
+      submitBtn.disabled = false;
+      submitBtn.textContent = "Send Now";
+      formMessage.classList.remove("hidden");
+    }
+  });
+</script>

@@ -1,0 +1,89 @@
+---
+import "@/styles/main.css";
+import TwSizeIndicator from "@/layouts/components/TwSizeIndicator.astro";
+import config from "@/config/config.json";
+
+export interface Props {
+  meta_title?: string;
+  description?: string;
+  image?: string;
+  noindex?: boolean;
+  canonical?: string;
+}
+
+const { meta_title, description, image, noindex, canonical } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- meta -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- favicon -->
+    <link rel="icon" href={config.site.favicon} />
+
+    <!-- theme meta -->
+    <meta name="theme-name" content="budgetbee" />
+    <meta name="msapplication-TileColor" content="#000000" />
+    <meta
+      name="theme-color"
+      media="(prefers-color-scheme: light)"
+      content="#fff"
+    />
+    <meta
+      name="theme-color"
+      media="(prefers-color-scheme: dark)"
+      content="#000"
+    />
+
+    <!-- SEO Meta Tags -->
+    <title>{meta_title ? meta_title : config.site.title}</title>
+    <meta name="title" content={meta_title ? meta_title : config.site.title} />
+    <meta
+      name="description"
+      content={description ? description : config.metadata.meta_description}
+    />
+    {canonical && <link rel="canonical" href={canonical} />}
+    {noindex && <meta name="robots" content="noindex,nofollow" />}
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta
+      property="og:title"
+      content={meta_title ? meta_title : config.site.title}
+    />
+    <meta
+      property="og:description"
+      content={description ? description : config.metadata.meta_description}
+    />
+    <meta
+      property="og:image"
+      content={`${config.site.base_url}${
+        image ? image : config.metadata.meta_image
+      }`}
+    />
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta
+      property="twitter:title"
+      content={meta_title ? meta_title : config.site.title}
+    />
+    <meta
+      property="twitter:description"
+      content={description ? description : config.metadata.meta_description}
+    />
+    <meta
+      property="twitter:image"
+      content={`${config.site.base_url}${
+        image ? image : config.metadata.meta_image
+      }`}
+    />
+  </head>
+  <body>
+    <TwSizeIndicator />
+    <slot />
+  </body>
+</html>

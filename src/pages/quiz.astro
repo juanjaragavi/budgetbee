@@ -1,0 +1,16 @@
+---
+import QuizLayout from "@/layouts/QuizLayout.astro";
+import CreditCardForm from "../components/quiz/CreditCardForm.jsx";
+
+const meta = {
+  title: "Credit Card Quiz - Find Your Perfect Card | BudgetBee",
+  description:
+    "Take our quick quiz to discover credit cards that match your lifestyle and financial goals. Get personalized recommendations in minutes.",
+  keywords:
+    "credit card quiz, credit card finder, best credit cards, personalized recommendations",
+};
+---
+
+<QuizLayout meta_title={meta.title} description={meta.description}>
+  <CreditCardForm client:load />
+</QuizLayout>
