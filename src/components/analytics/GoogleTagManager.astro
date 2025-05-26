@@ -1,0 +1,46 @@
+---
+// src/components/analytics/GoogleTagManager.astro
+import config from "@/config/config.json";
+
+const GTM_ID = config.params.tag_manager_id || "GTM-MR76NXR3"; // Using TopFinanzas ID as fallback
+// It's better to fetch this from config.params.tag_manager_id.
+// If config.params.tag_manager_id is empty, this script probably shouldn't run,
+// or should use a specific BudgetBee GTM_ID.
+// For this migration, I'll assume GTM-MR76NXR3 is a placeholder to be replaced.
+const enableGtm = !!GTM_ID; // Enable if GTM_ID is present
+---
+
+{
+  enableGtm && (
+    <>
+      {/* Google Tag Manager Script */}
+      {/* Using is:inline to ensure Astro handles the script correctly */}
+      <script is:inline define:vars={{ gtmIdToUseInScript: GTM_ID }}>{`
+(function(w,d,s,l,i){
+  w[l]=w[l]||[];
+  w[l].push({'gtm.start': new Date().getTime(),event:'gtm.js'});
+  var f=d.getElementsByTagName(s)[0],
+      j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';
+  j.async=true;
+  j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;
+  f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer',gtmIdToUseInScript);
+    `}</script>
+      {/* End Google Tag Manager Script */}
+
+      {/* Google Tag Manager NoScript Fallback */}
+      <noscript>
+        <iframe
+          src={`https://www.googletagmanager.com/ns.html?id=${GTM_ID}`}
+          height="0"
+          width="0"
+          style="display:none;visibility:hidden"
+        />
+      </noscript>
+      {/* End Google Tag Manager NoScript Fallback */}
+    </>
+  )
+}
+
+<!-- TODO: Ensure GTM_ID in src/config/config.json (params.tag_manager_id) is updated for BudgetBee. -->
+<!-- Currently using GTM-MR76NXR3 as a placeholder if not set. -->

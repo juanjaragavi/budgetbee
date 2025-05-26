@@ -68,12 +68,16 @@
    - ✓ Implemented proper word-wrapping and overflow handling
    - ✓ Fixed responsive display of tables, code blocks, and images
    - ✓ Added touch-friendly scrolling for horizontal content
-8. [ ] Design and implement BudgetBee-specific features
+8. [In Progress] Migrate marketing-related components and custom scripts from TopFinanzas UK Blog to BudgetBee AstroJS project. *(Started: May 26, 2025)*
+   - **Important:** Analyze TopFinanzas UK Blog source, identify marketing integrations (Google Tag, third-party tools), analyze complex components (e.g., UTM Persister), and adapt/implement them into BudgetBee AstroJS, using official documentation for guidance (e.g., Google Analytics, Ad Manager via @upstash/context7-mcp).
+9. [ ] Design and implement BudgetBee-specific features
    - **Important:** Align with brand personality and competitive differentiation outlined in `.clinerules/5-BRANDING.md` - focus on unbiased, free, and accessible features
-9. [ ] Update images and visual assets
-   - **Important:** Use color palette from `.clinerules/5-BRANDING.md` - Warm Yellow (#E7B739), Fresh Green (#7ED321), Soft Blue (#4A90E2), Light Gray (#F5F5F5)
-10. [ ] Configure contact form endpoint
-11. [ ] Set up proper domain and base URL
+10. [ ] Update images and visual assets
+
+    - **Important:** Use color palette from `.clinerules/5-BRANDING.md` - Warm Yellow (#E7B739), Fresh Green (#7ED321), Soft Blue (#4A90E2), Light Gray (#F5F5F5)
+
+11. [ ] Configure contact form endpoint
+12. [ ] Set up proper domain and base URL
 
 ## Technical Improvements Needed
 

@@ -1,11 +1,14 @@
 ---
 import config from "@/config/config.json";
 import theme from "@/config/theme.json";
+import social from "@/config/social.json";
 import { plainify } from "@/lib/utils/textConverter";
 import Footer from "@/partials/Footer.astro";
 import CompactFooter from "@/partials/CompactFooter.astro";
 import Header from "@/partials/Header.astro";
 import BackToTopButton from "@/layouts/components/BackToTopButton.astro";
+import GoogleTagManager from "../components/analytics/GoogleTagManager.astro";
+import AnalyticsWrapper from "../components/analytics/AnalyticsWrapper.tsx";
 import "@/styles/main.css";
 import { AstroFont } from "astro-font";
 import { ClientRouter } from "astro:transitions";
@@ -76,6 +79,53 @@ const isBlogPost =
     />
     <meta name="generator" content={Astro.generator} />
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+    <!-- Resource Hints -->
+    <link
+      rel="preconnect"
+      href="https://www.googletagmanager.com"
+      crossorigin="anonymous"
+    />
+    <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
+
+    {
+      /* media.topfinanzas.com was from the source project. Update if BudgetBee uses a different media CDN. */
+    }
+    <link
+      rel="preconnect"
+      href="https://media.topfinanzas.com"
+      crossorigin="anonymous"
+    />
+    <link rel="dns-prefetch" href="https://media.topfinanzas.com" />
+
+    <link
+      rel="preconnect"
+      href="https://www.google-analytics.com"
+      crossorigin="anonymous"
+    />
+    <link rel="dns-prefetch" href="https://www.google-analytics.com" />
+
+    <link
+      rel="preconnect"
+      href="https://securepubads.g.doubleclick.net"
+      crossorigin="anonymous"
+    />
+    <link rel="dns-prefetch" href="https://securepubads.g.doubleclick.net" />
+
+    {/* Optional: For social media embeds, if used */}
+    <link
+      rel="preconnect"
+      href="https://platform.twitter.com"
+      crossorigin="anonymous"
+    />
+    <link rel="dns-prefetch" href="https://platform.twitter.com" />
+
+    <link
+      rel="preconnect"
+      href="https://connect.facebook.net"
+      crossorigin="anonymous"
+    />
+    <link rel="dns-prefetch" href="https://connect.facebook.net" />
 
     <!-- google font css -->
     <AstroFont
@@ -192,6 +242,39 @@ const isBlogPost =
       })}
     />
 
+    {/* Organization Schema */}
+    <script
+      type="application/ld+json"
+      set:html={JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        name: config.site.title,
+        url: config.site.base_url,
+        logo: `${config.site.base_url}${config.site.logo}`,
+        address: {
+          "@type": "PostalAddress",
+          streetAddress: social.address || "123 Budget Lane", // Use from social.json if available, else placeholder
+          addressLocality: "Finance City", // Placeholder - consider adding to config
+          addressRegion: "FS", // Placeholder - consider adding to config
+          postalCode: "12345", // Placeholder - consider adding to config
+          addressCountry: "US", // Placeholder - consider adding to config
+        },
+        contactPoint: {
+          "@type": "ContactPoint",
+          telephone: social.phone || "+1-555-0100", // Use from social.json if available, else placeholder
+          contactType: "customer support",
+          email: social.email || "support@budgetbeepro.com", // Use from social.json if available, else placeholder
+        },
+        sameAs: [
+          social.facebook,
+          social.twitter,
+          social.instagram,
+          social.linkedin,
+          // Add other relevant social links from social.json if they exist
+        ].filter(Boolean), // Filter out null/empty/undefined links
+      })}
+    />
+
     {/* Article Schema (Conditional) */}
     {
       pageType === "article" && datePublished && (
@@ -231,13 +314,69 @@ const isBlogPost =
         />
       )
     }
+    <GoogleTagManager />
+
+    {/* Google Publisher Tag Scripts */}
+    {
+      /* TODO: Confirm if 'anonymous' is the correct value for crossorigin with GPT. Usually it is. */
+    }
+    <script
+      async
+      crossorigin="anonymous"
+      id="gpt-js-main"
+      src="https://securepubads.g.doubleclick.net/tag/js/gpt.js"></script>
+    <script is:inline>
+      {
+        `
+      // TODO: Update Ad Manager Network Code (e.g., 23062212598) and Ad Unit Paths for BudgetBee.
+      // These are placeholders from TopFinanzas.
+      window.googletag = window.googletag || {cmd: []};
+      googletag.cmd.push(function() {
+        // Example ad slots from TopFinanzas - REPLACE WITH BUDGETBEE'S SLOTS
+        googletag.defineSlot('/23062212598/uk.topfinanzas_com_mob_1', [[300, 250], [250, 250], [336, 280]], 'div-gpt-ad-budgetbee-1').addService(googletag.pubads());
+        googletag.defineSlot('/23062212598/uk.topfinanzas_com_mob_interstitial', ['fluid'], 'div-gpt-ad-budgetbee-interstitial').addService(googletag.pubads());
+        googletag.defineSlot('/23062212598/uk.topfinanzas_com_mob_offerwall', ['fluid'], 'div-gpt-ad-budgetbee-offerwall').addService(googletag.pubads());
+
+        googletag.pubads().enableSingleRequest();
+        googletag.enableServices();
+      });
+    `;
+      }
+    </script>
+    {/* End Google Publisher Tag Scripts */}
   </head>
   <body>
+    {
+      /* Ad Slots - TODO: Update Ad Unit Paths and div IDs for BudgetBee to match definitions above */
+    }
+    {/* These are placeholders from TopFinanzas. Confirm placement and IDs. */}
+    <div id="div-gpt-ad-budgetbee-offerwall">
+      <script is:inline>
+        {
+          `googletag.cmd.push(function() { googletag.display('div-gpt-ad-budgetbee-offerwall'); });`;
+        }
+      </script>
+    </div>
+    <div id="div-gpt-ad-budgetbee-interstitial">
+      <script is:inline>
+        {
+          `googletag.cmd.push(function() { googletag.display('div-gpt-ad-budgetbee-interstitial'); });`;
+        }
+      </script>
+    </div>
+    {/* Example for the third slot if needed, e.g., div-gpt-ad-budgetbee-1 */}
+    {
+      /* <div id="div-gpt-ad-budgetbee-1">
+      <script is:inline>{`googletag.cmd.push(function() { googletag.display('div-gpt-ad-budgetbee-1'); });`}</script>
+    </div> */
+    }
+
     <Header />
     <main id="main-content">
       <slot />
     </main>
     {isBlogPost ? <CompactFooter /> : <Footer />}
+    <AnalyticsWrapper client:idle />
     <BackToTopButton />
   </body>
 </html>
