@@ -1,3 +1,4 @@
-feat: Update layouts and page content
+feat: Continue migration of marketing components and scripts
 
-Refactor various layout components and update content across multiple pages including blog, categories, and main site pages.
+- Updated arrow-right.svg
+- Ongoing work on migrating marketing-related assets and functionalities from TopFinanzas UK to BudgetBee.
