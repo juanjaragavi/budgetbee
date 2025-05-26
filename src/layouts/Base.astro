@@ -332,10 +332,11 @@ const isBlogPost =
       // These are placeholders from TopFinanzas.
       window.googletag = window.googletag || {cmd: []};
       googletag.cmd.push(function() {
+        // TODO: BUDGETBEE - Replace the example ad slots below with your actual Ad Manager Network Code and Ad Unit Paths.
         // Example ad slots from TopFinanzas - REPLACE WITH BUDGETBEE'S SLOTS
-        googletag.defineSlot('/23062212598/uk.topfinanzas_com_mob_1', [[300, 250], [250, 250], [336, 280]], 'div-gpt-ad-budgetbee-1').addService(googletag.pubads());
-        googletag.defineSlot('/23062212598/uk.topfinanzas_com_mob_interstitial', ['fluid'], 'div-gpt-ad-budgetbee-interstitial').addService(googletag.pubads());
-        googletag.defineSlot('/23062212598/uk.topfinanzas_com_mob_offerwall', ['fluid'], 'div-gpt-ad-budgetbee-offerwall').addService(googletag.pubads());
+        // googletag.defineSlot('/23062212598/uk.topfinanzas_com_mob_1', [[300, 250], [250, 250], [336, 280]], 'div-gpt-ad-budgetbee-1').addService(googletag.pubads());
+        // googletag.defineSlot('/23062212598/uk.topfinanzas_com_mob_interstitial', ['fluid'], 'div-gpt-ad-budgetbee-interstitial').addService(googletag.pubads());
+        // googletag.defineSlot('/23062212598/uk.topfinanzas_com_mob_offerwall', ['fluid'], 'div-gpt-ad-budgetbee-offerwall').addService(googletag.pubads());
 
         googletag.pubads().enableSingleRequest();
         googletag.enableServices();
@@ -350,6 +351,8 @@ const isBlogPost =
       /* Ad Slots - TODO: Update Ad Unit Paths and div IDs for BudgetBee to match definitions above */
     }
     {/* These are placeholders from TopFinanzas. Confirm placement and IDs. */}
+    {/* TODO: BUDGETBEE - Update Ad Unit Paths and div IDs below to match your ad slot definitions. Ensure these are correctly placed in your layout. */}
+    {/*
     <div id="div-gpt-ad-budgetbee-offerwall">
       <script is:inline>
         {
@@ -364,6 +367,7 @@ const isBlogPost =
         }
       </script>
     </div>
+    */}
     {/* Example for the third slot if needed, e.g., div-gpt-ad-budgetbee-1 */}
     {
       /* <div id="div-gpt-ad-budgetbee-1">
