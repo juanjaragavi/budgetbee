@@ -1,1 +1,8 @@
-chore: Add .vercel to .gitignore
+Remove credit card quiz references from navigation and homepage
+
+- Removed "Credit Card Quiz" links from main navigation menu and footer
+- Updated homepage banner CTA from "Take Our Credit Card Quiz" to "Start Your Journey"
+- Changed services section button to direct users to blog instead of quiz
+- Removed unused Pagination import from index.astro
+
+These changes simplify the navigation and direct users to explore the blog content as their primary journey starting point.
