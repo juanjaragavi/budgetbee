@@ -5,8 +5,8 @@ banner:
   image: /images/banner-art.png
   button:
     enable: true
-    label: "Take Our Credit Card Quiz"
-    link: "/quiz"
+    label: "Start Your Journey"
+    link: "/blog"
 
 # feature
 feature:
@@ -41,8 +41,8 @@ services:
       - "/images/service-slide-3.png"
     button:
       enable: true
-      label: Take the Quiz
-      link: /quiz
+      label: Start Your Journey
+      link: /blog
 
   - title: "Master Your Budget Without the Stress"
     content: "Budgeting doesn't have to be complicated or restrictive. Learn practical strategies that work with your lifestyle, not against it. From the 50/30/20 rule to zero-based budgeting, we break down different approaches so you can find what clicks for you. Plus, discover the best free tools and apps to automate your financial success."

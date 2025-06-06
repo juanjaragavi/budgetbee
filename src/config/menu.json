@@ -9,10 +9,6 @@
       "url": "/categories"
     },
     {
-      "name": "Credit Card Quiz",
-      "url": "/quiz"
-    },
-    {
       "name": "Blog",
       "url": "/blog"
     },
@@ -36,10 +32,6 @@
         {
           "text": "Our Promise",
           "url": "/about#our-promise"
-        },
-        {
-          "text": "Credit Card Quiz",
-          "url": "/quiz"
         }
       ]
     },
