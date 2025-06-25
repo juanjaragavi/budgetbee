@@ -1,8 +1,44 @@
-Remove credit card quiz references from navigation and homepage
+feat: Implement Credit Card Quiz System and Categories Page
 
-- Removed "Credit Card Quiz" links from main navigation menu and footer
-- Updated homepage banner CTA from "Take Our Credit Card Quiz" to "Start Your Journey"
-- Changed services section button to direct users to blog instead of quiz
-- Removed unused Pagination import from index.astro
+This commit introduces the Credit Card Quiz System and a dedicated Categories Page, along with related content and mobile responsiveness fixes.
 
-These changes simplify the navigation and direct users to explore the blog content as their primary journey starting point.
+Key changes include:
+- **Credit Card Quiz System:**
+  - Created a multi-step quiz interface adapted from UK TopFinanzas.
+  - Built React components with Framer Motion animations for a smooth user experience.
+  - Implemented a 3-step questionnaire covering preferences, income, and user details.
+  - Added US localization for currency and phone format validation.
+  - Integrated cookie-based user tracking for returning visitors.
+  - Configured quiz redirection to the `credit-card-recommender-p1` page instead of blog articles.
+  - Updated the navigation menu to feature "Credit Card Quiz" prominently.
+  - Added quiz CTAs to the homepage banner and services section.
+
+- **Categories Page:**
+  - Built a dedicated categories page at `/categories`.
+  - Replaced the previous dropdown menu with a direct link to the new categories page.
+  - Designed attractive category cards with icons and descriptions, applying BudgetBee brand colors.
+  - Added a call-to-action section promoting the quiz on the categories page.
+
+- **Content Updates:**
+  - Replaced 5 placeholder blog posts with high-quality financial content adapted from UK TopFinanzas for the US market.
+  - Applied BudgetBee brand voice and tone guidelines to all new content.
+  - Created a balanced mix of TOFU/MOFU content across categories:
+    - Personal Finance: "Your Practical Guide to Getting Out of Debt" (TOFU)
+    - Financial Literacy: "Understanding Credit Card Interest Rates" (TOFU)
+    - Credit Cards: "Best Cashback Credit Cards" (MOFU)
+    - Credit Cards: "Top Rewards Credit Cards" (MOFU)
+    - Financial Solutions: "Personal Loans: Strategic Debt Management" (MOFU)
+  - Localized currency, regulatory references, and terminology for the US market.
+  - Maintained original image URLs for future replacement.
+  - Properly categorized and tagged content according to the established blog structure.
+
+- **Mobile Responsiveness Fixes:**
+  - Addressed blog article overflow on mobile devices.
+  - Enhanced `mobile-optimizations.css` with comprehensive responsive fixes.
+  - Created `blog-mobile.css` for blog-specific mobile styling.
+  - Updated `PostSingle` layout with improved responsive classes.
+  - Implemented proper word-wrapping and overflow handling for content.
+  - Fixed responsive display of tables, code blocks, and images.
+  - Added touch-friendly scrolling for horizontal content.
+
+This commit significantly enhances the user experience by providing valuable tools and content, and improves the site's overall responsiveness.
