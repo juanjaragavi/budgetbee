@@ -1,7 +1,7 @@
 ---
 title: "The Basics of Investing: How to Get Started Without Being an Expert"
 description: "Ready to grow your money but don't know where to start? Learn the fundamental concepts of investing in this beginner-friendly guide."
-image: "https://media.topfinanzas.com/images/uk/download-5-2.webp"
+image: "https://media.topfinanzas.com/images/the-basics-of-investing-how-to-get-started-without-being-an-expert.webp"
 date: 2024-06-25T05:00:00Z
 draft: false
 categories: ["personal-finance"]

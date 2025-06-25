@@ -1,7 +1,7 @@
 ---
 title: "Your Net Worth Explained: What It Is and How to Calculate It"
 description: "Learn what net worth is, why it matters for your financial health, and a simple guide on how to calculate it to track your financial progress."
-image: "https://media.topfinanzas.com/images/uk/download-5-2.webp"
+image: "https://media.topfinanzas.com/images/your-net-worth-explained-what-it-is-and-how-to-calculate-it.webp"
 date: 2024-06-25T05:00:00Z
 draft: false
 categories: ["personal-finance"]

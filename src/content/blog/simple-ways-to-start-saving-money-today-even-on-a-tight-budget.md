@@ -1,7 +1,7 @@
 ---
 title: "Simple Ways to Start Saving Money Today (Even on a Tight Budget)"
 description: "Think saving money is impossible on a tight budget? Discover easy, actionable tips you can start using today to build your savings, no matter your income."
-image: "https://media.topfinanzas.com/images/uk/Top_Finance_uk_credit_cards.webp"
+image: "https://media.topfinanzas.com/images/simple-ways-to-start-saving-money-today-even-on-a-tight-budget.webp"
 date: 2024-06-25T05:00:00Z
 draft: false
 categories: ["personal-finance", "money-management"]

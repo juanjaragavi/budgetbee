@@ -1,3 +1,6 @@
-feat: Add new blog post on budgeting methods
+feat: Implement Credit Card Quiz, Categories Page, Mobile Responsiveness, and Blog Content
 
-This commit adds a new blog post titled "Budgeting Methods Compared: Which Approach Fits Your Spending Style?" to the `src/content/blog/` directory. This post provides an overview and comparison of various budgeting methods to help users find the best approach for their financial habits.
+- Implemented Credit Card Quiz System with multi-step interface, React components, Framer Motion animations, and US localization.
+- Created dedicated Categories Page at /categories with attractive category cards and quiz CTA.
+- Fixed mobile responsiveness issues for blog articles, tables, code blocks, and images.
+- Replaced placeholder blog posts with high-quality financial content adapted from UK TopFinanzas for the US market.
