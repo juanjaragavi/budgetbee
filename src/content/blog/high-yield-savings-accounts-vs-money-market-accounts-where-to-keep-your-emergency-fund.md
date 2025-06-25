@@ -1,7 +1,7 @@
 ---
 title: "High-Yield Savings Accounts vs. Money Market Accounts: Where to Keep Your Emergency Fund?"
 description: "Compare HYSAs and MMAs to find the best place to store your emergency fund and make your money work harder for you."
-image: "https://media.topfinanzas.com/images/uk/download-5-2.webp"
+image: "https://media.topfinanzas.com/images/high-yield-savings-accounts-vs-money-market-accounts-where-to-keep-your-emergency-fund.webp"
 date: 2024-06-25T05:00:00Z
 draft: false
 categories: ["money-management", "saving"]
