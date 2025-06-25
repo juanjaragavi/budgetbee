@@ -31,7 +31,7 @@ Finding money to save often starts with understanding where your money is going.
 
 ### Track Your Spending
 
-You can't manage what you don't measure. For a week or a month, track *every single dollar* you spend. Use a notebook, a spreadsheet, or a budgeting app. You might be surprised where your money is actually going. This step is foundational to finding areas where you can save. Need help getting started? Check out our guide on [How to Track Your Expenses Without Going Crazy](https://us.topfinanzas.com/money-management/how-to-track-expenses/).
+You can't manage what you don't measure. For a week or a month, track *every single dollar* you spend. Use a notebook, a spreadsheet, or a budgeting app. You might be surprised where your money is actually going. This step is foundational to finding areas where you can save. Need help getting started? Check out our guide on [Budgeting Methods Compared: Which Approach Fits Your Spending Style?](/blog/budgeting-methods-compared-which-approach-fits-your-spending-style).
 
 ### Identify "Money Leaks"
 
@@ -43,10 +43,10 @@ Once you've tracked your spending, look for patterns. Are there recurring expens
 
 ### Automate Your Savings
 
-Make saving a non-negotiable habit by automating it. Set up an automatic transfer of a small amount (even $5 or $10) from your checking account to a separate savings account every payday. You won't miss the money if you never see it in your checking account, and your savings will grow effortlessly.
+Make saving a non-negotiable habit by automating it. Set up an automatic transfer of a small amount (even $5 or $10) from your checking account to a separate savings account every payday. You won't miss the money if you never see it in your checking account, and your savings will grow effortlessly. Consider putting your emergency fund in a [high-yield savings account](/blog/high-yield-savings-accounts-vs-money-market-accounts-where-to-keep-your-emergency-fund) to maximize your returns.
 
 ## Make Saving a Habit
 
 Saving money isn't about perfection; it's about progress. Start with one or two of these tips and make them a consistent part of your routine. As you see your savings grow, you'll feel more motivated to find even more ways to save.
 
-Remember, even small amounts add up over time thanks to the power of compounding. The most important thing is to start today. Your future self will thank you for building a solid financial foundation, one saved dollar at a time. If you're looking for more general ways to improve your financial life, explore these [10 Practical Tips and Tricks to Improve Your Financial Life](https://us.topfinanzas.com/uncategorized/10-practical-tips-and-tricks-to-improve-your-financial-life/).
+Remember, even small amounts add up over time thanks to the power of compounding. The most important thing is to start today. Your future self will thank you for building a solid financial foundation, one saved dollar at a time. If you're looking for more comprehensive financial guidance, explore our foundational guide on [what is personal finance and why does it matter](/blog/what-is-personal-finance-and-why-does-it-matter). Building consistent habits is crucial - learn more about [building good money habits](/blog/building-good-money-habits-consistency-is-key) for long-term success.

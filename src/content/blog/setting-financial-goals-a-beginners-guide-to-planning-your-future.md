@@ -53,8 +53,8 @@ Setting SMART goals makes them tangible and provides a clear path forward.
 Once you've defined your SMART goals, it's time to integrate them into your financial life.
 
 1. **Prioritize Your Goals:** You likely have multiple goals. Decide which ones are most important to tackle first. High-interest debt or building an emergency fund are often good starting points.
-2. **Create a Budget:** A budget is crucial for understanding where your money is going and finding funds to put towards your goals. Need help getting started? Check out our guide on [How to Create a Budget (Even if You're Bad with Money)](https://us.topfinanzas.com/personal-finance/how-to-create-a-budget/).
-3. **Automate Your Savings:** Make saving for your goals automatic. Set up automatic transfers from your checking account to a dedicated savings account each payday. This ensures you prioritize your goals before other spending. Learn more about different [Saving Methods](https://us.topfinanzas.com/personal-finance/saving-methods/) that can help.
+2. **Create a Budget:** A budget is crucial for understanding where your money is going and finding funds to put towards your goals. Need help getting started? Check out our guide on [Budgeting Methods Compared](/blog/budgeting-methods-compared-which-approach-fits-your-spending-style).
+3. **Automate Your Savings:** Make saving for your goals automatic. Set up automatic transfers from your checking account to a dedicated savings account each payday. This ensures you prioritize your goals before other spending. Learn more about different [Simple Ways to Start Saving Money Today](/blog/simple-ways-to-start-saving-money-today-even-on-a-tight-budget) that can help.
 4. **Track Your Progress:** Regularly review your budget and your progress towards your goals. Adjust your plan as needed if your income or expenses change.
 5. **Stay Flexible:** Life happens. If you face unexpected expenses, it's okay to temporarily adjust your goal timelines. The important thing is to get back on track when you can.
 
