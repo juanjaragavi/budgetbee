@@ -1,6 +1,7 @@
-feat: Implement Credit Card Quiz, Categories Page, Mobile Responsiveness, and Blog Content
+feat: Migrate marketing-related components and custom scripts from TopFinanzas UK Blog to BudgetBee AstroJS project.
 
-- Implemented Credit Card Quiz System with multi-step interface, React components, Framer Motion animations, and US localization.
-- Created dedicated Categories Page at /categories with attractive category cards and quiz CTA.
-- Fixed mobile responsiveness issues for blog articles, tables, code blocks, and images.
-- Replaced placeholder blog posts with high-quality financial content adapted from UK TopFinanzas for the US market.
+This commit migrates several marketing-related components and custom scripts from the TopFinanzas UK Blog to the BudgetBee AstroJS project. This includes:
+- Updating blog content with new articles.
+- Implementing the Credit Card Quiz System.
+- Creating a dedicated Categories Page.
+- Fixing mobile responsiveness issues across the site.
