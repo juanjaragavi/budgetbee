@@ -4,18 +4,40 @@ import { render } from "astro:content";
 
 const { post } = Astro.props;
 const { Content } = await render(post);
-const { title, image, categories } = post.data;
+const { title, image, categories, color } = post.data;
 
 const applyLeadingTight =
   categories.includes("Personal Finance") ||
   categories.includes("Financial Solutions");
+const isFinancialSolution = categories.includes("Financial Solutions");
 ---
+{
+  isFinancialSolution && (
+    <style>
+      .content ul > li::before {
+        background-color: var(--product-color) !important;
+      }
+      .content > a:not(.btn),
+      .content p > a:not(.btn) {
+        color: var(--product-color) !important;
+        text-decoration: none;
+      }
+      .content > a:not(.btn):hover,
+      .content p > a:not(.btn):hover {
+        text-decoration: underline;
+      }
+    </style>
+  )
+}
 
 <section class="section">
   <div class="container">
     <div class="row justify-center">
       <div class="col-12 lg:col-10 xl:col-8">
-        <article class="blog-post-single">
+        <article
+          class="blog-post-single"
+          style={isFinancialSolution ? `--product-color: ${color};` : ""}
+        >
           {
             image && (
               <div class="mb-6 overflow-hidden rounded-lg">
