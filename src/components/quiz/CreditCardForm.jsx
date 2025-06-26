@@ -242,7 +242,7 @@ export default function CreditCardForm() {
         </AnimatePresence>
       </div>
 
-      <div className="p-4 bg-white border-t shadow-lg">
+      <div className="p-4 bg-white border-t ">
         <div className="w-full space-y-3 mt-2">
           <div className="space-y-2">
             <div className="h-2 bg-gray-200 rounded-full overflow-hidden">

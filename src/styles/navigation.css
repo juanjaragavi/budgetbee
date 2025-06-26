@@ -41,7 +41,7 @@
 }
 
 .nav-dropdown-list {
-  @apply absolute left-0 top-full z-[9999] min-w-[200px] rounded-lg bg-white shadow-lg ring-1 ring-black/5 transition-all duration-200;
+  @apply absolute left-0 top-full z-[9999] min-w-[200px] rounded-lg bg-white ring-1 ring-black/5 transition-all duration-200;
 }
 
 /* Ensure dropdown is visible on hover */

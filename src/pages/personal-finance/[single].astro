@@ -1,0 +1,32 @@
+---
+import Base from "@/layouts/Base.astro";
+import PostSingle from "@/layouts/PostSingle.astro";
+import { getSinglePage } from "@/lib/contentParser.astro";
+
+export async function getStaticPaths() {
+  const posts = await getSinglePage("personal-finance");
+
+  const paths = posts.map((post) => ({
+    params: {
+      single: post.id,
+    },
+    props: { post },
+  }));
+  return paths;
+}
+
+const { post } = Astro.props;
+const { title, meta_title, description, image, date } = post.data; // Assuming 'date' exists
+---
+
+<Base
+  title={title}
+  meta_title={meta_title}
+  description={description}
+  image={image}
+  datePublished={date ? date.toISOString() : undefined}
+  dateModified={date ? date.toISOString() : undefined}
+  pageType="article"
+>
+  <PostSingle post={post} />
+</Base>

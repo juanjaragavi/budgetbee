@@ -5,22 +5,29 @@ import { plainify } from "@/lib/utils/textConverter";
 
 const { post, index } = Astro.props;
 const { summary_length } = config.settings;
+const collection = post.collection;
 ---
 
-<div class="post text-left">
+<div
+  class="group text-left transition-all duration-300 hover:shadow-lg hover:-translate-y-1 bg-white rounded-lg p-5"
+>
   {
     post.data.image && (
-      <Image
-        class="rounded-lg"
-        src={post.data.image}
-        alt={post.data.title}
-        width={index === 0 ? 925 : 445}
-        height={index === 0 ? 475 : 230}
-      />
+      <div class="overflow-hidden rounded-lg">
+        <a href={`/${post.collection}/${post.id}`}>
+          <Image
+            class="rounded-lg transform transition-transform duration-300 group-hover:scale-105"
+            src={post.data.image}
+            alt={post.data.title}
+            width={index === 0 ? 925 : 445}
+            height={index === 0 ? 475 : 230}
+          />
+        </a>
+      </div>
     )
   }
   <h2 class="h3 mb-2 mt-4 text-left">
-    <a href={`/blog/${post.id}`} class="block hover:text-primary">
+    <a href={`/${post.collection}/${post.id}`} class="block hover:text-primary">
       {post.data.title}
     </a>
   </h2>
@@ -28,5 +35,7 @@ const { summary_length } = config.settings;
     class="line-clamp-3 text-left"
     set:html={plainify(post.body.slice(0, summary_length))}
   />
-  <a class="btn btn-primary mt-4" href={`/blog/${post.id}`}> Read More </a>
+  <a class="btn btn-primary mt-4" href={`/${post.collection}/${post.id}`}>
+    Read More
+  </a>
 </div>
