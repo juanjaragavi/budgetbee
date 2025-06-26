@@ -77,4 +77,12 @@ Shifting your money mindset is an ongoing process, but it's one of the most impa
 
 Your money mindset is a powerful force, silently guiding your financial decisions. By taking the time to understand your beliefs and attitudes about money, you gain invaluable insight into your financial behaviors. This self-awareness is the critical first step towards making intentional choices that align with your goals and values.
 
+### Credit Cards to Support a Positive Money Mindset
+
+Choosing the right credit card can reinforce positive money mindsets and help you achieve financial goals.
+
+* **For building confidence and credit:** If your mindset is focused on building a strong financial foundation, a credit-building card can be empowering. Consider the [**Tomo Credit Card**](/financial-solutions/tomo-credit-card-benefits) which requires no credit history, or the [**First Digital NextGen Mastercard**](/financial-solutions/first-digital-nextgen-mastercard-benefits) for instant approval.
+* **For rewarding responsible spending:** If you have an abundance mindset and pay your balance in full, a rewards card can reinforce positive spending habits. The [**Citi Double Cash Card**](/financial-solutions/citi-double-cash-credit-card-benefits) offers a straightforward 2% cashback on all purchases.
+* **For managing debt with peace of mind:** If you're working to overcome a scarcity mindset related to debt, a card with a 0% intro APR can provide a clear path to repayment. The [**Citi Simplicity Card**](/financial-solutions/citi-simplicity-card-benefits) is designed for this purpose with no late fees.
+
 Identifying a limiting money mindset isn't about judgment; it's about empowerment. Once you see the patterns, you can actively work to change them, opening the door to greater financial freedom and security. Start exploring your money mindset today – it's the most important investment you can make in your financial future.

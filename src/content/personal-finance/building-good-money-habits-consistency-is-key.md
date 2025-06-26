@@ -46,4 +46,12 @@ Building new habits takes time and effort, but it's definitely achievable. Here 
 
 Building good money habits through consistency is the most reliable path to achieving financial wellness. It's not about making huge sacrifices all at once, but about integrating small, smart actions into your regular routine. From automating savings to consistently tracking your spending and paying bills on time, these habits compound over time, leading to significant financial progress.
 
+### Credit Cards to Help Build Good Money Habits
+
+Choosing the right credit card can be a powerful tool for building and maintaining good money habits.
+
+* **For establishing credit:** If you're new to credit, a card designed for credit building can help you establish a positive payment history. Consider the [**Tomo Credit Card**](/financial-solutions/tomo-credit-card-benefits) which requires no credit history, or the [**First Digital NextGen Mastercard**](/financial-solutions/first-digital-nextgen-mastercard-benefits) for instant approval.
+* **For responsible spending and rewards:** If you pay your balance in full each month, a rewards card can reinforce good spending habits by giving you something back. The [**Citi Double Cash Card**](/financial-solutions/citi-double-cash-credit-card-benefits) offers a straightforward 2% cashback on all purchases.
+* **For managing debt responsibly:** If you need flexibility with payments or are consolidating debt, a card with a favorable APR can help. The [**TD FlexPay Credit Card**](/financial-solutions/td-flexpay-credit-card-benefits) offers flexible payment options and an intro APR on balance transfers.
+
 Start today by choosing one habit to focus on and commit to doing it consistently. Your financial future is built one consistent step at a time. Embrace the power of consistency, and you'll be well on your way to achieving your financial dreams. For more comprehensive financial guidance, explore [what personal finance means](/personal-finance/what-is-personal-finance-and-why-does-it-matter) and learn about [protecting your money](/personal-finance/protecting-your-money-an-introduction-to-financial-security) as you build wealth.

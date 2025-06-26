@@ -74,4 +74,13 @@ For managing debt, which directly impacts your liabilities and thus your net wor
 
 Your net worth is a powerful indicator of your financial journey. It's not just a number; it's a reflection of your financial decisions over time. By regularly calculating and tracking your net worth, you gain valuable insights into your financial health, stay motivated towards your goals, and make more informed choices about your money.
 
+### Credit Cards to Help Improve Your Net Worth
+
+While credit cards are liabilities, using them strategically can indirectly help improve your net worth by managing debt and earning rewards.
+
+* **For debt reduction:** If high-interest debt is impacting your net worth, a balance transfer card can help you pay it down more efficiently. The [**Citi Simplicity Card**](/financial-solutions/citi-simplicity-card-benefits) offers a long 0% intro APR period for this purpose.
+* **For earning rewards:** Rewards cards can provide cashback or points that can be used to offset expenses or be saved/invested, thereby indirectly increasing your assets. Consider the [**Citi Double Cash Card**](/financial-solutions/citi-double-cash-credit-card-benefits) for a straightforward 2% cashback on all purchases.
+* **For building credit:** A strong credit score can lead to better financial opportunities (like lower interest rates on loans), which can reduce your liabilities over time. Cards like the [**Tomo Credit Card**](/financial-solutions/tomo-credit-card-benefits) or [**Visa Signature U.S. Current Build Credit Card**](/financial-solutions/visa-signature-us-current-build-credit-card-benefits) are excellent for building credit.
+* **For managing large purchases:** If you need to make a significant purchase that would otherwise deplete your cash assets, a card with a 0% intro APR on purchases can help manage the expense without immediate interest. The [**Chase Freedom Unlimited Credit Card**](/financial-solutions/chase-freedom-unlimited-credit-card-benefits) offers this benefit.
+
 Don't be discouraged if your net worth is lower than you'd like, or even negative, especially early in your career. The important thing is to start tracking and focus on increasing that number over time through smart earning, saving, and spending habits. Begin today, and watch your financial picture improve. Consider reading our guide on [building good money habits](/personal-finance/building-good-money-habits-consistency-is-key) and [setting financial goals](/personal-finance/setting-financial-goals-a-beginners-guide-to-planning-your-future) to develop strategies that will positively impact your net worth over time.

@@ -51,4 +51,12 @@ Ready to take the plunge? Here are some simple steps to begin investing:
 
 Investing might seem complex at first glance, but by understanding the basic concepts and starting with simple, diversified options, you can begin putting your money to work for your future. It's a marathon, not a sprint, and the power of compounding over time can significantly impact your long-term financial health.
 
+### Credit Cards to Complement Your Investment Strategy
+
+While credit cards are not investment vehicles, using them responsibly can free up capital for investing or provide rewards that can be used to supplement your financial goals.
+
+* **For maximizing rewards on everyday spending:** If you pay your balance in full, a rewards card can provide extra cashback or points that can be saved or invested. Consider the [**Citi Double Cash Card**](/financial-solutions/citi-double-cash-credit-card-benefits) for a straightforward 2% cashback on all purchases.
+* **For managing large purchases without immediate interest:** If you need to make a significant purchase but want to keep your cash flow available for investments, a card with a 0% intro APR on purchases can be useful. The [**Chase Freedom Unlimited Credit Card**](/financial-solutions/chase-freedom-unlimited-credit-card-benefits) offers this benefit.
+* **For building credit to access better financial products:** A strong credit score can lead to better rates on loans or mortgages, freeing up more money for investments. The [**Visa Signature U.S. Current Build Credit Card**](/financial-solutions/visa-signature-us-current-build-credit-card-benefits) is designed for credit building.
+
 Don't wait to become an expert. Start with clear goals, understand your risk tolerance, build your emergency fund, and begin investing consistently. Every small step you take today can lead to significant growth tomorrow. Your future self will thank you for starting your investing journey now. For a comprehensive approach to your finances, explore our guide on [what is personal finance and why does it matter](/personal-finance/what-is-personal-finance-and-why-does-it-matter) and learn about [the difference between saving and investing](/personal-finance/the-difference-between-saving-and-investing-which-should-you-do-first) to make informed decisions about your money.

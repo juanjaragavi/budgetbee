@@ -85,4 +85,12 @@ Budgeting is a powerful tool for taking control of your finances and working tow
 
 Whether you choose the simplicity of the 50/30/20 rule, the detailed control of zero-based budgeting, the tactile approach of the envelope system, or the convenience of a budgeting app, the key is to start. Experiment with different approaches, find what fits your spending style and personality, and make budgeting a regular part of your financial routine. Your future financial self will thank you for it.
 
+### Credit Cards to Support Your Budgeting Method
+
+Choosing the right credit card can complement your budgeting strategy.
+
+* **For rewards-focused budgeting:** If you use your credit card for most purchases and pay it off monthly, a rewards card can help you earn cashback or points. Consider the [**Chase Freedom Unlimited Credit Card**](/financial-solutions/chase-freedom-unlimited-credit-card-benefits) for unlimited cashback on every purchase, or the [**US Bank Cash+ Visa Signature Card**](/financial-solutions/us-bank-cash-plus-visa-signature-card-benefits) for customizable cashback categories.
+* **For debt management and 0% APR budgeting:** If your budgeting involves paying down existing debt or making a large purchase over time, a card with a 0% introductory APR on balance transfers or purchases can be beneficial. The [**Citi Simplicity Card**](/financial-solutions/citi-simplicity-card-benefits) offers an extended 0% intro APR period with no late fees.
+* **For building credit while budgeting:** If you're new to credit or rebuilding, a card designed for credit building can help you establish good habits. The [**Capital One Quicksilver Student Credit Card**](/financial-solutions/capital-one-quicksilver-student-credit-card-benefits) is great for students, while the [**Tomo Credit Card**](/financial-solutions/tomo-credit-card-benefits) requires no credit history.
+
 Taking this step is a significant move towards financial well-being. For more tips on improving your financial habits, check out resources like [What is Personal Finance and Why Does it Matter?](/personal-finance/what-is-personal-finance-and-why-does-it-matter) and learn about [Building Good Money Habits](/personal-finance/building-good-money-habits-consistency-is-key).
