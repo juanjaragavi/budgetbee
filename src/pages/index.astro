@@ -150,7 +150,8 @@ const featuredPosts = sortedPosts.slice(1, 4);
       />
 
       <div class="mt-8">
-        <a href="/personal-finance" class="btn btn-primary">View All Articles</a>
+        <a href="/personal-finance" class="btn btn-primary">View All Articles</a
+        >
       </div>
     </div>
   </section>
@@ -227,26 +228,33 @@ const featuredPosts = sortedPosts.slice(1, 4);
       />
 
       <div class="mt-8">
-        <a href="/personal-finance" class="btn btn-outline-primary">Browse More Articles</a>
+        <a href="/personal-finance" class="btn btn-outline-primary"
+          >Browse More Articles</a
+        >
       </div>
     </div>
   </section>
 
   <!-- Workflow -->
   <section class="section pb-0">
-    <div class="mb-8">
-      <h2
-        class="max-w-[400px] font-bold leading-[44px]"
-        set:html={workflow?.title}
+    <div class="container text-center">
+      <div class="mb-8">
+        <h2
+          class="mx-auto max-w-[700px] font-bold leading-[44px]"
+          set:html={workflow?.title}
+        />
+        <p
+          class="mx-auto mt-3 max-w-[600px]"
+          set:html={workflow?.description}
+        />
+      </div>
+      <Image
+        src={workflow!.image}
+        alt="workflow image"
+        width={1920}
+        height={414}
       />
-      <p class="mt-3" set:html={workflow?.description} />
     </div>
-    <Image
-      src={workflow!.image}
-      alt="workflow image"
-      width={1920}
-      height={414}
-    />
   </section>
 
   <!-- Call to Action -->

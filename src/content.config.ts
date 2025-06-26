@@ -176,6 +176,25 @@ const personalFinanceCollection = defineCollection({
   }),
 });
 
+// Financial Solutions collection schema
+const financialSolutionsCollection = defineCollection({
+  loader: glob({
+    pattern: "**/*.{md,mdx}",
+    base: "src/content/financial-solutions",
+  }),
+  schema: z.object({
+    title: z.string(),
+    meta_title: z.string().optional(),
+    description: z.string().optional(),
+    date: z.date().optional(),
+    image: z.string().optional(),
+    authors: z.array(z.string()).default(["admin"]),
+    categories: z.array(z.string()).default(["others"]),
+    tags: z.array(z.string()).default(["others"]),
+    draft: z.boolean().optional(),
+  }),
+});
+
 // Pages collection schema
 const pagesCollection = defineCollection({
   schema: z.object({
@@ -193,6 +212,7 @@ export const collections = {
   homepage: homepageCollection,
   blog: blogCollection,
   "personal-finance": personalFinanceCollection,
+  "financial-solutions": financialSolutionsCollection,
   pages: pagesCollection,
   contact: contactCollection,
   pricing: pricingCollection,

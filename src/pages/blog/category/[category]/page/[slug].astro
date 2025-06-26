@@ -19,19 +19,23 @@ export async function getStaticPaths() {
     const sortedPosts = sortByDate(filteredPosts);
     const totalPages = Math.ceil(sortedPosts.length / pagination);
 
-    return Array.from({ length: totalPages }, (_, i) => ({
-      params: {
-        category,
-        slug: (i + 1).toString(),
-      },
-      props: {
-        posts: sortedPosts,
-        category,
-        totalPosts: sortedPosts.length,
-        currentPage: i + 1,
-        totalPages,
-      },
-    }));
+    const paths = [];
+    for (let i = 1; i < totalPages; i++) {
+      paths.push({
+        params: {
+          category,
+          slug: (i + 1).toString(),
+        },
+        props: {
+          posts: sortedPosts,
+          category,
+          totalPosts: sortedPosts.length,
+          currentPage: i + 1,
+          totalPages,
+        },
+      });
+    }
+    return paths;
   });
 }
 

@@ -1,0 +1,27 @@
+---
+import Base from "@/layouts/Base.astro";
+import { getSinglePage } from "@/lib/contentParser.astro";
+import PostSingle from "@/layouts/PostSingle.astro";
+
+export async function getStaticPaths() {
+  const posts = await getSinglePage("financial-solutions");
+  const paths = posts.map((post) => ({
+    params: {
+      single: post.id,
+    },
+    props: { post },
+  }));
+  return paths;
+}
+
+const { post } = Astro.props;
+---
+
+<Base
+  title={post.data.title}
+  meta_title={post.data.meta_title}
+  description={post.data.description}
+  image={post.data.image}
+>
+  <PostSingle post={post} />
+</Base>

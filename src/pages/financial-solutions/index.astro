@@ -9,11 +9,8 @@ import type { CollectionEntry } from "astro:content";
 import { getEntry } from "astro:content";
 
 const { summary_length } = config.settings;
-const postIndex = (await getEntry(
-  "personal-finance",
-  "-index"
-)) as CollectionEntry<"personal-finance">;
-const posts = await getSinglePage("personal-finance");
+const postIndex = await getEntry("financial-solutions", "-index.md");
+const posts = await getSinglePage("financial-solutions");
 const sortedPosts = sortByDate(posts);
 const totalPages = Math.ceil(posts.length / config.settings.pagination);
 const currentPosts = sortedPosts.slice(0, config.settings.pagination);
@@ -24,11 +21,11 @@ const currentPosts = sortedPosts.slice(0, config.settings.pagination);
     <div class="container">
       <h1
         class="mb-10 font-normal lg:text-[56px] leading-tight"
-        set:html={markdownify(postIndex?.data.title || "Personal Finance")}
+        set:html={markdownify(postIndex?.data.title || "Financial Solutions")}
       />
       <PaginatedPosts
         posts={currentPosts}
-        section="personal-finance"
+        section="financial-solutions"
         currentPage={1}
         totalPages={totalPages}
       />

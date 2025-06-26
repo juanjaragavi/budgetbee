@@ -1,3 +1,12 @@
 @utility shadow {
   box-shadow: 0 12px 24px -6px rgba(45, 67, 121, 0.1);
 }
+
+.leading-tight h1,
+.leading-tight h2,
+.leading-tight h3,
+.leading-tight h4,
+.leading-tight h5,
+.leading-tight h6 {
+  @apply leading-tight;
+}

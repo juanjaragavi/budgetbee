@@ -6,6 +6,9 @@ import { plainify } from "@/lib/utils/textConverter";
 const { post, index } = Astro.props;
 const { summary_length } = config.settings;
 const collection = post.collection;
+
+const applyLeadingTight =
+  collection === "personal-finance" || collection === "financial-solutions";
 ---
 
 <div
@@ -26,13 +29,21 @@ const collection = post.collection;
       </div>
     )
   }
-  <h2 class="h3 mb-2 mt-4 text-left">
+  <h2
+    class:list={[
+      "h3 mb-2 mt-4 text-left",
+      { "leading-tight": applyLeadingTight },
+    ]}
+  >
     <a href={`/${post.collection}/${post.id}`} class="block hover:text-primary">
       {post.data.title}
     </a>
   </h2>
   <p
-    class="line-clamp-3 text-left"
+    class:list={[
+      "line-clamp-3 text-left",
+      { "leading-tight": applyLeadingTight },
+    ]}
     set:html={plainify(post.body.slice(0, summary_length))}
   />
   <a class="btn btn-primary mt-4" href={`/${post.collection}/${post.id}`}>
