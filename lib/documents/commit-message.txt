@@ -1,10 +1,3 @@
-feat: Implement dynamic UI coloring for credit card products
+fix: Corrected color property for DoorDash Rewards Mastercard
 
-This commit introduces a new feature that dynamically colors UI elements on the credit card product pages based on the corporate color of the specific product being featured.
-
-Key changes include:
-- Added a `color` field to the `financialSolutionsCollection` schema in `src/content.config.ts` to define the product color in the frontmatter.
-- Modified the `src/layouts/PostSingle.astro` layout to read the `color` from the frontmatter and apply it as a CSS custom property (`--product-color`).
-- Updated the `src/layouts/shortcodes/Button.tsx` component to use the `--product-color` CSS variable for its background.
-- Moved the `color` property from the `<Button>` components to the frontmatter of all markdown files in the `src/content/financial-solutions` directory.
-- Added conditional styling in `src/layouts/PostSingle.astro` to ensure that the dynamic coloring is applied only to pages in the "Financial Solutions" category and that the button text remains visible.
+This commit corrects the color property in the frontmatter of the DoorDash Rewards Mastercard product pages.
