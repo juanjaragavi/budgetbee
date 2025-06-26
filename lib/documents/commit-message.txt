@@ -1,3 +1,3 @@
-fix: Corrected color property for DoorDash Rewards Mastercard
+refactor: Update credit card recommender page
 
-This commit corrects the color property in the frontmatter of the DoorDash Rewards Mastercard product pages.
+This commit refactors the credit card recommender page.
