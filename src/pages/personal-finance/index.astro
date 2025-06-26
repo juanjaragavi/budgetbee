@@ -9,7 +9,7 @@ import Post from "@/layouts/partials/Post.astro";
 import type { CollectionEntry } from "astro:content";
 import { getEntry } from "astro:content";
 
-const postIndex = (await getEntry("personal-finance", "index")) as
+const postIndex = (await getEntry("personal-finance", "-index")) as
   | CollectionEntry<"personal-finance">
   | undefined;
 const posts = await getSinglePage("personal-finance");
