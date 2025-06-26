@@ -1,0 +1,66 @@
+---
+import Post from "@/layouts/partials/Post.astro";
+import Pagination from "@/layouts/components/Pagination.astro";
+import type { CollectionEntry } from "astro:content";
+
+interface Props {
+  posts: CollectionEntry<"blog" | "personal-finance">[];
+  section: string;
+  currentPage?: number;
+  totalPages?: number;
+}
+
+const { posts, section, currentPage = 1, totalPages = 1 } = Astro.props;
+---
+
+<div class="row" id="post-grid">
+  {
+    posts.map((post, i) => (
+      <div class="mb-14 md:col-6 post-card-wrapper">
+        <Post post={post} index={i} />
+      </div>
+    ))
+  }
+</div>
+
+<style>
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .post-card-wrapper {
+    animation: fadeIn 0.5s ease-out forwards;
+    opacity: 0;
+  }
+
+  .post-card-wrapper:nth-child(1) {
+    animation-delay: 0.1s;
+  }
+  .post-card-wrapper:nth-child(2) {
+    animation-delay: 0.2s;
+  }
+  .post-card-wrapper:nth-child(3) {
+    animation-delay: 0.3s;
+  }
+  .post-card-wrapper:nth-child(4) {
+    animation-delay: 0.4s;
+  }
+  .post-card-wrapper:nth-child(5) {
+    animation-delay: 0.5s;
+  }
+  .post-card-wrapper:nth-child(6) {
+    animation-delay: 0.6s;
+  }
+</style>
+<Pagination
+  section={section}
+  currentPage={currentPage}
+  totalPages={totalPages}
+/>

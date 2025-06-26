@@ -1,18 +1,19 @@
 ---
 import config from "@/config/config.json";
 import Base from "@/layouts/Base.astro";
-import Pagination from "@/layouts/components/Pagination.astro";
-import Post from "@/layouts/partials/Post.astro";
+import PaginatedPosts from "@/layouts/components/PaginatedPosts.astro";
 import { getSinglePage } from "@/lib/contentParser.astro";
 import { sortByDate } from "@/lib/utils/sortFunctions";
-import { markdownify, plainify } from "@/lib/utils/textConverter";
-import { Image } from "astro:assets";
+import { markdownify } from "@/lib/utils/textConverter";
 import type { CollectionEntry } from "astro:content";
 import { getEntry } from "astro:content";
 
 const { summary_length } = config.settings;
-const postIndex = (await getEntry("blog", "-index")) as CollectionEntry<"blog">;
-const posts = await getSinglePage("blog");
+const postIndex = (await getEntry(
+  "personal-finance",
+  "-index"
+)) as CollectionEntry<"personal-finance">;
+const posts = await getSinglePage("personal-finance");
 const sortedPosts = sortByDate(posts);
 const totalPages = Math.ceil(posts.length / config.settings.pagination);
 const currentPosts = sortedPosts.slice(0, config.settings.pagination);
@@ -43,7 +44,7 @@ const allCategories = [
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
           <a
             class="block p-6 bg-blue-50 rounded-xl hover:shadow-md transition-shadow"
-            href="/blog/category/personal-finance"
+            href="/personal-finance"
           >
             <h2 class="text-2xl font-semibold text-blue-800 mb-2">
               Personal Finance Guides
@@ -55,7 +56,7 @@ const allCategories = [
           </a>
           <a
             class="block p-6 bg-green-50 rounded-xl hover:shadow-md transition-shadow"
-            href="/blog/category/credit-cards"
+            href="/financial-solutions"
           >
             <h2 class="text-2xl font-semibold text-green-800 mb-2">
               Credit Cards & Financial Solutions
@@ -78,12 +79,12 @@ const allCategories = [
           >
             All Articles
           </button>
-          <button
-            class="category-filter px-4 py-2 text-sm font-medium rounded-full transition-colors bg-gray-100 text-gray-700 hover:bg-gray-200"
-            data-category="personal-finance"
+          <a
+            href="/personal-finance"
+            class="px-4 py-2 text-sm font-medium rounded-full transition-colors bg-gray-100 text-gray-700 hover:bg-gray-200"
           >
             Personal Finance
-          </button>
+          </a>
           <button
             class="category-filter px-4 py-2 text-sm font-medium rounded-full transition-colors bg-gray-100 text-gray-700 hover:bg-gray-200"
             data-category="credit-cards"
@@ -104,110 +105,13 @@ const allCategories = [
           </button>
         </div>
 
-        <!-- Featured Post -->
-        <div class="row col-12 pb-24 pt-16">
-          <div class="md:col-6">
-            {
-              currentPosts[0].data.image && (
-                <Image
-                  class="rounded-lg"
-                  src={currentPosts[0].data.image}
-                  alt={currentPosts[0].data.title}
-                  width={925}
-                  height={475}
-                />
-              )
-            }
-          </div>
-          <div class="md:col-6 text-left">
-            <h2 class="h3 mb-2 mt-4 text-left">
-              <a
-                href={`/blog/${currentPosts[0].id}`}
-                class="block hover:text-primary"
-              >
-                {currentPosts[0].data.title}
-              </a>
-            </h2>
-            <p
-              class="text-left"
-              set:html={plainify(currentPosts[0].body.slice(0, summary_length))}
-            />
-            <a
-              class="btn btn-primary mt-4"
-              href={`/blog/${currentPosts[0].id}`}
-              rel=""
-            >
-              Read More
-            </a>
-          </div>
-        </div>
-
-        <!-- Articles Grid -->
-        <div
-          class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
-          id="articles-grid"
-        >
-          {
-            currentPosts.slice(1).map((post) => (
-              <article
-                class="bg-white rounded-xl shadow-md overflow-hidden flex flex-col h-full article-card"
-                data-categories={JSON.stringify(post.data.categories || [])}
-              >
-                <div class="relative h-48 w-full">
-                  {post.data.image && (
-                    <a href={`/blog/${post.id}`} class="block h-full">
-                      <Image
-                        class="w-full h-full object-cover"
-                        src={post.data.image}
-                        alt={post.data.title}
-                        width={400}
-                        height={300}
-                      />
-                      {post.data.categories && post.data.categories[0] && (
-                        <div class="absolute top-2 left-2 z-10">
-                          <span class="inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold text-white bg-blue-600 border-transparent">
-                            {post.data.categories[0]
-                              .replace("-", " ")
-                              .replace(/\b\w/g, (l: string) => l.toUpperCase())}
-                          </span>
-                        </div>
-                      )}
-                    </a>
-                  )}
-                </div>
-                <div class="p-6 flex flex-col flex-grow">
-                  <p class="text-sm text-gray-500 mb-2 text-left">
-                    {new Date(post.data.date).toLocaleDateString("en-US", {
-                      year: "numeric",
-                      month: "long",
-                      day: "numeric",
-                    })}
-                  </p>
-                  <a
-                    href={`/blog/${post.id}`}
-                    class="block mt-1 text-lg font-semibold text-gray-900 hover:text-blue-600 transition-colors mb-2 line-clamp-2 text-left"
-                  >
-                    {post.data.title}
-                  </a>
-                  <p class="mt-2 text-gray-600 line-clamp-3 flex-grow text-left">
-                    {post.data.description}
-                  </p>
-                  <div class="mt-4 text-left">
-                    <a
-                      href={`/blog/${post.id}`}
-                      class="text-blue-600 hover:text-blue-800 font-medium"
-                    >
-                      Read more →
-                    </a>
-                  </div>
-                </div>
-              </article>
-            ))
-          }
-        </div>
+        <PaginatedPosts
+          posts={currentPosts}
+          section="personal-finance"
+          currentPage={1}
+          totalPages={totalPages}
+        />
       </div>
-
-      <Pagination section={"blog"} currentPage={1} totalPages={totalPages} />
     </div>
   </section>
 

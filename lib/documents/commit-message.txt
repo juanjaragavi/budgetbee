@@ -1,24 +1,7 @@
-feat: Add blog structure analysis and AstroJS research documentation
+feat: Implement personal finance section and enhance quiz
 
-This commit introduces a new documentation file `6-BLOG-STRUCTURE-ANALYSIS.md` under `.clinerules/`. This document provides a detailed analysis of the current blog structure within the BudgetBee project and summarizes key findings from AstroJS documentation regarding blog and article handling.
-
-The analysis covers:
-- Content location and format (`src/content/blog/`, Markdown/MDX)
-- URL mapping (`/blog/[single]`)
-- Categories and tags handling
-- Metadata extraction from frontmatter
-- Article generation and rendering process
-
-The AstroJS research findings highlight:
-- The use of Content Collections (`astro:content`) for type-safe content management.
-- Built-in Markdown/MDX support.
-- Dynamic routing with `getStaticPaths`.
-- Frontmatter for metadata.
-- `render()` function for content rendering.
-- Importance of layouts for consistency.
-- Support for pagination.
-- CMS integration capabilities.
-
-This documentation will serve as a valuable resource for understanding and further developing the blog system within BudgetBee.
-
-Additionally, this commit includes a minor modification to `src/pages/blog/[single].astro` to ensure compatibility or minor improvements related to the blog structure.
+- Adds a new 'Personal Finance' content section with dedicated pages and content structure.
+- Introduces a `PaginatedPosts` component to improve blog and category listings.
+- Updates the credit card quiz form and results pages for better user experience.
+- Refines various UI components including navigation, pagination, and headers.
+- Adjusts TypeScript configuration to support new features.

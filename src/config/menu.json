@@ -5,12 +5,16 @@
       "url": "/"
     },
     {
-      "name": "Categories",
-      "url": "/categories"
-    },
-    {
       "name": "Blog",
       "url": "/blog"
+    },
+    {
+      "name": "Personal Finance",
+      "url": "/personal-finance"
+    },
+    {
+      "name": "Financial Solutions",
+      "url": "/financial-solutions"
     },
     {
       "name": "About Us",

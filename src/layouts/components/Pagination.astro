@@ -25,11 +25,10 @@ for (let i = 1; i <= totalPages; i++) {
               ? `${section ? "/" + section : "/"}`
               : `${section ? "/" + section : ""}/page/${currentPage - 1}`
           }
-          class="inline-flex items-center justify-center px-2 py-2 rounded bg-light w-[42px] h-[42px] text-center text-text-text-dark"
+          class="inline-flex items-center justify-center rounded-md border border-gray-300 bg-white px-3 py-2 text-sm font-medium text-gray-500 hover:bg-gray-50"
         >
-          <span class="sr-only">Previous</span>
           <svg
-            class="h-5 w-5"
+            class="-ml-1 mr-2 h-5 w-5"
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 20 20"
             fill="currentColor"
@@ -41,12 +40,12 @@ for (let i = 1; i <= totalPages; i++) {
               clip-rule="evenodd"
             />
           </svg>
+          <span>Previous</span>
         </a>
       ) : (
-        <span class="inline-flex items-center justify-center px-2 py-2 rounded bg-light w-[42px] h-[42px] text-center text-text-text-dark">
-          <span class="sr-only">Previous</span>
+        <span class="inline-flex items-center justify-center rounded-md border border-gray-300 bg-white px-3 py-2 text-sm font-medium text-gray-400 cursor-not-allowed">
           <svg
-            class="h-5 w-5"
+            class="-ml-1 mr-2 h-5 w-5"
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 20 20"
             fill="currentColor"
@@ -58,6 +57,7 @@ for (let i = 1; i <= totalPages; i++) {
               clip-rule="evenodd"
             />
           </svg>
+          <span>Previous</span>
         </span>
       )}
 
@@ -89,11 +89,11 @@ for (let i = 1; i <= totalPages; i++) {
       {hasNextPage ? (
         <a
           href={`${section ? "/" + section : ""}/page/${currentPage + 1}`}
-          class="inline-flex items-center justify-center px-2 py-2 rounded bg-light w-[42px] h-[42px] text-center text-text-text-dark"
+          class="inline-flex items-center justify-center rounded-md border border-gray-300 bg-white px-3 py-2 text-sm font-medium text-gray-500 hover:bg-gray-50"
         >
-          <span class="sr-only">Next</span>
+          <span>Next</span>
           <svg
-            class="h-5 w-5"
+            class="-mr-1 ml-2 h-5 w-5"
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 20 20"
             fill="currentColor"
@@ -107,10 +107,10 @@ for (let i = 1; i <= totalPages; i++) {
           </svg>
         </a>
       ) : (
-        <span class="inline-flex items-center justify-center px-2 py-2 rounded bg-light w-[42px] h-[42px] text-center text-text-dark">
-          <span class="sr-only">Next</span>
+        <span class="inline-flex items-center justify-center rounded-md border border-gray-300 bg-white px-3 py-2 text-sm font-medium text-gray-400 cursor-not-allowed">
+          <span>Next</span>
           <svg
-            class="h-5 w-5"
+            class="-mr-1 ml-2 h-5 w-5"
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 20 20"
             fill="currentColor"
