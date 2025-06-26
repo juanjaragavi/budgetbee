@@ -2,15 +2,7 @@ import React, { useState } from "react";
 import { motion } from "framer-motion";
 import ProgressIndicator from "../ui/ProgressIndicator";
 
-export default function Step3({
-  formData,
-  updateFormData,
-  onSubmit,
-  handleLastNameChange,
-  handlePhoneChange,
-  lastName,
-  phone,
-}) {
+export default function Step3({ formData, updateFormData, onSubmit }) {
   const [email, setEmail] = useState(formData.email);
   const [name, setName] = useState(formData.name);
   const [receiveMessages, setReceiveMessages] = useState(
@@ -19,8 +11,6 @@ export default function Step3({
   const [errors, setErrors] = useState({
     email: null,
     name: null,
-    lastName: null,
-    phone: null,
     general: null,
   });
 
@@ -78,52 +68,6 @@ export default function Step3({
     return true;
   };
 
-  const validateLastName = (lastName) => {
-    if (!lastName.trim()) {
-      setErrors((prev) => ({
-        ...prev,
-        lastName: "Last name is required",
-      }));
-      return false;
-    }
-
-    if (lastName.trim().length < 2) {
-      setErrors((prev) => ({
-        ...prev,
-        lastName: "Last name must be at least 2 characters",
-      }));
-      return false;
-    }
-
-    setErrors((prev) => ({ ...prev, lastName: null }));
-    return true;
-  };
-
-  const validatePhone = (phoneNumber) => {
-    if (!phoneNumber) {
-      setErrors((prev) => ({
-        ...prev,
-        phone: "Phone number is required",
-      }));
-      return false;
-    }
-
-    // US phone number validation - accepts various formats
-    const cleanPhone = phoneNumber.replace(/[\s()-]/g, "");
-    const phoneRegex = /^(\+?1)?[2-9]\d{9}$/;
-
-    if (!phoneRegex.test(cleanPhone)) {
-      setErrors((prev) => ({
-        ...prev,
-        phone: "Please enter a valid 10-digit US phone number",
-      }));
-      return false;
-    }
-
-    setErrors((prev) => ({ ...prev, phone: null }));
-    return true;
-  };
-
   const handleEmailChange = (e) => {
     const value = e.target.value;
     setEmail(value);
@@ -151,8 +95,6 @@ export default function Step3({
   const validateForm = () => {
     const isEmailValid = validateEmail(email);
     const isNameValid = validateName(name);
-    const isLastNameValid = validateLastName(lastName);
-    const isPhoneValid = validatePhone(phone);
 
     if (!receiveMessages) {
       setErrors((prev) => ({
@@ -164,13 +106,7 @@ export default function Step3({
       setErrors((prev) => ({ ...prev, general: null }));
     }
 
-    return (
-      isEmailValid &&
-      isNameValid &&
-      isLastNameValid &&
-      isPhoneValid &&
-      receiveMessages
-    );
+    return isEmailValid && isNameValid && receiveMessages;
   };
 
   const handleFormSubmit = (e) => {
@@ -247,68 +183,6 @@ export default function Step3({
           {errors.name && (
             <p id="name-error" className="text-xs text-red-500 mt-1">
               {errors.name}
-            </p>
-          )}
-        </div>
-
-        <div className="space-y-1.5">
-          <label htmlFor="lastName" className="text-sm font-medium">
-            Last Name
-          </label>
-          <input
-            id="lastName"
-            type="text"
-            value={lastName}
-            onChange={(e) => {
-              handleLastNameChange(e);
-              if (lastName.length > 0) {
-                validateLastName(e.target.value);
-              }
-            }}
-            onBlur={() => validateLastName(lastName)}
-            required
-            className={`w-full h-9 px-3 text-sm rounded-md border ${
-              errors.lastName
-                ? "border-red-500 focus:ring-red-500"
-                : "border-gray-300 focus:border-[#E7B739] focus:ring-[#E7B739]"
-            } focus:outline-none focus:ring-2`}
-            placeholder="Your last name"
-            aria-describedby="lastName-error"
-          />
-          {errors.lastName && (
-            <p id="lastName-error" className="text-xs text-red-500 mt-1">
-              {errors.lastName}
-            </p>
-          )}
-        </div>
-
-        <div className="space-y-1.5">
-          <label htmlFor="phone" className="text-sm font-medium">
-            Mobile Phone
-          </label>
-          <input
-            id="phone"
-            type="tel"
-            value={phone}
-            onChange={(e) => {
-              handlePhoneChange(e);
-              if (phone.length > 2) {
-                validatePhone(e.target.value);
-              }
-            }}
-            onBlur={() => validatePhone(phone)}
-            required
-            className={`w-full h-9 px-3 text-sm rounded-md border ${
-              errors.phone
-                ? "border-red-500 focus:ring-red-500"
-                : "border-gray-300 focus:border-[#E7B739] focus:ring-[#E7B739]"
-            } focus:outline-none focus:ring-2`}
-            placeholder="(555) 123-4567"
-            aria-describedby="phone-error"
-          />
-          {errors.phone && (
-            <p id="phone-error" className="text-xs text-red-500 mt-1">
-              {errors.phone}
             </p>
           )}
         </div>

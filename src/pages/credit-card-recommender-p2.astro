@@ -1,0 +1,120 @@
+---
+import Base from "@/layouts/Base.astro";
+import { Image } from "astro:assets";
+
+const cards = [
+  {
+    name: "Amazon Rewards Visa",
+    url: "/financial-solutions/amazon-rewards-visa-credit-card-benefits",
+    reqUrl: "/financial-solutions/amazon-rewards-visa-credit-card-requirements",
+  },
+  {
+    name: "Capital One Savor Rewards",
+    url: "/financial-solutions/capital-one-savor-rewards-credit-card-benefits",
+    reqUrl:
+      "/financial-solutions/capital-one-savor-rewards-credit-card-requirements",
+  },
+  {
+    name: "Chase Freedom Unlimited",
+    url: "/financial-solutions/chase-freedom-unlimited-credit-card-benefits",
+    reqUrl: "/financial-solutions/chase-freedom-unlimited-requirements",
+  },
+];
+
+const randomCard = cards[Math.floor(Math.random() * cards.length)];
+---
+
+<Base
+  title="Your Personalized Credit Card Recommendation | BudgetBee"
+  meta_title="Credit Card Recommender - Your Match | BudgetBee"
+  description="Discover the credit card that's right for you. Click to reveal your personalized recommendation."
+  image="/images/og-image.png"
+>
+  <section class="section pb-0">
+    <div class="container">
+      <div class="row justify-center">
+        <div class="lg:col-10 text-center">
+          <div class="content">
+            <h1 class="h2 mb-4">Your Personalized Recommendation</h1>
+            <p class="text-lg text-dark mb-6">
+              We've analyzed your profile and found a credit card that we think
+              you'll love.
+            </p>
+
+            <div id="reveal-container" class="my-8">
+              <button
+                id="reveal-button"
+                class="btn btn-primary btn-lg"
+                style="background-color: #E7B739; border-color: #E7B739; color: white;"
+              >
+                Click to Reveal Your Card
+              </button>
+            </div>
+
+            <div
+              id="recommendation-container"
+              class="invisible opacity-0 transition-opacity duration-1000"
+            >
+              <div class="p-4">
+                <h2 class="h3 mb-4">We recommend the {randomCard.name}</h2>
+                <div
+                  class="flex flex-col sm:flex-row justify-center items-center gap-4"
+                >
+                  <a
+                    href={randomCard.url}
+                    class="btn btn-secondary w-full sm:w-auto"
+                    style="background-color: #4A90E2; border-color: #4A90E2; color: white;"
+                    >View Benefits</a
+                  >
+                  <a
+                    href={randomCard.reqUrl}
+                    class="btn btn-primary w-full sm:w-auto"
+                    style="background-color: #7ED321; border-color: #7ED321; color: white;"
+                    >View Requirements</a
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const revealButton = document.getElementById("reveal-button");
+    const recommendationContainer = document.getElementById(
+      "recommendation-container"
+    );
+
+    if (revealButton && recommendationContainer) {
+      revealButton.addEventListener("click", () => {
+        revealButton.style.display = "none";
+        recommendationContainer.classList.remove("invisible");
+        recommendationContainer.classList.add("visible");
+        recommendationContainer.style.opacity = "1";
+      });
+    }
+  });
+</script>
+
+<style>
+  .btn {
+    transition: all 0.3s ease;
+  }
+
+  .btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  }
+
+  .invisible {
+    visibility: hidden;
+  }
+
+  .visible {
+    visibility: visible;
+  }
+</style>
