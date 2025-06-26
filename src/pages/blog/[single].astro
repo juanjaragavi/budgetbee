@@ -24,8 +24,8 @@ const { title, meta_title, description, image, date } = post.data; // Assuming '
   meta_title={meta_title}
   description={description}
   image={image}
-  datePublished={date}
-  dateModified={date} 
+  datePublished={date ? date.toISOString() : undefined}
+  dateModified={date ? date.toISOString() : undefined}
   pageType="article"
 >
   <PostSingle post={post} />
