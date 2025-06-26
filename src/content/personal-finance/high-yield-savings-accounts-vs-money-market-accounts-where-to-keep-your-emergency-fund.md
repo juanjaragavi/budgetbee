@@ -93,4 +93,12 @@ Choosing between a High-Yield Savings Account and a Money Market Account for you
 
 An HYSA is often ideal if your priority is maximizing interest earnings and you're comfortable with primarily online access. An MMA might be a better fit if you value the ability to write checks or use a debit card directly from the account and can meet the potentially higher minimum balance requirements.
 
+### Credit Cards to Complement Your Emergency Fund Strategy
+
+While an emergency fund is crucial, certain credit cards can offer additional financial flexibility and security for unexpected situations.
+
+* **For unexpected large expenses:** A card with a 0% introductory APR on purchases can provide breathing room for large, unforeseen costs, allowing you to pay them off without interest. Consider the [**Citi Simplicity Card**](/financial-solutions/citi-simplicity-card-benefits) for its extended 0% intro APR and no late fees.
+* **For everyday emergencies and rewards:** A general cashback card can provide a small return on essential purchases, which can indirectly contribute to your savings. The [**Chase Freedom Unlimited Credit Card**](/financial-solutions/chase-freedom-unlimited-credit-card-benefits) offers unlimited cashback on all purchases.
+* **For building credit for future financial stability:** If you're building your emergency fund and also need to establish credit, a credit-building card can help. The [**Visa Signature U.S. Current Build Credit Card**](/financial-solutions/visa-signature-us-current-build-credit-card-benefits) is designed for this purpose.
+
 Regardless of which you choose, the most important step is to start building that emergency fund today. Having a financial cushion provides peace of mind and prevents unexpected expenses from derailing your financial progress. Research options from different banks, compare rates and fees, and pick the account that helps you feel most secure and confident in your financial journey.

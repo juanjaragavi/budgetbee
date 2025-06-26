@@ -57,4 +57,12 @@ Remember to stay consistent with your contributions, even if they are small at f
 
 Choosing between a Roth and Traditional IRA is an important decision for your long-term financial health. By understanding the tax implications and considering your current and expected future income and tax situation, you can select the account that best fits your needs.
 
+### Credit Cards to Complement Your Investment Strategy
+
+While credit cards are not investment vehicles, using them responsibly can free up capital for investing or provide rewards that can be used to supplement your financial goals.
+
+* **For maximizing rewards on everyday spending:** If you pay your balance in full, a rewards card can provide extra cashback or points that can be saved or invested. Consider the [**Citi Double Cash Card**](/financial-solutions/citi-double-cash-credit-card-benefits) for a straightforward 2% cashback on all purchases.
+* **For managing large purchases without immediate interest:** If you need to make a significant purchase but want to keep your cash flow available for investments, a card with a 0% intro APR on purchases can be useful. The [**Chase Freedom Unlimited Credit Card**](/financial-solutions/chase-freedom-unlimited-credit-card-benefits) offers this benefit.
+* **For building credit to access better financial products:** A strong credit score can lead to better rates on loans or mortgages, freeing up more money for investments. The [**Visa Signature U.S. Current Build Credit Card**](/financial-solutions/visa-signature-us-current-build-credit-card-benefits) is designed for credit building.
+
 Don't let the complexities of retirement accounts prevent you from starting. Take the time to research, assess your personal finances, and begin saving today. Your future self will thank you for taking control of your retirement journey. Remember that retirement planning is just one aspect of overall [personal finance](/personal-finance/what-is-personal-finance-and-why-does-it-matter), and understanding [the difference between saving and investing](/personal-finance/the-difference-between-saving-and-investing-which-should-you-do-first) can help you develop a comprehensive financial strategy.

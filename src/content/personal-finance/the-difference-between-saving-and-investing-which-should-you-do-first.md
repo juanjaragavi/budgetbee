@@ -54,4 +54,12 @@ This sequence ensures you have a stable financial base before exposing your mone
 
 Saving and investing are not mutually exclusive; they are two sides of a healthy financial strategy. Saving provides the necessary security and liquidity for the short term, while investing offers the potential for significant wealth growth over the long term.
 
+### Credit Cards to Support Your Saving and Investing Goals
+
+While credit cards are not direct saving or investing tools, using them strategically can complement your financial plan.
+
+* **For earning rewards to boost savings/investments:** If you pay your balance in full each month, a rewards card can provide cashback or points that can be directed towards your savings or investment accounts. Consider the [**Citi Double Cash Card**](/financial-solutions/citi-double-cash-credit-card-benefits) for a straightforward 2% cashback on all purchases.
+* **For managing large expenses without impacting cash flow:** If you need to make a significant purchase but want to keep your cash available for savings or investments, a card with a 0% introductory APR on purchases can be beneficial. The [**Chase Freedom Unlimited Credit Card**](/financial-solutions/chase-freedom-unlimited-credit-card-benefits) offers this flexibility.
+* **For building credit for future financial opportunities:** A strong credit score can open doors to better financial products (like lower interest rates on loans) in the future, freeing up more money for saving and investing. The [**Visa Signature U.S. Current Build Credit Card**](/financial-solutions/visa-signature-us-current-build-credit-card-benefits) is designed for credit building.
+
 By understanding the distinct roles of saving and investing and prioritizing them appropriately, you can build a robust financial plan that helps you navigate unexpected challenges, achieve your short-term goals, and build lasting wealth for the future. Start by securing your present with savings, and then focus on growing your future with smart investments. Your financial journey is unique, but a balanced approach to saving and investing is a powerful path to financial well-being.

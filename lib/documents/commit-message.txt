@@ -1,6 +1,8 @@
-feat: Refactor blog structure and content
+feat: Implement two-phase internal linking strategy
 
-- Reorganize blog posts into `personal-finance` and `financial-solutions` content collections.
-- Update layouts, components, and pages to support the new structure.
-- Remove old blog posts from the previous location.
-- Add new pages for the new content collections.
+This commit introduces a new internal linking strategy to enhance SEO:
+
+- **Phase 1: Interlinked Product Pages:** Added "Explore Other Financial Solutions" sections to all `benefits.mdx` files in `src/content/financial-solutions`, recommending related credit card products.
+- **Phase 2: Linked Articles to Products:** Added "Credit Cards to Support Your..." sections to the conclusion of all informational articles in `src/content/personal-finance`, linking to relevant financial product pages.
+
+This improves the site's internal linking structure, positioning financial products as solutions within informational content.

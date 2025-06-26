@@ -49,4 +49,14 @@ Make saving a non-negotiable habit by automating it. Set up an automatic transfe
 
 Saving money isn't about perfection; it's about progress. Start with one or two of these tips and make them a consistent part of your routine. As you see your savings grow, you'll feel more motivated to find even more ways to save.
 
-Remember, even small amounts add up over time thanks to the power of compounding. The most important thing is to start today. Your future self will thank you for building a solid financial foundation, one saved dollar at a time. If you're looking for more comprehensive financial guidance, explore our foundational guide on [what is personal finance and why does it matter](/personal-finance/what-is-personal-finance-and-why-does-it-matter). Building consistent habits is crucial - learn more about [building good money habits](/personal-finance/building-good-money-habits-consistency-is-key) for long-term success.
+Remember, even small amounts add up over time thanks to the power of compounding. The most important thing is to start today. Your future self will thank you for building a solid financial foundation, one saved dollar at a time.
+
+### Credit Cards to Help You Save More
+
+While the primary goal of saving is to set aside cash, certain credit cards can indirectly support your saving efforts by offering rewards or helping you manage expenses more efficiently.
+
+* **For maximizing cashback on everyday spending:** Cards that offer high cashback rates on categories like groceries or gas can effectively reduce your spending in those areas, freeing up more money to save. Consider the [**US Bank Cash+ Visa Signature Card**](/financial-solutions/us-bank-cash-plus-visa-signature-card-benefits) for customizable cashback categories, or the [**Titanium Rewards Visa Signature Credit Card**](/financial-solutions/titanium-rewards-visa-signature-credit-card-benefits) for high points on gas and groceries.
+* **For managing large purchases without immediate interest:** If you need to make a significant purchase but want to keep your cash flow available for savings, a card with a 0% intro APR on purchases can be useful. The [**TD FlexPay Credit Card**](/financial-solutions/td-flexpay-credit-card-benefits) offers flexible payment options and an intro APR on balance transfers.
+* **For building credit to access better financial products:** A strong credit score can lead to better rates on loans or mortgages, freeing up more money for savings. The [**First Digital NextGen Mastercard**](/financial-solutions/first-digital-nextgen-mastercard-benefits) is designed for credit building with instant approval.
+
+If you're looking for more comprehensive financial guidance, explore our foundational guide on [what is personal finance and why does it matter](/personal-finance/what-is-personal-finance-and-why-does-it-matter). Building consistent habits is crucial - learn more about [building good money habits](/personal-finance/building-good-money-habits-consistency-is-key) for long-term success.

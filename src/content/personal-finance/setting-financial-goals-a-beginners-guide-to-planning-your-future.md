@@ -62,4 +62,12 @@ Once you've defined your SMART goals, it's time to integrate them into your fina
 
 Setting financial goals is a powerful exercise that transforms abstract financial hopes into concrete plans. By defining what you want to achieve, making your goals SMART, and integrating them into your daily financial habits through budgeting and automation, you create a clear path to financial success.
 
+### Credit Cards to Help Achieve Your Financial Goals
+
+The right credit card can be a strategic tool to support your financial goals.
+
+* **For earning rewards towards specific goals:** If you're saving for a trip or a large purchase, a rewards card can help you accumulate points or cashback faster. Consider the [**Wells Fargo Autograph Card**](/financial-solutions/wells-fargo-autograph-card-benefits) for 3x points on travel and other popular categories, or the [**Titanium Rewards Visa Signature Credit Card**](/financial-solutions/titanium-rewards-visa-signature-credit-card-benefits) for high points on gas and groceries.
+* **For debt repayment goals:** If your goal is to pay off high-interest debt, a balance transfer card can provide a 0% intro APR period. The [**Citi Simplicity Card**](/financial-solutions/citi-simplicity-card-benefits) is a strong option for this.
+* **For building credit for future goals:** A good credit score is essential for achieving long-term goals like buying a home or getting a car loan. Cards like the [**Tomo Credit Card**](/financial-solutions/tomo-credit-card-benefits) or [**Visa Signature U.S. Current Build Credit Card**](/financial-solutions/visa-signature-us-current-build-credit-card-benefits) can help you build a strong credit history.
+
 Don't wait for the "perfect" time to start. Begin today by identifying one short-term financial goal and taking the first step towards making it a reality. Your future self will thank you for the security and opportunities that come with intentional financial planning.

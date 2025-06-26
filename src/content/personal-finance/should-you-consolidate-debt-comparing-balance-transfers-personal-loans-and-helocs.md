@@ -92,4 +92,12 @@ Before choosing, calculate the total cost of each option, including fees and pot
 
 Debt consolidation can be a valuable strategy to simplify payments and potentially reduce interest costs, but it requires careful consideration and discipline. Whether you choose a balance transfer, a personal loan, or a HELOC, the key to long-term financial health is addressing the root cause of your debt and adopting responsible spending and saving habits.
 
+### Credit Cards for Debt Consolidation and Management
+
+If you're considering debt consolidation, certain credit cards are specifically designed to help you manage and pay down high-interest debt more effectively.
+
+* **For balance transfers with 0% intro APR:** The [**Citi Simplicity Card**](/financial-solutions/citi-simplicity-card-benefits) offers an exceptionally long 0% introductory APR period on balance transfers, with no late fees or penalty APR.
+* **For balance transfers and new purchases:** The [**Chase Freedom Unlimited Credit Card**](/financial-solutions/chase-freedom-unlimited-credit-card-benefits) also provides a 0% intro APR on both balance transfers and new purchases, plus unlimited cashback.
+* **For flexible payments and debt management:** The [**TD FlexPay Credit Card**](/financial-solutions/td-flexpay-credit-card-benefits) offers flexible payment options and an introductory 0% APR on balance transfers.
+
 Evaluate your financial situation honestly, compare the options available to you, and choose the method that aligns best with your goals and risk tolerance. Taking control of your debt is a significant step towards financial freedom. For more strategies on managing and eliminating debt, check out our guide on [your net worth explained](/personal-finance/your-net-worth-explained-what-it-is-and-how-to-calculate-it) to understand how debt affects your overall financial picture. Additionally, consider [building good money habits](/personal-finance/building-good-money-habits-consistency-is-key) to prevent future debt accumulation.
