@@ -1,7 +1,24 @@
-feat: Migrate marketing-related components and custom scripts from TopFinanzas UK Blog to BudgetBee AstroJS project.
+feat: Add blog structure analysis and AstroJS research documentation
 
-This commit migrates several marketing-related components and custom scripts from the TopFinanzas UK Blog to the BudgetBee AstroJS project. This includes:
-- Updating blog content with new articles.
-- Implementing the Credit Card Quiz System.
-- Creating a dedicated Categories Page.
-- Fixing mobile responsiveness issues across the site.
+This commit introduces a new documentation file `6-BLOG-STRUCTURE-ANALYSIS.md` under `.clinerules/`. This document provides a detailed analysis of the current blog structure within the BudgetBee project and summarizes key findings from AstroJS documentation regarding blog and article handling.
+
+The analysis covers:
+- Content location and format (`src/content/blog/`, Markdown/MDX)
+- URL mapping (`/blog/[single]`)
+- Categories and tags handling
+- Metadata extraction from frontmatter
+- Article generation and rendering process
+
+The AstroJS research findings highlight:
+- The use of Content Collections (`astro:content`) for type-safe content management.
+- Built-in Markdown/MDX support.
+- Dynamic routing with `getStaticPaths`.
+- Frontmatter for metadata.
+- `render()` function for content rendering.
+- Importance of layouts for consistency.
+- Support for pagination.
+- CMS integration capabilities.
+
+This documentation will serve as a valuable resource for understanding and further developing the blog system within BudgetBee.
+
+Additionally, this commit includes a minor modification to `src/pages/blog/[single].astro` to ensure compatibility or minor improvements related to the blog structure.
