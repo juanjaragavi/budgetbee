@@ -1,8 +1,22 @@
-feat: Implement two-phase internal linking strategy
+feat: Update financial solution articles and Button component
 
-This commit introduces a new internal linking strategy to enhance SEO:
-
-- **Phase 1: Interlinked Product Pages:** Added "Explore Other Financial Solutions" sections to all `benefits.mdx` files in `src/content/financial-solutions`, recommending related credit card products.
-- **Phase 2: Linked Articles to Products:** Added "Credit Cards to Support Your..." sections to the conclusion of all informational articles in `src/content/personal-finance`, linking to relevant financial product pages.
-
-This improves the site's internal linking structure, positioning financial products as solutions within informational content.
+- Updated Button.tsx to accept a `color` prop for custom button background colors.
+- Corrected user flow for financial solution articles:
+  - Benefits pages now link to their respective Requirements pages.
+  - Requirements pages now link to the official bank product pages with correct brand colors.
+- Applied specific brand colors to CTA buttons for:
+  - Amazon Rewards Visa (Chase)
+  - Capital One Quicksilver Student
+  - Capital One Savor Rewards
+  - Chase Freedom Unlimited
+  - Citi Double Cash
+  - Citi Simplicity
+  - Discover it Student Chrome
+  - DoorDash Rewards Mastercard
+  - First Digital NextGen Mastercard
+  - TD FlexPay Credit Card
+  - Titanium Rewards Visa Signature (Andrews Federal Credit Union)
+  - Tomo Credit Card
+  - US Bank Cash+ Visa Signature
+  - Visa Signature U.S. Current Build
+  - Wells Fargo Autograph Card
