@@ -1,11 +1,14 @@
 ---
 import { markdownify } from "@/lib/utils/textConverter";
-import { Image } from "astro:assets";
 import { render } from "astro:content";
 
 const { post } = Astro.props;
 const { Content } = await render(post);
-const { title, image } = post.data;
+const { title, image, categories } = post.data;
+
+const applyLeadingTight =
+  categories.includes("Personal Finance") ||
+  categories.includes("Financial Solutions");
 ---
 
 <section class="section">
@@ -16,19 +19,30 @@ const { title, image } = post.data;
           {
             image && (
               <div class="mb-6 overflow-hidden rounded-lg">
-                <Image
+                <img
                   src={image}
-                  height={500}
-                  width={1000}
+                  height="500"
+                  width="1000"
                   alt={title}
                   class="w-full h-auto object-cover"
                 />
               </div>
             )
           }
-          <h1 set:html={markdownify(title)} class="h2 text-left my-4 md:my-6" />
+          <h1
+            set:html={markdownify(title)}
+            class:list={[
+              "h2 text-left my-4 md:my-6",
+              { "leading-tight": applyLeadingTight },
+            ]}
+          />
 
-          <div class="content mb-16 text-left">
+          <div
+            class:list={[
+              "content mb-16 text-left",
+              { "leading-tight": applyLeadingTight },
+            ]}
+          >
             <Content />
           </div>
         </article>

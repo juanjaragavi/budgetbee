@@ -1,5 +1,6 @@
-feat: Implement personal finance section and update blog pagination
+feat: Refactor blog structure and content
 
-- Create a new personal finance section with an index page.
-- Add an index markdown file for personal finance content.
-- Update the blog pagination slug page.
+- Reorganize blog posts into `personal-finance` and `financial-solutions` content collections.
+- Update layouts, components, and pages to support the new structure.
+- Remove old blog posts from the previous location.
+- Add new pages for the new content collections.

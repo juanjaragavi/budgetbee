@@ -14,11 +14,12 @@ const Button = ({
   return (
     <a
       href={link}
-      target="_blank"
-      rel={`noopener noreferrer ${rel ? (rel === "follow" ? "" : rel) : "nofollow"
-        }`}
-      className={`btn mb-4 me-4 no-underline ${style === "outline" ? "btn-outline-primary" : "btn-primary"
-        }`}
+      rel={`noopener noreferrer ${
+        rel ? (rel === "follow" ? "" : rel) : "nofollow"
+      }`}
+      className={`text-white btn mb-4 w-full text-center no-underline ${
+        style === "outline" ? "btn-outline-primary" : "btn-primary"
+      }`}
     >
       {label}
     </a>
