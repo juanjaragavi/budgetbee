@@ -1,7 +1,5 @@
-feat: Implement personal finance section and enhance quiz
+feat: Implement personal finance section and update blog pagination
 
-- Adds a new 'Personal Finance' content section with dedicated pages and content structure.
-- Introduces a `PaginatedPosts` component to improve blog and category listings.
-- Updates the credit card quiz form and results pages for better user experience.
-- Refines various UI components including navigation, pagination, and headers.
-- Adjusts TypeScript configuration to support new features.
+- Create a new personal finance section with an index page.
+- Add an index markdown file for personal finance content.
+- Update the blog pagination slug page.
