@@ -20,13 +20,8 @@ export default function CreditCardForm() {
     incomeText: "",
     email: "",
     name: "",
-    lastName: "",
-    phone: "",
     receiveMessages: false,
   });
-
-  const [lastName, setLastName] = useState(formData.lastName);
-  const [phone, setPhone] = useState(formData.phone);
   const [isRegisteredUser, setIsRegisteredUser] = useState(false);
 
   const totalSteps = 3;
@@ -82,12 +77,8 @@ export default function CreditCardForm() {
           updateFormData({
             email: savedData.email,
             name: savedData.name || "",
-            lastName: savedData.lastName || "",
-            phone: savedData.phone || "",
             receiveMessages: true,
           });
-          setLastName(savedData.lastName || "");
-          setPhone(savedData.phone || "");
         }
       } catch (error) {
         console.error("Error parsing saved user data:", error);
@@ -142,8 +133,6 @@ export default function CreditCardForm() {
         income: formData.incomeText || formData.income,
         email: formData.email,
         name: formData.name,
-        lastName: formData.lastName,
-        phone: formData.phone,
         acceptedTerms: formData.receiveMessages,
         timestamp: new Date().toISOString(),
         source: "BudgetBee Quiz",
@@ -180,8 +169,6 @@ export default function CreditCardForm() {
             JSON.stringify({
               email: formData.email,
               name: formData.name,
-              lastName: formData.lastName,
-              phone: formData.phone,
             }),
           ),
           30,
@@ -191,16 +178,6 @@ export default function CreditCardForm() {
       // Redirect to credit card recommender page
       window.location.href = "/credit-card-recommender-p1";
     }
-  };
-
-  const handleLastNameChange = (e) => {
-    setLastName(e.target.value);
-    updateFormData({ lastName: e.target.value });
-  };
-
-  const handlePhoneChange = (e) => {
-    setPhone(e.target.value);
-    updateFormData({ phone: e.target.value });
   };
 
   return (
@@ -231,10 +208,6 @@ export default function CreditCardForm() {
                   formData={formData}
                   updateFormData={updateFormData}
                   onSubmit={handleSubmit}
-                  handleLastNameChange={handleLastNameChange}
-                  handlePhoneChange={handlePhoneChange}
-                  lastName={lastName}
-                  phone={phone}
                 />
               )}
             </form>
