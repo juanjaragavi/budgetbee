@@ -1,7 +1,1 @@
-feat: Implement Credit Card Quiz, Categories Page, and Mobile Responsiveness Fixes
-
-This commit includes the following new features and improvements:
-- Implemented a multi-step Credit Card Quiz System with React components and Framer Motion animations, adapted from UK TopFinanzas.
-- Created a dedicated Categories Page at `/categories` with attractive category cards and a quiz CTA.
-- Fixed various mobile responsiveness issues, including blog article overflow, by enhancing `mobile-optimizations.css` and creating `blog-mobile.css`.
-- Added `scripts/sync-main.sh` for future workflow automation.
+feat: Add dev-sync.sh script for development synchronization
