@@ -1,4 +1,4 @@
-## Project Overview
+# Project Overview
 
 This project is a website built with the AstroJS framework. It is a content-focused site, likely a blog or marketing website, that uses Markdown and MDX for content creation. The project is configured to use React for interactive components and Tailwind CSS for styling.
 
