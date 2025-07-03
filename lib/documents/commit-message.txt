@@ -1,3 +1,3 @@
-chore: Update package.json and deploy script
+docs: Update GEMINI.md
 
-This commit updates package.json and the deploy script.
+This commit updates the GEMINI.md file.
