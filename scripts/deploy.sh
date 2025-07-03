@@ -17,7 +17,7 @@ sudo git pull origin main
 
 log "Step 2: Cleaning up and rebuilding the project..."
 sudo rm -rf .astro
-sudo bun run build
+sudo pnpm build
 
 log "Step 3: Restarting the application with pm2..."
 sudo pm2 restart budgetbee

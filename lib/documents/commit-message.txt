@@ -1,3 +1,3 @@
-chore: Update deploy script
+chore: Update package.json and deploy script
 
-This commit updates the deploy script.
+This commit updates package.json and the deploy script.
