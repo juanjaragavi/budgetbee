@@ -1,6 +1,7 @@
 ---
 import { markdownify } from "@/lib/utils/textConverter";
 import { render } from "astro:content";
+import { AIContentDisclaimerStatic } from "@/components/ui/ai-content-disclaimer";
 
 const { post } = Astro.props;
 const { Content } = await render(post);
@@ -66,6 +67,7 @@ const isFinancialSolution = categories.includes("Financial Solutions");
             ]}
           >
             <Content />
+            <AIContentDisclaimerStatic client:load />
           </div>
         </article>
       </div>

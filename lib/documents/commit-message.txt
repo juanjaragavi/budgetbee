@@ -1,3 +1,11 @@
-refactor: Update credit card recommender page
+feat: Integrate AI Content Disclaimer component into blog posts
 
-This commit refactors the credit card recommender page.
+This commit integrates the AI Content Disclaimer component into all relevant blog posts, ensuring proper attribution for AI-generated content.
+
+Key changes include:
+- Modified `src/layouts/PostSingle.astro` to import and render the `AIContentDisclaimerStatic` component at the bottom of each blog article.
+- Updated `tsconfig.json` to correctly resolve the `@/components/*` path alias.
+- Created `src/lib/data/authors.json` to provide author data for the disclaimer component, and updated the `imageUrl` to `public/images/favicon.png`.
+- Created `src/lib/data/authors.d.ts` to provide TypeScript type definitions for `authors.json`.
+- Modified `src/components/ui/ai-content-disclaimer.tsx` to remove the `next/image` import and use a standard `img` tag, and adjusted image alignment for better centering.
+- Created `public/images/authors` directory and copied `public/images/favicon.png` as the author image placeholder.
