@@ -1,10 +1,15 @@
-feat: Migrate marketing-related components and custom scripts from TopFinanzas UK Blog to BudgetBee AstroJS project.
+feat: Update content and optimize homepage banner image
 
-This commit migrates marketing-related components and custom scripts from the TopFinanzas UK Blog to the BudgetBee AstroJS project. This includes analyzing the TopFinanzas UK Blog source, identifying marketing integrations (Google Tag, third-party tools), and adapting/implementing complex components (e.g., UTM Persister) into BudgetBee AstroJS. Official documentation was used for guidance (e.g., Google Analytics, Ad Manager).
+This commit includes several content updates and optimizations:
 
-The following changes were made:
-- Analyzed TopFinanzas UK Blog source for marketing integrations.
-- Identified and adapted complex components like UTM Persister.
-- Implemented Google Tag Manager integration.
-- Ensured compatibility with AstroJS project structure.
-- Verified functionality of migrated scripts and components.
+- Updated homepage content in `-index.md` with refined messaging
+- Enhanced personal finance content including:
+  - Budgeting methods comparison article
+  - Building good money habits guide  
+  - Core personal finance fundamentals article
+- Updated about page with improved content structure
+- Added WebP optimized banner image for better performance
+- Updated package.json dependencies for project maintenance
+
+These changes improve content quality, user experience, and site performance through image optimization.
+
