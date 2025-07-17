@@ -226,33 +226,39 @@ const featuredPosts = sortedPosts.slice(1, 4);
         currentPage={1}
       />
 
-      <div class="mt-8">
-        <a href="/personal-finance" class="btn btn-outline-primary"
-          >Browse More Articles</a
-        >
-      </div>
+      <a href="/personal-finance" class="btn btn-outline-primary"
+        >Browse More Articles</a
+      >
     </div>
   </section>
 
   <!-- Workflow -->
   <section class="section pb-0">
     <div class="container text-center">
-      <div class="mb-8">
-        <h2
-          class="mx-auto max-w-[700px] font-bold leading-[44px]"
-          set:html={workflow?.title}
-        />
-        <p
-          class="mx-auto mt-3 max-w-[600px]"
-          set:html={workflow?.description}
-        />
+      <!-- Mobile-first layout: Image first, then text content -->
+      <div class="flex flex-col">
+        <!-- Image: Shows first on mobile, second on desktop -->
+        <div class="order-1 md:order-2 my-8 md:mb-0">
+          <Image
+            src={workflow!.image}
+            alt="workflow image"
+            width={1920}
+            height={414}
+          />
+        </div>
+
+        <!-- Text Content: Shows second on mobile, first on desktop -->
+        <div class="order-2 md:order-1 mb-8">
+          <h2
+            class="mx-auto max-w-[700px] font-bold leading-[44px]"
+            set:html={workflow?.title}
+          />
+          <p
+            class="mx-auto mt-3 max-w-[600px]"
+            set:html={workflow?.description}
+          />
+        </div>
       </div>
-      <Image
-        src={workflow!.image}
-        alt="workflow image"
-        width={1920}
-        height={414}
-      />
     </div>
   </section>
 
