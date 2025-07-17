@@ -1,15 +1,20 @@
-feat: Update content and optimize homepage banner image
+feat: Optimize mobile layout and update financial solutions content
 
-This commit includes several content updates and optimizations:
+This commit includes mobile-first design improvements and content updates:
 
-- Updated homepage content in `-index.md` with refined messaging
-- Enhanced personal finance content including:
-  - Budgeting methods comparison article
-  - Building good money habits guide  
-  - Core personal finance fundamentals article
-- Updated about page with improved content structure
-- Added WebP optimized banner image for better performance
-- Updated package.json dependencies for project maintenance
+- Optimized homepage workflow section for mobile devices:
+  - Reordered "How BudgetBee Helps You Win Financially" section
+  - Image now appears first on mobile, maintaining desktop layout
+  - Implemented responsive Flexbox with order utilities
+- Updated multiple financial solutions credit card requirement articles:
+  - Capital One Savor Rewards, Chase Freedom Unlimited
+  - Citi Double Cash, Discover It Student Chrome
+  - DoorDash Rewards Mastercard, TD FlexPay
+  - Titanium Rewards Visa Signature, Tomo Credit Card
+  - US Bank Cash Plus, Current Build Credit Card
+  - Wells Fargo Autograph Card
+- Enhanced social component and blog index functionality
 
-These changes improve content quality, user experience, and site performance through image optimization.
+These changes improve mobile user experience and maintain up-to-date credit card information.
+
 
