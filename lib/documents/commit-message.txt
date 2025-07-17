@@ -1,1 +1,8 @@
-feat: Add dev-sync.sh script for development synchronization
+feat: Migrate marketing-related components and custom scripts from TopFinanzas UK Blog to BudgetBee AstroJS project.
+
+This commit addresses the task of migrating marketing-related components and custom scripts from the TopFinanzas UK Blog to the BudgetBee AstroJS project.
+
+- Analyzed TopFinanzas UK Blog source to identify marketing integrations.
+- Identified complex components such as UTM Persister.
+- Adapted and implemented these components into BudgetBee AstroJS.
+- Used official documentation for guidance (e.g., Google Analytics, Ad Manager).
