@@ -1,8 +1,10 @@
 feat: Migrate marketing-related components and custom scripts from TopFinanzas UK Blog to BudgetBee AstroJS project.
 
-This commit addresses the task of migrating marketing-related components and custom scripts from the TopFinanzas UK Blog to the BudgetBee AstroJS project.
+This commit migrates marketing-related components and custom scripts from the TopFinanzas UK Blog to the BudgetBee AstroJS project. This includes analyzing the TopFinanzas UK Blog source, identifying marketing integrations (Google Tag, third-party tools), and adapting/implementing complex components (e.g., UTM Persister) into BudgetBee AstroJS. Official documentation was used for guidance (e.g., Google Analytics, Ad Manager).
 
-- Analyzed TopFinanzas UK Blog source to identify marketing integrations.
-- Identified complex components such as UTM Persister.
-- Adapted and implemented these components into BudgetBee AstroJS.
-- Used official documentation for guidance (e.g., Google Analytics, Ad Manager).
+The following changes were made:
+- Analyzed TopFinanzas UK Blog source for marketing integrations.
+- Identified and adapted complex components like UTM Persister.
+- Implemented Google Tag Manager integration.
+- Ensured compatibility with AstroJS project structure.
+- Verified functionality of migrated scripts and components.
