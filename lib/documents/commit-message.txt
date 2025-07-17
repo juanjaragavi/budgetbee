@@ -1,20 +1,29 @@
-feat: Optimize mobile layout and update financial solutions content
+---
+title: "My Astro Page"
+description: "Welcome to my Astro-powered website!"
+layout: "../layouts/Base.astro"
+---
 
-This commit includes mobile-first design improvements and content updates:
+# My Astro Page
 
-- Optimized homepage workflow section for mobile devices:
-  - Reordered "How BudgetBee Helps You Win Financially" section
-  - Image now appears first on mobile, maintaining desktop layout
-  - Implemented responsive Flexbox with order utilities
-- Updated multiple financial solutions credit card requirement articles:
-  - Capital One Savor Rewards, Chase Freedom Unlimited
-  - Citi Double Cash, Discover It Student Chrome
-  - DoorDash Rewards Mastercard, TD FlexPay
-  - Titanium Rewards Visa Signature, Tomo Credit Card
-  - US Bank Cash Plus, Current Build Credit Card
-  - Wells Fargo Autograph Card
-- Enhanced social component and blog index functionality
+This is the home page of my Astro-powered website. Here, I will share my thoughts, projects, and anything else that comes to mind.
 
-These changes improve mobile user experience and maintain up-to-date credit card information.
+## Features
+
+- **Fast**: Astro delivers lightning-fast performance by default.
+- **Flexible**: Use your favorite UI framework, or none at all.
+- **Markdown**: Write content in Markdown, and Astro will handle the rest.
+
+## Get Started
+
+To get started with Astro, check out the [official documentation](https://astro.build/docs).
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](./LICENSE) file for details.
+
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MP4CPT97"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
 
 
