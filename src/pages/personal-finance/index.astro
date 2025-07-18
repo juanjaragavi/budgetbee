@@ -22,80 +22,95 @@ const currentPosts = sortedPosts.slice(0, config.settings.pagination);
 ---
 
 <Base title={postIndex?.data.title}>
-  <section class="section">
+  <section class="section bg-gradient-to-b from-white to-gray-50 py-10">
     <div class="container">
-      <h1
-        class="text-3xl font-bold mb-4"
-        set:html={markdownify(postIndex?.data.title || "Personal Finance")}
-      />
+      <div class="max-w-none">
+        <!-- Personal Finance Header -->
+        <div class="mb-8">
+          <h1
+            class="h2 mb-4"
+            set:html={markdownify(postIndex?.data.title || "Personal Finance")}
+          />
+          <p class="text-lg text-gray-700 mb-8 leading-tight">
+            Explore tips on budgeting, debt management, financial planning, and
+            building wealth for a secure financial future.
+          </p>
+        </div>
 
-      <!-- Category Filter Buttons -->
-      <div class="flex flex-wrap gap-2 mb-8">
-        <a
-          href="/blog"
-          class="px-4 py-2 text-sm font-medium rounded-full transition-colors bg-gray-100 text-gray-700 hover:bg-gray-200"
-        >
-          All Articles
-        </a>
-        <button
-          class="category-filter px-4 py-2 text-sm font-medium rounded-full transition-colors bg-blue-600 text-white"
-          data-category="personal-finance"
-        >
-          Personal Finance
-        </button>
-      </div>
+        <!-- Category Filter Buttons -->
+        <div class="flex flex-wrap gap-2 mb-8">
+          <a
+            href="/blog"
+            class="px-4 py-2 text-sm font-medium rounded-full transition-colors bg-gray-100 text-gray-700 hover:bg-gray-200"
+          >
+            All Articles
+          </a>
+          <button
+            class="px-4 py-2 text-sm font-medium rounded-full transition-colors bg-blue-600 text-white"
+          >
+            Personal Finance
+          </button>
+          <a
+            href="/financial-solutions"
+            class="px-4 py-2 text-sm font-medium rounded-full transition-colors bg-gray-100 text-gray-700 hover:bg-gray-200"
+          >
+            Financial Solutions
+          </a>
+        </div>
 
-      <div class="row" id="post-grid">
-        {
-          currentPosts.map((post, i) => (
-            <div
-              class="mb-14 md:col-6 post-card-wrapper article-card"
-              data-categories={JSON.stringify(post.data.categories || [])}
-            >
-              <div class="group text-left transition-all duration-300 hover:shadow-lg hover:-translate-y-1 bg-white rounded-lg p-5">
-                {post.data.image && (
-                  <div class="overflow-hidden rounded-lg">
-                    <a href={`/${post.collection}/${post.id}`}>
-                      <img
-                        class="rounded-lg transform transition-transform duration-300 group-hover:scale-105 w-full h-auto"
-                        src={post.data.image}
-                        alt={post.data.title}
-                        loading="lazy"
-                      />
+        <div class="row" id="post-grid">
+          {
+            currentPosts.map((post, i) => (
+              <div
+                class="mb-14 md:col-6 post-card-wrapper article-card"
+                data-categories={JSON.stringify(post.data.categories || [])}
+              >
+                <div class="group text-left transition-all duration-300 hover:shadow-lg hover:-translate-y-1 bg-white rounded-lg p-5">
+                  {post.data.image && (
+                    <div class="overflow-hidden rounded-lg">
+                      <a href={`/${post.collection}/${post.id}`}>
+                        <img
+                          class="rounded-lg transform transition-transform duration-300 group-hover:scale-105 w-full h-auto"
+                          src={post.data.image}
+                          alt={post.data.title}
+                          loading="lazy"
+                        />
+                      </a>
+                    </div>
+                  )}
+                  <h2 class="h3 mb-2 mt-4 text-left leading-tight">
+                    <a
+                      href={`/${post.collection}/${post.id}`}
+                      class="block hover:text-primary"
+                    >
+                      {post.data.title}
                     </a>
-                  </div>
-                )}
-                <h2 class="h3 mb-2 mt-4 text-left leading-tight">
+                  </h2>
+                  <p
+                    class="line-clamp-3 text-left leading-tight"
+                    set:html={
+                      post.body?.slice(0, summary_length) ||
+                      post.data.description
+                    }
+                  />
                   <a
+                    class="btn btn-primary mt-4"
                     href={`/${post.collection}/${post.id}`}
-                    class="block hover:text-primary"
                   >
-                    {post.data.title}
+                    Read More
                   </a>
-                </h2>
-                <p
-                  class="line-clamp-3 text-left leading-tight"
-                  set:html={
-                    post.body?.slice(0, summary_length) || post.data.description
-                  }
-                />
-                <a
-                  class="btn btn-primary mt-4"
-                  href={`/${post.collection}/${post.id}`}
-                >
-                  Read More
-                </a>
+                </div>
               </div>
-            </div>
-          ))
-        }
-      </div>
+            ))
+          }
+        </div>
 
-      <Pagination
-        section="personal-finance"
-        currentPage={1}
-        totalPages={totalPages}
-      />
+        <Pagination
+          section="personal-finance"
+          currentPage={1}
+          totalPages={totalPages}
+        />
+      </div>
     </div>
   </section>
 </Base>
