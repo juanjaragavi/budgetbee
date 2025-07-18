@@ -13,9 +13,13 @@ const postIndex = (await getEntry(
   "personal-finance",
   "-index"
 )) as CollectionEntry<"personal-finance">;
-const posts = await getSinglePage("personal-finance");
-const sortedPosts = sortByDate(posts);
-const totalPages = Math.ceil(posts.length / config.settings.pagination);
+
+// Get posts from both personal-finance and financial-solutions collections
+const personalFinancePosts = await getSinglePage("personal-finance");
+const financialSolutionsPosts = await getSinglePage("financial-solutions");
+const allPosts = [...personalFinancePosts, ...financialSolutionsPosts];
+const sortedPosts = sortByDate(allPosts);
+const totalPages = Math.ceil(allPosts.length / config.settings.pagination);
 const currentPosts = sortedPosts.slice(0, config.settings.pagination);
 ---
 
@@ -26,6 +30,29 @@ const currentPosts = sortedPosts.slice(0, config.settings.pagination);
         class="text-3xl font-bold mb-4"
         set:html={markdownify(postIndex?.data.title || "Personal Finance")}
       />
+
+      <!-- Category Filter Buttons -->
+      <div class="flex flex-wrap gap-2 mb-8">
+        <a
+          href="/blog"
+          class="px-4 py-2 text-sm font-medium rounded-full transition-colors bg-gray-100 text-gray-700 hover:bg-gray-200"
+        >
+          All Articles
+        </a>
+        <button
+          class="category-filter px-4 py-2 text-sm font-medium rounded-full transition-colors bg-blue-600 text-white"
+          data-category="personal-finance"
+        >
+          Personal Finance
+        </button>
+        <button
+          class="category-filter px-4 py-2 text-sm font-medium rounded-full transition-colors bg-gray-100 text-gray-700 hover:bg-gray-200"
+          data-category="financial-solutions"
+        >
+          Financial Solutions
+        </button>
+      </div>
+
       <PaginatedPosts
         posts={currentPosts}
         section="personal-finance"
@@ -34,4 +61,48 @@ const currentPosts = sortedPosts.slice(0, config.settings.pagination);
       />
     </div>
   </section>
+
+  <!-- Category Filter JavaScript -->
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const filterButtons = document.querySelectorAll(".category-filter");
+      const articleCards = document.querySelectorAll(".article-card");
+
+      filterButtons.forEach((button) => {
+        button.addEventListener("click", function (this: HTMLElement) {
+          const category = this.getAttribute("data-category");
+
+          // Update button states
+          filterButtons.forEach((btn) => {
+            btn.classList.remove("bg-blue-600", "text-white");
+            btn.classList.add(
+              "bg-gray-100",
+              "text-gray-700",
+              "hover:bg-gray-200"
+            );
+          });
+          this.classList.remove(
+            "bg-gray-100",
+            "text-gray-700",
+            "hover:bg-gray-200"
+          );
+          this.classList.add("bg-blue-600", "text-white");
+
+          // Filter articles
+          articleCards.forEach((card) => {
+            const categories = JSON.parse(
+              card.getAttribute("data-categories") || "[]"
+            );
+            const htmlCard = card as HTMLElement;
+
+            if (category === "all" || categories.includes(category)) {
+              htmlCard.style.display = "flex";
+            } else {
+              htmlCard.style.display = "none";
+            }
+          });
+        });
+      });
+    });
+  </script>
 </Base>
