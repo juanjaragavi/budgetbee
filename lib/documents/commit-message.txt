@@ -1,22 +1,21 @@
-fix: Personal Finance page filtering and content categorization
+fix: Personal Finance page filtering and project documentation improvements
 
-## Key Fixes
-- **Content Separation**: Fixed Personal Finance page to only show personal-finance collection posts, removing credit card content that was incorrectly appearing
-- **Filter Simplification**: Removed non-functional "Financial Solutions" filter from Personal Finance page since all content is now Personal Finance specific
-- **Data Structure**: Added proper article-card classes and data-categories attributes for future filtering needs
-- **Pagination**: Replaced PaginatedPosts component with standalone Pagination component to maintain proper page navigation
+## Content & Filtering Fixes
+- **Personal Finance Page**: Fixed filtering to only show personal-finance collection posts, removing credit card content that was incorrectly appearing
+- **Blog Page Financial Solutions Filter**: Fixed non-clickable "Financial Solutions" filter by loading both content collections and updating data attributes
+- **Data Structure**: Added article-card class and data-categories attributes to Post.astro component for proper filtering support
 
-## Content Organization
-- Credit card posts now only appear in /financial-solutions where they belong
-- Personal Finance page displays only relevant personal finance guides and tips
-- Clear separation between financial education content and product recommendations
+## Project Documentation Updates
+- **pnpm Integration**: Added comprehensive pnpm package manager documentation to project rules
+- **Development Workflow**: Added instructions for assuming development server is running and immediate post-iteration testing
+- **Push/Commit Guidelines**: Updated and consolidated push/commit guidelines across documentation files
 
 ## Technical Improvements
-- Removed unnecessary JavaScript filtering code since page now shows single category
-- Streamlined component imports and dependencies
-- Maintained proper pagination functionality
+- **Component Enhancement**: Updated Post.astro with filtering data attributes while maintaining existing functionality
+- **Content Collection Loading**: Enhanced blog page to properly load both personal-finance and financial-solutions collections
+- **Filter Functionality**: Ensured proper JavaScript targeting and button functionality for category filtering
 
 ## User Experience
-- Cleaner, more intuitive Personal Finance page without product recommendations
-- Proper content categorization prevents user confusion
-- Simplified navigation with appropriate content in each section
+- **Content Categorization**: Clear separation between personal finance guides and financial product recommendations
+- **Navigation Improvement**: Fixed filtering functionality allowing users to properly filter between content types
+- **Documentation Clarity**: Improved developer experience with comprehensive pnpm and workflow documentation
