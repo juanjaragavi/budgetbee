@@ -1,21 +1,19 @@
-fix: Personal Finance page filtering and project documentation improvements
+docs: enhance project documentation with comprehensive workflow and package management guidelines
 
-## Content & Filtering Fixes
-- **Personal Finance Page**: Fixed filtering to only show personal-finance collection posts, removing credit card content that was incorrectly appearing
-- **Blog Page Financial Solutions Filter**: Fixed non-clickable "Financial Solutions" filter by loading both content collections and updating data attributes
-- **Data Structure**: Added article-card class and data-categories attributes to Post.astro component for proper filtering support
+## Documentation Enhancements
+- **GEMINI.md**: Added comprehensive project overview with complete setup and workflow instructions
+- **Package Manager Section**: Detailed pnpm usage guide with common commands and rationale
+- **Development Workflow**: Added development server assumptions and post-iteration testing guidelines
+- **Push/Commit Process**: Integrated commit workflow documentation directly in project overview
 
-## Project Documentation Updates
-- **pnpm Integration**: Added comprehensive pnpm package manager documentation to project rules
-- **Development Workflow**: Added instructions for assuming development server is running and immediate post-iteration testing
-- **Push/Commit Guidelines**: Updated and consolidated push/commit guidelines across documentation files
+## Key Additions
+- **Installation Workflow**: Step-by-step setup instructions for new developers
+- **Content Management**: Explanation of Markdown/MDX content system and collections
+- **Architectural Notes**: Description of Astro's islands architecture and project structure
+- **Command Reference**: Complete list of available pnpm scripts and their purposes
 
-## Technical Improvements
-- **Component Enhancement**: Updated Post.astro with filtering data attributes while maintaining existing functionality
-- **Content Collection Loading**: Enhanced blog page to properly load both personal-finance and financial-solutions collections
-- **Filter Functionality**: Ensured proper JavaScript targeting and button functionality for category filtering
-
-## User Experience
-- **Content Categorization**: Clear separation between personal finance guides and financial product recommendations
-- **Navigation Improvement**: Fixed filtering functionality allowing users to properly filter between content types
-- **Documentation Clarity**: Improved developer experience with comprehensive pnpm and workflow documentation
+## Developer Experience Improvements
+- **Centralized Information**: All essential project information now available in single documentation file
+- **Clear Guidelines**: Explicit instructions for development server usage and testing procedures
+- **Package Manager Clarity**: Emphasis on pnpm usage with detailed explanations of benefits
+- **Workflow Standardization**: Consistent approach to commits, testing, and development cycles
