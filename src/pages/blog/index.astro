@@ -13,14 +13,18 @@ const postIndex = (await getEntry(
   "personal-finance",
   "-index"
 )) as CollectionEntry<"personal-finance">;
-const posts = await getSinglePage("personal-finance");
-const sortedPosts = sortByDate(posts);
-const totalPages = Math.ceil(posts.length / config.settings.pagination);
+
+// Get posts from both collections for proper filtering
+const personalFinancePosts = await getSinglePage("personal-finance");
+const financialSolutionsPosts = await getSinglePage("financial-solutions");
+const allPosts = [...personalFinancePosts, ...financialSolutionsPosts];
+const sortedPosts = sortByDate(allPosts);
+const totalPages = Math.ceil(allPosts.length / config.settings.pagination);
 const currentPosts = sortedPosts.slice(0, config.settings.pagination);
 
 // Get unique categories from all posts
 const allCategories = [
-  ...new Set(posts.flatMap((post) => post.data.categories || [])),
+  ...new Set(allPosts.flatMap((post) => post.data.categories || [])),
 ];
 ---
 
@@ -95,7 +99,7 @@ const allCategories = [
 
         <PaginatedPosts
           posts={currentPosts}
-          section="personal-finance"
+          section="blog"
           currentPage={1}
           totalPages={totalPages}
         />

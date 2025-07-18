@@ -21,6 +21,37 @@ Create ADRs in `src/lib/documents/ADRs.md` for:
 - Architectural pattern changes
 - New integration patterns
 
+## Package Manager
+
+This project uses **pnpm** as the Node.js package manager. Always use `pnpm` commands instead of `npm` or `yarn`.
+
+### Common Commands
+
+- **Install dependencies**: `pnpm install`
+- **Add new dependency**: `pnpm add <package-name>`
+- **Add development dependency**: `pnpm add -D <package-name>`
+- **Remove dependency**: `pnpm remove <package-name>`
+- **Run scripts**: `pnpm run <script-name>` or `pnpm <script-name>`
+- **Update dependencies**: `pnpm update`
+
+### Available Scripts
+
+- `pnpm dev` - Start development server
+- `pnpm build` - Build for production
+- `pnpm preview` - Preview production build
+- `pnpm check` - Run Astro checks
+- `pnpm format` - Format code with Prettier
+- `pnpm workflow` - Run git workflow script
+- `pnpm sync` - Sync with main branch
+- `pnpm deploy` - Deploy to production
+
+### Why pnpm?
+
+- **Disk efficiency**: Shared dependencies across projects
+- **Speed**: Faster installations than npm/yarn
+- **Strict**: Better dependency resolution
+- **Workspace support**: Excellent monorepo capabilities
+
 ## Code Style & Patterns
 
 - Generate API clients using OpenAPI Generator
@@ -51,3 +82,20 @@ As this is an Astro project, before executing any task related to the structure 
 ### Effective Tool Selection
 
 Analyze the capabilities of these tools to determine the most appropriate approach for your tasks.
+
+## Development Workflow
+
+### Development Server Assumption
+
+**Always assume the development server is running** unless explicitly told otherwise. The development server is typically started with `pnpm dev` and runs on `http://localhost:4321` for Astro projects.
+
+### Post-Iteration Testing
+
+After completing any successful development iteration (code changes, feature additions, bug fixes), **immediately initiate testing** to verify the changes work as expected. This includes:
+
+- **Functional Testing**: Verify the implemented features work correctly
+- **UI/UX Testing**: Check visual elements, responsiveness, and user interactions
+- **Integration Testing**: Ensure new changes don't break existing functionality
+- **Performance Testing**: Confirm changes don't negatively impact site performance
+
+Testing should be done proactively without waiting for user prompts, as part of the standard development cycle quality assurance.
