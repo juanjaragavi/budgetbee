@@ -80,7 +80,7 @@ This procedure is initiated when the user issues the prompt "Push and commit our
    Populate the @/lib/documents/commit-message.txt file with a message that accurately describes the latest modifications.
 
 4. **Execute Workflow Script**:
-   Run the `git workflow` automation script using the command:
+   Run the `pnpm workflow` automation script using the command:
 
    ```bash
    bash ./scripts/git-workflow.sh
