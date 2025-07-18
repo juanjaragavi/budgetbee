@@ -23,7 +23,7 @@ const currentPosts = sortedPosts.slice(0, config.settings.pagination);
   <section class="section">
     <div class="container">
       <h1
-        class="mb-10 font-normal lg:text-[56px] leading-tight"
+        class="text-3xl font-bold mb-4"
         set:html={markdownify(postIndex?.data.title || "Personal Finance")}
       />
       <PaginatedPosts
