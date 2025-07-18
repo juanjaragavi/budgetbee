@@ -1,6 +1,8 @@
-feat: Enhance category filter functionality and standardize page title styling
+feat: Complete category filter system implementation
 
-- Remove obsolete "Financial Literacy" category from blog filter menu
-- Standardize title styling across Personal Finance and Financial Solutions pages to match "All Articles" format (text-3xl font-bold mb-4)
-- Verify Credit Cards and Financial Solutions filter destinations work correctly via JavaScript filtering
-- Improve consistency in navigation and user experience across category pages
+- Add category filter menu to Personal Finance page with functional filtering
+- Remove 'Credit Cards' category filter from blog page as requested
+- Update Personal Finance page to show posts from both personal-finance and financial-solutions collections for proper cross-filtering
+- Add missing financial-solutions/-index.md file to fix collection errors
+- Ensure 'Financial Solutions' filter works correctly across all pages
+- Implement consistent JavaScript filtering functionality on Personal Finance page
