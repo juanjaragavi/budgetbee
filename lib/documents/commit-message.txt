@@ -1,19 +1,11 @@
-docs: enhance project documentation with comprehensive workflow and package management guidelines
+refactor: rename deploy script to deploy-project for clarity
 
-## Documentation Enhancements
-- **GEMINI.md**: Added comprehensive project overview with complete setup and workflow instructions
-- **Package Manager Section**: Detailed pnpm usage guide with common commands and rationale
-- **Development Workflow**: Added development server assumptions and post-iteration testing guidelines
-- **Push/Commit Process**: Integrated commit workflow documentation directly in project overview
+## Script Naming Improvement
+- **package.json**: Renamed 'deploy' script to 'deploy-project' for better clarity and specificity
+- **Consistency**: Improves script naming consistency and prevents potential conflicts with generic deploy commands
+- **Documentation Alignment**: Ensures script names are descriptive and self-documenting
 
-## Key Additions
-- **Installation Workflow**: Step-by-step setup instructions for new developers
-- **Content Management**: Explanation of Markdown/MDX content system and collections
-- **Architectural Notes**: Description of Astro's islands architecture and project structure
-- **Command Reference**: Complete list of available pnpm scripts and their purposes
-
-## Developer Experience Improvements
-- **Centralized Information**: All essential project information now available in single documentation file
-- **Clear Guidelines**: Explicit instructions for development server usage and testing procedures
-- **Package Manager Clarity**: Emphasis on pnpm usage with detailed explanations of benefits
-- **Workflow Standardization**: Consistent approach to commits, testing, and development cycles
+## Benefits
+- **Clearer Intent**: The script name now clearly indicates it deploys the project specifically
+- **Namespace Clarity**: Reduces ambiguity between different types of deployment scripts
+- **Better Developer Experience**: More descriptive script names improve discoverability and understanding
