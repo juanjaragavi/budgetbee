@@ -30,12 +30,12 @@
       "name": "BudgetBee",
       "menu": [
         {
-          "text": "About Us",
+          "text": "About",
           "url": "/about"
         },
         {
-          "text": "Our Promise",
-          "url": "/about#our-promise"
+          "text": "Contact Us",
+          "url": "/contact"
         }
       ]
     },
