@@ -7,7 +7,6 @@ import Footer from "@/partials/Footer.astro";
 import CompactFooter from "@/partials/CompactFooter.astro";
 import Header from "@/partials/Header.astro";
 import BackToTopButton from "@/layouts/components/BackToTopButton.astro";
-import GoogleTagManager from "../components/analytics/GoogleTagManager.astro";
 import AnalyticsWrapper from "../components/analytics/AnalyticsWrapper.tsx";
 import "@/styles/main.css";
 import { AstroFont } from "astro-font";
@@ -314,7 +313,21 @@ const isBlogPost =
         />
       )
     }
-    <GoogleTagManager />
+
+    <!-- Google Tag Manager -->
+    <script is:inline define:vars={{ gtmId: config.params.tag_manager_id }}>
+      (function (w, d, s, l, i) {
+        w[l] = w[l] || [];
+        w[l].push({ "gtm.start": new Date().getTime(), event: "gtm.js" });
+        var f = d.getElementsByTagName(s)[0],
+          j = d.createElement(s),
+          dl = l != "dataLayer" ? "&l=" + l : "";
+        j.async = true;
+        j.src = "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
+        f.parentNode.insertBefore(j, f);
+      })(window, document, "script", "dataLayer", gtmId);
+    </script>
+    <!-- End Google Tag Manager -->
 
     {/* Google Publisher Tag Scripts */}
     {
@@ -348,13 +361,15 @@ const isBlogPost =
   </head>
   <body>
     <!-- Google Tag Manager (noscript) -->
-    <noscript
-      ><iframe
-        src="https://www.googletagmanager.com/ns.html?id=GTM-MP4CPT97"
+    <noscript>
+      <iframe
+        src={`https://www.googletagmanager.com/ns.html?id=${config.params.tag_manager_id}`}
         height="0"
         width="0"
-        style="display:none;visibility:hidden"></iframe></noscript
-    >
+        style="display:none;visibility:hidden"
+      >
+      </iframe>
+    </noscript>
     <!-- End Google Tag Manager (noscript) -->
     {
       /* Ad Slots - TODO: Update Ad Unit Paths and div IDs for BudgetBee to match definitions above */
