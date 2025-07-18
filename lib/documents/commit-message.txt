@@ -1,6 +1,6 @@
-feat: Update navigation menu and streamline homepage features
+feat: Enhance category filter functionality and standardize page title styling
 
-- Update footer menu: change "About Us" to "About" and replace "Our Promise" with "Contact Us"
-- Remove "No Sign-ups Required" feature from homepage to streamline key value propositions
-- Remove "Privacy Focused" section from about page to focus on core messaging
-- Optimize content flow and messaging consistency across navigation and features
+- Remove obsolete "Financial Literacy" category from blog filter menu
+- Standardize title styling across Personal Finance and Financial Solutions pages to match "All Articles" format (text-3xl font-bold mb-4)
+- Verify Credit Cards and Financial Solutions filter destinations work correctly via JavaScript filtering
+- Improve consistency in navigation and user experience across category pages
