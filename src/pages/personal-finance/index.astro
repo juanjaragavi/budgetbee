@@ -1,7 +1,7 @@
 ---
 import config from "@/config/config.json";
 import Base from "@/layouts/Base.astro";
-import PaginatedPosts from "@/layouts/components/PaginatedPosts.astro";
+import Pagination from "@/layouts/components/Pagination.astro";
 import { getSinglePage } from "@/lib/contentParser.astro";
 import { sortByDate } from "@/lib/utils/sortFunctions";
 import { markdownify } from "@/lib/utils/textConverter";
@@ -14,12 +14,10 @@ const postIndex = (await getEntry(
   "-index"
 )) as CollectionEntry<"personal-finance">;
 
-// Get posts from both personal-finance and financial-solutions collections
-const personalFinancePosts = await getSinglePage("personal-finance");
-const financialSolutionsPosts = await getSinglePage("financial-solutions");
-const allPosts = [...personalFinancePosts, ...financialSolutionsPosts];
-const sortedPosts = sortByDate(allPosts);
-const totalPages = Math.ceil(allPosts.length / config.settings.pagination);
+// Get posts only from personal-finance collection
+const posts = await getSinglePage("personal-finance");
+const sortedPosts = sortByDate(posts);
+const totalPages = Math.ceil(posts.length / config.settings.pagination);
 const currentPosts = sortedPosts.slice(0, config.settings.pagination);
 ---
 
@@ -45,64 +43,59 @@ const currentPosts = sortedPosts.slice(0, config.settings.pagination);
         >
           Personal Finance
         </button>
-        <button
-          class="category-filter px-4 py-2 text-sm font-medium rounded-full transition-colors bg-gray-100 text-gray-700 hover:bg-gray-200"
-          data-category="financial-solutions"
-        >
-          Financial Solutions
-        </button>
       </div>
 
-      <PaginatedPosts
-        posts={currentPosts}
+      <div class="row" id="post-grid">
+        {
+          currentPosts.map((post, i) => (
+            <div
+              class="mb-14 md:col-6 post-card-wrapper article-card"
+              data-categories={JSON.stringify(post.data.categories || [])}
+            >
+              <div class="group text-left transition-all duration-300 hover:shadow-lg hover:-translate-y-1 bg-white rounded-lg p-5">
+                {post.data.image && (
+                  <div class="overflow-hidden rounded-lg">
+                    <a href={`/${post.collection}/${post.id}`}>
+                      <img
+                        class="rounded-lg transform transition-transform duration-300 group-hover:scale-105 w-full h-auto"
+                        src={post.data.image}
+                        alt={post.data.title}
+                        loading="lazy"
+                      />
+                    </a>
+                  </div>
+                )}
+                <h2 class="h3 mb-2 mt-4 text-left leading-tight">
+                  <a
+                    href={`/${post.collection}/${post.id}`}
+                    class="block hover:text-primary"
+                  >
+                    {post.data.title}
+                  </a>
+                </h2>
+                <p
+                  class="line-clamp-3 text-left leading-tight"
+                  set:html={
+                    post.body?.slice(0, summary_length) || post.data.description
+                  }
+                />
+                <a
+                  class="btn btn-primary mt-4"
+                  href={`/${post.collection}/${post.id}`}
+                >
+                  Read More
+                </a>
+              </div>
+            </div>
+          ))
+        }
+      </div>
+
+      <Pagination
         section="personal-finance"
         currentPage={1}
         totalPages={totalPages}
       />
     </div>
   </section>
-
-  <!-- Category Filter JavaScript -->
-  <script>
-    document.addEventListener("DOMContentLoaded", function () {
-      const filterButtons = document.querySelectorAll(".category-filter");
-      const articleCards = document.querySelectorAll(".article-card");
-
-      filterButtons.forEach((button) => {
-        button.addEventListener("click", function (this: HTMLElement) {
-          const category = this.getAttribute("data-category");
-
-          // Update button states
-          filterButtons.forEach((btn) => {
-            btn.classList.remove("bg-blue-600", "text-white");
-            btn.classList.add(
-              "bg-gray-100",
-              "text-gray-700",
-              "hover:bg-gray-200"
-            );
-          });
-          this.classList.remove(
-            "bg-gray-100",
-            "text-gray-700",
-            "hover:bg-gray-200"
-          );
-          this.classList.add("bg-blue-600", "text-white");
-
-          // Filter articles
-          articleCards.forEach((card) => {
-            const categories = JSON.parse(
-              card.getAttribute("data-categories") || "[]"
-            );
-            const htmlCard = card as HTMLElement;
-
-            if (category === "all" || categories.includes(category)) {
-              htmlCard.style.display = "flex";
-            } else {
-              htmlCard.style.display = "none";
-            }
-          });
-        });
-      });
-    });
-  </script>
 </Base>

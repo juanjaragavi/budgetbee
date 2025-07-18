@@ -9,7 +9,10 @@
     "build": "astro build",
     "format": "prettier -w .",
     "check": "astro check",
-    "preview": "astro preview"
+    "preview": "astro preview",
+    "workflow": "./scripts/git-workflow.sh",
+    "sync": "./scripts/sync-main.sh",
+    "deploy": "./scripts/deploy.sh"
   },
   "dependencies": {
     "@astrojs/check": "^0.9.4",
