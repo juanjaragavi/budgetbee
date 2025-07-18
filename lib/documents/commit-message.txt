@@ -1,0 +1,6 @@
+feat: Update navigation menu and streamline homepage features
+
+- Update footer menu: change "About Us" to "About" and replace "Our Promise" with "Contact Us"
+- Remove "No Sign-ups Required" feature from homepage to streamline key value propositions
+- Remove "Privacy Focused" section from about page to focus on core messaging
+- Optimize content flow and messaging consistency across navigation and features

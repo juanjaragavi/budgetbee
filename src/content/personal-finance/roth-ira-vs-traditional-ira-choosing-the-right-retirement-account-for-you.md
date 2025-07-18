@@ -1,7 +1,7 @@
 ---
 title: "Roth IRA vs. Traditional IRA: Choosing the Right Retirement Account for You"
 description: "Confused about retirement accounts? Learn the key differences between Roth and Traditional IRAs to pick the best option for your financial future."
-image: "https://media.topfinanzas.com/images/roth-ira-vs-traditional-ira-choosing-the-right-retirement-account-for-you.webp"
+image: "https://media.topfinanzas.com/images/roth-ira-vs-traditional-ira-choosing-the-right-retirement-account-for-you-2.webp"
 date: 2024-06-25T05:00:00Z
 draft: false
 categories: ["personal-finance"]
