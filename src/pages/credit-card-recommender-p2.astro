@@ -41,14 +41,16 @@ const randomCard = cards[Math.floor(Math.random() * cards.length)];
               you'll love.
             </p>
 
-            <div id="reveal-container" class="my-8">
+            <div id="reveal-container" class="my-8 cta-priority">
+              <div class="ad-separator-branded"></div>
               <button
                 id="reveal-button"
-                class="btn btn-primary btn-lg"
+                class="btn btn-primary btn-lg primary-cta-mobile cta-accessible"
                 style="background-color: #E7B739; border-color: #E7B739; color: white;"
               >
                 Click to Reveal Your Card
               </button>
+              <div class="click-buffer"></div>
             </div>
 
             <div
@@ -57,22 +59,24 @@ const randomCard = cards[Math.floor(Math.random() * cards.length)];
             >
               <div class="p-4">
                 <h2 class="h3 mb-4">We recommend the {randomCard.name}</h2>
+                <div class="mobile-ad-separator"></div>
                 <div
-                  class="flex flex-col sm:flex-row justify-center items-center gap-4"
+                  class="btn-group flex flex-col sm:flex-row justify-center items-center gap-4"
                 >
                   <a
                     href={randomCard.url}
-                    class="btn btn-secondary w-full sm:w-auto"
+                    class="btn btn-secondary secondary-cta-mobile w-full sm:w-auto"
                     style="background-color: #4A90E2; border-color: #4A90E2; color: white;"
                     >View Benefits</a
                   >
                   <a
                     href={randomCard.reqUrl}
-                    class="btn btn-primary w-full sm:w-auto"
+                    class="btn btn-primary primary-cta-mobile w-full sm:w-auto"
                     style="background-color: #7ED321; border-color: #7ED321; color: white;"
                     >View Requirements</a
                   >
                 </div>
+                <div class="click-buffer"></div>
               </div>
             </div>
           </div>
