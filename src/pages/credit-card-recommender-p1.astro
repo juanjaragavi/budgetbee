@@ -23,11 +23,12 @@ import { Image } from "astro:assets";
               ideal card for you!
             </p>
 
-            <!-- Primary CTA Button -->
-            <div class="mb-8">
+            <!-- Primary CTA Button with Ad-Aware Positioning -->
+            <div class="cta-priority primary-action-zone">
+              <div class="ad-separator-branded"></div>
               <a
                 href="/financial-solutions/amazon-rewards-visa-credit-card-benefits"
-                class="btn btn-primary btn-lg w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-full"
+                class="btn btn-primary btn-lg primary-cta-mobile cta-accessible w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-full"
                 style="background-color: #E7B739; border-color: #E7B739; color: white;"
               >
                 <span>Accept Recommendation</span>
@@ -50,6 +51,7 @@ import { Image } from "astro:assets";
                   </svg>
                 </span>
               </a>
+              <div class="click-buffer"></div>
             </div>
 
             <h2 class="h3 mb-6">Why Choose Our Credit Card Recommender?</h2>
@@ -150,11 +152,12 @@ import { Image } from "astro:assets";
               complications.
             </p>
 
-            <!-- Secondary CTA Button -->
-            <div class="mb-4">
+            <!-- Secondary CTA Button with Visual Separation -->
+            <div class="cta-container interactive-element">
+              <div class="mobile-ad-separator"></div>
               <a
                 href="/financial-solutions/capital-one-savor-rewards-credit-card-benefits"
-                class="btn btn-primary btn-lg w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-full"
+                class="btn btn-primary btn-lg secondary-cta-mobile w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-full"
                 style="background-color: #E7B739; border-color: #E7B739; color: white;"
               >
                 <span>Our Top Recommendation</span>
@@ -258,33 +261,37 @@ import { Image } from "astro:assets";
               </a>
             </div>
 
-            <!-- Final CTA -->
+            <!-- Final CTA with Clear Ad Separation -->
             <div class="text-center mb-8">
-              <a
-                href="/financial-solutions"
-                class="btn btn-primary btn-lg inline-flex items-center justify-center gap-2 rounded-full"
-                style="background-color: #E7B739; border-color: #E7B739; color: white;"
-              >
-                <span>All Credit Card Options</span>
-                <span
-                  class="bg-white rounded-full w-5 h-5 flex items-center justify-center"
+              <div class="ad-zone-separator"></div>
+              <div class="content-zone">
+                <a
+                  href="/financial-solutions"
+                  class="btn btn-primary btn-lg primary-cta-mobile cta-accessible inline-flex items-center justify-center gap-2 rounded-full"
+                  style="background-color: #E7B739; border-color: #E7B739; color: white;"
                 >
-                  <svg
-                    width="12"
-                    height="12"
-                    viewBox="0 0 12 12"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
+                  <span>All Credit Card Options</span>
+                  <span
+                    class="bg-white rounded-full w-5 h-5 flex items-center justify-center"
                   >
-                    <path
-                      d="M1 6H11M11 6L6 1M11 6L6 11"
-                      stroke="#E7B739"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"></path>
-                  </svg>
-                </span>
-              </a>
+                    <svg
+                      width="12"
+                      height="12"
+                      viewBox="0 0 12 12"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M1 6H11M11 6L6 1M11 6L6 11"
+                        stroke="#E7B739"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"></path>
+                    </svg>
+                  </span>
+                </a>
+              </div>
+              <div class="click-buffer"></div>
             </div>
           </div>
         </div>

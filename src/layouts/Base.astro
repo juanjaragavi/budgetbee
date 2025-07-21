@@ -333,6 +333,11 @@ const isBlogPost =
     {
       /* TODO: Confirm if 'anonymous' is the correct value for crossorigin with GPT. Usually it is. */
     }
+
+    {/* BudgetBee Ad Manager - Prevents duplicate tag calls */}
+    <script type="module" src="/src/lib/ad-manager.js"></script>
+
+    {/* Backup GAM initialization for fallback */}
     <script
       async
       crossorigin="anonymous"
@@ -341,23 +346,76 @@ const isBlogPost =
     <script is:inline>
       {
         `
-      // TODO: Update Ad Manager Network Code (e.g., 23062212598) and Ad Unit Paths for BudgetBee.
-      // These are placeholders from TopFinanzas.
+      // BudgetBee GAM Configuration with Duplicate Prevention
+      // This serves as backup if the ad-manager module fails
       window.googletag = window.googletag || {cmd: []};
-      googletag.cmd.push(function() {
-        // TODO: BUDGETBEE - Replace the example ad slots below with your actual Ad Manager Network Code and Ad Unit Paths.
-        // Example ad slots from TopFinanzas - REPLACE WITH BUDGETBEE'S SLOTS
-        // googletag.defineSlot('/23062212598/uk.topfinanzas_com_mob_1', [[300, 250], [250, 250], [336, 280]], 'div-gpt-ad-budgetbee-1').addService(googletag.pubads());
-        // googletag.defineSlot('/23062212598/uk.topfinanzas_com_mob_interstitial', ['fluid'], 'div-gpt-ad-budgetbee-interstitial').addService(googletag.pubads());
-        // googletag.defineSlot('/23062212598/uk.topfinanzas_com_mob_offerwall', ['fluid'], 'div-gpt-ad-budgetbee-offerwall').addService(googletag.pubads());
 
-        googletag.pubads().enableSingleRequest();
-        googletag.enableServices();
-      });
+      // Prevent multiple initializations
+      if (!window.budgetbeeGAMInitialized) {
+        window.budgetbeeGAMInitialized = true;
+
+        googletag.cmd.push(function() {
+          try {
+            // TODO: BUDGETBEE - Update these with your actual Network Code and Ad Unit Paths
+            // Replace 'YOUR_NETWORK_CODE' with your actual Google Ad Manager Network Code
+
+            // Primary mobile ad slots
+            if (!window.budgetbeeSlots) {
+              window.budgetbeeSlots = {};
+            }
+
+            // Define slots only if not already defined
+            if (!window.budgetbeeSlots.mob_1) {
+              window.budgetbeeSlots.mob_1 = googletag.defineSlot('/YOUR_NETWORK_CODE/budgetbee_mob_1',
+                [[300, 250], [250, 250], [336, 280]],
+                'div-gpt-ad-budgetbee-mob-1'
+              ).addService(googletag.pubads());
+            }
+
+            if (!window.budgetbeeSlots.mob_2) {
+              window.budgetbeeSlots.mob_2 = googletag.defineSlot('/YOUR_NETWORK_CODE/budgetbee_mob_2',
+                [[300, 250], [250, 250], [336, 280]],
+                'div-gpt-ad-budgetbee-mob-2'
+              ).addService(googletag.pubads());
+            }
+
+            if (!window.budgetbeeSlots.interstitial) {
+              window.budgetbeeSlots.interstitial = googletag.defineSlot('/YOUR_NETWORK_CODE/budgetbee_interstitial',
+                ['fluid'],
+                'div-gpt-ad-budgetbee-interstitial'
+              ).addService(googletag.pubads());
+            }
+
+            if (!window.budgetbeeSlots.offerwall) {
+              window.budgetbeeSlots.offerwall = googletag.defineSlot('/YOUR_NETWORK_CODE/budgetbee_offerwall',
+                ['fluid'],
+                'div-gpt-ad-budgetbee-offerwall'
+              ).addService(googletag.pubads());
+            }
+
+            // Configure GAM settings
+            googletag.pubads().enableSingleRequest();
+            googletag.pubads().collapseEmptyDivs();
+            googletag.pubads().setCentering(true);
+
+            // Add targeting for BudgetBee
+            googletag.pubads().setTargeting('site', 'budgetbee');
+            googletag.pubads().setTargeting('vertical', 'finance');
+            googletag.pubads().setTargeting('content', 'credit-cards');
+
+            googletag.enableServices();
+
+            console.log('BudgetBee GAM: Backup initialization completed');
+
+          } catch (error) {
+            console.error('BudgetBee GAM: Backup initialization error:', error);
+          }
+        });
+      }
     `;
       }
     </script>
-    {/* End Google Publisher Tag Scripts */}
+    {/* End BudgetBee Ad Manager Scripts */}
   </head>
   <body>
     <!-- Google Tag Manager (noscript) -->
@@ -371,37 +429,104 @@ const isBlogPost =
       </iframe>
     </noscript>
     <!-- End Google Tag Manager (noscript) -->
-    {
-      /* Ad Slots - TODO: Update Ad Unit Paths and div IDs for BudgetBee to match definitions above */
-    }
-    {/* These are placeholders from TopFinanzas. Confirm placement and IDs. */}
-    {
-      /* TODO: BUDGETBEE - Update Ad Unit Paths and div IDs below to match your ad slot definitions. Ensure these are correctly placed in your layout. */
-    }
-    {
-      /*
-    <div id="div-gpt-ad-budgetbee-offerwall">
-      <script is:inline>
-        {
-          `googletag.cmd.push(function() { googletag.display('div-gpt-ad-budgetbee-offerwall'); });`;
-        }
-      </script>
+
+    {/* BudgetBee Ad Slots with Visual Separation */}
+    {/* Mobile Ad Slot 1 - Above fold content */}
+    <div class="ad-zone" style="display: none;">
+      <div class="mobile-ad-separator"></div>
+      <div id="div-gpt-ad-budgetbee-mob-1">
+        <script is:inline>
+          {
+            `
+            // Display mob_1 ad with duplicate prevention
+            if (window.BudgetBeeAdManager) {
+              window.BudgetBeeAdManager.displayAd('mob_1', 'div-gpt-ad-budgetbee-mob-1');
+            } else {
+              // Fallback
+              googletag.cmd.push(function() {
+                if (window.budgetbeeSlots && window.budgetbeeSlots.mob_1) {
+                  googletag.display('div-gpt-ad-budgetbee-mob-1');
+                }
+              });
+            }
+            `;
+          }
+        </script>
+      </div>
+      <div class="ad-separator"></div>
     </div>
-    <div id="div-gpt-ad-budgetbee-interstitial">
-      <script is:inline>
-        {
-          `googletag.cmd.push(function() { googletag.display('div-gpt-ad-budgetbee-interstitial'); });`;
-        }
-      </script>
+
+    {/* Mobile Ad Slot 2 - Mid content */}
+    <div class="ad-zone" style="display: none;">
+      <div class="mobile-ad-separator"></div>
+      <div id="div-gpt-ad-budgetbee-mob-2">
+        <script is:inline>
+          {
+            `
+            // Display mob_2 ad with duplicate prevention
+            if (window.BudgetBeeAdManager) {
+              window.BudgetBeeAdManager.displayAd('mob_2', 'div-gpt-ad-budgetbee-mob-2');
+            } else {
+              // Fallback
+              googletag.cmd.push(function() {
+                if (window.budgetbeeSlots && window.budgetbeeSlots.mob_2) {
+                  googletag.display('div-gpt-ad-budgetbee-mob-2');
+                }
+              });
+            }
+            `;
+          }
+        </script>
+      </div>
+      <div class="ad-separator"></div>
     </div>
-    */
-    }
-    {/* Example for the third slot if needed, e.g., div-gpt-ad-budgetbee-1 */}
-    {
-      /* <div id="div-gpt-ad-budgetbee-1">
-      <script is:inline>{`googletag.cmd.push(function() { googletag.display('div-gpt-ad-budgetbee-1'); });`}</script>
-    </div> */
-    }
+
+    {/* Interstitial Ad Slot - Full screen */}
+    <div class="ad-zone" style="display: none;">
+      <div id="div-gpt-ad-budgetbee-interstitial">
+        <script is:inline>
+          {
+            `
+            // Display interstitial ad with duplicate prevention
+            if (window.BudgetBeeAdManager) {
+              window.BudgetBeeAdManager.displayAd('interstitial', 'div-gpt-ad-budgetbee-interstitial');
+            } else {
+              // Fallback
+              googletag.cmd.push(function() {
+                if (window.budgetbeeSlots && window.budgetbeeSlots.interstitial) {
+                  googletag.display('div-gpt-ad-budgetbee-interstitial');
+                }
+              });
+            }
+            `;
+          }
+        </script>
+      </div>
+    </div>
+
+    {/* Offerwall Ad Slot */}
+    <div class="ad-zone" style="display: none;">
+      <div class="ad-zone-separator"></div>
+      <div id="div-gpt-ad-budgetbee-offerwall">
+        <script is:inline>
+          {
+            `
+            // Display offerwall ad with duplicate prevention
+            if (window.BudgetBeeAdManager) {
+              window.BudgetBeeAdManager.displayAd('offerwall', 'div-gpt-ad-budgetbee-offerwall');
+            } else {
+              // Fallback
+              googletag.cmd.push(function() {
+                if (window.budgetbeeSlots && window.budgetbeeSlots.offerwall) {
+                  googletag.display('div-gpt-ad-budgetbee-offerwall');
+                }
+              });
+            }
+            `;
+          }
+        </script>
+      </div>
+    </div>
 
     <Header />
     <main id="main-content">
