@@ -23,7 +23,6 @@ The platform is built using modern web technologies including Astro, React, Type
 - [Personal Finance Blog](https://budgetbeepro.com/blog/): Comprehensive articles on budgeting, saving, investing, and financial planning
 - [Credit Cards](https://budgetbeepro.com/personal-finance/): Credit card guides, comparisons, and recommendations
 - [Financial Solutions](https://budgetbeepro.com/financial-solutions/): Investment guides, loan information, and financial tools
-- [FAQ](https://budgetbeepro.com/faq/): Frequently asked questions about financial topics
 
 ## Interactive Tools
 
