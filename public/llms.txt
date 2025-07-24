@@ -1,0 +1,51 @@
+# BudgetBee
+
+> BudgetBee is a comprehensive financial information and recommendation platform designed to help users make informed financial decisions. Built with Astro, it provides unbiased financial guidance, budgeting tips, and personalized product recommendations tailored to user needs through interactive tools and expert content.
+
+BudgetBee specializes in personal finance education and financial product recommendations for the US market. The platform features:
+
+- Interactive credit card recommendation quizzes with personalized results
+- Comprehensive financial guides covering budgeting, investing, and debt management
+- Unbiased financial product comparisons and recommendations
+- Mobile-optimized responsive design with enhanced blog reading experience
+- SEO-optimized content structure following TOFU/MOFU marketing funnel strategies
+
+The platform is built using modern web technologies including Astro, React, TypeScript, and Tailwind CSS, ensuring fast loading times and excellent user experience.
+
+## Core Documentation
+
+- [README](https://github.com/juanjaragavi/budgetbee/blob/main/README.md): Complete project overview, features, and setup instructions
+- [License](https://github.com/juanjaragavi/budgetbee/blob/main/LICENSE): MIT license details
+- [Changelog](https://github.com/juanjaragavi/budgetbee/blob/main/CHANGELOG.md): Version history and updates
+
+## Financial Content
+
+- [Personal Finance Blog](https://budgetbeepro.com/blog/): Comprehensive articles on budgeting, saving, investing, and financial planning
+- [Credit Cards](https://budgetbeepro.com/personal-finance/): Credit card guides, comparisons, and recommendations
+- [Financial Solutions](https://budgetbeepro.com/financial-solutions/): Investment guides, loan information, and financial tools
+- [FAQ](https://budgetbeepro.com/faq/): Frequently asked questions about financial topics
+
+## Interactive Tools
+
+- [Credit Card Recommender Quiz](https://budgetbeepro.com/quiz/): Multi-step interactive quiz providing personalized credit card recommendations
+- [Credit Card Recommendation Results](https://budgetbeepro.com/quiz-results/): Detailed results and recommendations based on user responses
+
+## Technical Documentation
+
+- [Astro Configuration](https://github.com/juanjaragavi/budgetbee/blob/main/astro.config.mjs): Build and deployment configuration
+- [Package Configuration](https://github.com/juanjaragavi/budgetbee/blob/main/package.json): Dependencies and scripts
+- [TypeScript Configuration](https://github.com/juanjaragavi/budgetbee/blob/main/tsconfig.json): TypeScript compiler settings
+
+## Content Structure
+
+- [Content Configuration](https://github.com/juanjaragavi/budgetbee/blob/main/src/content.config.ts): Content collection schemas and validation
+- [Site Configuration](https://github.com/juanjaragavi/budgetbee/blob/main/src/config/config.json): Site metadata and settings
+- [Menu Configuration](https://github.com/juanjaragavi/budgetbee/blob/main/src/config/menu.json): Navigation structure
+- [Theme Configuration](https://github.com/juanjaragavi/budgetbee/blob/main/src/config/theme.json): Design system and styling
+
+## Optional
+
+- [Deployment Scripts](https://github.com/juanjaragavi/budgetbee/tree/main/scripts): Automated deployment and workflow scripts
+- [Public Assets](https://github.com/juanjaragavi/budgetbee/tree/main/public): Static files, images, and resources
+- [Component Library](https://github.com/juanjaragavi/budgetbee/tree/main/src/components): Reusable UI components and layouts
+- [Styling System](https://github.com/juanjaragavi/budgetbee/tree/main/src/styles): CSS and design system files
