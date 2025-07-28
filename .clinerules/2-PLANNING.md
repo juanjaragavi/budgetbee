@@ -26,17 +26,17 @@
 
 ```markdown
 budgetbee/
-├── public/           # Static assets (images, robots.txt, etc.)
-├── scripts/          # Automation scripts (git-workflow.sh)
+├── public/ # Static assets (images, robots.txt, etc.)
+├── scripts/ # Automation scripts (git-workflow.sh)
 ├── src/
-│   ├── config/       # Site configuration files
-│   ├── content/      # Content collections (blog, pages, etc.)
-│   ├── layouts/      # Page layouts and components
-│   ├── lib/          # Utility functions and parsers
-│   ├── pages/        # Astro page routes
-│   ├── styles/       # CSS files (Tailwind + custom)
-│   └── tailwind-plugin/  # Custom Tailwind plugins
-└── .clinerules/      # Development guidelines
+│ ├── config/ # Site configuration files
+│ ├── content/ # Content collections (blog, pages, etc.)
+│ ├── layouts/ # Page layouts and components
+│ ├── lib/ # Utility functions and parsers
+│ ├── pages/ # Astro page routes
+│ ├── styles/ # CSS files (Tailwind + custom)
+│ └── tailwind-plugin/ # Custom Tailwind plugins
+└── .clinerules/ # Development guidelines
 ```
 
 #### Key Features Implemented
@@ -139,5 +139,5 @@ All dependencies are up-to-date as of the latest commit. Key dependencies:
 
 ---
 
-*Last Updated: May 24, 2025*  
-*Status: Initial development phase - converting theme to BudgetBee*
+_Last Updated: May 24, 2025_  
+_Status: Initial development phase - converting theme to BudgetBee_

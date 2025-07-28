@@ -1,52 +1,18 @@
-feat: remove template pages and update comprehensive sitemap implementation
+fix(seo): resolve Google Search Console robots.txt indexing errors
 
-## Template Page Cleanup
+- Remove unsupported Host directive that caused crawler confusion
+- Eliminate conflicting Crawl-delay directives not supported by Google
+- Simplify robots.txt structure by removing redundant Allow statements
+- Streamline user-agent grouping to prevent rule conflicts
+- Maintain essential blocking for API endpoints, admin areas, and bad bots
+- Preserve social media crawler access for proper link previews
+- Update robots.txt following Google's current best practices
+- Add comprehensive documentation of fixes in ROBOTS_TXT_FIX.md
 
-- **Removed FAQ page**: Deleted /faq Astro page and content collection
-- **Removed Pricing page**: Deleted /pricing Astro page and content collection  
-- **Removed Elements page**: Deleted /elements content page
-- **Clean removal**: No orphaned references or broken links
-
-## Sitemap Implementation Updates
-
-### Configuration Updates
-- Updated astro.config.mjs: Removed references to deleted pages from sitemap configuration
-- Updated src/content.config.ts: Removed FAQ and pricing collection definitions
-- Updated src/lib/sitemap-config.ts: Cleaned page references in core configuration
-- Updated public/llms.txt: Removed FAQ reference for accurate content discovery
-
-### Sitemap Results
-- **Previous URL count**: 93 pages
-- **Current URL count**: 87 pages  
-- **Removed URLs**: 6 (3 pages + trailing slash variants)
-- **Metadata**: All remaining pages retain full lastmod, changefreq, and priority data
-
-## Added Sitemap Infrastructure
-
-### New Sitemap Management Files
-- src/lib/sitemap-config.ts: Centralized sitemap configuration utility
-- scripts/generate-sitemap.js: Sitemap analysis and validation script
-- scripts/validate-sitemap.sh: Bash validation script for sitemap verification
-- lib/documents/SITEMAP_IMPLEMENTATION.md: Complete implementation documentation
-
-### Enhanced Build Process
-- Automatic sitemap generation with comprehensive metadata
-- XML validation and structure compliance
-- SEO-optimized priority distribution
-- Integrated robots.txt support
-
-## SEO Benefits
-
-### Improved Site Structure
-- Eliminated template remnants for cleaner architecture
-- Accurate content mapping with 87 real pages
-- Strategic priority distribution (homepage 1.0, tools 0.9+, content 0.7)
-- Proper change frequency signals for search engines
-
-### Search Engine Optimization
-- Enhanced crawlability with accurate sitemap
-- No 404-generating template pages
-- Maintained comprehensive metadata coverage
-- Production-ready XML structure
+This resolves the reported indexing issues:
+- Duplicada: el usuario no ha indicado ninguna versión canónica
+- Página con redirección
+- Bloqueada por robots.txt
+- Rastreada: actualmente sin indexar
 
 This cleanup removes unnecessary template pages while maintaining a robust, comprehensive sitemap implementation that accurately represents the site's actual content structure.
