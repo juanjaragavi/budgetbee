@@ -1,46 +1,18 @@
 # robots.txt for BudgetBee - Financial Information Platform
 # https://budgetbeepro.com/robots.txt
-# Updated: 2025-01-24
+# Updated: 2025-07-28
 
 # Universal rules for all crawlers
 User-agent: *
-Allow: /
-
 # Block API endpoints and admin routes
 Disallow: /api/
 Disallow: /_astro/
 Disallow: /admin/
 Disallow: /private/
-
 # Block temporary and development files
 Disallow: /temp/
 Disallow: /tmp/
 Disallow: /.well-known/
-
-# Allow access to essential files
-Allow: /robots.txt
-Allow: /sitemap*.xml
-Allow: /llms.txt
-Allow: /favicon.ico
-Allow: /*.css
-Allow: /*.js
-Allow: /images/
-Allow: /public/
-
-# Specific rules for Google bots
-User-agent: Googlebot
-Allow: /
-
-# Allow Google Image bot to crawl images
-User-agent: Googlebot-Image
-Allow: /images/
-Allow: /public/images/
-
-# Allow Google News if we have news content
-User-agent: Googlebot-News
-Allow: /blog/
-Allow: /personal-finance/
-Allow: /financial-solutions/
 
 # Block known bad bots and scrapers
 User-agent: AhrefsBot
@@ -65,30 +37,6 @@ Allow: /
 User-agent: LinkedInBot
 Allow: /
 
-# AI and LLM crawlers - allow but respect our content
-User-agent: ChatGPT-User
-Allow: /
-Crawl-delay: 1
-
-User-agent: OpenAI-SearchBot
-Allow: /
-Crawl-delay: 1
-
-User-agent: ClaudeBot
-Allow: /
-Crawl-delay: 1
-
-User-agent: Google-Extended
-Allow: /
-Crawl-delay: 1
-
-# Set crawl delay for heavy crawlers
-User-agent: *
-Crawl-delay: 1
-
 # Sitemaps
 Sitemap: https://budgetbeepro.com/sitemap-index.xml
 Sitemap: https://budgetbeepro.com/sitemap-0.xml
-
-# Host directive (Google-specific)
-Host: https://budgetbeepro.com
