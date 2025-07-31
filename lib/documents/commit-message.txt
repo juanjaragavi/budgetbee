@@ -1,18 +1,5 @@
-fix(seo): resolve Google Search Console robots.txt indexing errors
+feat(config): update Instagram social media link to budgetbeepro
 
-- Remove unsupported Host directive that caused crawler confusion
-- Eliminate conflicting Crawl-delay directives not supported by Google
-- Simplify robots.txt structure by removing redundant Allow statements
-- Streamline user-agent grouping to prevent rule conflicts
-- Maintain essential blocking for API endpoints, admin areas, and bad bots
-- Preserve social media crawler access for proper link previews
-- Update robots.txt following Google's current best practices
-- Add comprehensive documentation of fixes in ROBOTS_TXT_FIX.md
-
-This resolves the reported indexing issues:
-- Duplicada: el usuario no ha indicado ninguna versión canónica
-- Página con redirección
-- Bloqueada por robots.txt
-- Rastreada: actualmente sin indexar
-
-This cleanup removes unnecessary template pages while maintaining a robust, comprehensive sitemap implementation that accurately represents the site's actual content structure.
+- Update Instagram URL from generic placeholder to specific budgetbeepro handle
+- Improves social media integration and branding consistency
+- Enhances organization schema markup for SEO purposesThis cleanup removes unnecessary template pages while maintaining a robust, comprehensive sitemap implementation that accurately represents the site's actual content structure.
