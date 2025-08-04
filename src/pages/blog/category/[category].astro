@@ -139,12 +139,16 @@ const currentCategoryMeta = categoryMeta[category] || {
 
 const pageTitle = `${currentCategoryMeta.title} - BudgetBee Blog`;
 const metaDescription = currentCategoryMeta.description;
+
+// Set canonical URL for this category page to ensure proper indexing
+const canonicalUrl = `${config.site.base_url}/blog/category/${category}`;
 ---
 
 <Base
   title={pageTitle}
   meta_title={pageTitle}
   description={metaDescription}
+  canonical={canonicalUrl}
   image="/images/og-image.png"
 >
   <section class="section">

@@ -1,5 +1,19 @@
-feat(config): update Instagram social media link to budgetbeepro
+Fix Google Search Console duplicate content indexation errors
 
-- Update Instagram URL from generic placeholder to specific budgetbeepro handle
-- Improves social media integration and branding consistency
-- Enhances organization schema markup for SEO purposesThis cleanup removes unnecessary template pages while maintaining a robust, comprehensive sitemap implementation that accurately represents the site's actual content structure.
+- Add canonical URLs to blog category pages and pagination
+- Fix trailing slash consistency across all pagination pages  
+- Block ad network URLs in robots.txt to prevent unwanted indexing
+- Implement proper canonical URL structure following site configuration
+- Create validation script for canonical URL implementation
+
+Resolves 31 pages affected by "Duplicada: el usuario no ha indicado ninguna versión canónica" errors.
+
+Files modified:
+- src/pages/blog/category/[category].astro - Added canonical URLs
+- src/pages/blog/category/[category]/page/[slug].astro - Added canonical URLs
+- src/pages/blog/page/[slug].astro - Fixed canonical URL format
+- src/pages/personal-finance/page/[slug].astro - Fixed canonical URL format
+- src/pages/financial-solutions/page/[slug].astro - Fixed canonical URL format
+- public/robots.txt - Added ad network URL blocking
+- scripts/validate-canonical-urls.js - Created validation script
+- lib/documents/CANONICAL_URL_FIX.md - Added comprehensive documentation

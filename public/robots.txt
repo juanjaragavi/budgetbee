@@ -13,6 +13,9 @@ Disallow: /private/
 Disallow: /temp/
 Disallow: /tmp/
 Disallow: /.well-known/
+# Block ad network URLs that shouldn't be indexed
+Disallow: /YOUR_NETWORK_CODE/
+Disallow: /23062212598/
 
 # Block known bad bots and scrapers
 User-agent: AhrefsBot
