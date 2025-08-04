@@ -148,12 +148,16 @@ const currentCategoryMeta = categoryMeta[category] || {
 
 const pageTitle = `${currentCategoryMeta.title} - Page ${currentPage} - BudgetBee Blog`;
 const metaDescription = `${currentCategoryMeta.description} - Page ${currentPage} of ${totalPages}`;
+
+// Set canonical URL for this category pagination page to prevent duplicate content issues
+const canonicalUrl = `${config.site.base_url}/blog/category/${category}/page/${currentPage}`;
 ---
 
 <Base
   title={pageTitle}
   meta_title={pageTitle}
   description={metaDescription}
+  canonical={canonicalUrl}
   image="/images/og-image.png"
 >
   <section class="section">

@@ -36,9 +36,16 @@ const currentPage = slug && !isNaN(Number(slug)) ? Number(slug) : 1;
 const indexOfLastPost = currentPage * config.settings.pagination;
 const indexOfFirstPost = indexOfLastPost - config.settings.pagination;
 const currentPosts = sortedPosts.slice(indexOfFirstPost, indexOfLastPost);
+
+// Set canonical URL for this pagination page
+const canonicalUrl = `${config.site.base_url}/financial-solutions/page/${currentPage}`;
 ---
 
-<Base title={postIndex?.data.title}>
+<Base
+  title={postIndex?.data.title}
+  canonical={canonicalUrl}
+  description={`${postIndex?.data.description || "Financial solutions and product guides"} - Page ${currentPage}`}
+>
   <section class="section">
     <div class="container">
       <h1
