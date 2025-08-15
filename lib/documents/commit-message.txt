@@ -1,37 +1,23 @@
-feat: US localization updates, robust date sorting, and dependency upgrades
+fix(content): correct three external credit card offer links & update changelog
 
-Summary of changes:
-
-Content & Prompt Localization:
-- Converted blog post generation prompt to US English context (domain, sitemap, market references)
-- Updated internal link guidance to use budgetbeepro.com and correct sitemap-index.xml
-- Added Agent Authoring Directive sections to project rules and GitHub instructions for consistent content generation workflow
-
-Sorting Logic Improvement:
-- Rewrote sortByDate to be non-mutating, reverse chronological, and resilient to missing/invalid dates
-- Ensures consistent newest-first ordering across homepage, blog, and category listings
-
-Dependency Updates:
-- Upgraded Astro core and related integrations (@astrojs/mdx, @astrojs/sitemap, markdown remark internals) to latest minor versions
-
-Documentation / Configuration:
-- Synced rules/instructions with US localisation directive and sitemap reference
+Summary:
+- Replaced outdated/broken external URLs in financial solution requirement pages:
+	* Chase Freedom Unlimited: updated to new tracking URL with iCELL param
+	* Current Build Visa Signature: updated from /build to /spend/ destination
+	* Wells Fargo Autograph: moved to creditcards subdomain with SEO/vendor params
+- Added corresponding entry under Fixed section in CHANGELOG.md.
 
 Why:
-- Guarantee correct ordering for newly published posts (supports 2 posts/week cadence)
-- Eliminate potential side effects from in-place array mutation in previous sort implementation
-- Align content generation pipeline with US market focus
+- Ensure users are directed to current official issuer application/offer pages
+- Prevent dead/redirect loops or potential tracking loss
+- Maintain accuracy and trust in outbound recommendations.
 
-Files affected (high-level):
-- lib/documents/blog-post-generation-prompt.md (localization & sitemap URL)
-- src/lib/utils/sortFunctions.ts (date sort refactor)
-- .clinerules/1-RULES.md & .github/instructions/project-rules.instructions.md (authoring directive)
-- package.json & pnpm-lock.yaml (dependency bumps)
-- lib/documents/topfinanzas-us-topic-outline.csv (added US topic outline)
+Files Changed:
+- src/content/financial-solutions/chase-freedom-unlimited-requirements.mdx
+- src/content/financial-solutions/visa-signature-us-current-build-credit-card-requirements.mdx
+- src/content/financial-solutions/wells-fargo-autograph-card-requirements.mdx
+- CHANGELOG.md
 
-No breaking changes expected; build completed successfully.
+No build or dependency impacts. Content-only update.
 
-chore(content): add new TOFU personal finance article on emergency funds
-- Added: what-is-an-emergency-fund-and-why-you-need-one.md with US-focused SEO, internal links, lint-compliant formatting.
-- Supports ongoing cadence (2 articles/week) under Money Management pillar.
 
