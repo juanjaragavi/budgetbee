@@ -36,6 +36,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Mobile viewport overflow issues in blog articles (May 26, 2025)
 - Responsive display of tables, code blocks, and images (May 26, 2025)
 - Touch-friendly scrolling for horizontal content (May 26, 2025)
+- Corrected three external financial solution links (Chase Freedom Unlimited, Current Build Visa Signature, Wells Fargo Autograph) to updated official URLs (Aug 15, 2025)
 
 ### To Do
 
