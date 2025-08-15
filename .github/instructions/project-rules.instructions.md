@@ -131,3 +131,12 @@ This procedure is initiated when the user issues the prompt "Push and commit our
 
 4. **Execute Workflow Script**:
    Run the `pnpm workflow` command to execute the workflow automation script.
+
+## Agent Authoring Directive
+
+- Whenever the agent is prompted to generate a new blog post or article for this BudgetBee site:
+  - First, review `lib/documents/blog-post-generation-prompt.md` to follow the latest content generation rules and US localisation requirements.
+  - Also consult `lib/documents/topfinanzas-us-topic-outline.csv` to determine article type (pillar vs cluster), tentative title, content focus, and related cluster/pillar context.
+  - Use the US sitemap at `dist/sitemap-index.xml` to avoid duplicating already published content and to build correct internal links.
+  - Produce content in US English conventions (en-US) and ensure internal links point to the `budgetbeepro.com` domain.
+  - If the funnel stage is TOFU, create the new blog post under `src/pages/personal-finance`, matching the structure and layout used by existing articles in that directory, but write entirely new, original content.
