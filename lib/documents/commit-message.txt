@@ -31,3 +31,7 @@ Files affected (high-level):
 
 No breaking changes expected; build completed successfully.
 
+chore(content): add new TOFU personal finance article on emergency funds
+- Added: what-is-an-emergency-fund-and-why-you-need-one.md with US-focused SEO, internal links, lint-compliant formatting.
+- Supports ongoing cadence (2 articles/week) under Money Management pillar.
+
