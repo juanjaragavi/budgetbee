@@ -1,8 +1,5 @@
-docs(privacy-policy): update Privacy Policy page content and structure
+chore(ads): add ads.txt for Google AdSense compliance
 
-- Refresh copy for clarity and compliance
-- Improve headings hierarchy and formatting
-- Align tone with BudgetBee branding guidelines
-- Ensure internal links and anchors are consistent
-
-chore(workflow): reset commit message file for automated workflow
+- Add public/ads.txt with entry:
+  google.com, pub-8769587409817527, DIRECT, f08c47fec0942fa0
+- Ensures IAB ads.txt standard compliance and improves ad serving transparency
