@@ -1,23 +1,8 @@
-fix(content): correct three external credit card offer links & update changelog
+docs(privacy-policy): update Privacy Policy page content and structure
 
-Summary:
-- Replaced outdated/broken external URLs in financial solution requirement pages:
-	* Chase Freedom Unlimited: updated to new tracking URL with iCELL param
-	* Current Build Visa Signature: updated from /build to /spend/ destination
-	* Wells Fargo Autograph: moved to creditcards subdomain with SEO/vendor params
-- Added corresponding entry under Fixed section in CHANGELOG.md.
+- Refresh copy for clarity and compliance
+- Improve headings hierarchy and formatting
+- Align tone with BudgetBee branding guidelines
+- Ensure internal links and anchors are consistent
 
-Why:
-- Ensure users are directed to current official issuer application/offer pages
-- Prevent dead/redirect loops or potential tracking loss
-- Maintain accuracy and trust in outbound recommendations.
-
-Files Changed:
-- src/content/financial-solutions/chase-freedom-unlimited-requirements.mdx
-- src/content/financial-solutions/visa-signature-us-current-build-credit-card-requirements.mdx
-- src/content/financial-solutions/wells-fargo-autograph-card-requirements.mdx
-- CHANGELOG.md
-
-No build or dependency impacts. Content-only update.
-
-
+chore(workflow): reset commit message file for automated workflow
