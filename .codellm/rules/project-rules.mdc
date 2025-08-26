@@ -1,0 +1,337 @@
+# BudgetBee Project Rules & Technical Specifications
+
+## Project Overview
+
+**Project Name:** BudgetBee  
+**Domain:** https://budgetbeepro.com  
+**Tagline:** Your Hive for Unbiased Financial Buzz  
+**Framework:** Astro v5.7.14  
+**Base Theme:** Originally forked from Bigspring Light Astro v3.1.0, extensively customized  
+**Target Audience:** Gen-Z and Millennials seeking unbiased financial guidance
+
+## Technical Stack
+
+### Core Technologies
+- **Framework:** Astro 5.7.14
+- **UI Framework:** Tailwind CSS v4.0.14
+- **Component Library:** React 19.0.0
+- **Content Format:** Markdown/MDX with auto-import support
+- **Build Tools:** Vite, PostCSS, Sass
+- **Type System:** TypeScript 5.8.2
+- **Package Manager:** pnpm (mandatory - do not use npm or yarn)
+
+### Key Dependencies
+- `@astrojs/react` - React integration
+- `@astrojs/mdx` - MDX support
+- `@astrojs/sitemap` - Sitemap generation
+- `astro-auto-import` - Component auto-importing
+- `framer-motion` - Animation library
+- `sharp` - Image optimization
+- `nodemailer` - Contact form handling
+
+## Project Architecture
+
+### Directory Structure
+
+```
+budgetbee/
+├── .clinerules/         # Development guidelines (legacy)
+├── .codellm/           # AI agent rules
+│   └── rules/         # Rule files for AI development
+├── .github/           # GitHub specific files
+│   └── instructions/  # Project instructions
+├── dist/              # Production build output
+├── lib/               # Library files
+│   └── documents/     # Project documentation
+├── public/            # Static assets
+│   └── images/        # Brand assets & images
+├── scripts/           # Automation scripts
+├── src/
+│   ├── config/        # Site configuration
+│   ├── content/       # Content collections
+│   ├── layouts/       # Page layouts
+│   ├── lib/           # Utility functions
+│   ├── pages/         # Astro page routes
+│   │   ├── personal-finance/    # TOFU blog content
+│   │   └── financial-solutions/ # Solution articles
+│   ├── styles/        # CSS files
+│   └── tailwind-plugin/ # Custom Tailwind plugins
+└── netlify.toml       # Deployment configuration
+```
+
+### Page Routes
+
+- **Homepage:** `/`
+- **Main Sections:**
+  - `/about/` - About page
+  - `/contact/` - Contact form
+  - `/blog/` - Blog listing
+  - `/personal-finance/` - Educational content hub
+  - `/financial-solutions/` - Solution-focused content
+  - `/categories/` - Content categories
+- **Interactive Tools:**
+  - `/quiz/` - Financial quiz
+  - `/quiz-results/` - Quiz results page
+  - `/credit-card-recommender-p1/` - Credit card tool (part 1)
+  - `/credit-card-recommender-p2/` - Credit card tool (part 2)
+  - `/credit-card-recommender-p3/` - Credit card tool (part 3)
+- **Legal Pages:**
+  - `/privacy-policy/`
+  - `/terms-conditions/`
+  - `/cookie-policy/`
+
+## Brand Guidelines
+
+### Brand Identity
+- **Essence:** Empowering smart financial decisions through accessible, unbiased guidance
+- **Voice:** Knowledgeable, friendly financial advisor without judgment
+- **Personality Traits:**
+  - Approachable & Friendly
+  - Trustworthy & Transparent
+  - Modern & Savvy
+  - Empowering & Action-Oriented
+  - Community-Focused
+
+### Visual Design
+
+#### Color Palette
+- **Primary Color:** Warm Yellow (#E7B739) - Matches logo, conveys warmth and energy
+- **Secondary Colors:**
+  - Fresh Green (#7ED321) - Growth and financial wellness
+  - Soft Blue (#4A90E2) - Trust and dependability
+  - Light Gray (#F5F5F5) - Neutral background
+
+#### Typography
+- **Primary Font:** Montserrat (Google Fonts)
+  - Modern, clean sans-serif
+  - Multiple weights for hierarchy
+  - Excellent readability across devices
+
+### Logo Assets
+- **Main Logo:** `/images/logo.png` (200x38)
+- **Square Logo:** `/images/square-logo.png` (120x120)
+- **Favicon:** `/images/favicon.png`
+
+## Development Workflow
+
+### Package Management
+
+**CRITICAL: This project uses pnpm exclusively. Never use npm or yarn.**
+
+#### Common Commands
+```bash
+pnpm install              # Install dependencies
+pnpm add <package>        # Add dependency
+pnpm add -D <package>     # Add dev dependency
+pnpm remove <package>     # Remove dependency
+pnpm update               # Update dependencies
+```
+
+#### Project Scripts
+```bash
+pnpm dev                  # Start dev server (http://localhost:4321)
+pnpm build                # Build for production
+pnpm preview              # Preview production build
+pnpm check                # Run Astro checks
+pnpm format               # Format with Prettier
+pnpm workflow             # Execute git workflow
+pnpm sync                 # Sync with main branch
+pnpm deploy-project       # Deploy to production
+```
+
+### Development Server
+
+**Always assume the development server is running** at `http://localhost:4321` unless explicitly stated otherwise.
+
+### Git Workflow
+
+#### Branches
+- **main:** Production-ready code
+- **dev:** Active development branch
+
+#### Commit Process
+
+When prompted "Push and commit our latest changes":
+
+1. Clear `/lib/documents/commit-message.txt`
+2. Check git status using MCP git_status tool
+3. Generate descriptive commit message in commit-message.txt
+4. Execute `pnpm workflow`
+
+## Code Standards
+
+### General Principles
+- Prefer composition over inheritance
+- Use repository pattern for data access
+- Generate API clients using OpenAPI Generator
+- Follow existing code style and conventions
+
+### Testing Requirements
+- Unit tests for business logic
+- Integration tests for API endpoints
+- E2E tests for critical user flows
+- Always test after completing development iterations
+
+### Code Organization
+- Components in `/src/components/`
+- Layouts in `/src/layouts/`
+- Utilities in `/src/lib/`
+- Content in `/src/content/`
+- Styles in `/src/styles/`
+
+## Content Management
+
+### Content Types
+- **Blog Posts:** Marketing and news content
+- **Personal Finance:** TOFU educational articles
+- **Financial Solutions:** Solution-focused content
+
+### Blog Post Generation
+
+When creating new content:
+
+1. Review `lib/documents/blog-post-generation-prompt.md`
+2. Check `lib/documents/topfinanzas-us-topic-outline.csv` for:
+   - Article type (pillar vs cluster)
+   - Tentative title
+   - Content focus
+   - Related context
+3. Review sitemap to avoid duplication
+4. Use US English conventions (en-US)
+5. Internal links must point to budgetbeepro.com
+
+#### Content Guidelines
+- Length: 750-2000 words
+- Tone: Informal but educational
+- Target: General US audience
+- SEO-optimized structure
+- Include relevant internal links
+
+### TOFU Content Creation
+
+For TOFU (Top of Funnel) content:
+- Create under `src/pages/personal-finance/`
+- Match existing article structure
+- Write entirely original content
+- Focus on educational value
+
+## SEO & Performance
+
+### Sitemap Configuration
+- Automatic generation via `@astrojs/sitemap`
+- Custom priority and changefreq settings
+- Entry limit: 45,000 pages
+- Excludes: `/api/`, `/admin/`, `/_astro/`
+
+### Page Priorities
+- Homepage: 1.0 (daily updates)
+- Main sections: 0.9 (weekly/monthly)
+- Interactive tools: 0.95 (monthly)
+- Blog posts: 0.6-0.7 (monthly)
+- Legal pages: 0.3 (yearly)
+
+### Performance Targets
+- PageSpeed score: 100%
+- Core Web Vitals: All green
+- Mobile-first optimization
+- Image optimization with Sharp
+
+## Documentation Requirements
+
+### Required Updates
+- Update `src/lib/documents/DOCUMENTATION.md` for feature changes
+- Keep `README.md` synchronized with capabilities
+- Maintain `/CHANGELOG.md` with all changes
+- Create ADRs in `src/lib/documents/ADRs.md` for:
+  - Major dependency changes
+  - Architectural pattern changes
+  - New integration patterns
+
+### Project Context Files
+- `.clinerules/2-PLANNING.md` - Architecture and goals
+- `.clinerules/3-TASKS.md` - Task tracking
+- `.clinerules/5-BRANDING.md` - Brand guidelines
+- `.clinerules/6-BLOG-STRUCTURE-ANALYSIS.md` - Content structure
+
+## Tool Usage
+
+### MCP Server Integration
+
+Available MCP tools should be used for:
+- File system operations
+- Git operations
+- Documentation lookup
+- Web searches
+- Content conversion
+
+#### MCP Configuration
+Configuration file: `/Users/macbookpro/Library/Application Support/Code/User/globalStorage/saoudrizwan.claude-dev/settings/cline_mcp_settings.json`
+
+### Astro Documentation
+Before structural changes, reference: https://docs.astro.build/en/getting-started/
+
+## Deployment
+
+### Hosting
+- Platform: Netlify
+- Build command: `yarn build` (configured in netlify.toml)
+- Publish directory: `dist`
+
+### Security Headers
+```
+X-Frame-Options: DENY
+X-XSS-Protection: 1; mode=block
+Referrer-Policy: same-origin
+Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
+```
+
+### Environment Configuration
+- Production URL: https://budgetbeepro.com
+- Google Tag Manager ID: GTM-MP4CPT97
+- Contact form endpoint: (unconfigured - needs setup)
+
+## Quality Assurance
+
+### Post-Development Testing
+
+After any code changes, immediately test:
+1. **Functional Testing** - Features work correctly
+2. **UI/UX Testing** - Visual elements and responsiveness
+3. **Integration Testing** - No broken functionality
+4. **Performance Testing** - No negative impact
+
+### Pre-Deployment Checklist
+- [ ] All tests pass
+- [ ] Documentation updated
+- [ ] Changelog entry added
+- [ ] Code formatted (`pnpm format`)
+- [ ] Build succeeds (`pnpm build`)
+- [ ] Preview tested (`pnpm preview`)
+
+## Important Notes
+
+### Development Practices
+- Always use pnpm, never npm or yarn
+- Test proactively without waiting for prompts
+- Follow existing patterns and conventions
+- Keep commits atomic and well-described
+- Update documentation alongside code changes
+
+### Content Localization
+- US market focus
+- US English (en-US) conventions
+- USD currency formatting
+- US date formats (MM/DD/YYYY)
+- Local business hours and contact info
+
+### Future Considerations
+- Prepared for user account system
+- Scalable for additional financial tools
+- Multi-language support structure
+- Analytics and tracking ready
+- SEO optimization framework in place
+
+---
+
+*Last Updated: January 2025*
+*Version: 1.0.0*
