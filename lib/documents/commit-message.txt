@@ -1,5 +1,9 @@
-feat(ads): add Autozep ad script to Base.astro head
+fix(buttons): vertically center CTA button text sitewide
 
-- Inject https://autozep.adzep.io/express2.0.js with is:inline, data-cfasync=false, async
-- Load globally via Base.astro so it runs on all pages
-- Only src/layouts/Base.astro modified
+- Apply Tailwind flex centering to base `.btn` class:
+  `flex items-center justify-center` in `src/styles/buttons.css`
+- Ensures CTA labels are centered vertically and horizontally across anchors and buttons
+- Verified on homepage hero and blog listing CTAs
+
+docs(changelog): note CTA centering fix
+- Add entry to CHANGELOG.md under "Fixed" (Aug 26, 2025)
