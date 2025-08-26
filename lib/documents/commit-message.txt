@@ -1,8 +1,5 @@
-feat: Add comprehensive project rules documentation for AI agents
+feat(ads): add Autozep ad script to Base.astro head
 
-- Created .codellm/rules/project-rules.mdc consolidating all project specifications
-- Integrated rules from .clinerules/ and .github/instructions/
-- Documented technical stack, architecture, and development workflow
-- Added brand guidelines, content management rules, and SEO configuration
-- Included deployment settings and quality assurance procedures
-- Established single source of truth for project guidelines
+- Inject https://autozep.adzep.io/express2.0.js with is:inline, data-cfasync=false, async
+- Load globally via Base.astro so it runs on all pages
+- Only src/layouts/Base.astro modified
