@@ -1,5 +1,8 @@
-chore(ads): add ads.txt for Google AdSense compliance
+feat: Add comprehensive project rules documentation for AI agents
 
-- Add public/ads.txt with entry:
-  google.com, pub-8769587409817527, DIRECT, f08c47fec0942fa0
-- Ensures IAB ads.txt standard compliance and improves ad serving transparency
+- Created .codellm/rules/project-rules.mdc consolidating all project specifications
+- Integrated rules from .clinerules/ and .github/instructions/
+- Documented technical stack, architecture, and development workflow
+- Added brand guidelines, content management rules, and SEO configuration
+- Included deployment settings and quality assurance procedures
+- Established single source of truth for project guidelines
