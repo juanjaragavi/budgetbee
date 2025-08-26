@@ -1,5 +1,5 @@
 .btn {
-  @apply text-white inline-block w-full text-center font-primary font-bold border px-7 py-[17px] leading-[18px] transition hover:text-white;
+  @apply text-white flex items-center justify-center w-full text-center font-primary font-bold border px-7 pt-[14px] sm:py-[15px] leading-[18px] transition hover:text-white;
 }
 
 .btn-primary {
