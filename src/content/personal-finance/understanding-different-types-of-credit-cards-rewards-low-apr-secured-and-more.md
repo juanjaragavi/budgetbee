@@ -2,7 +2,7 @@
 title: "Understanding Different Types of Credit Cards: Rewards, Low APR, Secured, and More"
 description: "Beyond just cashback, explore the features and benefits of various credit card types like rewards, low APR, and secured cards to find the right fit for your financial needs."
 image: "https://media.topfinanzas.com/images/understanding-different-types-of-credit-cards-rewards-low-apr-secured-and-more.webp"
-date: 2024-06-25T05:00:00Z
+date: 2025-06-25T05:00:00Z
 draft: false
 categories: ["personal-finance"]
 tags:

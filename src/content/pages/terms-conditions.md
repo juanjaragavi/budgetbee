@@ -4,7 +4,7 @@ description: "BudgetBee Terms and Conditions - Please read these terms carefully
 draft: false
 ---
 
-**Effective Date:** January 10, 2024  
+**Effective Date:** January 10, 2025  
 **Last Updated:** May 24, 2025
 
 **PLEASE READ THESE TERMS AND CONDITIONS OF USE CAREFULLY, AS YOUR USE OF THE SITE INDICATES YOUR ACCEPTANCE OF THESE TERMS.**

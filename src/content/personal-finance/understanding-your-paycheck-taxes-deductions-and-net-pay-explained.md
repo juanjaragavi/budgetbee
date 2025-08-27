@@ -2,7 +2,7 @@
 title: "Understanding Your Paycheck: Taxes, Deductions, and Net Pay Explained"
 description: "Break down your paycheck and understand where your money goes, from federal and state taxes to common deductions and your final net pay."
 image: "https://media.topfinanzas.com/images/understanding-your-paycheck-taxes-deductions-and-net-pay-explained.webp"
-date: 2024-06-25T05:00:00Z
+date: 2025-06-25T05:00:00Z
 draft: false
 categories: ["personal-finance"]
 tags:
@@ -37,8 +37,8 @@ A significant portion of your gross pay goes towards taxes. These are mandatory 
 - **State Income Tax:** Most states also have an income tax. The amount varies significantly by state, and some states have no state income tax at all.
 - **Local Income Tax:** A few cities or localities may also impose a local income tax.
 - **FICA Taxes:** This stands for the Federal Insurance Contributions Act and includes two separate taxes:
-  - **Social Security Tax:** This tax funds retirement, disability, and survivor benefits. As of 2024, the rate is 6.2% of your gross pay up to a certain annual income limit.
-  - **Medicare Tax:** This tax funds health insurance for seniors and individuals with disabilities. As of 2024, the rate is 1.45% of your gross pay with no income limit.
+  - **Social Security Tax:** This tax funds retirement, disability, and survivor benefits. As of 2025, the rate is 6.2% of your gross pay up to a certain annual income limit.
+  - **Medicare Tax:** This tax funds health insurance for seniors and individuals with disabilities. As of 2025, the rate is 1.45% of your gross pay with no income limit.
 
 Your employer also pays a matching amount for Social Security and Medicare taxes.
 
