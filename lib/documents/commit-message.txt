@@ -1,9 +1,16 @@
-fix(buttons): vertically center CTA button text sitewide
+feat(ads): integrate Autozep ad placements on credit card recommender pages
 
-- Apply Tailwind flex centering to base `.btn` class:
-  `flex items-center justify-center` in `src/styles/buttons.css`
-- Ensures CTA labels are centered vertically and horizontally across anchors and buttons
-- Verified on homepage hero and blog listing CTAs
+- Add Autozep ad zones (us_budgetbeepro_com_mob_1, us_budgetbeepro_com_mob_2) to:
+  * src/pages/credit-card-recommender-p1.astro
+  * src/pages/credit-card-recommender-p2.astro  
+  * src/pages/credit-card-recommender-p3.astro
+- Update ad-aware design styling in src/styles/ad-aware-design.css:
+  * Remove excessive top margin from .btn-primary
+  * Optimize primary CTA mobile spacing and transform effects
+  * Enhance ad zone separation and visual hierarchy
+- Clean up redundant Image import in credit-card-recommender-p1.astro
+- Improve CTA button accessibility and visual consistency
 
-docs(changelog): note CTA centering fix
-- Add entry to CHANGELOG.md under "Fixed" (Aug 26, 2025)
+refactor(layout): rename PostSingle layout files for better organization
+- Move PostSingle.astro to PostSingle-old.astro as backup
+- Promote PostSingle-fixed.astro to active PostSingle.astro

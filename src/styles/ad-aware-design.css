@@ -135,7 +135,6 @@
   .btn-primary {
     @apply relative mb-8;
     z-index: 100 !important;
-    margin-top: 2rem !important;
     min-height: 56px !important;
     /* Enhanced touch-friendly size */
     padding: 1rem 2rem !important;
@@ -337,9 +336,9 @@
   @apply shadow-2xl hover:shadow-2xl transition-all duration-300;
   @apply relative;
   z-index: 100 !important;
-  margin-bottom: 3rem !important;
-  padding: 1.25rem 2rem !important;
-  font-size: 1.125rem !important;
+  margin-bottom: 1rem !important;
+  padding: 1.2rem 2rem !important;
+  font-size: 1.1rem !important;
   min-height: 56px !important;
   box-shadow:
     0 6px 20px rgba(231, 183, 57, 0.4),
@@ -350,7 +349,7 @@
 }
 
 .primary-cta-mobile:hover {
-  transform: translateY(-2px) scale(1.02);
+  transform: translateY(-2px) scale(1.01);
   box-shadow:
     0 8px 25px rgba(231, 183, 57, 0.5),
     0 16px 50px rgba(231, 183, 57, 0.15),
