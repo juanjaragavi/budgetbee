@@ -1,16 +1,16 @@
-feat(ads): integrate Autozep ad placements on credit card recommender pages
+fix(typescript): resolve all TypeScript errors in project
 
-- Add Autozep ad zones (us_budgetbeepro_com_mob_1, us_budgetbeepro_com_mob_2) to:
-  * src/pages/credit-card-recommender-p1.astro
-  * src/pages/credit-card-recommender-p2.astro  
-  * src/pages/credit-card-recommender-p3.astro
-- Update ad-aware design styling in src/styles/ad-aware-design.css:
-  * Remove excessive top margin from .btn-primary
-  * Optimize primary CTA mobile spacing and transform effects
-  * Enhance ad zone separation and visual hierarchy
-- Clean up redundant Image import in credit-card-recommender-p1.astro
-- Improve CTA button accessibility and visual consistency
+- Fix undefined featuredPost.body in src/pages/index.astro:
+  * Add optional chaining with fallback: featuredPost.body?.slice() || ""
+  * Prevents runtime errors when post body is undefined
 
-refactor(layout): rename PostSingle layout files for better organization
-- Move PostSingle.astro to PostSingle-old.astro as backup
-- Promote PostSingle-fixed.astro to active PostSingle.astro
+- Fix CollectionEntry type mismatches in PaginatedPosts component:
+  * Update interface to accept all collection types: "blog" | "personal-finance" | "financial-solutions"
+  * Resolves type errors in blog/index.astro and financial-solutions/index.astro
+  * Ensures proper type safety across all content collections
+
+- Clean up unused imports in src/pages/financial-solutions/index.astro:
+  * Remove unused CollectionEntry type import
+  * Reduces TypeScript warnings and improves code cleanliness
+
+These changes resolve all 3 TypeScript errors identified by `pnpm check`

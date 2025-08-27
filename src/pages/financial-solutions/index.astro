@@ -5,7 +5,6 @@ import PaginatedPosts from "@/layouts/components/PaginatedPosts.astro";
 import { getSinglePage } from "@/lib/contentParser.astro";
 import { sortByDate } from "@/lib/utils/sortFunctions";
 import { markdownify } from "@/lib/utils/textConverter";
-import type { CollectionEntry } from "astro:content";
 import { getEntry } from "astro:content";
 
 const { summary_length } = config.settings;
