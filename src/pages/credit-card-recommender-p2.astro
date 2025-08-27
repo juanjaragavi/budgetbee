@@ -7,27 +7,28 @@ const cards = [
     name: "Amazon Rewards Visa",
     url: "/financial-solutions/amazon-rewards-visa-credit-card-benefits",
     reqUrl: "/financial-solutions/amazon-rewards-visa-credit-card-requirements",
+    color: "#006A4D",
   },
   {
     name: "Capital One Savor Rewards",
     url: "/financial-solutions/capital-one-savor-rewards-credit-card-benefits",
     reqUrl:
       "/financial-solutions/capital-one-savor-rewards-credit-card-requirements",
+    color: "#ea2424",
   },
   {
     name: "Chase Freedom Unlimited",
     url: "/financial-solutions/chase-freedom-unlimited-credit-card-benefits",
     reqUrl: "/financial-solutions/chase-freedom-unlimited-requirements",
+    color: "#80111b",
   },
 ];
-
-const randomCard = cards[Math.floor(Math.random() * cards.length)];
 ---
 
 <Base
-  title="Your Personalized Credit Card Recommendation | BudgetBee"
-  meta_title="Credit Card Recommender - Your Match | BudgetBee"
-  description="Discover the credit card that's right for you. Click to reveal your personalized recommendation."
+  title="Discover Your Ideal Credit Card | BudgetBee"
+  meta_title="Credit Card Recommender - Personalized Suggestions | BudgetBee"
+  description="Finding the right card is simple. Maximize rewards, organize your spending and enjoy exclusive benefits. Explore and choose the ideal card for you!"
   image="/images/og-image.png"
 >
   <section class="section pb-0">
@@ -35,22 +36,77 @@ const randomCard = cards[Math.floor(Math.random() * cards.length)];
       <div class="row justify-center">
         <div class="lg:col-10 text-center">
           <div class="content">
-            <h1 class="h2 mb-4">Your Personalized Recommendation</h1>
-            <p class="text-lg text-dark mb-6">
-              We've analyzed your profile and found a credit card that we think
-              you'll love.
-            </p>
+            <h1 class="h2 mb-4">Discover Your Ideal Credit Card</h1>
 
-            <div id="reveal-container" class="my-8 cta-priority">
+            <div id="recommendations-section" class="my-8">
               <button
                 id="reveal-button"
-                class="btn btn-primary btn-lg primary-cta-mobile cta-accessible"
-                style="background-color: #E7B739; border-color: #E7B739; color: white;"
+                class="btn btn-primary btn-lg primary-cta-mobile cta-accessible w-full sm:w-auto inline-flex items-center justify-center rounded-full"
+                style="background-color: #3B82F6; border-color: #3B82F6; color: white;"
               >
-                Click to Reveal Your Card
+                <span>Unveil our suggested Financial Products</span>
+                <span
+                  class="bg-white rounded-full w-5 h-5 flex items-center justify-center"
+                >
+                  <svg
+                    width="12"
+                    height="12"
+                    viewBox="0 0 12 12"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M1 6H11M11 6L6 1M11 6L6 11"
+                      stroke="#3B82F6"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"></path>
+                  </svg>
+                </span>
               </button>
-              <div class="click-buffer"></div>
+
+              <div id="recommendations-container" class="hidden space-y-4 mt-6">
+                {
+                  cards.map((card, index) => (
+                    <div
+                      class="recommendation-card opacity-0 transform translate-x-[-20px]"
+                      style={`animation-delay: ${(index + 1) * 0.1}s`}
+                    >
+                      <a
+                        href={card.url}
+                        class="btn btn-primary btn-lg primary-cta-mobile cta-accessible w-full sm:w-auto inline-flex items-center justify-center rounded-full"
+                        style={`background-color: ${card.color}; border-color: ${card.color}; color: white;`}
+                      >
+                        <span>{card.name}</span>
+                        <span class="bg-white rounded-full w-5 h-5 flex items-center justify-center">
+                          <svg
+                            width="12"
+                            height="12"
+                            viewBox="0 0 12 12"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path
+                              d="M1 6H11M11 6L6 1M11 6L6 11"
+                              stroke={card.color}
+                              stroke-width="2"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                            />
+                          </svg>
+                        </span>
+                      </a>
+                    </div>
+                  ))
+                }
+              </div>
             </div>
+
+            <p class="text-left text-lg text-dark mb-5">
+              Finding the right card is simple. Maximize rewards, organize your
+              spending and enjoy exclusive benefits. Explore and choose the
+              ideal card for you!
+            </p>
 
             <!-- Autozep Ad: us_budgetbeepro_com_mob_1 -->
             <div class="ad-zone">
@@ -62,42 +118,249 @@ const randomCard = cards[Math.floor(Math.random() * cards.length)];
               </div>
             </div>
 
-            <div
-              id="recommendation-container"
-              class="invisible opacity-0 transition-opacity duration-1000"
-            >
-              <div class="p-4">
-                <h2 class="h3 mb-4">We recommend the {randomCard.name}</h2>
-                <div class="mobile-ad-separator"></div>
+            <hr class="my-8" />
+
+            <h2 class="h3 mb-6">Why Choose Our Credit Card Recommender?</h2>
+
+            <div class="space-y-3 mb-6">
+              <div class="flex items-start gap-3">
                 <div
-                  class="btn-group flex flex-col sm:flex-row justify-center items-center gap-4"
+                  class="flex-shrink-0 rounded-full w-6 h-6 flex items-center justify-center"
+                  style="background-color: #3B82F6;"
                 >
-                  <a
-                    href={randomCard.url}
-                    class="btn btn-secondary secondary-cta-mobile w-full sm:w-auto"
-                    style="background-color: #4A90E2; border-color: #4A90E2; color: white;"
-                    >View Benefits</a
+                  <svg
+                    width="14"
+                    height="14"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
                   >
-                  <a
-                    href={randomCard.reqUrl}
-                    class="btn btn-primary primary-cta-mobile w-full sm:w-auto"
-                    style="background-color: #7ED321; border-color: #7ED321; color: white;"
-                    >View Requirements</a
+                    <path
+                      d="M20 6L9 17L4 12"
+                      stroke="white"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"></path>
+                  </svg>
+                </div>
+                <div>
+                  <span class="ml-2 font-semibold text-dark"
+                    >Personalized Options</span
                   >
                 </div>
-                <div class="click-buffer"></div>
+              </div>
 
-                <!-- Autozep Ad: us_budgetbeepro_com_mob_2 -->
-                <div class="ad-zone">
-                  <div class="mobile-ad-separator"></div>
-                  <div
-                    id="us_budgetbeepro_com_mob_2"
-                    class="w-full flex justify-center items-center"
+              <div class="flex items-start gap-3">
+                <div
+                  class="flex-shrink-0 rounded-full w-6 h-6 flex items-center justify-center"
+                  style="background-color: #3B82F6;"
+                >
+                  <svg
+                    width="14"
+                    height="14"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
                   >
-                  </div>
+                    <path
+                      d="M20 6L9 17L4 12"
+                      stroke="white"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"></path>
+                  </svg>
+                </div>
+                <div>
+                  <span class="ml-2 font-semibold text-dark"
+                    >Completely Free</span
+                  >
+                </div>
+              </div>
+
+              <div class="flex items-start gap-3">
+                <div
+                  class="flex-shrink-0 rounded-full w-6 h-6 flex items-center justify-center"
+                  style="background-color: #3B82F6;"
+                >
+                  <svg
+                    width="14"
+                    height="14"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M20 6L9 17L4 12"
+                      stroke="white"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"></path>
+                  </svg>
+                </div>
+                <div>
+                  <span class="ml-2 font-semibold text-dark">Expert Advice</span
+                  >
                 </div>
               </div>
             </div>
+
+            <p class="text-left text-lg text-dark mb-4">
+              Our recommendations are designed to connect your financial goals
+              with cards that suit your needs.
+            </p>
+
+            <!-- Autozep Ad: us_budgetbeepro_com_mob_2 -->
+            <div class="ad-zone">
+              <div class="mobile-ad-separator"></div>
+              <div
+                id="us_budgetbeepro_com_mob_2"
+                class="w-full flex justify-center items-center"
+              >
+              </div>
+            </div>
+
+            <p class="text-left text-lg text-dark mb-4">
+              From cashback to travel rewards, we give you clear,
+              easy-to-understand options so you can make informed decisions.
+            </p>
+
+            <hr class="my-8" />
+
+            <div class="mt-6 mb-4">
+              <a
+                href="/financial-solutions/capital-one-savor-rewards-credit-card-benefits"
+                class="btn btn-primary btn-lg w-full rounded-full inline-flex items-center justify-center"
+                style="background-color: #3B82F6; border-color: #3B82F6; color: white; border-radius: 50px;"
+              >
+                <div class="flex items-center space-x-2">
+                  <span>Our Top Recommendation</span>
+                  <div
+                    class="bg-white rounded-full w-5 h-5 flex items-center justify-center"
+                  >
+                    <span class="text-blue-500 text-xs">→</span>
+                  </div>
+                </div>
+              </a>
+            </div>
+
+            <p class="text-left text-lg text-dark mb-5">
+              With our guide, you'll transform your credit card into a tool that
+              simplifies your finances and helps you achieve your goals without
+              complications.
+            </p>
+
+            <p class="text-left text-lg mb-6">
+              <a
+                class="text-blue-500"
+                href="/financial-solutions/capital-one-savor-rewards-credit-card-requirements"
+              >
+                Learn How to Apply
+              </a>
+            </p>
+
+            <!-- FAQ Section -->
+            <div class="mt-6 mb-6 border rounded">
+              <!-- FAQ Item 1: Benefits -->
+              <button
+                type="button"
+                class="faq-button flex justify-between items-center w-full p-4 text-left cursor-pointer border-b"
+                data-faq="benefits"
+              >
+                <h3
+                  class="faq-title font-medium text-lg leading-5 text-sky-600"
+                >
+                  What are the benefits of a card with no annual fee?
+                </h3>
+                <span class="faq-icon text-xl text-sky-700">▼</span>
+              </button>
+              <div
+                class="faq-content hidden p-4 text-gray-700"
+                id="faq-benefits-content"
+              >
+                <p class="text-left">
+                  A card with no annual fee helps you save on recurring costs
+                  while enjoying key benefits such as cashback or points for
+                  purchases.
+                </p>
+              </div>
+
+              <!-- FAQ Item 2: Cashback -->
+              <button
+                type="button"
+                class="faq-button flex justify-between items-center w-full p-4 text-left cursor-pointer border-b"
+                data-faq="cashback"
+              >
+                <h3
+                  class="faq-title font-medium text-lg leading-5 text-sky-600"
+                >
+                  How does cashback work?
+                </h3>
+                <span class="faq-icon text-xl text-sky-700">▼</span>
+              </button>
+              <div
+                class="faq-content hidden p-4 text-gray-700"
+                id="faq-cashback-content"
+              >
+                <p class="text-left">
+                  You receive a percentage of your purchases as cash that you
+                  can use to reduce balances or spend as you prefer.
+                </p>
+              </div>
+
+              <!-- FAQ Item 3: Travelers -->
+              <button
+                type="button"
+                class="faq-button flex justify-between items-center w-full p-4 text-left cursor-pointer border-b"
+                data-faq="travelers"
+              >
+                <h3
+                  class="faq-title font-medium text-lg leading-5 text-sky-600"
+                >
+                  What's the best option for travelers?
+                </h3>
+                <span class="faq-icon text-xl text-sky-700">▼</span>
+              </button>
+              <div
+                class="faq-content hidden p-4 text-gray-700"
+                id="faq-travelers-content"
+              >
+                <p class="text-left">
+                  Cards with air miles accumulation or access to VIP lounges are
+                  ideal for frequent travelers, allowing you to save on flights
+                  and enjoy exclusive benefits.
+                </p>
+              </div>
+
+              <!-- FAQ Item 4: Online -->
+              <button
+                type="button"
+                class="faq-button flex justify-between items-center w-full p-4 text-left cursor-pointer"
+                data-faq="online"
+              >
+                <h3
+                  class="faq-title font-medium text-lg leading-6 text-sky-600"
+                >
+                  Is it safe to use credit cards online?
+                </h3>
+                <span class="faq-icon text-xl text-sky-700">▼</span>
+              </button>
+              <div
+                class="faq-content hidden p-4 text-gray-700"
+                id="faq-online-content"
+              >
+                <p class="text-left">
+                  Yes, many cards offer advanced technology such as dynamic CVV
+                  and instant alerts to protect your transactions.
+                </p>
+              </div>
+            </div>
+
+            <p class="text-left text-lg text-dark mb-8">
+              Make your credit card an ally in achieving your financial goals.
+              From cashback to travel rewards, choose an option that simplifies
+              your life and maximizes your benefits. Explore our recommendations
+              and find the card that best suits you.
+            </p>
           </div>
         </div>
       </div>
@@ -108,16 +371,122 @@ const randomCard = cards[Math.floor(Math.random() * cards.length)];
 <script>
   document.addEventListener("DOMContentLoaded", () => {
     const revealButton = document.getElementById("reveal-button");
-    const recommendationContainer = document.getElementById(
-      "recommendation-container"
+    const recommendationsContainer = document.getElementById(
+      "recommendations-container"
     );
+    let hasRevealed = false;
 
-    if (revealButton && recommendationContainer) {
+    // FAQ functionality
+    const faqButtons = document.querySelectorAll(".faq-button");
+    let openFaq = "benefits"; // Default open
+
+    // Open the benefits FAQ by default
+    const defaultFaq = document.querySelector('[data-faq="benefits"]');
+    const defaultContent = document.getElementById("faq-benefits-content");
+    if (defaultFaq && defaultContent) {
+      defaultContent.classList.remove("hidden");
+      const defaultTitle = defaultFaq.querySelector(".faq-title");
+      const defaultIcon = defaultFaq.querySelector(".faq-icon");
+      if (defaultTitle) {
+        defaultTitle.classList.add("text-green-500");
+        defaultTitle.classList.remove("text-sky-600");
+      }
+      if (defaultIcon) {
+        defaultIcon.classList.add("text-green-500", "transform", "rotate-180");
+        defaultIcon.classList.remove("text-sky-700");
+      }
+    }
+
+    faqButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        const faqId = button.getAttribute("data-faq");
+        if (!faqId) return;
+
+        const content = document.getElementById(`faq-${faqId}-content`);
+        const title = button.querySelector(".faq-title");
+        const icon = button.querySelector(".faq-icon");
+
+        if (openFaq === faqId) {
+          // Close current
+          if (content) content.classList.add("hidden");
+          if (title) {
+            title.classList.remove("text-green-500");
+            title.classList.add("text-sky-600");
+          }
+          if (icon) {
+            icon.classList.remove("text-green-500", "transform", "rotate-180");
+            icon.classList.add("text-sky-700");
+          }
+          openFaq = "";
+        } else {
+          // Close previous
+          if (openFaq) {
+            const prevContent = document.getElementById(
+              `faq-${openFaq}-content`
+            );
+            const prevButton = document.querySelector(
+              `[data-faq="${openFaq}"]`
+            );
+            if (prevContent) prevContent.classList.add("hidden");
+            if (prevButton) {
+              const prevTitle = prevButton.querySelector(".faq-title");
+              const prevIcon = prevButton.querySelector(".faq-icon");
+              if (prevTitle) {
+                prevTitle.classList.remove("text-green-500");
+                prevTitle.classList.add("text-sky-600");
+              }
+              if (prevIcon) {
+                prevIcon.classList.remove(
+                  "text-green-500",
+                  "transform",
+                  "rotate-180"
+                );
+                prevIcon.classList.add("text-sky-700");
+              }
+            }
+          }
+
+          // Open new
+          if (content) content.classList.remove("hidden");
+          if (title) {
+            title.classList.add("text-green-500");
+            title.classList.remove("text-sky-600");
+          }
+          if (icon) {
+            icon.classList.add("text-green-500", "transform", "rotate-180");
+            icon.classList.remove("text-sky-700");
+          }
+          openFaq = faqId;
+        }
+      });
+    });
+
+    // Reveal recommendations functionality
+    if (revealButton && recommendationsContainer) {
       revealButton.addEventListener("click", () => {
-        revealButton.style.display = "none";
-        recommendationContainer.classList.remove("invisible");
-        recommendationContainer.classList.add("visible");
-        recommendationContainer.style.opacity = "1";
+        if (hasRevealed) return;
+
+        hasRevealed = true;
+        revealButton.style.opacity = "0";
+        revealButton.style.transform = "scale(0.8)";
+
+        setTimeout(() => {
+          revealButton.style.display = "none";
+          recommendationsContainer.classList.remove("hidden");
+
+          // Animate each recommendation card
+          const cards = recommendationsContainer.querySelectorAll(
+            ".recommendation-card"
+          );
+          cards.forEach((card, index) => {
+            setTimeout(() => {
+              if (card instanceof HTMLElement) {
+                card.style.opacity = "1";
+                card.style.transform = "translateX(0)";
+              }
+            }, index * 100);
+          });
+        }, 500);
       });
     }
   });
@@ -133,11 +502,68 @@ const randomCard = cards[Math.floor(Math.random() * cards.length)];
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   }
 
-  .invisible {
-    visibility: hidden;
+  .recommendation-card {
+    transition:
+      opacity 0.5s ease,
+      transform 0.5s ease;
   }
 
-  .visible {
-    visibility: visible;
+  .faq-button {
+    transition: all 0.3s ease;
+  }
+
+  .faq-icon {
+    transition:
+      transform 0.3s ease,
+      color 0.3s ease;
+  }
+
+  .faq-title {
+    transition: color 0.3s ease;
+  }
+
+  .faq-content {
+    transition: all 0.3s ease;
+  }
+
+  /* Animation for fade-in effect */
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .recommendation-card {
+    animation: fadeInUp 0.5s ease forwards;
+  }
+
+  /* Ensure proper spacing and alignment */
+  .space-y-1 > * + * {
+    margin-top: 0.25rem;
+  }
+
+  .space-y-4 > * + * {
+    margin-top: 1rem;
+  }
+
+  /* Mobile responsive adjustments */
+  @media (max-width: 768px) {
+    .btn {
+      padding: 12px 20px;
+      font-size: 0.875rem;
+    }
+
+    .text-lg {
+      font-size: 1rem;
+    }
+
+    .text-2xl {
+      font-size: 1.25rem;
+    }
   }
 </style>
