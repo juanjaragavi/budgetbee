@@ -1,7 +1,18 @@
-feat: Add WARP.md configuration for Warp AI terminal
+fix: Update TypeScript configuration and layout improvements
 
-- Created WARP.md with essential project guidance for Warp instances
-- Included pnpm commands, development server settings, architecture overview
-- Added content creation workflow, blog generation rules, and US localization
-- Documented git workflow automation and project-specific rules
-- Listed critical utilities and TypeScript path aliases configuration
+## TypeScript Configuration
+- **tsconfig.json**: Improved include pattern from `.astro/types.d.ts` to `.astro/**/*`
+- **Future-proofing**: Ensures all Astro-generated type files are included
+- **Robustness**: Prevents issues with missing Astro type files
+
+## Layout Enhancements
+- **PostSingle.astro**: Enhanced layout and functionality improvements
+- **Base.astro**: Updated base layout configuration
+- **Credit Card Recommender Pages**: Improved layout and user experience
+  - Updated recommender-p1, p2, and p3 pages
+
+## Build Configuration
+- **TypeScript Build**: Added proper build configuration support
+- **Type Safety**: Enhanced type checking and compilation
+
+These changes improve the overall stability and maintainability of the project while ensuring better TypeScript support and layout consistency across the application.
