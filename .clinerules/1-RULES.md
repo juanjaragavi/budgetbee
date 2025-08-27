@@ -108,3 +108,50 @@ Testing should be done proactively without waiting for user prompts, as part of 
   - Use the US sitemap at `dist/sitemap-index.xml` to avoid duplicating already published content and to build correct internal links.
   - Produce content in US English conventions (en-US) and ensure internal links point to the `budgetbeepro.com` domain.
   - If the funnel stage is TOFU, create the new blog post under `src/pages/personal-finance`, matching the structure and layout used by existing articles in that directory, but write entirely new, original content.
+
+## Blog Post Listing Integration Requirements
+
+After creating any new blog post or article, **ensure the content appears in all relevant listing pages** across the BudgetBee website for optimal discoverability and user experience.
+
+### Key Blog Listing Locations
+
+**New articles must appear in:**
+
+1. **Homepage** (`src/pages/index.astro`):
+
+   - Latest News section (latest 3 articles)
+   - Featured Article section (top article)
+   - Featured Posts section (articles 2-4)
+
+2. **Main Blog Hub** (`src/pages/blog/index.astro`):
+
+   - All Articles section with category filtering
+   - Aggregated content from personal-finance and financial-solutions
+
+3. **Category Pages**:
+
+   - Personal Finance: `/personal-finance/` (`src/pages/personal-finance/index.astro`)
+   - Financial Solutions: `/financial-solutions/` (`src/pages/financial-solutions/index.astro`)
+
+4. **Pagination Pages**:
+   - Blog: `/blog/page/[slug].astro`
+   - Personal Finance: `/personal-finance/page/[slug].astro`
+   - Financial Solutions: `/financial-solutions/page/[slug].astro`
+
+### Post-Creation Verification
+
+**Always verify after creating new content:**
+
+1. Check homepage Latest News section displays new article
+2. Confirm article appears in appropriate category listing
+3. Test category filtering includes the new article
+4. Validate pagination system updates properly
+
+### Common Issues
+
+- **Future dates**: Articles with future publication dates are filtered out
+- **Invalid categories**: Category names must match existing structure
+- **Missing frontmatter**: All required metadata fields must be present
+- **Wrong location**: Files must be in correct content collection directory
+
+**Note**: The system automatically integrates properly formatted articles with correct frontmatter.

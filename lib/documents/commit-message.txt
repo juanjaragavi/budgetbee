@@ -1,6 +1,9 @@
-fix(content): update all article dates from 2024 to 2025
+docs(instructions): add comprehensive blog listing integration requirements
 
-- Updated blog post publication dates from 2024 to 2025 across all personal-finance articles
-- Updated privacy policy and terms & conditions effective dates from January 10, 2024 to January 10, 2025
-- Updated tax information references from 2024 to 2025 in paycheck explanation article
-- Ensures all content reflects current year (2025) for accuracy and freshness
+- Added detailed blog post listing integration instructions to all instruction files
+- Updated blog-post-generation-prompt.md with post-publication verification steps
+- Enhanced project-rules.instructions.md with blog listing page requirements
+- Added blog integration guidelines to .clinerules/1-RULES.md
+- Includes specific files that need verification: homepage, category pages, pagination
+- Provides troubleshooting for common visibility issues (future dates, categories, frontmatter)
+- Ensures all new blog content appears in Latest News, Featured Articles, and category listings

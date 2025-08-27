@@ -140,3 +140,68 @@ This procedure is initiated when the user issues the prompt "Push and commit our
   - Use the US sitemap at `dist/sitemap-index.xml` to avoid duplicating already published content and to build correct internal links.
   - Produce content in US English conventions (en-US) and ensure internal links point to the `budgetbeepro.com` domain.
   - If the funnel stage is TOFU, create the new blog post under `src/pages/personal-finance`, matching the structure and layout used by existing articles in that directory, but write entirely new, original content.
+
+## Blog Post Listing Integration Requirements
+
+After creating any new blog post or article, **ensure the content appears in all relevant listing pages** across the website for optimal discoverability and user experience.
+
+### Critical Blog Listing Pages
+
+**Always verify new articles appear in:**
+
+1. **Homepage** (`src/pages/index.astro`):
+
+   - Latest News section (most recent 3 articles)
+   - Featured Article section (top article by date)
+   - Featured Posts section (articles 2-4 from collection)
+
+2. **Main Blog Hub** (`src/pages/blog/index.astro`):
+
+   - All Articles section with category filtering
+   - Aggregated content display from personal-finance and financial-solutions collections
+
+3. **Category-Specific Index Pages**:
+
+   - Personal Finance: `/personal-finance/` (`src/pages/personal-finance/index.astro`)
+   - Financial Solutions: `/financial-solutions/` (`src/pages/financial-solutions/index.astro`)
+
+4. **Pagination Systems**:
+
+   - Main blog pagination: `/blog/page/[slug].astro`
+   - Personal finance pagination: `/personal-finance/page/[slug].astro`
+   - Financial solutions pagination: `/financial-solutions/page/[slug].astro`
+
+5. **Category Filtering**:
+   - Category-based pages: `/blog/category/[category].astro`
+
+### Technical Architecture
+
+**Blog listing functionality depends on:**
+
+- `getSinglePage()` content parser function
+- `sortByDate()` chronological sorting utility
+- `PaginatedPosts` component for rendering
+- Astro content collections system
+- Proper frontmatter structure with valid dates and categories
+
+### Post-Publication Verification Protocol
+
+**Required checks after creating new content:**
+
+1. **Development Server Verification**: Confirm article appears in homepage latest articles section
+2. **Category Page Validation**: Verify article displays in appropriate category listing page
+3. **Filter System Testing**: Test category filtering includes the new article correctly
+4. **Pagination Integrity**: Ensure pagination system updates to accommodate new content
+5. **Cross-Section Linking**: Validate internal links and content cross-references
+
+### Content Integration Troubleshooting
+
+**Common issues preventing article visibility:**
+
+- **Future Dates**: Articles with future publication dates are filtered out by the content system
+- **Invalid Date Format**: Date must follow `YYYY-MM-DDTHH:MM:SSZ` ISO format exactly
+- **Incorrect Categories**: Category names must match existing category structure
+- **Missing Frontmatter**: Required metadata fields (title, description, date, categories) must be complete
+- **Wrong Directory**: File must be placed in correct content collection directory (`src/content/personal-finance/` or `src/content/financial-solutions/`)
+
+**Note**: The listing system automatically integrates new content when properly formatted markdown files are created with valid frontmatter and placed in the correct content collection directories.

@@ -99,6 +99,68 @@ You will find the Schema in the [topfinanzas-us-topic-outline.csv](lib/documents
 - Never imitate personalized financial or legal advice. Everything must be general, educational, and clearly informative.
 - The content must be factual, useful, ethical, and consistent with the objective of educating, not inducing risky decisions.
 
+## Post-Publication Blog Listing Integration Requirements
+
+After successfully creating and saving a new blog post, **you must ensure the article appears in all relevant listing pages** across the BudgetBee website. This is critical for content discoverability and user experience.
+
+### Required Blog Listing Locations
+
+**Verify the new article appears in the following pages/sections:**
+
+1. **Homepage (`src/pages/index.astro`)**:
+
+   - Latest News section (displays latest 3 articles)
+   - Featured Article section (top article)
+   - Featured Posts section (articles 2-4)
+
+2. **Main Blog Page (`src/pages/blog/index.astro`)**:
+
+   - All Articles section with category filtering
+   - Aggregated content from both personal-finance and financial-solutions collections
+
+3. **Category-Specific Pages**:
+
+   - **Personal Finance**: `/personal-finance/` (`src/pages/personal-finance/index.astro`)
+   - **Financial Solutions**: `/financial-solutions/` (`src/pages/financial-solutions/index.astro`)
+
+4. **Pagination Pages**:
+
+   - Blog pagination: `/blog/page/[slug].astro`
+   - Personal Finance pagination: `/personal-finance/page/[slug].astro`
+   - Financial Solutions pagination: `/financial-solutions/page/[slug].astro`
+
+5. **Category Filter Pages**:
+   - Category-based filtering: `/blog/category/[category].astro`
+
+### Technical Implementation Notes
+
+**The blog listing system works through:**
+
+- `getSinglePage()` function from `@/lib/contentParser.astro`
+- `sortByDate()` function for chronological ordering
+- `PaginatedPosts` component for display rendering
+- Astro content collections for content management
+
+**Automatic Integration**: New articles should automatically appear in these listings once the markdown file is properly created with correct frontmatter (including valid date, categories, and content structure).
+
+### Verification Steps
+
+After creating a new blog post:
+
+1. **Check Development Server**: Verify article appears in homepage latest articles
+2. **Browse Category Pages**: Confirm article shows in appropriate category listing
+3. **Test Blog Filters**: Ensure category filtering includes the new article
+4. **Validate Pagination**: Check that pagination updates to include new content
+
+### Troubleshooting Missing Articles
+
+If an article doesn't appear in listings:
+
+- **Date Format**: Ensure date follows `YYYY-MM-DDTHH:MM:SSZ` format and is not in future
+- **Categories**: Verify categories array matches existing category structure
+- **File Location**: Confirm file is in correct content collection directory
+- **Frontmatter**: Check all required frontmatter fields are present and valid
+
 ## Recommended Content Length
 
 - **If "Is Pillar? \= Yes":** write between 1,500 and 2,000 words.
