@@ -1,24 +1,6 @@
-docs(content): update blog post generation prompt guidelines
+fix(content): update all article dates from 2024 to 2025
 
-Updated the blog-post-generation-prompt.md file with refined content creation guidelines and improved documentation structure.
-
-## Changes Made
-
-### Documentation Updates
-- **File Modified**: `lib/documents/blog-post-generation-prompt.md`
-- **Purpose**: Enhanced content generation guidelines for consistency and quality
-- **Impact**: Improved content creation process for future blog posts
-
-### Guidelines Refinement
-- Updated content structure requirements
-- Clarified SEO optimization standards
-- Enhanced tone and style guidelines
-- Improved internal linking strategies
-
-### Quality Assurance
-- Ensures consistent content quality across all blog posts
-- Maintains SEO best practices
-- Supports US market localization requirements
-- Aligns with BudgetBee's educational content strategy
-
-This update provides clearer guidance for creating high-quality, SEO-optimized content that serves the educational needs of BudgetBee's audience while maintaining consistency across all articles.
+- Updated blog post publication dates from 2024 to 2025 across all personal-finance articles
+- Updated privacy policy and terms & conditions effective dates from January 10, 2024 to January 10, 2025
+- Updated tax information references from 2024 to 2025 in paycheck explanation article
+- Ensures all content reflects current year (2025) for accuracy and freshness

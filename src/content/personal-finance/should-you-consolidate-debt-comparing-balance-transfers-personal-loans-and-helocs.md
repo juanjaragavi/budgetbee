@@ -2,7 +2,7 @@
 title: "Should You Consolidate Debt? Comparing Balance Transfers, Personal Loans, and HELOCs"
 description: "Explore the pros and cons of different debt consolidation methods like balance transfers, personal loans, and HELOCs to see if combining your debts is the right move for you."
 image: "https://media.topfinanzas.com/images/should-you-consolidate-debt-comparing-balance-transfers-personal-loans-and-helocs.webp"
-date: 2024-06-25T05:00:00Z
+date: 2025-06-25T05:00:00Z
 draft: false
 categories: ["personal-finance", "debt-management"]
 tags:

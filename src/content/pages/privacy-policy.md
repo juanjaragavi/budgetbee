@@ -4,7 +4,7 @@ description: "BudgetBee Privacy Policy - Learn how we collect, use and protect y
 draft: false
 ---
 
-**Effective Date:** January 10, 2024  
+**Effective Date:** January 10, 2025  
 **Last Updated:** May 24, 2025
 
 **TopNetworks Inc.** ("we", "our" or "us") is committed to protecting your personal information. This Privacy Policy describes how we collect, use and share your data, the security measures we employ, and the rights you have over your personal information. We recommend that you read this policy carefully.

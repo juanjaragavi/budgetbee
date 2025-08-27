@@ -2,7 +2,7 @@
 title: "Protecting Your Money: An Introduction to Financial Security"
 description: "Learn the basics of keeping your money safe, from online security tips to understanding insurance, to build a secure financial future."
 image: "https://media.topfinanzas.com/images/protecting-your-money-an-introduction-to-financial-security.webp"
-date: 2024-06-25T05:00:00Z
+date: 2025-06-25T05:00:00Z
 draft: false
 categories: ["personal-finance"]
 tags:
