@@ -27,6 +27,17 @@ const isFinancialSolution = categories.includes("Financial Solutions");
       .content p > a:not(.btn):hover {
         text-decoration: underline;
       }
+
+      /* Ensure content stays left-aligned with ad units present */
+      .blog-post-single .content,
+      .blog-post-single .content *:not(.ad-zone):not(.mobile-ad-separator) {
+        text-align: left !important;
+      }
+
+      /* Prevent ad zone flex properties from affecting content */
+      .blog-content-wrapper > *:not(.ad-zone) {
+        text-align: left !important;
+      }
     </style>
   )
 }
@@ -60,13 +71,42 @@ const isFinancialSolution = categories.includes("Financial Solutions");
             ]}
           />
 
+          {/* Autozep Ad: us_budgetbeepro_com_mob_3 - Insert after title and first paragraph */}
+          {isFinancialSolution && (
+            <div class="ad-zone ad-zone-top" style="text-align: center;">
+              <div class="mobile-ad-separator"></div>
+              <div
+                id="us_budgetbeepro_com_mob_3"
+                class="w-full flex justify-center items-center"
+                style="text-align: center; isolation: isolate;"
+              >
+              </div>
+            </div>
+          )}
+
           <div
             class:list={[
               "content mb-16 text-left",
               { "leading-tight": applyLeadingTight },
             ]}
+            style="text-align: left !important;"
           >
-            <Content />
+            <div class="blog-content-wrapper" style="text-align: left !important;">
+              <Content />
+
+              {/* Autozep Ad: us_budgetbeepro_com_mob_4 - Insert after last title */}
+              {isFinancialSolution && (
+                <div class="ad-zone ad-zone-bottom" style="text-align: center;">
+                  <div class="mobile-ad-separator"></div>
+                  <div
+                    id="us_budgetbeepro_com_mob_4"
+                    class="w-full flex justify-center items-center"
+                    style="text-align: center; isolation: isolate;"
+                  >
+                  </div>
+                </div>
+              )}
+            </div>
             <AIContentDisclaimerStatic client:load />
           </div>
         </article>
