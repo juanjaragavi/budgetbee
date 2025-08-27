@@ -193,7 +193,7 @@ const featuredPosts = sortedPosts.slice(1, 4);
               <p
                 class="text-lg leading-relaxed mb-6 line-clamp-3 text-left"
                 set:html={plainify(
-                  featuredPost.body.slice(0, summary_length * 2)
+                  featuredPost.body?.slice(0, summary_length * 2) || ""
                 )}
               />
               <a

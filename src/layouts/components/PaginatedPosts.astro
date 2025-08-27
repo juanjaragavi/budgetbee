@@ -4,7 +4,7 @@ import Pagination from "@/layouts/components/Pagination.astro";
 import type { CollectionEntry } from "astro:content";
 
 interface Props {
-  posts: CollectionEntry<"blog" | "personal-finance">[];
+  posts: CollectionEntry<"blog" | "personal-finance" | "financial-solutions">[];
   section: string;
   currentPage?: number;
   totalPages?: number;
