@@ -506,3 +506,68 @@
     box-shadow: none !important;
   }
 }
+
+/* Blog Post Ad Zone Styles */
+.ad-zone-top {
+  @apply my-8;
+  margin-top: 1rem !important;
+  margin-bottom: 2rem !important;
+}
+
+.ad-zone-bottom {
+  @apply my-8;
+  margin-top: 2rem !important;
+  margin-bottom: 1rem !important;
+}
+
+/* Ensure proper spacing for blog content wrapper */
+.blog-content-wrapper {
+  @apply relative;
+}
+
+/* Financial Solutions specific ad styling */
+.blog-post-single .ad-zone {
+  @apply mx-auto;
+  max-width: 100%;
+}
+
+/* Ensure blog content stays left-aligned */
+.blog-post-single .content {
+  text-align: left !important;
+}
+
+.blog-post-single .content p,
+.blog-post-single .content h1,
+.blog-post-single .content h2,
+.blog-post-single .content h3,
+.blog-post-single .content h4,
+.blog-post-single .content h5,
+.blog-post-single .content h6,
+.blog-post-single .content ul,
+.blog-post-single .content ol,
+.blog-post-single .content li,
+.blog-post-single .content div:not(.ad-zone):not(.mobile-ad-separator) {
+  text-align: left !important;
+}
+
+/* Ensure ad zones don't affect surrounding content alignment */
+.ad-zone {
+  isolation: isolate;
+}
+
+.ad-zone+*,
+*+.ad-zone {
+  text-align: left !important;
+}
+
+@media (min-width: 768px) {
+  .ad-zone-top {
+    margin-top: 1.5rem !important;
+    margin-bottom: 2.5rem !important;
+  }
+
+  .ad-zone-bottom {
+    margin-top: 2.5rem !important;
+    margin-bottom: 1.5rem !important;
+  }
+}
