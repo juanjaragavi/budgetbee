@@ -1,46 +1,24 @@
-feat(content): add new TOFU blog post about 50/30/20 budgeting rule
+docs(content): update blog post generation prompt guidelines
 
-Added comprehensive SEO-optimized article explaining the 50/30/20 budgeting method for personal finance beginners.
+Updated the blog-post-generation-prompt.md file with refined content creation guidelines and improved documentation structure.
 
-## Article Details
+## Changes Made
 
-### Content Overview
-- **Title**: "The 50/30/20 Rule Explained: Simple Budgeting That Actually Works"
-- **Category**: Personal Finance (TOFU)
-- **Target Keywords**: personal finance, beginner budget, how to budget, first budget, 50/30/20 rule
-- **Word Count**: ~950 words (within TOFU guidelines of 800-1000 words)
+### Documentation Updates
+- **File Modified**: `lib/documents/blog-post-generation-prompt.md`
+- **Purpose**: Enhanced content generation guidelines for consistency and quality
+- **Impact**: Improved content creation process for future blog posts
 
-### SEO Optimization
-- **Meta Description**: Optimized for search intent around budgeting help
-- **Internal Links**: Added 2 relevant internal links to existing BudgetBee content
-- **Target Audience**: Beginners struggling with budgeting and personal finance
-- **Search Intent**: Informational (how-to guide for budgeting)
+### Guidelines Refinement
+- Updated content structure requirements
+- Clarified SEO optimization standards
+- Enhanced tone and style guidelines
+- Improved internal linking strategies
 
-### Content Structure
-- **Introduction**: Addresses common budgeting pain points
-- **Main Content**: Clear explanation of the 50/30/20 framework
-- **Practical Examples**: Real-world calculations and scenarios
-- **Implementation Guide**: Step-by-step action plan
-- **Conclusion**: Benefits and sustainability focus
+### Quality Assurance
+- Ensures consistent content quality across all blog posts
+- Maintains SEO best practices
+- Supports US market localization requirements
+- Aligns with BudgetBee's educational content strategy
 
-### Key Features
-- **Educational Tone**: Informal but authoritative approach
-- **Beginner-Friendly**: No jargon, accessible language throughout
-- **Actionable Content**: Specific steps readers can implement immediately
-- **US Market Focus**: Written for US audience with US financial context
-
-### Content Guidelines Compliance
-- ✅ Followed blog-post-generation-prompt.md requirements
-- ✅ Matched existing personal-finance directory structure
-- ✅ Included proper frontmatter with categories and tags
-- ✅ Added internal links to existing BudgetBee content
-- ✅ Used engaging, educational tone without financial advice disclaimers
-- ✅ Focused on general education rather than specific financial advice
-
-### SEO Strategy
-- **Primary Keywords**: Naturally integrated throughout content
-- **Related Topics**: Links to complementary BudgetBee articles
-- **User Experience**: Scannable format with clear headings and bullet points
-- **Content Length**: Optimized for TOFU engagement and search ranking
-
-This article provides valuable educational content for users in the awareness stage of their personal finance journey, establishing BudgetBee as a trusted resource for practical money management guidance.
+This update provides clearer guidance for creating high-quality, SEO-optimized content that serves the educational needs of BudgetBee's audience while maintaining consistency across all articles.
