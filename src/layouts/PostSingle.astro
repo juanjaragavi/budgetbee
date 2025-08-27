@@ -93,20 +93,21 @@ const isFinancialSolution = categories.includes("Financial Solutions");
           >
             <div class="blog-content-wrapper" style="text-align: left !important;">
               <Content />
-
-              {/* Autozep Ad: us_budgetbeepro_com_mob_4 - Insert after last title */}
-              {isFinancialSolution && (
-                <div class="ad-zone ad-zone-bottom" style="text-align: center;">
-                  <div class="mobile-ad-separator"></div>
-                  <div
-                    id="us_budgetbeepro_com_mob_4"
-                    class="w-full flex justify-center items-center"
-                    style="text-align: center; isolation: isolate;"
-                  >
-                  </div>
-                </div>
-              )}
             </div>
+
+            {/* Autozep Ad: us_budgetbeepro_com_mob_4 - Will be repositioned by script */}
+            {isFinancialSolution && (
+              <div class="ad-zone ad-zone-mid" style="text-align: center;" id="mob-4-container">
+                <div class="mobile-ad-separator"></div>
+                <div
+                  id="us_budgetbeepro_com_mob_4"
+                  class="w-full flex justify-center items-center"
+                  style="text-align: center; isolation: isolate;"
+                >
+                </div>
+              </div>
+            )}
+
             <AIContentDisclaimerStatic client:load />
           </div>
         </article>
@@ -114,3 +115,44 @@ const isFinancialSolution = categories.includes("Financial Solutions");
     </div>
   </div>
 </section>
+
+{/* Script to reposition the second ad unit before the last section */}
+{isFinancialSolution && (
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Wait a bit for content to be fully rendered
+      setTimeout(function() {
+        const adContainer = document.getElementById('mob-4-container');
+        const contentWrapper = document.querySelector('.blog-content-wrapper');
+
+        if (adContainer && contentWrapper) {
+          // Look for the last section heading (h3) that typically contains conclusion or CTA content
+          const headings = contentWrapper.querySelectorAll('h3');
+          let targetHeading = null;
+
+          // Find the last heading that might be a conclusion section
+          for (let i = headings.length - 1; i >= 0; i--) {
+            const headingText = headings[i].textContent.toLowerCase();
+            if (headingText.includes('explore') || headingText.includes('other') ||
+                headingText.includes('solutions') || headingText.includes('maximize') ||
+                headingText.includes('benefits') || headingText.includes('financial') ||
+                i === headings.length - 1) {
+              targetHeading = headings[i];
+              break;
+            }
+          }
+
+          // Fallback: if no specific heading found, use the last h3
+          if (!targetHeading && headings.length > 0) {
+            targetHeading = headings[headings.length - 1];
+          }
+
+          // Move the ad container before the target heading
+          if (targetHeading && targetHeading.parentNode) {
+            targetHeading.parentNode.insertBefore(adContainer, targetHeading);
+          }
+        }
+      }, 100);
+    });
+  </script>
+)}

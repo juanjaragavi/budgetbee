@@ -520,6 +520,12 @@
   margin-bottom: 1rem !important;
 }
 
+.ad-zone-mid {
+  @apply my-8;
+  margin-top: 2rem !important;
+  margin-bottom: 2rem !important;
+}
+
 /* Ensure proper spacing for blog content wrapper */
 .blog-content-wrapper {
   @apply relative;
@@ -569,5 +575,10 @@
   .ad-zone-bottom {
     margin-top: 2.5rem !important;
     margin-bottom: 1.5rem !important;
+  }
+
+  .ad-zone-mid {
+    margin-top: 2.5rem !important;
+    margin-bottom: 2.5rem !important;
   }
 }

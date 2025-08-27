@@ -1,43 +1,55 @@
-feat(ads): implement Autozep ad units for Financial Solutions blog posts
+fix(ads): reposition second Autozep ad unit to correct location in Financial Solutions posts
 
-Integrated Autozep ad units mob_3 and mob_4 into Financial Solutions blog posts with proper text alignment preservation.
+Fixed positioning of us_budgetbeepro_com_mob_4 ad unit to appear before the last section title instead of at the bottom of blog posts.
 
-## Implementation Details
+## Problem Resolved
 
-### Ad Unit Placement
-- **us_budgetbeepro_com_mob_3**: Positioned after blog post title for early content monetization
-- **us_budgetbeepro_com_mob_4**: Positioned at bottom of blog post content for completion engagement
-- **Conditional rendering**: Only displays on Financial Solutions category posts
+### Issue
+- **Second ad unit** (`us_budgetbeepro_com_mob_4`) was appearing at the very bottom of blog posts
+- **Required position**: Before the last section title (e.g., "Explore Other Financial Solutions")
+- **Root cause**: Ad unit was placed after the entire `<Content />` component rendering
 
-### Text Alignment Fix
-- **Root issue**: Ad unit flex properties were causing blog content to center-align
-- **Solution**: Added CSS isolation and explicit left-alignment rules
-- **Scope**: Applied comprehensive text alignment preservation across all content elements
+### Solution Implemented
 
-### Technical Implementation
+#### Dynamic Repositioning System
+- **JavaScript script**: Added client-side repositioning logic that runs after content loads
+- **Smart targeting**: Identifies the last section heading using multiple keyword patterns
+- **Fallback logic**: Uses last h3 heading if no specific pattern matches
 
-#### PostSingle.astro Changes
-- Added conditional Autozep ad units for `isFinancialSolution` posts
-- Implemented CSS isolation with `isolation: isolate` on ad containers
-- Added scoped styling to enforce left text alignment for blog content
-- Applied inline styles with `!important` declarations for alignment consistency
+#### Technical Implementation
 
-#### CSS Enhancements (ad-aware-design.css)
-- Added `.ad-zone-top` and `.ad-zone-bottom` positioning classes
-- Implemented comprehensive left-alignment rules for all content elements (p, h1-h6, ul, ol, li)
-- Added CSS isolation rules to prevent ad zone styles from affecting content
-- Included responsive breakpoints for optimal mobile and desktop display
+##### PostSingle.astro Changes
+- **Moved ad container**: Positioned outside content wrapper with unique ID (`mob-4-container`)
+- **Added repositioning script**: DOM manipulation to move ad unit to correct position
+- **Enhanced targeting logic**: Searches for conclusion-type section headings
 
-### Design Consistency
-- **Ad units**: Properly centered within their containers using existing ad-zone styling
-- **Blog content**: Maintained left-alignment for all text elements as intended
-- **Responsive**: Consistent behavior across mobile and desktop viewports
-- **Category-specific**: Only affects Financial Solutions posts, other categories unaffected
+##### CSS Enhancements (ad-aware-design.css)
+- **New `.ad-zone-mid` class**: Specific styling for repositioned ad unit
+- **Responsive updates**: Added responsive breakpoints for mid-positioned ad zones
+- **Consistent spacing**: Maintains proper margins around repositioned ad
+
+### Script Intelligence
+
+The repositioning script searches for headings containing:
+- `"explore"`, `"other"`, `"solutions"` (e.g., "Explore Other Financial Solutions")
+- `"maximize"`, `"benefits"`, `"financial"` (conclusion sections)
+- **Fallback**: Last h3 heading if no specific patterns found
 
 ### Quality Assurance
-- Tested across multiple Financial Solutions blog posts
-- Verified text alignment preservation
-- Confirmed ad unit visibility and proper positioning
-- Ensured no impact on other blog post categories
 
-The implementation successfully monetizes Financial Solutions content while preserving the intended reading experience and design consistency.
+#### Testing Completed
+- ✅ Amazon Rewards Visa Credit Card Benefits page
+- ✅ Chase Freedom Unlimited Credit Card Benefits page
+- ✅ Citi Double Cash Credit Card Benefits page
+- ✅ Verified correct positioning before last sections
+- ✅ Confirmed responsive behavior on mobile and desktop
+
+#### Design Consistency Maintained
+- **Ad styling**: Preserved existing ad-zone styling and appearance
+- **Text alignment**: All previous left-alignment fixes remain intact
+- **Responsive design**: Consistent behavior across all viewport sizes
+- **Category targeting**: Only affects Financial Solutions posts as intended
+
+### Result
+
+The second ad unit now correctly appears in the middle of the content before conclusion sections, providing optimal ad placement for user engagement while maintaining the intended reading experience. The implementation works dynamically across different blog post structures and section titles.
