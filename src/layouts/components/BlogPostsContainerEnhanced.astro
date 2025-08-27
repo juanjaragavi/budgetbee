@@ -1,0 +1,562 @@
+---
+/**
+ * Enhanced Blog Posts Container
+ * Advanced container with filtering, search, sorting, and pagination
+ */
+
+import type { CollectionEntry } from 'astro:content';
+import PostCardEnhanced from '@/layouts/partials/PostCardEnhanced.astro';
+import Pagination from '@/layouts/components/Pagination.astro';
+import { blogManager, type BlogPostFilters } from '@/lib/blogManager';
+
+export interface Props {
+  posts: CollectionEntry<'personal-finance' | 'financial-solutions'>[];
+  currentPage?: number;
+  totalPages?: number;
+  basePath?: string;
+  showFilters?: boolean;
+  showSearch?: boolean;
+  showSorting?: boolean;
+  enableInfiniteScroll?: boolean;
+  gridCols?: 1 | 2 | 3 | 4;
+  variant?: 'default' | 'featured' | 'compact' | 'card';
+  title?: string;
+  description?: string;
+  className?: string;
+  postsPerPage?: number;
+}
+
+const {
+  posts,
+  currentPage = 1,
+  totalPages = 1,
+  basePath = '/blog',
+  showFilters = false,
+  showSearch = false,
+  showSorting = false,
+  enableInfiniteScroll = false,
+  gridCols = 3,
+  variant = 'default',
+  title,
+  description,
+  className = '',
+  postsPerPage = 9
+} = Astro.props;
+
+// Get filter data
+const allCategories = showFilters ? await blogManager.getAllCategories() : [];
+const allTags = showFilters ? await blogManager.getAllTags() : [];
+
+// Grid configuration
+const gridClasses = {
+  1: 'grid-cols-1',
+  2: 'grid-cols-1 md:grid-cols-2',
+  3: 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3',
+  4: 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'
+};
+
+const containerVariants = {
+  default: 'space-y-6',
+  featured: 'space-y-8',
+  compact: 'space-y-4',
+  card: 'space-y-6'
+};
+
+// Animation delays for staggered entrance
+const getAnimationDelay = (index: number) => index * 100;
+---
+
+<section class={`blog-posts-container ${containerVariants[variant]} ${className}`}>
+  <!-- Header -->
+  {(title || description) && (
+    <div class="text-center mb-8 lg:mb-12">
+      {title && (
+        <h2 class="text-3xl lg:text-4xl font-bold text-dark dark:text-darkmode-dark mb-4">
+          {title}
+        </h2>
+      )}
+      {description && (
+        <p class="text-lg text-text dark:text-darkmode-text max-w-3xl mx-auto">
+          {description}
+        </p>
+      )}
+    </div>
+  )}
+
+  <!-- Controls Bar -->
+  {(showFilters || showSearch || showSorting) && (
+    <div class="controls-bar bg-theme-light dark:bg-darkmode-theme-light rounded-lg p-4 mb-8 space-y-4 lg:space-y-0 lg:flex lg:items-center lg:justify-between">
+      <!-- Search -->
+      {showSearch && (
+        <div class="search-container lg:flex-1 lg:max-w-md">
+          <div class="relative">
+            <input
+              type="text"
+              id="blog-search"
+              placeholder="Search posts..."
+              class="w-full pl-10 pr-4 py-2 border border-border dark:border-darkmode-border rounded-md focus:ring-2 focus:ring-primary focus:border-transparent bg-body dark:bg-darkmode-body text-dark dark:text-darkmode-dark"
+              autocomplete="off"
+            />
+            <svg class="absolute left-3 top-2.5 h-5 w-5 text-light dark:text-darkmode-light" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+            </svg>
+          </div>
+        </div>
+      )}
+
+      <!-- Filter and Sort Controls -->
+      <div class="flex flex-wrap gap-4 lg:flex-nowrap">
+        <!-- Category Filter -->
+        {showFilters && allCategories.length > 0 && (
+          <select
+            id="category-filter"
+            class="px-3 py-2 border border-border dark:border-darkmode-border rounded-md focus:ring-2 focus:ring-primary focus:border-transparent bg-body dark:bg-darkmode-body text-dark dark:text-darkmode-dark"
+          >
+            <option value="">All Categories</option>
+            {allCategories.map((category) => (
+              <option value={category}>{category}</option>
+            ))}
+          </select>
+        )}
+
+        <!-- Tag Filter -->
+        {showFilters && allTags.length > 0 && (
+          <select
+            id="tag-filter"
+            class="px-3 py-2 border border-border dark:border-darkmode-border rounded-md focus:ring-2 focus:ring-primary focus:border-transparent bg-body dark:bg-darkmode-body text-dark dark:text-darkmode-dark"
+          >
+            <option value="">All Tags</option>
+            {allTags.slice(0, 20).map((tag) => (
+              <option value={tag}>{tag}</option>
+            ))}
+          </select>
+        )}
+
+        <!-- Sort Options -->
+        {showSorting && (
+          <select
+            id="sort-filter"
+            class="px-3 py-2 border border-border dark:border-darkmode-border rounded-md focus:ring-2 focus:ring-primary focus:border-transparent bg-body dark:bg-darkmode-body text-dark dark:text-darkmode-dark"
+          >
+            <option value="date-desc">Latest First</option>
+            <option value="date-asc">Oldest First</option>
+            <option value="title-asc">Title A-Z</option>
+            <option value="title-desc">Title Z-A</option>
+          </select>
+        )}
+
+        <!-- Clear Filters -->
+        {(showFilters || showSearch || showSorting) && (
+          <button
+            id="clear-filters"
+            class="px-4 py-2 text-sm font-medium text-primary hover:text-primary/80 border border-primary hover:border-primary/80 rounded-md transition-colors duration-200"
+          >
+            Clear All
+          </button>
+        )}
+      </div>
+    </div>
+  )}
+
+  <!-- Results Info -->
+  <div class="results-info flex items-center justify-between mb-6 text-sm text-light dark:text-darkmode-light">
+    <span id="results-count">
+      Showing {posts.length} of {posts.length} posts
+    </span>
+
+    <!-- View Toggle -->
+    <div class="flex items-center space-x-2">
+      <span class="text-xs">View:</span>
+      <button
+        id="grid-view"
+        class="p-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light transition-colors duration-200"
+        aria-label="Grid view"
+      >
+        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+          <path d="M5 3a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2V5a2 2 0 00-2-2H5zM5 11a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2v-2a2 2 0 00-2-2H5zM11 5a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V5zM11 13a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
+        </svg>
+      </button>
+      <button
+        id="list-view"
+        class="p-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light transition-colors duration-200"
+        aria-label="List view"
+      >
+        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+          <path fill-rule="evenodd" d="M3 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd" />
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- Loading State -->
+  <div id="loading-state" class="hidden">
+    <div class="flex items-center justify-center py-12">
+      <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
+      <span class="ml-3 text-light dark:text-darkmode-light">Loading posts...</span>
+    </div>
+  </div>
+
+  <!-- No Results State -->
+  <div id="no-results" class="hidden text-center py-12">
+    <svg class="mx-auto h-16 w-16 text-light dark:text-darkmode-light mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.172 16.172a4 4 0 015.656 0M9 12h6m-6-4h6m2 5.291A7.962 7.962 0 0112 15c-2.34 0-4.348-1.26-5.45-3.144M15 11.768A7.972 7.972 0 0112 9c-2.34 0-4.348 1.26-5.45 3.144" />
+    </svg>
+    <h3 class="text-lg font-medium text-dark dark:text-darkmode-dark mb-2">No posts found</h3>
+    <p class="text-light dark:text-darkmode-light">Try adjusting your search criteria or browse all posts.</p>
+  </div>
+
+  <!-- Posts Grid -->
+  <div
+    id="posts-grid"
+    class={`grid gap-6 lg:gap-8 ${gridClasses[gridCols]}`}
+    data-grid-cols={gridCols}
+  >
+    {posts.map((post, index) => (
+      <PostCardEnhanced
+        post={post}
+        index={index}
+        variant={variant}
+        animationDelay={getAnimationDelay(index)}
+        showExcerpt={variant !== 'compact'}
+        showReadingTime={true}
+        showCategories={true}
+        showDate={true}
+        lazyLoad={index > 2}
+      />
+    ))}
+  </div>
+
+  <!-- Infinite Scroll Trigger -->
+  {enableInfiniteScroll && totalPages > currentPage && (
+    <div id="infinite-scroll-trigger" class="h-20 flex items-center justify-center">
+      <button
+        id="load-more"
+        class="px-6 py-3 bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors duration-200 font-medium"
+        data-page={currentPage + 1}
+        data-base-path={basePath}
+      >
+        Load More Posts
+      </button>
+    </div>
+  )}
+
+  <!-- Traditional Pagination -->
+  {!enableInfiniteScroll && totalPages > 1 && (
+    <div class="mt-12 flex justify-center">
+      <Pagination
+        section={basePath}
+        currentPage={currentPage}
+        totalPages={totalPages}
+      />
+    </div>
+  )}
+</section>
+
+<script>
+  // Enhanced blog posts functionality
+  class BlogPostsContainer {
+    private container: HTMLElement;
+    private postsGrid: HTMLElement;
+    private searchInput: HTMLInputElement | null;
+    private categoryFilter: HTMLSelectElement | null;
+    private tagFilter: HTMLSelectElement | null;
+    private sortFilter: HTMLSelectElement | null;
+    private clearButton: HTMLButtonElement | null;
+    private resultsCount: HTMLElement | null;
+    private loadingState: HTMLElement | null;
+    private noResults: HTMLElement | null;
+    private gridViewBtn: HTMLButtonElement | null;
+    private listViewBtn: HTMLButtonElement | null;
+    private loadMoreBtn: HTMLButtonElement | null;
+
+    private originalPosts: HTMLElement[] = [];
+    private currentView: 'grid' | 'list' = 'grid';
+    private isLoading = false;
+
+    constructor(container: HTMLElement) {
+      this.container = container;
+      this.postsGrid = container.querySelector('#posts-grid') as HTMLElement;
+      this.searchInput = container.querySelector('#blog-search');
+      this.categoryFilter = container.querySelector('#category-filter');
+      this.tagFilter = container.querySelector('#tag-filter');
+      this.sortFilter = container.querySelector('#sort-filter');
+      this.clearButton = container.querySelector('#clear-filters');
+      this.resultsCount = container.querySelector('#results-count');
+      this.loadingState = container.querySelector('#loading-state');
+      this.noResults = container.querySelector('#no-results');
+      this.gridViewBtn = container.querySelector('#grid-view');
+      this.listViewBtn = container.querySelector('#list-view');
+      this.loadMoreBtn = container.querySelector('#load-more');
+
+      this.init();
+    }
+
+    private init(): void {
+      // Store original posts
+      this.originalPosts = Array.from(this.postsGrid.children) as HTMLElement[];
+
+      // Bind events
+      this.bindEvents();
+
+      // Set initial view state
+      this.updateViewButtons();
+    }
+
+    private bindEvents(): void {
+      // Search
+      if (this.searchInput) {
+        this.searchInput.addEventListener('input', this.debounce(this.handleSearch.bind(this), 300) as EventListener);
+      }
+
+      // Filters
+      this.categoryFilter?.addEventListener('change', this.handleFilterChange.bind(this));
+      this.tagFilter?.addEventListener('change', this.handleFilterChange.bind(this));
+      this.sortFilter?.addEventListener('change', this.handleSort.bind(this));
+
+      // Clear filters
+      this.clearButton?.addEventListener('click', this.handleClearFilters.bind(this));
+
+      // View toggles
+      this.gridViewBtn?.addEventListener('click', () => this.toggleView('grid'));
+      this.listViewBtn?.addEventListener('click', () => this.toggleView('list'));
+
+      // Load more
+      this.loadMoreBtn?.addEventListener('click', this.handleLoadMore.bind(this));
+
+      // Infinite scroll
+      if (this.loadMoreBtn) {
+        this.setupInfiniteScroll();
+      }
+    }
+
+    private debounce(func: Function, wait: number): Function {
+      let timeout: NodeJS.Timeout;
+      return function executedFunction(...args: any[]) {
+        const later = () => {
+          clearTimeout(timeout);
+          func(...args);
+        };
+        clearTimeout(timeout);
+        timeout = setTimeout(later, wait);
+      };
+    }
+
+    private handleSearch(): void {
+      this.filterPosts();
+    }
+
+    private handleFilterChange(): void {
+      this.filterPosts();
+    }
+
+    private handleSort(): void {
+      const sortValue = this.sortFilter?.value || 'date-desc';
+      const posts = Array.from(this.postsGrid.children) as HTMLElement[];
+
+      posts.sort((a, b) => {
+        const aTitle = a.querySelector('h3 a')?.textContent || '';
+        const bTitle = b.querySelector('h3 a')?.textContent || '';
+        const aDate = a.querySelector('time')?.getAttribute('datetime') || '';
+        const bDate = b.querySelector('time')?.getAttribute('datetime') || '';
+
+        switch (sortValue) {
+          case 'date-asc':
+            return new Date(aDate).getTime() - new Date(bDate).getTime();
+          case 'date-desc':
+            return new Date(bDate).getTime() - new Date(aDate).getTime();
+          case 'title-asc':
+            return aTitle.localeCompare(bTitle);
+          case 'title-desc':
+            return bTitle.localeCompare(aTitle);
+          default:
+            return 0;
+        }
+      });
+
+      // Re-append sorted posts
+      posts.forEach(post => this.postsGrid.appendChild(post));
+    }
+
+    private filterPosts(): void {
+      const searchTerm = this.searchInput?.value.toLowerCase() || '';
+      const selectedCategory = this.categoryFilter?.value || '';
+      const selectedTag = this.tagFilter?.value || '';
+
+      let visibleCount = 0;
+
+      this.originalPosts.forEach(post => {
+        const title = post.querySelector('h3 a')?.textContent?.toLowerCase() || '';
+        const excerpt = post.querySelector('p')?.textContent?.toLowerCase() || '';
+        const categories = post.getAttribute('data-categories')?.toLowerCase() || '';
+
+        const matchesSearch = !searchTerm || title.includes(searchTerm) || excerpt.includes(searchTerm);
+        const matchesCategory = !selectedCategory || categories.includes(selectedCategory.toLowerCase());
+        const matchesTag = !selectedTag || categories.includes(selectedTag.toLowerCase());
+
+        const shouldShow = matchesSearch && matchesCategory && matchesTag;
+
+        if (shouldShow) {
+          post.style.display = '';
+          visibleCount++;
+        } else {
+          post.style.display = 'none';
+        }
+      });
+
+      // Update results count
+      if (this.resultsCount) {
+        this.resultsCount.textContent = `Showing ${visibleCount} of ${this.originalPosts.length} posts`;
+      }
+
+      // Show/hide no results
+      if (this.noResults) {
+        this.noResults.style.display = visibleCount === 0 ? 'block' : 'none';
+      }
+    }
+
+    private handleClearFilters(): void {
+      if (this.searchInput) this.searchInput.value = '';
+      if (this.categoryFilter) this.categoryFilter.value = '';
+      if (this.tagFilter) this.tagFilter.value = '';
+      if (this.sortFilter) this.sortFilter.value = 'date-desc';
+
+      this.originalPosts.forEach(post => {
+        post.style.display = '';
+      });
+
+      if (this.resultsCount) {
+        this.resultsCount.textContent = `Showing ${this.originalPosts.length} of ${this.originalPosts.length} posts`;
+      }
+
+      if (this.noResults) {
+        this.noResults.style.display = 'none';
+      }
+    }
+
+    private toggleView(view: 'grid' | 'list'): void {
+      this.currentView = view;
+
+      if (view === 'list') {
+        this.postsGrid.className = this.postsGrid.className.replace(/grid-cols-\d+/g, 'grid-cols-1');
+        this.postsGrid.classList.add('space-y-4');
+      } else {
+        const gridCols = this.postsGrid.getAttribute('data-grid-cols') || '3';
+        const gridClasses = {
+          '1': 'grid-cols-1',
+          '2': 'grid-cols-1 md:grid-cols-2',
+          '3': 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3',
+          '4': 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'
+        };
+        this.postsGrid.className = this.postsGrid.className.replace(/grid-cols-\S+/g, '');
+        this.postsGrid.classList.add(gridClasses[gridCols as keyof typeof gridClasses]);
+        this.postsGrid.classList.remove('space-y-4');
+      }
+
+      this.updateViewButtons();
+    }
+
+    private updateViewButtons(): void {
+      if (this.gridViewBtn && this.listViewBtn) {
+        this.gridViewBtn.classList.toggle('bg-primary', this.currentView === 'grid');
+        this.gridViewBtn.classList.toggle('text-white', this.currentView === 'grid');
+        this.listViewBtn.classList.toggle('bg-primary', this.currentView === 'list');
+        this.listViewBtn.classList.toggle('text-white', this.currentView === 'list');
+      }
+    }
+
+    private async handleLoadMore(): Promise<void> {
+      if (this.isLoading) return;
+
+      this.isLoading = true;
+      const nextPage = parseInt(this.loadMoreBtn?.getAttribute('data-page') || '1');
+      const basePath = this.loadMoreBtn?.getAttribute('data-base-path') || '/blog';
+
+      if (this.loadingState) {
+        this.loadingState.style.display = 'block';
+      }
+
+      try {
+        const response = await fetch(`${basePath}/page/${nextPage}.json`);
+        const data = await response.json();
+
+        // Add new posts to grid (this would need server-side JSON endpoint)
+        // Implementation depends on your specific setup
+
+        if (this.loadMoreBtn) {
+          this.loadMoreBtn.setAttribute('data-page', (nextPage + 1).toString());
+        }
+      } catch (error) {
+        console.error('Failed to load more posts:', error);
+      } finally {
+        this.isLoading = false;
+        if (this.loadingState) {
+          this.loadingState.style.display = 'none';
+        }
+      }
+    }
+
+    private setupInfiniteScroll(): void {
+      const observer = new IntersectionObserver((entries) => {
+        if (entries[0].isIntersecting && !this.isLoading) {
+          this.handleLoadMore();
+        }
+      }, { threshold: 0.1 });
+
+      const trigger = this.container.querySelector('#infinite-scroll-trigger');
+      if (trigger) {
+        observer.observe(trigger);
+      }
+    }
+  }
+
+  // Initialize when DOM is loaded
+  document.addEventListener('DOMContentLoaded', () => {
+    const containers = document.querySelectorAll('.blog-posts-container');
+    containers.forEach(container => {
+      new BlogPostsContainer(container as HTMLElement);
+    });
+  });
+</script>
+
+<style>
+  /* Enhanced animations */
+  .blog-posts-container {
+    --animation-duration: 0.6s;
+    --stagger-delay: 0.1s;
+  }
+
+  /* Smooth transitions for view changes */
+  #posts-grid {
+    transition: all 0.3s ease-in-out;
+  }
+
+  /* Loading animation */
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+  }
+
+  .animate-pulse {
+    animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+
+  /* Focus styles for accessibility */
+  .controls-bar input:focus,
+  .controls-bar select:focus,
+  .controls-bar button:focus {
+    outline: 2px solid rgb(var(--color-primary));
+    outline-offset: 2px;
+  }
+
+  /* Responsive improvements */
+  @media (max-width: 768px) {
+    .controls-bar {
+      flex-direction: column;
+      align-items: stretch;
+    }
+
+    .controls-bar > div {
+      width: 100%;
+    }
+  }
+</style>

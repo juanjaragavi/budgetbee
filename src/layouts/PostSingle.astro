@@ -132,7 +132,7 @@ const isFinancialSolution = categories.includes("Financial Solutions");
 
           // Find the last heading that might be a conclusion section
           for (let i = headings.length - 1; i >= 0; i--) {
-            const headingText = headings[i].textContent.toLowerCase();
+            const headingText = headings[i].textContent?.toLowerCase() || '';
             if (headingText.includes('explore') || headingText.includes('other') ||
                 headingText.includes('solutions') || headingText.includes('maximize') ||
                 headingText.includes('benefits') || headingText.includes('financial') ||
