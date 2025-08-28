@@ -4,6 +4,8 @@
 import React from "react";
 import UtmPersister from "./UtmPersister";
 import UtmMonitor from "./UtmMonitor";
+import AdZepActivator from "./AdZepActivator";
+import AdZepDebugger from "./AdZepDebugger";
 
 export default function AnalyticsWrapper() {
   // In Astro, import.meta.env.DEV is available in .astro files and server-side .ts files.
@@ -18,7 +20,9 @@ export default function AnalyticsWrapper() {
   return (
     <>
       <UtmPersister />
+      <AdZepActivator />
       {isDevelopment && <UtmMonitor />}
+      {isDevelopment && <AdZepDebugger />}
     </>
   );
 }

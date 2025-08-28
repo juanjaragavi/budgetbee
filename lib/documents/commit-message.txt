@@ -1,23 +1,14 @@
-feat: Enhance credit card recommender pages and layout improvements
+feat: Implement comprehensive AdZep activation system for SPA
 
-## Credit Card Recommender Enhancements
-- **credit-card-recommender-p1.astro**: Updated ad placement and content structure
-- **credit-card-recommender-p2.astro**: Improved layout and user experience
-- **credit-card-recommender-p3.astro**: Enhanced functionality and design consistency
-- **Ad Integration**: Optimized Autozep ad placement (us_budgetbeepro_1, us_budgetbeepro_2)
+- Add AdZepActivator component with duplicate call prevention
+- Create AdZep utilities with global state management and retry logic
+- Implement useAdZep React hook for manual control
+- Add standalone JavaScript fallback for non-React contexts
+- Include development debugger component with real-time monitoring
+- Integrate with existing AnalyticsWrapper for automatic activation
+- Ensure single activation per page load across all layouts
+- Add comprehensive error handling and timeout management
+- Provide detailed console logging for debugging
+- Create complete documentation and implementation guide
 
-## Layout Improvements
-- **PostSingle.astro**: Enhanced blog post layout and functionality
-- **Better UX**: Improved user flow and visual consistency across pages
-
-## New Features
-- **Payload Integration**: Added user creation kit configuration
-- **Enhanced Analytics**: Better tracking and user engagement metrics
-
-## Key Benefits
-- 🎯 Improved user engagement on credit card recommendation flow
-- 📱 Better mobile responsiveness and accessibility
-- 💡 Enhanced ad placement strategy for better monetization
-- 🔧 Streamlined layout consistency across all pages
-
-These updates improve the overall user experience for credit card recommendations while maintaining optimal ad integration and performance.
+This implementation ensures window.AdZepActivateAds() is called exactly once per page load in the Astro SPA architecture, preventing duplicate calls while maintaining reliable ad delivery.
