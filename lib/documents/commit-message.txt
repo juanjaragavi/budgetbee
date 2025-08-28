@@ -1,9 +1,8 @@
-fix: Remove size-full class from AdZep ad containers for better positioning
+fix: Update AdZep ad container classes and environment configuration
 
-- Update AdZep ad containers across credit card recommender pages
-- Replace 'size-full' class with proper flex styling for better ad unit positioning
-- Fix PostSingle.astro ad container styling for improved layout
-- Ensure consistent ad placement styling across all pages
-- Improve ad unit responsiveness and container behavior
+- Update PostSingle.astro ad containers to use 'min-size-auto' class
+- Add .env.production.local to .gitignore for better environment management
+- Optimize ad container styling for improved layout consistency
+- Ensure proper environment variable handling in production
 
-This change optimizes AdZep ad unit containers for better visual integration and positioning within the page layout, removing conflicting CSS classes that could interfere with ad display.
+This change improves ad unit styling and enhances environment configuration management for better deployment practices.
