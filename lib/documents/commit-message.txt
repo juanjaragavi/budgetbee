@@ -1,14 +1,9 @@
-feat: Implement comprehensive AdZep activation system for SPA
+fix: Remove size-full class from AdZep ad containers for better positioning
 
-- Add AdZepActivator component with duplicate call prevention
-- Create AdZep utilities with global state management and retry logic
-- Implement useAdZep React hook for manual control
-- Add standalone JavaScript fallback for non-React contexts
-- Include development debugger component with real-time monitoring
-- Integrate with existing AnalyticsWrapper for automatic activation
-- Ensure single activation per page load across all layouts
-- Add comprehensive error handling and timeout management
-- Provide detailed console logging for debugging
-- Create complete documentation and implementation guide
+- Update AdZep ad containers across credit card recommender pages
+- Replace 'size-full' class with proper flex styling for better ad unit positioning
+- Fix PostSingle.astro ad container styling for improved layout
+- Ensure consistent ad placement styling across all pages
+- Improve ad unit responsiveness and container behavior
 
-This implementation ensures window.AdZepActivateAds() is called exactly once per page load in the Astro SPA architecture, preventing duplicate calls while maintaining reliable ad delivery.
+This change optimizes AdZep ad unit containers for better visual integration and positioning within the page layout, removing conflicting CSS classes that could interfere with ad display.
