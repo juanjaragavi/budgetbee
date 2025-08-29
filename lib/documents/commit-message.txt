@@ -1,16 +1,12 @@
-quiz: deactivate cookie-based skip so info form always shows
+feat(quiz): implement quiz-specific layout and title adjustments
 
-- Remove BYPASS_QUIZ_COOKIE_VALIDATION redirect path and on-mount auto-redirect in CreditCardForm.jsx
-- Stop marking users as `isRegisteredUser` from cookies; this previously auto-skipped Step 3 by auto-submitting after Step 2
-- Retain safe prefill from cookie data (email/name) for UX, but it no longer influences control flow (no skip/auto-submit)
-- Preserve normal submission flow and final redirect; cookies set post-submit remain for future prefill only
+- Hide global Header only on quiz page via page-scoped CSS (no global layout changes)
+- Replace standard site footer with minimal copyright-only footer (quiz page only)
+- Add favicon image next to the "BudgetBee Quiz" title
+- Use black title text on yellow bar for better contrast and per feedback
+- Remove duplicate page title from quiz.astro (keep only yellow bar title)
+- Resolve TS reference by using config.params.copyright
 
-File(s) changed:
+Files modified:
+- src/pages/quiz.astro
 - src/components/quiz/CreditCardForm.jsx
-
-Validation:
-- Ran `pnpm check`: 0 errors, 0 warnings (only hints unrelated)
-- Manual run-through confirms no cookie-based auto-skip or redirect; the info form is presented to all users
-
-Notes:
-- No other references found to `quizCompleted`, `userRegistered`, or `userData` impacting redirect/skip logic
