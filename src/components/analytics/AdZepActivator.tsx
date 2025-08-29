@@ -11,6 +11,15 @@ const AdZepActivator: React.FC = () => {
   const activationAttempted = useRef(false);
 
   useEffect(() => {
+    // Exclude quiz page from ad activation
+    if (
+      typeof window !== "undefined" &&
+      window.location.pathname.startsWith("/quiz")
+    ) {
+      console.log("[AdZepActivator] Quiz page detected, skipping ad activation.");
+      return;
+    }
+
     // Prevent multiple activations from the same component instance
     if (activationAttempted.current) {
       return;
