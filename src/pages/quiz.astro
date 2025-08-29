@@ -1,6 +1,7 @@
 ---
 import QuizLayout from "@/layouts/QuizLayout.astro";
 import CreditCardForm from "../components/quiz/CreditCardForm.jsx";
+import config from "@/config/config.json";
 
 const meta = {
   title: "Credit Card Quiz - Find Your Perfect Card | BudgetBee",
@@ -11,6 +12,34 @@ const meta = {
 };
 ---
 
+<!-- Page-scoped global overrides: hide site header and standard footers only on this page -->
+<style is:global>
+  /* Hide the global header on the quiz page */
+  header,
+  .site-header {
+    display: none !important;
+  }
+
+  /* Hide any existing global footers rendered by Base (Footer/CompactFooter) */
+  footer,
+  .site-footer,
+  .compact-footer {
+    display: none !important;
+  }
+
+  /* Re-show our minimal footer on this page */
+  footer.quiz-min-footer {
+    display: block !important;
+  }
+</style>
+
 <QuizLayout meta_title={meta.title} description={meta.description}>
   <CreditCardForm client:load />
+
+  <!-- Minimal footer shown only on quiz page -->
+  <footer
+    class="quiz-min-footer mt-10 border-t border-gray-200 py-6 text-center text-sm text-gray-600"
+  >
+    <p>{config.params.copyright}</p>
+  </footer>
 </QuizLayout>
