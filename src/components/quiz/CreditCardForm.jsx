@@ -67,17 +67,9 @@ export default function CreditCardForm() {
 
     const userRegistered = getCookie(COOKIE_NAMES.USER_REGISTERED);
     const userData = getCookie(COOKIE_NAMES.USER_DATA);
-    const bypassCookieValidation =
-      import.meta.env.BYPASS_QUIZ_COOKIE_VALIDATION === "true";
-
-    if (bypassCookieValidation && userRegistered === "true" && userData) {
-      window.location.href = "/credit-card-recommender-p1";
-      return;
-    }
-
+    // Deactivated cookie-based skip: always show the form for all users.
+    // Prefill fields if cookie data exists, but do NOT mark as registered (prevents auto-skip).
     if (userRegistered === "true" && userData) {
-      setIsRegisteredUser(true);
-
       try {
         const savedData = JSON.parse(decodeURIComponent(userData));
         if (savedData.email) {
