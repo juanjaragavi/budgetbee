@@ -140,8 +140,6 @@ export default function CreditCardForm() {
 
       console.log("Quiz data to be sent:", quizData);
 
-      // You can uncomment this when you have an API endpoint
-      /*
       const response = await fetch("/api/quiz-submission", {
         method: "POST",
         headers: {
@@ -153,7 +151,6 @@ export default function CreditCardForm() {
       if (!response.ok) {
         throw new Error("Failed to submit quiz");
       }
-      */
     } catch (error) {
       console.error("Error submitting quiz:", error);
     } finally {
