@@ -1,5 +1,7 @@
-fix(layout): ensure GTM is applied to quiz page
+feat: Implement environment variable for quiz bypass
 
-Refactors `QuizLayout.astro` to use the main `Base.astro` layout.
+Refactors the quiz form bypass logic to be controlled by the `BYPASS_QUIZ_COOKIE_VALIDATION` environment variable.
 
-This change ensures that all essential scripts and meta tags, including the Google Tag Manager (GTM) pixel, are consistently applied to the quiz page, resolving an issue where the GTM script was previously missing.
+- Disables the previous cookie-only validation.
+- Adds `BYPASS_QUIZ_COOKIE_VALIDATION` to control the feature.
+- Creates `src/env.d.ts` for environment variable type safety.
