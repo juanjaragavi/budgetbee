@@ -1,7 +1,3 @@
-feat: Implement environment variable for quiz bypass
+feat: Exclude quiz page from ad activation
 
-Refactors the quiz form bypass logic to be controlled by the `BYPASS_QUIZ_COOKIE_VALIDATION` environment variable.
-
-- Disables the previous cookie-only validation.
-- Adds `BYPASS_QUIZ_COOKIE_VALIDATION` to control the feature.
-- Creates `src/env.d.ts` for environment variable type safety.
+Updates the AdZepActivator component to prevent ad units from loading on the quiz page (`/quiz`). This ensures a cleaner user experience for users who have clicked on an advertisement to take the quiz.
