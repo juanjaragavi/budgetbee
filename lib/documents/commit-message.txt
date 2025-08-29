@@ -1,5 +1,5 @@
-feat: add ConvertKit API endpoint for quiz submissions
+fix(layout): ensure GTM is applied to quiz page
 
-- Creates a new API endpoint at `src/pages/api/quiz-submission.ts` to handle quiz form submissions.
-- The endpoint sends subscriber data to the ConvertKit API.
-- Updates `src/components/quiz/CreditCardForm.jsx` to call the new API endpoint upon form submission.
+Refactors `QuizLayout.astro` to use the main `Base.astro` layout.
+
+This change ensures that all essential scripts and meta tags, including the Google Tag Manager (GTM) pixel, are consistently applied to the quiz page, resolving an issue where the GTM script was previously missing.
