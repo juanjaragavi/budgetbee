@@ -179,7 +179,16 @@ export default function CreditCardForm() {
   return (
     <div className="bg-white flex flex-col min-h-screen">
       <div className="bg-[#E7B739] py-4 px-4 flex justify-center">
-        <h1 className="text-2xl font-bold text-white">BudgetBee Quiz</h1>
+        <h1 className="text-2xl font-bold text-black flex items-center gap-3">
+          <img
+            src="/images/favicon.png"
+            alt="BudgetBee"
+            className="w-7 h-7"
+            loading="eager"
+            decoding="async"
+          />
+          BudgetBee Quiz
+        </h1>
       </div>
 
       <div className="relative flex-1 overflow-y-auto">
