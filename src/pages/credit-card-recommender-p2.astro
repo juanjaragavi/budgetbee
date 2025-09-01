@@ -24,6 +24,7 @@ const cards = [
   },
 ];
 ---
+
 <Base
   title="Discover Your Ideal Credit Card | BudgetBee"
   meta_title="Credit Card Recommender - Personalized Suggestions | BudgetBee"
@@ -365,7 +366,7 @@ const cards = [
   document.addEventListener("DOMContentLoaded", () => {
     const revealButton = document.getElementById("reveal-button");
     const recommendationsContainer = document.getElementById(
-      "recommendations-container"
+      "recommendations-container",
     );
     let hasRevealed = false;
 
@@ -415,10 +416,10 @@ const cards = [
           // Close previous
           if (openFaq) {
             const prevContent = document.getElementById(
-              `faq-${openFaq}-content`
+              `faq-${openFaq}-content`,
             );
             const prevButton = document.querySelector(
-              `[data-faq="${openFaq}"]`
+              `[data-faq="${openFaq}"]`,
             );
             if (prevContent) prevContent.classList.add("hidden");
             if (prevButton) {
@@ -432,7 +433,7 @@ const cards = [
                 prevIcon.classList.remove(
                   "text-green-500",
                   "transform",
-                  "rotate-180"
+                  "rotate-180",
                 );
                 prevIcon.classList.add("text-sky-700");
               }
@@ -469,7 +470,7 @@ const cards = [
 
           // Animate each recommendation card
           const cards = recommendationsContainer.querySelectorAll(
-            ".recommendation-card"
+            ".recommendation-card",
           );
           cards.forEach((card, index) => {
             setTimeout(() => {

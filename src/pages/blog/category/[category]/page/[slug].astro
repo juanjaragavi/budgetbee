@@ -14,7 +14,7 @@ export async function getStaticPaths() {
 
   return allCategories.flatMap((category) => {
     const filteredPosts = allPosts.filter((post) =>
-      post.data.categories?.includes(category)
+      post.data.categories?.includes(category),
     );
     const sortedPosts = sortByDate(filteredPosts);
     const totalPages = Math.ceil(sortedPosts.length / pagination);
@@ -152,6 +152,7 @@ const metaDescription = `${currentCategoryMeta.description} - Page ${currentPage
 // Set canonical URL for this category pagination page to prevent duplicate content issues
 const canonicalUrl = `${config.site.base_url}/blog/category/${category}/page/${currentPage}`;
 ---
+
 <Base
   title={pageTitle}
   meta_title={pageTitle}

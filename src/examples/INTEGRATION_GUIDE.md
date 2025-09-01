@@ -21,27 +21,31 @@ This guide shows how to integrate the enhanced blog post system into your existi
 
 ```astro
 ---
-import { blogManager } from '@/lib/blogManager';
-import PostCardEnhanced from '@/layouts/partials/PostCardEnhanced.astro';
+import { blogManager } from "@/lib/blogManager";
+import PostCardEnhanced from "@/layouts/partials/PostCardEnhanced.astro";
 
 // Replace existing post fetching
-const { latest, featured, featuredPosts } = await blogManager.getHomepagePosts();
+const { latest, featured, featuredPosts } =
+  await blogManager.getHomepagePosts();
 ---
+
 <!-- Replace existing Latest News section -->
 <section class="latest-news py-16">
   <div class="container">
     <h2 class="text-3xl font-bold mb-8">Latest News</h2>
     <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-      {latest.map((post, index) => (
-        <PostCardEnhanced
-          post={post}
-          variant="default"
-          animationDelay={index * 150}
-          showExcerpt={true}
-          showReadingTime={true}
-          showCategories={true}
-        />
-      ))}
+      {
+        latest.map((post, index) => (
+          <PostCardEnhanced
+            post={post}
+            variant="default"
+            animationDelay={index * 150}
+            showExcerpt={true}
+            showReadingTime={true}
+            showCategories={true}
+          />
+        ))
+      }
     </div>
   </div>
 </section>
@@ -65,14 +69,15 @@ const { latest, featured, featuredPosts } = await blogManager.getHomepagePosts()
 
 ```astro
 ---
-import { blogManager } from '@/lib/blogManager';
-import BlogPostsContainerEnhanced from '@/layouts/components/BlogPostsContainerEnhanced.astro';
+import { blogManager } from "@/lib/blogManager";
+import BlogPostsContainerEnhanced from "@/layouts/components/BlogPostsContainerEnhanced.astro";
 
 const allPosts = await blogManager.getAllPosts();
 const postsPerPage = 12;
 const totalPages = Math.ceil(allPosts.length / postsPerPage);
 const currentPagePosts = allPosts.slice(0, postsPerPage);
 ---
+
 <Base title="Blog">
   <div class="container py-16">
     <BlogPostsContainerEnhanced
@@ -97,14 +102,15 @@ const currentPagePosts = allPosts.slice(0, postsPerPage);
 
 ```astro
 ---
-import { blogManager } from '@/lib/blogManager';
-import BlogPostsContainerEnhanced from '@/layouts/components/BlogPostsContainerEnhanced.astro';
+import { blogManager } from "@/lib/blogManager";
+import BlogPostsContainerEnhanced from "@/layouts/components/BlogPostsContainerEnhanced.astro";
 
 const categoryPosts = await blogManager.getFilteredPosts({
-  collection: 'personal-finance',
-  limit: 12
+  collection: "personal-finance",
+  limit: 12,
 });
 ---
+
 <Base title="Personal Finance">
   <div class="container py-16">
     <BlogPostsContainerEnhanced
@@ -125,8 +131,8 @@ const categoryPosts = await blogManager.getFilteredPosts({
 
 ```astro
 ---
-import { blogManager } from '@/lib/blogManager';
-import BlogPostsContainerEnhanced from '@/layouts/components/BlogPostsContainerEnhanced.astro';
+import { blogManager } from "@/lib/blogManager";
+import BlogPostsContainerEnhanced from "@/layouts/components/BlogPostsContainerEnhanced.astro";
 
 export async function getStaticPaths() {
   const allPosts = await blogManager.getAllPosts();
@@ -138,13 +144,14 @@ export async function getStaticPaths() {
     props: {
       posts: allPosts.slice(i * postsPerPage, (i + 1) * postsPerPage),
       currentPage: i + 1,
-      totalPages
-    }
+      totalPages,
+    },
   }));
 }
 
 const { posts, currentPage, totalPages } = Astro.props;
 ---
+
 <Base title={`Blog - Page ${currentPage}`}>
   <div class="container py-16">
     <BlogPostsContainerEnhanced
@@ -167,32 +174,34 @@ const { posts, currentPage, totalPages } = Astro.props;
 ```astro
 ---
 // Add this to your existing PostSingle.astro imports
-import { blogManager } from '@/lib/blogManager';
-import PostCardEnhanced from '@/layouts/partials/PostCardEnhanced.astro';
+import { blogManager } from "@/lib/blogManager";
+import PostCardEnhanced from "@/layouts/partials/PostCardEnhanced.astro";
 
 // Add this after your existing frontmatter
 const relatedPosts = await blogManager.getRelatedPosts(post, 3);
 ---
-<!-- Add this section after your main post content -->
-{relatedPosts.length > 0 && (
-  <section class="related-posts py-16 border-t border-border dark:border-darkmode-border">
-    <div class="container">
-      <h2 class="text-2xl font-bold mb-8">Related Articles</h2>
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-        {relatedPosts.map((relatedPost, index) => (
-          <PostCardEnhanced
-            post={relatedPost}
-            variant="compact"
-            showExcerpt={true}
-            showReadingTime={true}
-            showCategories={true}
-            animationDelay={index * 100}
-          />
-        ))}
+
+<!-- Add this section after your main post content -->{
+  relatedPosts.length > 0 && (
+    <section class="related-posts py-16 border-t border-border dark:border-darkmode-border">
+      <div class="container">
+        <h2 class="text-2xl font-bold mb-8">Related Articles</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {relatedPosts.map((relatedPost, index) => (
+            <PostCardEnhanced
+              post={relatedPost}
+              variant="compact"
+              showExcerpt={true}
+              showReadingTime={true}
+              showCategories={true}
+              animationDelay={index * 100}
+            />
+          ))}
+        </div>
       </div>
-    </div>
-  </section>
-)}
+    </section>
+  )
+}
 ```
 
 ## Advanced Features
@@ -203,39 +212,48 @@ Create a search page (`src/pages/search.astro`):
 
 ```astro
 ---
-import { blogManager } from '@/lib/blogManager';
-import BlogPostsContainerEnhanced from '@/layouts/components/BlogPostsContainerEnhanced.astro';
+import { blogManager } from "@/lib/blogManager";
+import BlogPostsContainerEnhanced from "@/layouts/components/BlogPostsContainerEnhanced.astro";
 
-const searchQuery = Astro.url.searchParams.get('q') || '';
-const searchResults = searchQuery ? await blogManager.getFilteredPosts({
-  searchQuery,
-  limit: 20
-}) : [];
+const searchQuery = Astro.url.searchParams.get("q") || "";
+const searchResults = searchQuery
+  ? await blogManager.getFilteredPosts({
+      searchQuery,
+      limit: 20,
+    })
+  : [];
 ---
-<Base title={`Search${searchQuery ? ` - ${searchQuery}` : ''}`}>
+
+<Base title={`Search${searchQuery ? ` - ${searchQuery}` : ""}`}>
   <div class="container py-16">
     <h1 class="text-4xl font-bold mb-8">
       Search Results {searchQuery && `for "${searchQuery}"`}
     </h1>
 
-    {searchResults.length > 0 ? (
-      <BlogPostsContainerEnhanced
-        posts={searchResults}
-        showFilters={false}
-        showSearch={true}
-        showSorting={true}
-        gridCols={2}
-        variant="compact"
-      />
-    ) : searchQuery ? (
-      <div class="text-center py-12">
-        <p class="text-lg text-gray-600">No posts found. Try a different search term.</p>
-      </div>
-    ) : (
-      <div class="text-center py-12">
-        <p class="text-lg text-gray-600">Enter a search term to find posts.</p>
-      </div>
-    )}
+    {
+      searchResults.length > 0 ? (
+        <BlogPostsContainerEnhanced
+          posts={searchResults}
+          showFilters={false}
+          showSearch={true}
+          showSorting={true}
+          gridCols={2}
+          variant="compact"
+        />
+      ) : searchQuery ? (
+        <div class="text-center py-12">
+          <p class="text-lg text-gray-600">
+            No posts found. Try a different search term.
+          </p>
+        </div>
+      ) : (
+        <div class="text-center py-12">
+          <p class="text-lg text-gray-600">
+            Enter a search term to find posts.
+          </p>
+        </div>
+      )
+    }
   </div>
 </Base>
 ```

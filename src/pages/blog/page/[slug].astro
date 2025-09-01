@@ -44,6 +44,7 @@ const currentPosts = sortedPosts.slice(indexOfFirstPost, indexOfLastPost);
 // Set canonical URL for this pagination page
 const canonicalUrl = `${config.site.base_url}/blog/page/${currentPage}`;
 ---
+
 <Base
   title={postIndex?.data.title}
   canonical={canonicalUrl}

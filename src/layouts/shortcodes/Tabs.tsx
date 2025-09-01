@@ -5,7 +5,11 @@ interface TabChildrenProps {
   value: string;
 }
 
-const Tabs = ({ children }: { children: React.ReactElement<TabChildrenProps> }) => {
+const Tabs = ({
+  children,
+}: {
+  children: React.ReactElement<TabChildrenProps>;
+}) => {
   const [active, setActive] = useState<number>(0);
   const [defaultFocus, setDefaultFocus] = useState<boolean>(false);
 
