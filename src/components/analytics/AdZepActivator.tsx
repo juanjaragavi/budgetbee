@@ -16,7 +16,9 @@ const AdZepActivator: React.FC = () => {
       typeof window !== "undefined" &&
       window.location.pathname.startsWith("/quiz")
     ) {
-      console.log("[AdZepActivator] Quiz page detected, skipping ad activation.");
+      console.log(
+        "[AdZepActivator] Quiz page detected, skipping ad activation.",
+      );
       return;
     }
 

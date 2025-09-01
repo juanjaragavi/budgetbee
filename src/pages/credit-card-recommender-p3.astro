@@ -29,6 +29,7 @@ const cards = [
 
 const selectedCard = cards[Math.floor(Math.random() * cards.length)];
 ---
+
 <Base
   title="Discover Your Ideal Credit Card | BudgetBee"
   meta_title="Credit Card Recommender - Card Reveal | BudgetBee"
@@ -353,7 +354,7 @@ const selectedCard = cards[Math.floor(Math.random() * cards.length)];
     const revealButton = document.getElementById("reveal-card-button");
     const shufflingContainer = document.getElementById("shuffling-container");
     const revealedCardContainer = document.getElementById(
-      "revealed-card-container"
+      "revealed-card-container",
     );
     const shufflingText = document.getElementById("shuffling-text");
     let isShuffling = false;
@@ -405,10 +406,10 @@ const selectedCard = cards[Math.floor(Math.random() * cards.length)];
           // Close previous
           if (openFaq) {
             const prevContent = document.getElementById(
-              `faq-${openFaq}-content`
+              `faq-${openFaq}-content`,
             );
             const prevButton = document.querySelector(
-              `[data-faq="${openFaq}"]`
+              `[data-faq="${openFaq}"]`,
             );
             if (prevContent) prevContent.classList.add("hidden");
             if (prevButton) {
@@ -422,7 +423,7 @@ const selectedCard = cards[Math.floor(Math.random() * cards.length)];
                 prevIcon.classList.remove(
                   "text-green-500",
                   "transform",
-                  "rotate-180"
+                  "rotate-180",
                 );
                 prevIcon.classList.add("text-sky-700");
               }

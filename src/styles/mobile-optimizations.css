@@ -2,7 +2,6 @@
 
 /* Enhanced mobile spacing */
 @media (max-width: 640px) {
-
   /* Section padding adjustments for mobile */
   .section {
     @apply pt-8 pb-8;

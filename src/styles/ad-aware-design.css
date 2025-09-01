@@ -38,12 +38,14 @@
   @apply w-full my-8;
   height: 3px !important;
   /* Increased thickness for better visibility */
-  background: linear-gradient(90deg,
-      transparent 0%,
-      #e2e8f0 20%,
-      #94a3b8 50%,
-      #e2e8f0 80%,
-      transparent 100%);
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    #e2e8f0 20%,
+    #94a3b8 50%,
+    #e2e8f0 80%,
+    transparent 100%
+  );
   border-radius: 2px;
 }
 
@@ -51,20 +53,22 @@
 .ad-separator-branded {
   @apply w-full my-8 relative;
   height: 4px !important;
-  background: linear-gradient(90deg,
-      transparent 0%,
-      #fbbf24 20%,
-      #E7B739 50%,
-      #fbbf24 80%,
-      transparent 100%);
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    #fbbf24 20%,
+    #e7b739 50%,
+    #fbbf24 80%,
+    transparent 100%
+  );
   border-radius: 2px;
 }
 
 .ad-separator-branded::after {
-  content: 'Content Section';
+  content: "Content Section";
   @apply absolute -bottom-6 left-1/2 transform -translate-x-1/2;
   @apply text-xs text-gray-600 uppercase tracking-wider bg-white px-3 py-1 rounded;
-  border: 1px solid #E7B739;
+  border: 1px solid #e7b739;
   font-weight: 600;
 }
 
@@ -77,7 +81,7 @@
 }
 
 .ad-zone-separator::before {
-  content: 'Advertisement Area';
+  content: "Advertisement Area";
   @apply absolute -top-6 left-1/2 transform -translate-x-1/2;
   @apply bg-gray-500 text-white text-xs uppercase tracking-wider px-4 py-2 rounded-full;
   font-weight: 700;
@@ -86,7 +90,7 @@
 
 /* Clear background color shift for ad zones */
 .ad-zone-separator::after {
-  content: '';
+  content: "";
   @apply absolute inset-x-0 -bottom-8 h-8 bg-gray-100;
   z-index: -1;
 }
@@ -96,15 +100,15 @@
 /* Content zones with clear visual distinction */
 .content-zone {
   @apply relative bg-white rounded-lg p-6 mb-6;
-  border: 2px solid #E7B739;
+  border: 2px solid #e7b739;
   box-shadow: 0 4px 12px rgba(231, 183, 57, 0.1);
 }
 
 .content-zone::before {
-  content: 'Content';
+  content: "Content";
   @apply absolute -top-3 left-4 bg-white text-primary text-xs uppercase tracking-wider px-3 py-1;
   font-weight: 700;
-  border: 2px solid #E7B739;
+  border: 2px solid #e7b739;
   border-radius: 12px;
 }
 
@@ -113,16 +117,17 @@
   @apply relative bg-gray-50 rounded-lg p-4 mb-6;
   border: 2px dashed #94a3b8;
   min-height: 280px;
-  background-image:
-    repeating-linear-gradient(45deg,
-      transparent,
-      transparent 10px,
-      rgba(148, 163, 184, 0.1) 10px,
-      rgba(148, 163, 184, 0.1) 20px);
+  background-image: repeating-linear-gradient(
+    45deg,
+    transparent,
+    transparent 10px,
+    rgba(148, 163, 184, 0.1) 10px,
+    rgba(148, 163, 184, 0.1) 20px
+  );
 }
 
 .ad-zone::before {
-  content: 'Advertisement';
+  content: "Advertisement";
   @apply absolute top-3 left-3 text-xs text-gray-600 uppercase tracking-wide bg-gray-200 px-3 py-2 rounded;
   font-weight: 700;
   border: 1px solid #94a3b8;
@@ -130,7 +135,6 @@
 
 /* ===== ENHANCED MOBILE-SPECIFIC AD-AWARE DESIGN ===== */
 @media (max-width: 768px) {
-
   /* PRIORITY 1: Ensure CTAs are prominently positioned on mobile */
   .btn-primary {
     @apply relative mb-8;
@@ -160,14 +164,14 @@
     background: linear-gradient(135deg, #ffffff 0%, #fefce8 50%, #ffffff 100%);
     border-radius: 16px;
     margin-bottom: 3rem !important;
-    border: 3px solid #E7B739;
+    border: 3px solid #e7b739;
     box-shadow:
       0 8px 24px rgba(231, 183, 57, 0.15),
       inset 0 1px 0 rgba(255, 255, 255, 0.8);
   }
 
   .cta-container::before {
-    content: 'Recommended Action';
+    content: "Recommended Action";
     @apply absolute -top-4 left-1/2 transform -translate-x-1/2;
     @apply bg-primary text-white text-xs uppercase tracking-wider px-4 py-2 rounded-full;
     font-weight: 700;
@@ -182,14 +186,14 @@
   }
 
   .interactive-element::after {
-    content: '';
+    content: "";
     @apply block w-full h-8 bg-gradient-to-b from-primary/5 to-transparent mt-6;
   }
 
   /* PRIORITY 4: Enhanced button groups with clear separation */
   .btn-group {
     @apply flex flex-col gap-6 mb-12 pb-6;
-    border-bottom: 4px solid #E7B739;
+    border-bottom: 4px solid #e7b739;
     background: linear-gradient(135deg, #fefce8 0%, #ffffff 100%);
     padding: 2rem 1rem;
     border-radius: 12px;
@@ -202,18 +206,20 @@
     @apply w-full my-10 relative;
     height: 24px !important;
     /* Increased height for better visibility */
-    background: repeating-linear-gradient(45deg,
-        #f1f5f9,
-        #f1f5f9 12px,
-        #e2e8f0 12px,
-        #e2e8f0 24px);
+    background: repeating-linear-gradient(
+      45deg,
+      #f1f5f9,
+      #f1f5f9 12px,
+      #e2e8f0 12px,
+      #e2e8f0 24px
+    );
     border-top: 2px solid #94a3b8;
     border-bottom: 2px solid #94a3b8;
     border-radius: 4px;
   }
 
   .mobile-ad-separator::before {
-    content: 'Advertisement Zone';
+    content: "Advertisement Zone";
     @apply absolute inset-0 flex items-center justify-center text-xs text-gray-700 uppercase tracking-wider;
     font-weight: 700;
     font-size: 11px;
@@ -222,7 +228,7 @@
   }
 
   .mobile-ad-separator::after {
-    content: '';
+    content: "";
     @apply absolute -top-4 -bottom-4 left-0 right-0 bg-gray-100/50;
     z-index: -1;
     border-radius: 8px;
@@ -241,7 +247,7 @@
   /* PRIORITY 7: Enhanced primary action zones */
   .primary-action-zone {
     @apply bg-white rounded-2xl p-8 mb-12 shadow-2xl;
-    border: 4px solid #E7B739 !important;
+    border: 4px solid #e7b739 !important;
     position: relative;
     z-index: 100 !important;
     margin-bottom: 4rem !important;
@@ -249,14 +255,14 @@
   }
 
   .primary-action-zone::before {
-    content: '';
+    content: "";
     @apply absolute -inset-2 bg-gradient-to-r from-primary via-secondary to-primary rounded-2xl opacity-20;
     z-index: -1;
     animation: pulse 3s ease-in-out infinite;
   }
 
   .primary-action-zone::after {
-    content: 'Priority Action';
+    content: "Priority Action";
     @apply absolute -top-4 right-4 bg-secondary text-white text-xs uppercase tracking-wider px-3 py-1 rounded-full;
     font-weight: 700;
     box-shadow: 0 2px 8px rgba(126, 211, 33, 0.3);
@@ -265,7 +271,6 @@
 
 /* ===== EXTRA SMALL DEVICES - MAXIMUM SEPARATION ===== */
 @media (max-width: 575.98px) {
-
   .cta-container {
     @apply mx-2 px-6 py-8;
     margin-bottom: 4rem !important;
@@ -297,7 +302,6 @@
 
 /* ===== ENHANCED DESKTOP AD SEPARATION ===== */
 @media (min-width: 769px) {
-
   .desktop-ad-separator {
     @apply flex items-center my-12 relative;
     padding: 2rem 0;
@@ -305,14 +309,14 @@
 
   .desktop-ad-separator::before,
   .desktop-ad-separator::after {
-    content: '';
+    content: "";
     @apply flex-1 h-1 bg-gradient-to-r from-transparent via-gray-400 to-transparent;
   }
 
   .desktop-ad-separator span {
     @apply px-6 text-sm text-gray-700 uppercase tracking-wider bg-white;
     font-weight: 700;
-    border: 2px solid #E7B739;
+    border: 2px solid #e7b739;
     border-radius: 20px;
     padding: 0.75rem 1.5rem;
     box-shadow: 0 4px 12px rgba(231, 183, 57, 0.15);
@@ -379,7 +383,7 @@
   padding: 1.25rem 2rem !important;
   font-size: 1.125rem !important;
   min-height: 56px !important;
-  background: linear-gradient(135deg, #7ED321 0%, #5CB217 100%);
+  background: linear-gradient(135deg, #7ed321 0%, #5cb217 100%);
   box-shadow:
     0 6px 20px rgba(126, 211, 33, 0.4),
     0 12px 40px rgba(126, 211, 33, 0.1),
@@ -445,11 +449,13 @@
   }
 
   .mobile-ad-separator {
-    background: repeating-linear-gradient(45deg,
-        #000000,
-        #000000 8px,
-        #ffffff 8px,
-        #ffffff 16px) !important;
+    background: repeating-linear-gradient(
+      45deg,
+      #000000,
+      #000000 8px,
+      #ffffff 8px,
+      #ffffff 16px
+    ) !important;
     border: 4px solid #000000 !important;
   }
 
@@ -462,7 +468,6 @@
 
 /* Reduced motion preferences */
 @media (prefers-reduced-motion: reduce) {
-
   .btn-primary,
   .primary-cta-mobile,
   .secondary-cta-mobile,
@@ -483,7 +488,6 @@
 
 /* ===== PRINT STYLES FOR AD-AWARE DESIGN ===== */
 @media print {
-
   .ad-zone,
   .mobile-ad-separator,
   .ad-separator,
@@ -561,8 +565,8 @@
   isolation: isolate;
 }
 
-.ad-zone+*,
-*+.ad-zone {
+.ad-zone + *,
+* + .ad-zone {
   text-align: left !important;
 }
 

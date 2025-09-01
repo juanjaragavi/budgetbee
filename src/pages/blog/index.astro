@@ -11,7 +11,7 @@ import { getEntry } from "astro:content";
 const { summary_length } = config.settings;
 const postIndex = (await getEntry(
   "personal-finance",
-  "-index"
+  "-index",
 )) as CollectionEntry<"personal-finance">;
 
 // Get posts from both collections for proper filtering
@@ -27,6 +27,7 @@ const allCategories = [
   ...new Set(allPosts.flatMap((post) => post.data.categories || [])),
 ];
 ---
+
 <Base title={postIndex?.data.title}>
   <section class="section bg-gradient-to-b from-white to-gray-50 py-10">
     <div class="container">
@@ -122,20 +123,20 @@ const allCategories = [
             btn.classList.add(
               "bg-gray-100",
               "text-gray-700",
-              "hover:bg-gray-200"
+              "hover:bg-gray-200",
             );
           });
           this.classList.remove(
             "bg-gray-100",
             "text-gray-700",
-            "hover:bg-gray-200"
+            "hover:bg-gray-200",
           );
           this.classList.add("bg-blue-600", "text-white");
 
           // Filter articles
           articleCards.forEach((card) => {
             const categories = JSON.parse(
-              card.getAttribute("data-categories") || "[]"
+              card.getAttribute("data-categories") || "[]",
             );
             const htmlCard = card as HTMLElement;
 

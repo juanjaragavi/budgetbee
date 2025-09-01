@@ -18,6 +18,7 @@ export async function getStaticPaths() {
 const { page } = Astro.props;
 const { title, meta_title, description, image } = page.data;
 ---
+
 <Base
   title={title}
   meta_title={meta_title}

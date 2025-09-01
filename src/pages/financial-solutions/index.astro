@@ -24,7 +24,7 @@ const currentPosts = sortedPosts.slice(0, config.settings.pagination);
           <h1
             class="h2 mb-4"
             set:html={markdownify(
-              postIndex?.data.title || "Financial Solutions"
+              postIndex?.data.title || "Financial Solutions",
             )}
           />
           <p class="text-lg text-gray-700 mb-8 leading-tight">
