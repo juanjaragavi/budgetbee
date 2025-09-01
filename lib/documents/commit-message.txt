@@ -1,31 +1,18 @@
-feat(financial-solutions, ads): move AdZep unit into MDX via AdZone; normalize CTAs/internal links; enforce link styling
+fix(mdx, ads): resolve AdZone undefined and React hook warnings by injecting explicit MDX import; keep component island-safe
 
-- Add AdZone shortcode component:
-  - src/layouts/shortcodes/AdZone.tsx renders a plain ad container div (default id="us_budgetbeepro_4") for AdZep to target.
-  - Auto-imported via astro.config.mjs so <AdZone /> is usable directly in MDX.
+- Optimizer enhancement:
+  - scripts/optimize-financial-solutions.mjs now ensures every Financial Solutions MDX file contains:
+      import AdZone from "@/shortcodes/AdZone";
+    right after frontmatter (or at top if no frontmatter).
+  - Prevents runtime "_missingMdxReference" and "Expected component 'AdZone' to be defined" errors.
+  - Re-ran optimizer to update all 30 MDX files.
 
-- Stop layout-level injection/repositioning of unit 4:
-  - Removed hardcoded us_budgetbeepro_4 container and DOM reposition script from src/layouts/PostSingle.astro.
-  - Prevents the ad from rendering outside the content area.
+- Ad rendering:
+  - AdZone remains a simple static React component (no hooks) and is safe to render server-side from MDX.
+  - MDX now directly imports AdZone, so no reliance on auto-import for MDX compilation.
 
-- Enforce visible link styling for Financial Solutions:
-  - In PostSingle.astro, style all in-content anchors (including nested strong/em) as brand yellow and underlined to match design and improve visibility.
+- PostSingle styles remain to enforce yellow + underline links for Financial Solutions pages.
 
-- Content optimization across all 15 product pairs (30 MDX files):
-  - Inject <AdZone id="us_budgetbeepro_4" /> before the final section (last h3) within each Benefits and Requirements article (never after CTA).
-  - Benefits pages: ensure exactly one CTA labeled "See Requirements" linking to the corresponding -requirements page.
-  - Requirements pages: ensure exactly one external CTA labeled "Apply on Official Site"; add varied inline internal links (2 product benefits + 1 personal finance post) BEFORE the CTA; ensure no links after CTA.
-  - All work performed by scripts/optimize-financial-solutions.mjs and executed to update all files.
-
-- Misc:
-  - astro.config.mjs: added "@/shortcodes/AdZone" to AutoImport.
-  - Cleaned legacy link formatting issues in requirements MDX (duplicate brackets, etc.).
-
-Why:
-- Ensures the AdZep unit renders inside the article content immediately before the final heading/paragraph and before CTAs, matching product/SEO requirements and Google policies.
-- Improves on-site engagement and consistency by standardizing interlinking and CTA behavior.
-- Makes link styling consistent and brand-aligned.
-
-Files touched (high level):
-- New: src/layouts/shortcodes/AdZone.tsx, scripts/optimize-financial-solutions.mjs
-- Updated: astro.config.mjs, src/layouts/PostSingle.astro, and all files in src/content/financial-solutions/*.mdx
+Result:
+- Eliminates Invalid Hook Call warnings that were triggered when MDX encountered an undefined component during render.
+- Ad unit us_budgetbeepro_4 now renders reliably inside article content, before the final section and prior to the CTA.
