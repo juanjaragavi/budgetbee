@@ -93,6 +93,22 @@ function stripLinksFromText(md) {
   return out;
 }
 
+function ensureAdZoneImport(content) {
+  // If AdZone already imported, do nothing
+  if (content.includes(`from "@/shortcodes/AdZone"`) || content.includes(`from '@/shortcodes/AdZone'`)) {
+    return content;
+  }
+  // Find the end of the MDX frontmatter block (--- ... ---)
+  const fmMatch = content.match(/^---\s*[\s\S]*?---\s*/m);
+  if (fmMatch) {
+    const insertAt = fmMatch[0].length;
+    const importLine = `import AdZone from "@/shortcodes/AdZone";\n\n`;
+    return content.slice(0, insertAt) + importLine + content.slice(insertAt);
+  }
+  // No frontmatter found; insert at top
+  return `import AdZone from "@/shortcodes/AdZone";\n\n` + content;
+}
+
 function optimizeBenefits(filePath, content, summary) {
   const filename = path.basename(filePath);
   const reqSlug = sluggifyFilename(filename).replace(
@@ -115,6 +131,9 @@ function optimizeBenefits(filePath, content, summary) {
   const fallbackIdx = btns.length ? btns[0].index : newContent.length;
   const adInsB = insertAdZoneBeforeLastHeading(newContent, fallbackIdx);
   newContent = adInsB.content;
+
+  // Ensure AdZone import for MDX
+  newContent = ensureAdZoneImport(newContent);
 
   return newContent;
 }
@@ -349,6 +368,9 @@ function optimizeRequirements(
   const tailClean = stripLinksFromText(tail);
   if (tail !== tailClean) summary.requirementsTailLinksStripped.push(filename);
   newContent = head + tailClean;
+
+  // Ensure AdZone import for MDX
+  newContent = ensureAdZoneImport(newContent);
 
   return newContent;
 }
