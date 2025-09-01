@@ -26,7 +26,7 @@ export async function getStaticPaths() {
 const { slug } = Astro.params;
 const postIndex = (await getEntry(
   "personal-finance",
-  "-index"
+  "-index",
 )) as CollectionEntry<"personal-finance">;
 const posts = await getSinglePage("personal-finance");
 const sortedPosts = sortByDate(posts);
@@ -39,6 +39,7 @@ const currentPosts = sortedPosts.slice(indexOfFirstPost, indexOfLastPost);
 // Set canonical URL for this pagination page
 const canonicalUrl = `${config.site.base_url}/personal-finance/page/${currentPage}`;
 ---
+
 <Base
   title={postIndex?.data.title}
   canonical={canonicalUrl}

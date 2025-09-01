@@ -6,6 +6,7 @@ import { getEntry, render } from "astro:content";
 const entry = (await getEntry("pages", "404")) as CollectionEntry<"pages">;
 const { Content } = await render(entry);
 ---
+
 <Base title={entry.data.title}>
   <section class="section">
     <div class="container">

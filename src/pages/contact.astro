@@ -7,11 +7,12 @@ import { getEntry } from "astro:content";
 
 const entry = (await getEntry(
   "contact",
-  "-index"
+  "-index",
 )) as CollectionEntry<"contact">;
 const { contact_form_action } = config.params;
 const { title, description, info } = entry.data;
 ---
+
 <Base title={title} description={description}>
   <section class="section">
     <div class="container">
