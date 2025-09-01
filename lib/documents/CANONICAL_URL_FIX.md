@@ -31,15 +31,16 @@
 **File**: `/src/pages/blog/category/[category].astro`
 
 ```astro
-// Set canonical URL for this category page to ensure proper indexing
-const canonicalUrl = `${config.site.base_url}/blog/category/${category}`;
+// Set canonical URL for this category page to ensure proper indexing const
+canonicalUrl = `${config.site.base_url}/blog/category/${category}`;
 ```
 
 **File**: `/src/pages/blog/category/[category]/page/[slug].astro`
 
 ```astro
-// Set canonical URL for this category pagination page to prevent duplicate content issues
-const canonicalUrl = `${config.site.base_url}/blog/category/${category}/page/${currentPage}`;
+// Set canonical URL for this category pagination page to prevent duplicate
+content issues const canonicalUrl =
+`${config.site.base_url}/blog/category/${category}/page/${currentPage}`;
 ```
 
 ### 2. Fixed Trailing Slash Consistency

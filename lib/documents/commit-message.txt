@@ -1,21 +1,13 @@
-fix(react): resolve "Invalid hook call" on article pages via client-only island
+chore(prettier): configure Astro plugin and fix formatting pipeline
 
-- refactor(PostSingle.astro): render AIContentDisclaimerStatic with client:only="react" to prevent SSR-time hook execution that triggered React's "Invalid hook call"
-- chore(analytics): gate AdZepActivator behind import.meta.env.PROD in AnalyticsWrapper; keep UtmPersister/UtmMonitor and AdZepDebugger only in development
-- chore(layout): gate external ad stack in Base.astro to production only
-  - budgetbee ad-manager module & GPT script wrapped in isProduction checks
-  - AdZep external loader script also gated to production
-  => reduces CORS/attestation noise and missing-div warnings during local dev
-- fix(content): correct collection index lookup on Financial Solutions page
-  - getEntry("financial-solutions", "-index") (remove .md) to match content entry ids
-- dev: verified no "Invalid hook call" in server logs; pages render clean; dev console free from ad/GAM noise (expected AdZep inactive in dev); ads continue to run in preview/production
+- chore(prettier): add "prettier-plugin-astro" to .prettierrc plugins and remove deprecated @astrojs/prettier-plugin-astro from package.json (404 in registry)
+- fix(astro): resolve Prettier parse blockers
+  - PostSingle.astro: move conditional style block to top-level & keep CSS variable-based theming
+  - BlogPostsContainerEnhanced.astro: convert HTML comments to JSX comments and fix IntersectionObserver condition
+- style: run "pnpm format" successfully across the repo
 
-Files changed (highlights):
+Files changed:
+- package.json
+- .prettierrc
 - src/layouts/PostSingle.astro
-- src/components/analytics/AnalyticsWrapper.tsx
-- src/layouts/Base.astro
-- src/pages/financial-solutions/index.astro
-
-No breaking changes. Ads & activations remain enabled in preview/production builds.
-
-Refs: fix React hooks usage with Astro islands; tidy developer experience in local environment.
+- src/layouts/components/BlogPostsContainerEnhanced.astro

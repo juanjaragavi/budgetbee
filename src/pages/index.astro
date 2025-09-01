@@ -12,7 +12,7 @@ import config from "@/config/config.json";
 
 const homepage = (await getEntry(
   "homepage",
-  "-index"
+  "-index",
 )) as CollectionEntry<"homepage">;
 const { banner, services, workflow, call_to_action } = homepage.data;
 
@@ -24,6 +24,7 @@ const latestPosts = sortedPosts.slice(0, 3);
 const featuredPost = sortedPosts[0];
 const featuredPosts = sortedPosts.slice(1, 4);
 ---
+
 <Base>
   <!-- banner -->
   <section class="section pb-[50px]">
@@ -192,7 +193,7 @@ const featuredPosts = sortedPosts.slice(1, 4);
               <p
                 class="text-lg leading-relaxed mb-6 line-clamp-3 text-left"
                 set:html={plainify(
-                  featuredPost.body?.slice(0, summary_length * 2) || ""
+                  featuredPost.body?.slice(0, summary_length * 2) || "",
                 )}
               />
               <a
