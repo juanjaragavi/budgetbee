@@ -118,18 +118,15 @@ After creating any new blog post or article, **ensure the content appears in all
 **New articles must appear in:**
 
 1. **Homepage** (`src/pages/index.astro`):
-
    - Latest News section (latest 3 articles)
    - Featured Article section (top article)
    - Featured Posts section (articles 2-4)
 
 2. **Main Blog Hub** (`src/pages/blog/index.astro`):
-
    - All Articles section with category filtering
    - Aggregated content from personal-finance and financial-solutions
 
 3. **Category Pages**:
-
    - Personal Finance: `/personal-finance/` (`src/pages/personal-finance/index.astro`)
    - Financial Solutions: `/financial-solutions/` (`src/pages/financial-solutions/index.astro`)
 

@@ -1,18 +1,21 @@
-fix(mdx, ads): resolve AdZone undefined and React hook warnings by injecting explicit MDX import; keep component island-safe
+fix(react): resolve "Invalid hook call" on article pages via client-only island
 
-- Optimizer enhancement:
-  - scripts/optimize-financial-solutions.mjs now ensures every Financial Solutions MDX file contains:
-      import AdZone from "@/shortcodes/AdZone";
-    right after frontmatter (or at top if no frontmatter).
-  - Prevents runtime "_missingMdxReference" and "Expected component 'AdZone' to be defined" errors.
-  - Re-ran optimizer to update all 30 MDX files.
+- refactor(PostSingle.astro): render AIContentDisclaimerStatic with client:only="react" to prevent SSR-time hook execution that triggered React's "Invalid hook call"
+- chore(analytics): gate AdZepActivator behind import.meta.env.PROD in AnalyticsWrapper; keep UtmPersister/UtmMonitor and AdZepDebugger only in development
+- chore(layout): gate external ad stack in Base.astro to production only
+  - budgetbee ad-manager module & GPT script wrapped in isProduction checks
+  - AdZep external loader script also gated to production
+  => reduces CORS/attestation noise and missing-div warnings during local dev
+- fix(content): correct collection index lookup on Financial Solutions page
+  - getEntry("financial-solutions", "-index") (remove .md) to match content entry ids
+- dev: verified no "Invalid hook call" in server logs; pages render clean; dev console free from ad/GAM noise (expected AdZep inactive in dev); ads continue to run in preview/production
 
-- Ad rendering:
-  - AdZone remains a simple static React component (no hooks) and is safe to render server-side from MDX.
-  - MDX now directly imports AdZone, so no reliance on auto-import for MDX compilation.
+Files changed (highlights):
+- src/layouts/PostSingle.astro
+- src/components/analytics/AnalyticsWrapper.tsx
+- src/layouts/Base.astro
+- src/pages/financial-solutions/index.astro
 
-- PostSingle styles remain to enforce yellow + underline links for Financial Solutions pages.
+No breaking changes. Ads & activations remain enabled in preview/production builds.
 
-Result:
-- Eliminates Invalid Hook Call warnings that were triggered when MDX encountered an undefined component during render.
-- Ad unit us_budgetbeepro_4 now renders reliably inside article content, before the final section and prior to the CTA.
+Refs: fix React hooks usage with Astro islands; tidy developer experience in local environment.

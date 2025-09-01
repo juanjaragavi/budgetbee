@@ -27,7 +27,6 @@ const allCategories = [
   ...new Set(allPosts.flatMap((post) => post.data.categories || [])),
 ];
 ---
-
 <Base title={postIndex?.data.title}>
   <section class="section bg-gradient-to-b from-white to-gray-50 py-10">
     <div class="container">

@@ -8,7 +8,7 @@ import { markdownify } from "@/lib/utils/textConverter";
 import { getEntry } from "astro:content";
 
 const { summary_length } = config.settings;
-const postIndex = await getEntry("financial-solutions", "-index.md");
+const postIndex = await getEntry("financial-solutions", "-index");
 const posts = await getSinglePage("financial-solutions");
 const sortedPosts = sortByDate(posts);
 const totalPages = Math.ceil(posts.length / config.settings.pagination);

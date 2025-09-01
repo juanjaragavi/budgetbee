@@ -89,29 +89,24 @@ Sitemap: https://budgetbeepro.com/sitemap-0.xml
 ### Key Changes Made
 
 1. **Removed Host Directive**
-
    - Eliminated the unsupported `Host:` directive
    - Prevents potential crawler confusion
 
 2. **Eliminated Crawl-delay Directives**
-
    - Removed all `Crawl-delay` statements
    - Google doesn't support this directive officially
 
 3. **Simplified Allow/Disallow Rules**
-
    - Removed redundant `Allow:` statements
    - Kept only necessary `Disallow:` rules for protected areas
    - Relies on default allow behavior for public content
 
 4. **Streamlined User-agent Structure**
-
    - Consolidated rules under clear user-agent groups
    - Eliminated redundant declarations
    - Clear separation between allowed and blocked bots
 
 5. **Maintained Essential Blocking**
-
    - Still blocks API endpoints (`/api/`)
    - Still blocks Astro build files (`/_astro/`)
    - Still blocks admin and private areas

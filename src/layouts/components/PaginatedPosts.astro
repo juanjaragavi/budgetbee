@@ -12,7 +12,6 @@ interface Props {
 
 const { posts, section, currentPage = 1, totalPages = 1 } = Astro.props;
 ---
-
 <div class="row" id="post-grid">
   {
     posts.map((post, i) => (

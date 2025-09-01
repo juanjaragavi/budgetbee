@@ -95,7 +95,10 @@ function stripLinksFromText(md) {
 
 function ensureAdZoneImport(content) {
   // If AdZone already imported, do nothing
-  if (content.includes(`from "@/shortcodes/AdZone"`) || content.includes(`from '@/shortcodes/AdZone'`)) {
+  if (
+    content.includes(`from "@/shortcodes/AdZone"`) ||
+    content.includes(`from '@/shortcodes/AdZone'`)
+  ) {
     return content;
   }
   // Find the end of the MDX frontmatter block (--- ... ---)
@@ -239,7 +242,10 @@ function insertInlineSuggestions(
 
 function insertAdZoneBeforeLastHeading(content, fallbackIndex) {
   // Avoid duplicate insertion if AdZone already exists
-  if (content.includes("<AdZone") || content.includes('id="us_budgetbeepro_4"')) {
+  if (
+    content.includes("<AdZone") ||
+    content.includes('id="us_budgetbeepro_4"')
+  ) {
     return { content, inserted: false };
   }
   const h3Matches = [...content.matchAll(/^###\s.+$/gm)];
@@ -255,8 +261,9 @@ function insertAdZoneBeforeLastHeading(content, fallbackIndex) {
   if (insertPos > fallbackIndex) {
     insertPos = Math.max(0, fallbackIndex);
   }
-  const insertion = "\n\n<AdZone id=\"us_budgetbeepro_4\" />\n\n";
-  const updated = content.slice(0, insertPos) + insertion + content.slice(insertPos);
+  const insertion = '\n\n<AdZone id="us_budgetbeepro_4" />\n\n';
+  const updated =
+    content.slice(0, insertPos) + insertion + content.slice(insertPos);
   return { content: updated, inserted: true };
 }
 
@@ -345,7 +352,10 @@ function optimizeRequirements(
 
   // Insert AdZone before the last section heading; do not go past CTA
   {
-    const adInsR = insertAdZoneBeforeLastHeading(newContent, keptForInsert ? keptForInsert.index : 0);
+    const adInsR = insertAdZoneBeforeLastHeading(
+      newContent,
+      keptForInsert ? keptForInsert.index : 0,
+    );
     newContent = adInsR.content;
   }
 
