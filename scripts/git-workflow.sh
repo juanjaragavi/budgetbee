@@ -14,7 +14,6 @@ BACKUP_BRANCH="backup"
 # This script automates common Git operations for deployment
 
 # --- Pre-flight Checks ---
-
 # 1. Check if we are on the dev branch
 CURRENT_BRANCH=$(git rev-parse --abbrev-ref HEAD)
 if [ "$CURRENT_BRANCH" != "$DEV_BRANCH" ]; then
@@ -25,7 +24,6 @@ fi
 echo "Starting Git workflow on '$DEV_BRANCH' branch..."
 
 # --- Git Workflow (Commit & Push) ---
-
 # Step 1: Check repository status
 echo "Checking repository status..."
 git status
@@ -62,7 +60,6 @@ git push -u origin $DEV_BRANCH
 echo "Git workflow (commit & push) completed successfully!"
 
 # --- Merge Process (Separate Functionality) ---
-
 # Ask whether to proceed with merges to main and backup branches
 read -p "Do you want to merge changes into main and backup branches? (y/n): " MERGE_CONFIRM
 if [ "$MERGE_CONFIRM" != "y" ] && [ "$MERGE_CONFIRM" != "Y" ]; then

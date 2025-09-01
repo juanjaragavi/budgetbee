@@ -2,7 +2,7 @@
 title: "Building Good Money Habits: Consistency is Key"
 description: "Discover why consistent, small actions are the secret to lasting financial health and how to build strong money habits that stick."
 image: "https://media.topfinanzas.com/images/building-good-money-habits-consistency-is-key-2.webp"
-date: 2025-06-25T05:00:00Z
+date: 2024-08-25T22:00:00.000Z
 draft: false
 categories: ["personal-finance"]
 tags:

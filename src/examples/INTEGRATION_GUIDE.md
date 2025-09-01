@@ -27,7 +27,6 @@ import PostCardEnhanced from '@/layouts/partials/PostCardEnhanced.astro';
 // Replace existing post fetching
 const { latest, featured, featuredPosts } = await blogManager.getHomepagePosts();
 ---
-
 <!-- Replace existing Latest News section -->
 <section class="latest-news py-16">
   <div class="container">
@@ -74,7 +73,6 @@ const postsPerPage = 12;
 const totalPages = Math.ceil(allPosts.length / postsPerPage);
 const currentPagePosts = allPosts.slice(0, postsPerPage);
 ---
-
 <Base title="Blog">
   <div class="container py-16">
     <BlogPostsContainerEnhanced
@@ -107,7 +105,6 @@ const categoryPosts = await blogManager.getFilteredPosts({
   limit: 12
 });
 ---
-
 <Base title="Personal Finance">
   <div class="container py-16">
     <BlogPostsContainerEnhanced
@@ -148,7 +145,6 @@ export async function getStaticPaths() {
 
 const { posts, currentPage, totalPages } = Astro.props;
 ---
-
 <Base title={`Blog - Page ${currentPage}`}>
   <div class="container py-16">
     <BlogPostsContainerEnhanced
@@ -177,7 +173,6 @@ import PostCardEnhanced from '@/layouts/partials/PostCardEnhanced.astro';
 // Add this after your existing frontmatter
 const relatedPosts = await blogManager.getRelatedPosts(post, 3);
 ---
-
 <!-- Add this section after your main post content -->
 {relatedPosts.length > 0 && (
   <section class="related-posts py-16 border-t border-border dark:border-darkmode-border">
@@ -217,7 +212,6 @@ const searchResults = searchQuery ? await blogManager.getFilteredPosts({
   limit: 20
 }) : [];
 ---
-
 <Base title={`Search${searchQuery ? ` - ${searchQuery}` : ''}`}>
   <div class="container py-16">
     <h1 class="text-4xl font-bold mb-8">

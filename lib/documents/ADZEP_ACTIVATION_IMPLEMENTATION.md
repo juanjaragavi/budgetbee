@@ -242,13 +242,11 @@ If you have existing manual AdZep calls:
 ### Common Issues
 
 1. **Ads Not Displaying**
-
    - Check console for activation logs
    - Verify AdZep script is loading
    - Ensure ad units are properly configured
 
 2. **Multiple Activation Warnings**
-
    - This is normal and expected
    - Shows the protection system is working
 
