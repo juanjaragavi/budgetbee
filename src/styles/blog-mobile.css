@@ -170,6 +170,24 @@ html {
   aspect-ratio: 16 / 9;
 }
 
+/* Allow ad iframes to use their own native heights (no forced aspect ratio) */
+#us_budgetbeepro_3 iframe,
+#us_budgetbeepro_4 iframe,
+[id^="us_budgetbeepro_"] iframe,
+.ad-zone iframe {
+  aspect-ratio: auto !important;
+}
+
+/* Ensure ad containers don't clip and stretch to content */
+#us_budgetbeepro_3,
+#us_budgetbeepro_4,
+[id^="us_budgetbeepro_"] {
+  display: block;
+  width: 100%;
+  overflow: visible !important;
+  align-items: stretch !important; /* override items-center utility */
+}
+
 /* Share buttons and post navigation mobile optimization */
 @media (max-width: 640px) {
   .share-buttons {

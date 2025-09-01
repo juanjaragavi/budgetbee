@@ -58,12 +58,14 @@
 @media (max-width: 768px) {
   /* Fix container overflow issues */
   .container {
-    @apply !px-4 !max-w-full overflow-hidden;
+    @apply !px-4 !max-w-full;
+    overflow-x: hidden;
   }
 
   /* Ensure article content doesn't overflow */
   article {
-    @apply overflow-hidden;
+    @apply overflow-visible;
+    overflow: visible;
   }
 
   /* Blog content specific fixes */
