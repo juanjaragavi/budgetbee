@@ -2,7 +2,7 @@
 title: "Setting Financial Goals: A Beginner's Guide to Planning Your Future"
 description: "Learn how to set clear, achievable financial goals to build a secure future and take control of your money journey."
 image: "https://media.topfinanzas.com/images/setting-financial-goals-a-beginners-guide-to-planning-your-future.webp"
-date: 2025-06-25T05:00:00Z
+date: 2024-08-04T17:00:00.000Z
 draft: false
 categories: ["personal-finance"]
 tags:

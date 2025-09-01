@@ -27,7 +27,6 @@ if ! git diff-index --quiet HEAD --; then
 fi
 
 # --- Synchronization Steps ---
-
 # 1. Switch to main branch and pull latest changes
 log "Switching to '$MAIN_BRANCH' branch and pulling latest changes..."
 git checkout "$MAIN_BRANCH"

@@ -11,7 +11,6 @@ log() {
 }
 
 # --- Deployment Steps ---
-
 log "Step 1: Pulling latest changes from GitHub..."
 sudo git pull origin main
 
