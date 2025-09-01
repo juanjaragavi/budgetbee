@@ -20,7 +20,6 @@ const sortedPosts = sortByDate(posts);
 const totalPages = Math.ceil(posts.length / config.settings.pagination);
 const currentPosts = sortedPosts.slice(0, config.settings.pagination);
 ---
-
 <Base title={postIndex?.data.title}>
   <section class="section bg-gradient-to-b from-white to-gray-50 py-10">
     <div class="container">

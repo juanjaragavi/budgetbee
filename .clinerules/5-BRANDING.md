@@ -55,12 +55,10 @@
 Color palettes that evoke trust, youthfulness, and financial well-being.
 
 - **Primary Colors:**
-
   - Warm Yellow (#E7B739): Primary brand color matching the BudgetBee logo - conveys warmth, approachability, and energy.
   - Fresh Green (#7ED321): Represents growth and financial wellness.
 
 - **Secondary Colors:**
-
   - Soft Blue (#4A90E2): Conveys trust and dependability.
   - Light Gray (#F5F5F5): Provides a neutral background that enhances readability.
 

@@ -2,7 +2,7 @@
 title: "Understanding Your Paycheck: Taxes, Deductions, and Net Pay Explained"
 description: "Break down your paycheck and understand where your money goes, from federal and state taxes to common deductions and your final net pay."
 image: "https://media.topfinanzas.com/images/understanding-your-paycheck-taxes-deductions-and-net-pay-explained.webp"
-date: 2025-06-25T05:00:00Z
+date: 2024-06-23T17:00:00.000Z
 draft: false
 categories: ["personal-finance"]
 tags:

@@ -2,7 +2,7 @@
 title: "The First Step to Financial Freedom: Understanding Your Money Mindset"
 description: "Discover how your beliefs about money shape your financial reality and learn how to identify and shift your money mindset for a more secure future."
 image: "https://media.topfinanzas.com/images/the-first-step-to-financial-freedom-understanding-your-money-mindset.webp"
-date: 2025-06-25T05:00:00Z
+date: 2024-07-03T20:00:00.000Z
 draft: false
 categories: ["personal-finance"]
 tags:

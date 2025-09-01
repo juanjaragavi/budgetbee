@@ -150,23 +150,19 @@ After creating any new blog post or article, **ensure the content appears in all
 **Always verify new articles appear in:**
 
 1. **Homepage** (`src/pages/index.astro`):
-
    - Latest News section (most recent 3 articles)
    - Featured Article section (top article by date)
    - Featured Posts section (articles 2-4 from collection)
 
 2. **Main Blog Hub** (`src/pages/blog/index.astro`):
-
    - All Articles section with category filtering
    - Aggregated content display from personal-finance and financial-solutions collections
 
 3. **Category-Specific Index Pages**:
-
    - Personal Finance: `/personal-finance/` (`src/pages/personal-finance/index.astro`)
    - Financial Solutions: `/financial-solutions/` (`src/pages/financial-solutions/index.astro`)
 
 4. **Pagination Systems**:
-
    - Main blog pagination: `/blog/page/[slug].astro`
    - Personal finance pagination: `/personal-finance/page/[slug].astro`
    - Financial solutions pagination: `/financial-solutions/page/[slug].astro`

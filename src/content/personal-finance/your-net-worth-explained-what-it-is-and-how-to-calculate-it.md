@@ -2,7 +2,7 @@
 title: "Your Net Worth Explained: What It Is and How to Calculate It"
 description: "Learn what net worth is, why it matters for your financial health, and a simple guide on how to calculate it to track your financial progress."
 image: "https://media.topfinanzas.com/images/your-net-worth-explained-what-it-is-and-how-to-calculate-it.webp"
-date: 2025-06-25T05:00:00Z
+date: 2024-06-07T15:00:00.000Z
 draft: false
 categories: ["personal-finance"]
 tags:
@@ -65,11 +65,9 @@ For Millennials and Gen-Z, who may be dealing with significant debt early in the
 Calculating your net worth is simpler than you might think. Just follow these steps:
 
 1. **List and Value Your Assets:** Go through all your accounts and possessions. List everything you own that has significant monetary value. Estimate the current market value for items like real estate and vehicles. For bank accounts and investments, use the current balance.
-
    - _Example Assets:_ $5,000 in checking/savings, $20,000 in retirement account, $15,000 car value, $150,000 home value. Total Assets = $190,000.
 
 2. **List Your Liabilities:** Make a list of all your outstanding debts. Get the current balance for each loan and credit card.
-
    - _Example Liabilities:_ $10,000 student loan, $8,000 car loan, $3,000 credit card debt, $120,000 mortgage. Total Liabilities = $141,000.
 
 3. **Calculate Your Net Worth:** Subtract your total liabilities from your total assets.

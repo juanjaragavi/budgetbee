@@ -108,23 +108,19 @@ After successfully creating and saving a new blog post, **you must ensure the ar
 **Verify the new article appears in the following pages/sections:**
 
 1. **Homepage (`src/pages/index.astro`)**:
-
    - Latest News section (displays latest 3 articles)
    - Featured Article section (top article)
    - Featured Posts section (articles 2-4)
 
 2. **Main Blog Page (`src/pages/blog/index.astro`)**:
-
    - All Articles section with category filtering
    - Aggregated content from both personal-finance and financial-solutions collections
 
 3. **Category-Specific Pages**:
-
    - **Personal Finance**: `/personal-finance/` (`src/pages/personal-finance/index.astro`)
    - **Financial Solutions**: `/financial-solutions/` (`src/pages/financial-solutions/index.astro`)
 
 4. **Pagination Pages**:
-
    - Blog pagination: `/blog/page/[slug].astro`
    - Personal Finance pagination: `/personal-finance/page/[slug].astro`
    - Financial Solutions pagination: `/financial-solutions/page/[slug].astro`

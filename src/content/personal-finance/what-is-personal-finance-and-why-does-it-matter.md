@@ -2,7 +2,7 @@
 title: "What is Personal Finance and Why Does it Matter?"
 description: "Unlock the basics of personal finance and discover why managing your money effectively is crucial for building a secure future, no matter your income."
 image: "https://media.topfinanzas.com/images/what-is-personal-finance-and-why-does-it-matter-2.webp"
-date: 2025-06-25T05:00:00Z
+date: 2024-06-12T17:00:00.000Z
 draft: false
 categories: ["personal-finance"]
 tags:
