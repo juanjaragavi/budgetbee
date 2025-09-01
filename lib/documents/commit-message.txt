@@ -1,12 +1,31 @@
-feat(quiz): implement quiz-specific layout and title adjustments
+feat(financial-solutions, ads): move AdZep unit into MDX via AdZone; normalize CTAs/internal links; enforce link styling
 
-- Hide global Header only on quiz page via page-scoped CSS (no global layout changes)
-- Replace standard site footer with minimal copyright-only footer (quiz page only)
-- Add favicon image next to the "BudgetBee Quiz" title
-- Use black title text on yellow bar for better contrast and per feedback
-- Remove duplicate page title from quiz.astro (keep only yellow bar title)
-- Resolve TS reference by using config.params.copyright
+- Add AdZone shortcode component:
+  - src/layouts/shortcodes/AdZone.tsx renders a plain ad container div (default id="us_budgetbeepro_4") for AdZep to target.
+  - Auto-imported via astro.config.mjs so <AdZone /> is usable directly in MDX.
 
-Files modified:
-- src/pages/quiz.astro
-- src/components/quiz/CreditCardForm.jsx
+- Stop layout-level injection/repositioning of unit 4:
+  - Removed hardcoded us_budgetbeepro_4 container and DOM reposition script from src/layouts/PostSingle.astro.
+  - Prevents the ad from rendering outside the content area.
+
+- Enforce visible link styling for Financial Solutions:
+  - In PostSingle.astro, style all in-content anchors (including nested strong/em) as brand yellow and underlined to match design and improve visibility.
+
+- Content optimization across all 15 product pairs (30 MDX files):
+  - Inject <AdZone id="us_budgetbeepro_4" /> before the final section (last h3) within each Benefits and Requirements article (never after CTA).
+  - Benefits pages: ensure exactly one CTA labeled "See Requirements" linking to the corresponding -requirements page.
+  - Requirements pages: ensure exactly one external CTA labeled "Apply on Official Site"; add varied inline internal links (2 product benefits + 1 personal finance post) BEFORE the CTA; ensure no links after CTA.
+  - All work performed by scripts/optimize-financial-solutions.mjs and executed to update all files.
+
+- Misc:
+  - astro.config.mjs: added "@/shortcodes/AdZone" to AutoImport.
+  - Cleaned legacy link formatting issues in requirements MDX (duplicate brackets, etc.).
+
+Why:
+- Ensures the AdZep unit renders inside the article content immediately before the final heading/paragraph and before CTAs, matching product/SEO requirements and Google policies.
+- Improves on-site engagement and consistency by standardizing interlinking and CTA behavior.
+- Makes link styling consistent and brand-aligned.
+
+Files touched (high level):
+- New: src/layouts/shortcodes/AdZone.tsx, scripts/optimize-financial-solutions.mjs
+- Updated: astro.config.mjs, src/layouts/PostSingle.astro, and all files in src/content/financial-solutions/*.mdx
