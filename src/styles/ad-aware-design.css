@@ -546,6 +546,32 @@
   text-align: left !important;
 }
 
+/* Neutralize decorative ad styles when paired with .ad-reset */
+.ad-reset {
+  display: block !important;
+  width: 100% !important;
+  min-height: 0 !important;
+  height: auto !important;
+  padding: 0 !important;
+  margin: 1rem 0 !important;
+  border: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  isolation: auto !important;
+  align-items: stretch !important;
+  justify-content: normal !important;
+  overflow: visible !important;
+}
+
+.ad-reset iframe {
+  display: block !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  height: auto !important;
+  aspect-ratio: auto !important;
+  overflow: visible !important;
+}
+
 .blog-post-single .content p,
 .blog-post-single .content h1,
 .blog-post-single .content h2,
