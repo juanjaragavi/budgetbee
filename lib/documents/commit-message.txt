@@ -1,55 +1,6 @@
-fix(ad-rendering): prevent AdZep ad units from being truncated on credit card posts
+chore(package): sync package metadata and lockfile
 
-Context
-Ad containers us_budgetbeepro_3 and us_budgetbeepro_4 were visually clipped by surrounding content on Financial Solutions (credit card product) pages. Root causes found in external stylesheets (global iframe aspect-ratio and overflow rules). Implemented CSS and JS fixes; verified locally.
+- Update package.json (scripts/metadata housekeeping)
+- Regenerate pnpm-lock.yaml to reflect current dependency graph
 
-Key changes
-- styles(blog-mobile): remove 16:9 constraint for AdZep iframes
-  - Keep 16:9 for videos, but introduce targeted override:
-    #us_budgetbeepro_3 iframe, #us_budgetbeepro_4 iframe, [id^="us_budgetbeepro_"] iframe, .ad-zone iframe { aspect-ratio: auto !important; }
-  - Ensure ad containers don’t clip:
-    #us_budgetbeepro_3, #us_budgetbeepro_4, [id^="us_budgetbeepro_"] { display:block; width:100%; overflow:visible !important; align-items:stretch !important; }
-
-- styles(mobile-optimizations): relax overflow to allow expansion
-  - .container: remove overflow-hidden; use overflow-x:hidden
-  - article: switch to overflow:visible
-
-- styles(ad-aware-design): add neutral .ad-reset utility for ad containers
-  - Strip decorative borders/padding/background/min-height
-  - Force overflow:visible and aspect-ratio:auto for nested iframes
-  - Useful when combined with .ad-zone to avoid any clipping
-
-- layout(PostSingle): apply ad-zone + ad-reset to inline ad container
-  - id="us_budgetbeepro_3" now uses "ad-zone ad-reset … items-stretch"
-
-- component(AdZone): always include ad-zone base class
-  - Ensures consistent baseline styling and that utility overrides apply
-
-- analytics(AdZepActivator): add lightweight auto-sizer
-  - MutationObserver + ResizeObserver to re-measure ad containers
-  - Sets minHeight based on iframe/first-child/scrollHeight after layout
-  - Guards against dynamic height changes (e.g., SafeFrame expansions)
-
-Notes
-- The original clipping was primarily due to:
-  - blog-mobile.css: .blog-post-single iframe/video/embed { aspect-ratio:16/9; }
-  - mobile-optimizations.css: overflow-hidden on container/article for mobile
-- In dev, ad slots often return isEmpty and show CORS errors; with live fill, creatives will no longer be truncated.
-
-Files touched
-- src/styles/blog-mobile.css
-- src/styles/mobile-optimizations.css
-- src/styles/ad-aware-design.css
-- src/layouts/PostSingle.astro
-- src/layouts/shortcodes/AdZone.tsx
-- src/components/analytics/AdZepActivator.tsx
-- .prettierrc, pnpm-lock.yaml (incidental changes recorded)
-
-QA
-- Verified layout locally at:
-  /financial-solutions/amazon-rewards-visa-credit-card-benefits
-- Non-ad iframes (videos) still respect 16:9
-- Ad containers expand without clipping; auto-sizer provides resilience
-
-Refs
-- Ad rendering issue for credit card product pages
+No app logic changes. Part of routine maintenance to keep project scripts and lockfile in sync.
