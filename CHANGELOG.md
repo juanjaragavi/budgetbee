@@ -21,6 +21,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Mobile-specific CSS optimizations for blog content (May 26, 2025)
 - Blog-specific mobile styles (`blog-mobile.css`) (May 26, 2025)
 - Started migration of marketing-related components and custom scripts (e.g., Google Tag Manager, UTM persister) from TopFinanzas UK. (May 26, 2025)
+- Added AdZep ad units us_budgetbeepro_3 (post-top) and us_budgetbeepro_4 (in-article fallback) to all Personal Finance (TOFU/MOFU) articles by updating PostSingle layout with category-normalized detection. (Sep 1, 2025)
 
 ### Changed
 

@@ -7,10 +7,14 @@ const { post } = Astro.props;
 const { Content } = await render(post);
 const { title, image, categories, color } = post.data;
 
+const categoriesLower: string[] = (
+  (categories as string[] | undefined) ?? []
+).map((c: string) => c.toLowerCase());
 const applyLeadingTight =
-  categories.includes("Personal Finance") ||
-  categories.includes("Financial Solutions");
-const isFinancialSolution = categories.includes("Financial Solutions");
+  categoriesLower.includes("personal-finance") ||
+  categoriesLower.includes("financial-solutions");
+const isFinancialSolution = categoriesLower.includes("financial-solutions");
+const isPersonalFinance = categoriesLower.includes("personal-finance");
 ---
 
 <style>
@@ -39,6 +43,20 @@ const isFinancialSolution = categories.includes("Financial Solutions");
   /* Prevent ad zone flex properties from affecting content */
   .blog-content-wrapper > *:not(.ad-zone) {
     text-align: left !important;
+  }
+
+  /* Ensure PF ad unit 4 is visible and occupies space even before fill */
+  #us_budgetbeepro_4 {
+    display: block !important;
+    min-height: 50px; /* visible placeholder area before creative */
+    margin: 1.5rem 0;
+  }
+  /* If AdZep injects an iframe, let it size naturally */
+  #us_budgetbeepro_4 iframe {
+    display: block !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    aspect-ratio: auto !important;
   }
 </style>
 
@@ -75,10 +93,10 @@ const isFinancialSolution = categories.includes("Financial Solutions");
             /* Autozep Ad: us_budgetbeepro_3 - Insert after title and first paragraph */
           }
           {
-            isFinancialSolution && (
+            (isFinancialSolution || isPersonalFinance) && (
               <div
                 id="us_budgetbeepro_3"
-                class="ad-zone ad-reset min-size-auto flex justify-center items-stretch"
+                class="min-size-auto flex justify-center items-stretch"
               />
             )
           }
