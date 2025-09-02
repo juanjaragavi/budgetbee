@@ -268,3 +268,63 @@ await activateAdZep({ force: true });
 resetAdZepState();
 await activateAdZep();
 ```
+
+---
+
+## Ad Slot Components & Auto-Injection (Sep 1, 2025)
+
+To resolve visibility and placement inconsistencies post MD → MDX migration, we introduced a dedicated MDX-safe component for the post-top ad unit and an automatic injection rule in the blog layout.
+
+### Post-Top Ad Unit Component
+
+- File: `src/layouts/shortcodes/AdZoneTop3.tsx`
+- Default id: `us_budgetbeepro_3`
+- Classes: `ad-reset ad-zone-top` (neutral, non-decorative and spacing-aware)
+
+Usage in MDX:
+
+```mdx
+<AdZoneTop3 /> // renders with id="us_budgetbeepro_3"
+<AdZoneTop3 id="custom_slot" /> // optional override
+```
+
+This mirrors the successful pattern used for unit 4 (mid-article) while keeping markup minimal for the ad stack to target.
+
+### Automatic Injection in Post Layout
+
+- File: `src/layouts/PostSingle.astro`
+- Logic: For posts in categories `personal-finance` or `financial-solutions`, a div with `id="us_budgetbeepro_3"` is injected directly below the H1 title.
+- Category matching is normalized (`lowercase`, spaces/underscores → hyphens) to avoid mismatches between frontmatter and runtime checks.
+
+Snippet:
+
+```astro
+{
+  (isFinancialSolution || isPersonalFinance) && (
+    <div id="us_budgetbeepro_3" class="ad-reset ad-zone-top" />
+  )
+}
+```
+
+Related CSS improvements in the same file:
+
+- `.content a:not(.btn)` remains brand yellow with underline
+- `.content .btn` explicitly not underlined (CTA styling is stable in MDX output)
+- Explicit rules ensure `#us_budgetbeepro_3`/`#us_budgetbeepro_4` iframes size naturally (no forced aspect-ratio)
+
+Global/mobile CSS support:
+
+- `src/styles/blog-mobile.css` already accommodates `#us_budgetbeepro_3` and `#us_budgetbeepro_4` iframes
+- `src/styles/ad-aware-design.css` provides `ad-reset` and positional helpers used by the new component
+
+### Why both auto-injection and shortcode?
+
+- Auto-injection guarantees presence of the top ad slot across all relevant categories without editing each article.
+- The shortcode remains available for per-post control, special placements, or A/B tests.
+
+### Verification Steps
+
+1. Open any Financial Solutions or Personal Finance post.
+2. Inspect DOM for `#us_budgetbeepro_3` immediately after the `<h1>`.
+3. Check console for AdZep activation (should show “Ads activated successfully”).
+4. You may see “Render ended: us_budgetbeepro_3, isEmpty: true” in development; this is normal when there’s no fill in dev or GAM network code is placeholder.

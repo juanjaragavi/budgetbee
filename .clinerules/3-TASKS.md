@@ -77,6 +77,11 @@
 
 11. [ ] Configure contact form endpoint
 12. [ ] Set up proper domain and base URL
+13. [x] Fix ad unit visibility and CTA styling regressions _(Completed: Sep 1, 2025)_
+
+- Created shortcode `AdZoneTop3` and auto-injected `id="us_budgetbeepro_3"` directly below the H1 for posts in Personal Finance and Financial Solutions.
+- Normalized category matching in `PostSingle.astro` to avoid casing/spacing mismatches.
+- Standardized MDX link/CTA styles: inline links stay brand yellow/underlined; `.btn` CTAs are not underlined; ensured ad iframes size naturally.
 
 ## Technical Improvements Needed
 

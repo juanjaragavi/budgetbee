@@ -235,6 +235,7 @@ export default defineConfig({
     AutoImport({
       imports: [
         "@/shortcodes/AdZone",
+        "@/shortcodes/AdZoneTop3",
         "@/shortcodes/Button",
         "@/shortcodes/Accordion",
         "@/shortcodes/Notice",
