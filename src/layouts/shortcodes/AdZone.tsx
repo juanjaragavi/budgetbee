@@ -25,7 +25,7 @@ const AdZone: React.FC<Props> = ({
   return (
     <div
       id={id}
-      className={`ad-zone min-size-auto flex justify-center items-center ${className}`.trim()}
+      className={`min-size-auto flex justify-center items-center ${className}`.trim()}
       style={style}
     />
   );
