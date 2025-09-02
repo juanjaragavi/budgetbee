@@ -22,7 +22,7 @@
     "@astrojs/sitemap": "^3.5.1",
     "@tailwindcss/vite": "^4.1.12",
     "@types/nodemailer": "^7.0.1",
-    "astro": "^5.13.4",
+    "astro": "^5.13.5",
     "astro-auto-import": "^0.4.4",
     "astro-font": "^1.1.0",
     "date-fns": "^4.1.0",
