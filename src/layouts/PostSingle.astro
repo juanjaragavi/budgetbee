@@ -7,14 +7,20 @@ const { post } = Astro.props;
 const { Content } = await render(post);
 const { title, image, categories, color } = post.data;
 
-const categoriesLower: string[] = (
+const normalizeCategory = (c: string) =>
+  c.toLowerCase().replace(/[_\s]+/g, "-");
+
+const categoriesNormalized: string[] = (
   (categories as string[] | undefined) ?? []
-).map((c: string) => c.toLowerCase());
+).map(normalizeCategory);
+
 const applyLeadingTight =
-  categoriesLower.includes("personal-finance") ||
-  categoriesLower.includes("financial-solutions");
-const isFinancialSolution = categoriesLower.includes("financial-solutions");
-const isPersonalFinance = categoriesLower.includes("personal-finance");
+  categoriesNormalized.includes("personal-finance") ||
+  categoriesNormalized.includes("financial-solutions");
+const isFinancialSolution = categoriesNormalized.includes(
+  "financial-solutions",
+);
+const isPersonalFinance = categoriesNormalized.includes("personal-finance");
 ---
 
 <style>
@@ -32,6 +38,15 @@ const isPersonalFinance = categoriesLower.includes("personal-finance");
   .content a:not(.btn):hover * {
     text-decoration: underline !important;
     text-decoration-color: #e7b739 !important;
+  }
+
+  /* Ensure CTA buttons are not underlined and have consistent spacing */
+  .content .btn {
+    text-decoration: none !important;
+    margin: 1rem 0;
+  }
+  .content .btn:hover {
+    text-decoration: none !important;
   }
 
   /* Ensure content stays left-aligned with ad units present */
@@ -53,6 +68,19 @@ const isPersonalFinance = categoriesLower.includes("personal-finance");
   }
   /* If AdZep injects an iframe, let it size naturally */
   #us_budgetbeepro_4 iframe {
+    display: block !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    aspect-ratio: auto !important;
+  }
+
+  /* Mirror rules for ad unit 3 */
+  #us_budgetbeepro_3 {
+    display: block !important;
+    min-height: 50px; /* visible placeholder area before creative */
+    margin: 1.5rem 0;
+  }
+  #us_budgetbeepro_3 iframe {
     display: block !important;
     width: 100% !important;
     max-width: 100% !important;
@@ -94,10 +122,7 @@ const isPersonalFinance = categoriesLower.includes("personal-finance");
           }
           {
             (isFinancialSolution || isPersonalFinance) && (
-              <div
-                id="us_budgetbeepro_3"
-                class="min-size-auto flex justify-center items-stretch"
-              />
+              <div id="us_budgetbeepro_3" class="ad-reset ad-zone-top" />
             )
           }
 

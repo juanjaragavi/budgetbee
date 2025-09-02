@@ -1,40 +1,32 @@
-feat(ads): Add AdZep units to Personal Finance via MDX; align placement with Financial Solutions
+feat(ads): auto-inject us_budgetbeepro_3 below H1 on PF/FS posts + new AdZoneTop3 shortcode
 
-Summary
-- Migrated all Personal Finance articles to MDX and embedded ad unit divs to support AdZep placement identical to Financial Solutions content.
-- Kept us_budgetbeepro_3 (top-of-article) rendering after H1 for Personal Finance in PostSingle.astro.
-- Moved us_budgetbeepro_4 to be content-driven in Personal Finance by injecting <AdZone id="us_budgetbeepro_4" /> before the final in-article heading for each PF post.
-- Removed layout-based placeholder/repositioning for ad4 to avoid duplication and ensure correct placement.
+- Add dedicated MDX-safe component: src/layouts/shortcodes/AdZoneTop3.tsx
+  - Defaults to id="us_budgetbeepro_3"
+  - Uses neutral classes "ad-reset ad-zone-top" for natural sizing/spacing
+- Auto-import AdZoneTop3 via astro-auto-import (astro.config.mjs)
 
-Details
-- Converted 18 Personal Finance posts from .md to .mdx to allow JSX/shortcode usage:
-  - Deleted .md files under src/content/personal-finance/*
-  - Added equivalent .mdx files with MDX content
-  - Injected <AdZone id="us_budgetbeepro_4" /> immediately before the last ##–###### heading found in each article. If no such heading exists, injected near the end of the document.
-- PostSingle.astro:
-  - Ensured Personal Finance category renders <div id="us_budgetbeepro_3"> after the H1 (consistent with Financial Solutions top placement).
-  - Removed previous layout-based ad4 placeholder and JS reposition logic so ad4 only comes from the article content.
-- Shortcodes:
-  - Verified/adjusted src/layouts/shortcodes/AdZone.tsx to render a plain div with the provided id (default supported by auto-import).
-- Tooling:
-  - Added scripts/convert-personal-finance-to-mdx.mjs to programmatically convert and inject ad4 placement for PF content. This script preserves frontmatter and body while inserting the AdZone component at the correct position.
+- Post layout improvements (src/layouts/PostSingle.astro):
+  - Normalize category detection (lowercase + replace spaces/underscores with hyphens)
+  - Auto-inject <div id="us_budgetbeepro_3" class="ad-reset ad-zone-top" /> directly under H1
+  - Mirror sizing rules for #us_budgetbeepro_3 iframes (match #us_budgetbeepro_4)
+  - Keep inline links yellow + underlined; exclude .btn CTAs from underline; add consistent spacing
 
-Why
-- MDX enables consistent, explicit, content-level control over ad placement, matching Financial Solutions’ approach and ensuring us_budgetbeepro_4 appears before the last section heading as requested.
-- Avoids brittle DOM-based repositioning and eliminates duplicate ad render under us_budgetbeepro_3.
+fix(styles): unify MDX CTA/link behavior and ad iframe sizing in post pages
 
-Testing/Verification
-- Verified locally on dev server: Personal Finance MDX pages now include the expected ad zone structure.
-- AdZep logs show “empty” renders in dev (expected without live creatives); structural placement is correct.
+chore(config): register AdZoneTop3 in AutoImport
 
-Files changed (high-level)
-- Added: scripts/convert-personal-finance-to-mdx.mjs
-- Modified: src/layouts/PostSingle.astro
-- Modified: src/layouts/shortcodes/AdZone.tsx
-- Modified: CHANGELOG.md
-- Modified: pnpm-lock.yaml
-- Deleted: 18 .md files in src/content/personal-finance/
-- Added: 18 .mdx files in src/content/personal-finance/ (with <AdZone id="us_budgetbeepro_4" /> injected)
+docs: update ADZEP_ACTIVATION_IMPLEMENTATION.md with component + auto-injection details
 
-Notes
-- Base.astro AdZep activation remains unchanged (autozep script + AnalyticsWrapper). No impact to global activation path.
+chore(tasks): mark “Fix ad unit visibility and CTA styling regressions” as completed in .clinerules/3-TASKS.md
+
+verification:
+- Local dev shows AdZep activation with containers present
+- Console logs: "Render ended: us_budgetbeepro_3, isEmpty: true" (expected in dev/placeholder GAM)
+- Both #us_budgetbeepro_3 and #us_budgetbeepro_4 containers present; iframes size naturally
+
+Affected files:
+- A: src/layouts/shortcodes/AdZoneTop3.tsx
+- M: src/layouts/PostSingle.astro
+- M: astro.config.mjs
+- M: lib/documents/ADZEP_ACTIVATION_IMPLEMENTATION.md
+- M: .clinerules/3-TASKS.md
