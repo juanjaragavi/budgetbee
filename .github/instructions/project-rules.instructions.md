@@ -168,7 +168,6 @@ After creating any new blog post or article, **ensure the content appears in all
    - Financial solutions pagination: `/financial-solutions/page/[slug].astro`
 
 5. **Category Filtering**:
-   - Category-based pages: `/blog/category/[category].astro`
 
 ### Technical Architecture
 
