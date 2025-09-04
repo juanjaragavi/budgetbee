@@ -237,38 +237,6 @@ If you have existing manual AdZep calls:
 3. **Monitor Results**: Check console for successful activation
 4. **Verify Ad Delivery**: Ensure ads are still displaying correctly
 
-## Support and Troubleshooting
-
-### Common Issues
-
-1. **Ads Not Displaying**
-   - Check console for activation logs
-   - Verify AdZep script is loading
-   - Ensure ad units are properly configured
-
-2. **Multiple Activation Warnings**
-   - This is normal and expected
-   - Shows the protection system is working
-
-3. **Activation Timeouts**
-   - Check network connectivity
-   - Verify AdZep script URL is correct
-   - Increase timeout in configuration
-
-### Debug Commands
-
-```javascript
-// Check activation status
-console.log("AdZep Active:", window.__adZepState?.activated);
-
-// Force activation
-await activateAdZep({ force: true });
-
-// Reset and retry
-resetAdZepState();
-await activateAdZep();
-```
-
 ---
 
 ## Ad Slot Components & Auto-Injection (Sep 1, 2025)
@@ -328,3 +296,46 @@ Global/mobile CSS support:
 2. Inspect DOM for `#us_budgetbeepro_3` immediately after the `<h1>`.
 3. Check console for AdZep activation (should show “Ads activated successfully”).
 4. You may see “Render ended: us_budgetbeepro_3, isEmpty: true” in development; this is normal when there’s no fill in dev or GAM network code is placeholder.
+
+---
+
+## Astro View Transitions Bridge (Sep 4, 2025)
+
+Client-side navigations with Astro’s View Transitions don’t fire traditional `window.load` events, so ads may not re-activate after navigating without a full page refresh. To solve this, we added a small site-wide bridge to listen for Astro client lifecycle events and re-run activation whenever ad units are present.
+
+### Files
+
+- `src/lib/adzep-page-load-bridge.ts`
+- Injected site-wide from `src/layouts/Base.astro`:
+
+```astro
+<!-- In <head> -->
+<script type="module" src="/src/lib/adzep-page-load-bridge.ts"></script>
+```
+
+### How it works
+
+- Listens to: `astro:page-load`, `astro:after-swap`, `astro:page-start`, `visibilitychange`, and `popstate`.
+- Schedules several delayed checks after each event to catch late DOM mounts.
+- Before calling activation, it verifies the page contains ad containers:
+  - `#us_budgetbeepro_3`, `#us_budgetbeepro_4`
+  - Legacy: `#uk_topfinanzas_3`, `#uk_topfinanzas_4`
+  - Any `[id^="us_budgetbeepro_"]`, `[id^="uk_topfinanzas_"]`, or `.ad-zone`
+- Calls `activateAdZep({ force: true })` so SPA state never blocks the call.
+
+### Expected console traces (dev)
+
+- `[AdZepBridge] Activation attempted due to: astro:page-load` (or `initial`, `after-swap`, etc.)
+- `[AdZep] Ads activated successfully`
+- Optional “Render ended: …, isEmpty: true” when there’s no fill in development
+
+### Verification
+
+1. With `pnpm dev` running, navigate across:
+   - Home → Blog → Personal Finance Article (contains ad units)
+   - Back/forward with the browser
+2. Observe the AdZep Debug Panel:
+   - Hook State “Activated: ✅” and Attempts increment on relevant pages
+3. Check the console for `[AdZepBridge]` messages on transitions and that `window.AdZepActivateAds()` is invoked each time ad zones exist.
+
+This bridge ensures ads are re-activated consistently on SPA-like transitions without double-calling on pages that don’t contain ad units.

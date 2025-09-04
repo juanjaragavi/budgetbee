@@ -1,22 +1,21 @@
-feat(content): add TOFU personal finance article on money personalities (spender vs. saver)
+feat(ads): ensure reliable AdZep activation on Astro view transitions (SPA bridge)
 
-- Added new MDX article:
-  src/content/personal-finance/are-you-a-spender-or-a-saver-how-your-money-personality-shapes-your-financial-success.mdx
-  - SEO-focused title and description
-  - Proper frontmatter (date, categories: ["personal-finance"], tags)
-  - Internal links to existing BudgetBee resources (50/30/20 rule, budgeting methods, emergency fund, investing, mindset, etc.)
-  - Uses existing <AdZone id="us_budgetbeepro_4" /> placement pattern
-  - Verified locally at: /personal-finance/are-you-a-spender-or-a-saver-how-your-money-personality-shapes-your-financial-success
+- Add client-side bridge `src/lib/adzep-page-load-bridge.ts` that listens to Astro lifecycle events
+  (`astro:page-load`, `astro:after-swap`, `astro:page-start`, plus `visibilitychange` and `popstate`)
+  and re-runs activation when ad units are present
+- Integrate the bridge site-wide via `Base.astro` head script tag
+- Add `pageHasAdUnits()` helper to `adZepUtils.ts` to guard activation calls
+- Document the approach in `lib/documents/ADZEP_ACTIVATION_IMPLEMENTATION.md` (Astro View Transitions Bridge)
+- Update `CHANGELOG.md` entry for Sep 4, 2025
+- Minor log formatting cleanup in `scripts/generate-sitemap.js`
 
-docs(seo): refine internal documentation
-- lib/documents/blog-post-generation-prompt.md – clarifications for length/structure and listing integration
-- lib/documents/SITEMAP_IMPLEMENTATION.md – touch-ups to reflect listing behavior
-- lib/documents/ROBOTS_TXT_FIX.md – minor notes for robots handling
+Verification:
+- Tested navigating Home → Blog → Personal Finance article (and back/forward). AdZep Debug Panel shows activation attempts on relevant pages and “Activated: ✅” when ad zones exist.
+- Console logs contain `[AdZepBridge]` traces and successful activation messages.
+- Non-ad pages do not trigger activation thanks to `pageHasAdUnits()` guard.
 
-chore(seo): update robots and sitemap tooling
-- public/robots.txt – synced with latest guidance
-- scripts/generate-sitemap.js – minor adjustments
-
-Notes:
-- New post is TOFU (Personal Finance pillar) and should auto-appear across listings (homepage Latest News, /blog, /personal-finance, and paginated/category views) based on existing content collection logic.
-- No breaking changes to layouts or global configs.
+Files touched:
+- Added: src/lib/adzep-page-load-bridge.ts
+- Modified: src/layouts/Base.astro, src/lib/adZepUtils.ts,
+  lib/documents/ADZEP_ACTIVATION_IMPLEMENTATION.md, CHANGELOG.md,
+  scripts/generate-sitemap.js

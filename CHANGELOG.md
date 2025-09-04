@@ -39,6 +39,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Touch-friendly scrolling for horizontal content (May 26, 2025)
 - Corrected three external financial solution links (Chase Freedom Unlimited, Current Build Visa Signature, Wells Fargo Autograph) to updated official URLs (Aug 15, 2025)
 - Vertically centered text for all CTA buttons sitewide by applying flex items-center justify-center to base .btn Tailwind class (Aug 26, 2025)
+- Ensured AdZep ad activation on SPA/transitions by adding an Astro client lifecycle bridge that listens to `astro:page-load`/`astro:after-swap` (plus safety nets) and calls `window.AdZepActivateAds()` only when ad units are present. Integrated site-wide via Base.astro and verified with the AdZep Debug Panel. (Sep 4, 2025)
 
 ### To Do
 
