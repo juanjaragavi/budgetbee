@@ -1,32 +1,15 @@
-feat(ads): auto-inject us_budgetbeepro_3 below H1 on PF/FS posts + new AdZoneTop3 shortcode
+fix(ads): remove non-existent min-h-auto/min-size-auto classes; keep neutral wrappers
 
-- Add dedicated MDX-safe component: src/layouts/shortcodes/AdZoneTop3.tsx
-  - Defaults to id="us_budgetbeepro_3"
-  - Uses neutral classes "ad-reset ad-zone-top" for natural sizing/spacing
-- Auto-import AdZoneTop3 via astro-auto-import (astro.config.mjs)
+- Ad wrapper cleanup across pages:
+	- src/pages/credit-card-recommender-p1.astro: drop `min-h-auto` from us_budgetbeepro_1 and _2 containers
+	- src/pages/credit-card-recommender-p2.astro: drop `min-h-auto` from us_budgetbeepro_1 and _2 containers
+	- src/pages/credit-card-recommender-p3.astro: drop `min-h-auto` from us_budgetbeepro_1 and _2 containers
+- Shortcode fix:
+	- src/layouts/shortcodes/AdZone.tsx: correct typo `min-size-auto` -> `min-w-auto`
 
-- Post layout improvements (src/layouts/PostSingle.astro):
-  - Normalize category detection (lowercase + replace spaces/underscores with hyphens)
-  - Auto-inject <div id="us_budgetbeepro_3" class="ad-reset ad-zone-top" /> directly under H1
-  - Mirror sizing rules for #us_budgetbeepro_3 iframes (match #us_budgetbeepro_4)
-  - Keep inline links yellow + underlined; exclude .btn CTAs from underline; add consistent spacing
+Reasoning:
+- Tailwind doesn't have `min-h-auto` or `min-size-auto`; they caused ineffective styles.
+- Keeping `min-w-auto flex justify-center items-center` preserves neutral ad placement without forcing height.
 
-fix(styles): unify MDX CTA/link behavior and ad iframe sizing in post pages
-
-chore(config): register AdZoneTop3 in AutoImport
-
-docs: update ADZEP_ACTIVATION_IMPLEMENTATION.md with component + auto-injection details
-
-chore(tasks): mark “Fix ad unit visibility and CTA styling regressions” as completed in .clinerules/3-TASKS.md
-
-verification:
-- Local dev shows AdZep activation with containers present
-- Console logs: "Render ended: us_budgetbeepro_3, isEmpty: true" (expected in dev/placeholder GAM)
-- Both #us_budgetbeepro_3 and #us_budgetbeepro_4 containers present; iframes size naturally
-
-Affected files:
-- A: src/layouts/shortcodes/AdZoneTop3.tsx
-- M: src/layouts/PostSingle.astro
-- M: astro.config.mjs
-- M: lib/documents/ADZEP_ACTIVATION_IMPLEMENTATION.md
-- M: .clinerules/3-TASKS.md
+Verification:
+- Visual check in dev: ad containers render without layout shifts; no Tailwind warnings for unknown classes.
