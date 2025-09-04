@@ -84,7 +84,7 @@ All URLs include complete sitemap metadata:
 
 - **Sitemap Index**: `/dist/sitemap-index.xml`
 - **Main Sitemap**: `/dist/sitemap-0.xml`
-- **Public Access**: `https://budgetbeepro.com/sitemap-index.xml`
+- **Public Access**: `https://budgetbeepro.com/sitemap-0.xml`
 
 ### **Advanced Features**
 
@@ -207,7 +207,7 @@ Based on priority distribution, the sitemap optimizes for:
 
 ```bash
 # Verify sitemap accessibility
-curl -I https://budgetbeepro.com/sitemap-index.xml
+curl -I https://budgetbeepro.com/sitemap-0.xml
 
 # Check XML validation
 xmllint --noout /path/to/sitemap-0.xml
