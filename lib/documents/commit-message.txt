@@ -1,15 +1,10 @@
-fix(ads): remove non-existent min-h-auto/min-size-auto classes; keep neutral wrappers
+style(css): ensure responsive embeds and ad iframes rules in global styles
 
-- Ad wrapper cleanup across pages:
-	- src/pages/credit-card-recommender-p1.astro: drop `min-h-auto` from us_budgetbeepro_1 and _2 containers
-	- src/pages/credit-card-recommender-p2.astro: drop `min-h-auto` from us_budgetbeepro_1 and _2 containers
-	- src/pages/credit-card-recommender-p3.astro: drop `min-h-auto` from us_budgetbeepro_1 and _2 containers
-- Shortcode fix:
-	- src/layouts/shortcodes/AdZone.tsx: correct typo `min-size-auto` -> `min-w-auto`
+- blog-mobile: add/confirm 16:9 responsive embeds for iframe/video/embed with full width
+- ad-aware-design: enforce .ad-reset iframe aspect-ratio:auto, block display, full width
+- PostSingle/ad shortcodes: align with .ad-reset usage and blog-post-single container
 
-Reasoning:
-- Tailwind doesn't have `min-h-auto` or `min-size-auto`; they caused ineffective styles.
-- Keeping `min-w-auto flex justify-center items-center` preserves neutral ad placement without forcing height.
+Context: Request to integrate specific CSS rules into the main stylesheet via Tailwind layers. Project already uses layered CSS; updated/verified styles live in `src/styles/blog-mobile.css` and `src/styles/ad-aware-design.css`, imported by `src/styles/main.css`.
 
-Verification:
-- Visual check in dev: ad containers render without layout shifts; no Tailwind warnings for unknown classes.
+Verification: Dev check ensures iframes/videos are responsive in posts and ad iframes retain native height without clipping.
+
