@@ -180,6 +180,25 @@ export function isAdZepActivated(): boolean {
   return state?.activated || false;
 }
 
+/**
+ * Detect whether current page contains AdZep ad units
+ */
+export function pageHasAdUnits(): boolean {
+  if (typeof document === "undefined") return false;
+
+  const selector = [
+    "#us_budgetbeepro_3",
+    "#us_budgetbeepro_4",
+    "#uk_topfinanzas_3",
+    "#uk_topfinanzas_4",
+    '[id^="us_budgetbeepro_"]',
+    '[id^="uk_topfinanzas_"]',
+    ".ad-zone",
+  ].join(", ");
+
+  return !!document.querySelector(selector);
+}
+
 // Extend window interface for TypeScript
 declare global {
   interface Window {

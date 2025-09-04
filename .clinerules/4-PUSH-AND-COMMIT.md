@@ -23,3 +23,5 @@ This procedure is initiated when the user issues the prompt "Push and commit our
 
 4. **Execute Workflow Script**:
    Run the `pnpm workflow` command to execute the workflow automation script.
+   - When prompted "Do you want to merge changes into main and backup branches? (y/n):", respond with "y" to proceed.
+   - For non-interactive execution, use: `printf "y\n" | pnpm workflow`
