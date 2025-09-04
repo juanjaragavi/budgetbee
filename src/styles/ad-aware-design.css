@@ -551,7 +551,6 @@
   display: block !important;
   width: 100% !important;
   min-height: 0 !important;
-  height: auto !important;
   padding: 0 !important;
   margin: 1rem 0 !important;
   border: 0 !important;
@@ -567,7 +566,6 @@
   display: block !important;
   width: 100% !important;
   max-width: 100% !important;
-  height: auto !important;
   aspect-ratio: auto !important;
   overflow: visible !important;
 }
