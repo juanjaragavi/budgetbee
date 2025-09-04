@@ -1,10 +1,22 @@
-style(css): ensure responsive embeds and ad iframes rules in global styles
+feat(content): add TOFU personal finance article on money personalities (spender vs. saver)
 
-- blog-mobile: add/confirm 16:9 responsive embeds for iframe/video/embed with full width
-- ad-aware-design: enforce .ad-reset iframe aspect-ratio:auto, block display, full width
-- PostSingle/ad shortcodes: align with .ad-reset usage and blog-post-single container
+- Added new MDX article:
+  src/content/personal-finance/are-you-a-spender-or-a-saver-how-your-money-personality-shapes-your-financial-success.mdx
+  - SEO-focused title and description
+  - Proper frontmatter (date, categories: ["personal-finance"], tags)
+  - Internal links to existing BudgetBee resources (50/30/20 rule, budgeting methods, emergency fund, investing, mindset, etc.)
+  - Uses existing <AdZone id="us_budgetbeepro_4" /> placement pattern
+  - Verified locally at: /personal-finance/are-you-a-spender-or-a-saver-how-your-money-personality-shapes-your-financial-success
 
-Context: Request to integrate specific CSS rules into the main stylesheet via Tailwind layers. Project already uses layered CSS; updated/verified styles live in `src/styles/blog-mobile.css` and `src/styles/ad-aware-design.css`, imported by `src/styles/main.css`.
+docs(seo): refine internal documentation
+- lib/documents/blog-post-generation-prompt.md – clarifications for length/structure and listing integration
+- lib/documents/SITEMAP_IMPLEMENTATION.md – touch-ups to reflect listing behavior
+- lib/documents/ROBOTS_TXT_FIX.md – minor notes for robots handling
 
-Verification: Dev check ensures iframes/videos are responsive in posts and ad iframes retain native height without clipping.
+chore(seo): update robots and sitemap tooling
+- public/robots.txt – synced with latest guidance
+- scripts/generate-sitemap.js – minor adjustments
 
+Notes:
+- New post is TOFU (Personal Finance pillar) and should auto-appear across listings (homepage Latest News, /blog, /personal-finance, and paginated/category views) based on existing content collection logic.
+- No breaking changes to layouts or global configs.
