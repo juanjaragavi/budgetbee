@@ -10,8 +10,6 @@
 
 ### 1. Missing Canonical URLs
 
-- **Category pages**: `/blog/category/[category].astro` had no canonical URLs
-- **Category pagination**: `/blog/category/[category]/page/[slug].astro` had no canonical URLs
 - **Inconsistent implementation**: Some pagination pages had canonicals, others didn't
 
 ### 2. URL Structure Inconsistencies
@@ -25,23 +23,6 @@
 - **Should be blocked**: These URLs serve no SEO purpose and create indexation noise
 
 ## ✅ Solutions Implemented
-
-### 1. Added Canonical URLs to Category Pages
-
-**File**: `/src/pages/blog/category/[category].astro`
-
-```astro
-// Set canonical URL for this category page to ensure proper indexing const
-canonicalUrl = `${config.site.base_url}/blog/category/${category}`;
-```
-
-**File**: `/src/pages/blog/category/[category]/page/[slug].astro`
-
-```astro
-// Set canonical URL for this category pagination page to prevent duplicate
-content issues const canonicalUrl =
-`${config.site.base_url}/blog/category/${category}/page/${currentPage}`;
-```
 
 ### 2. Fixed Trailing Slash Consistency
 
@@ -66,26 +47,13 @@ Disallow: /23062212598/
 
 ## 📋 Affected URLs - Before/After
 
-### Category Pages (Now Have Canonicals)
-
-| URL                                  | Canonical URL                                                |
-| ------------------------------------ | ------------------------------------------------------------ |
-| `/blog/category/personal-loans`      | `https://budgetbeepro.com/blog/category/personal-loans`      |
-| `/blog/category/credit-cards`        | `https://budgetbeepro.com/blog/category/credit-cards`        |
-| `/blog/category/financial-literacy`  | `https://budgetbeepro.com/blog/category/financial-literacy`  |
-| `/blog/category/investment-products` | `https://budgetbeepro.com/blog/category/investment-products` |
-| `/blog/category/banking-products`    | `https://budgetbeepro.com/blog/category/banking-products`    |
-| `/blog/category/financial-planning`  | `https://budgetbeepro.com/blog/category/financial-planning`  |
-| `/blog/category/money-management`    | `https://budgetbeepro.com/blog/category/money-management`    |
-
 ### Pagination Pages (Fixed Canonical Format)
 
-| URL                                  | Canonical URL                                                |
-| ------------------------------------ | ------------------------------------------------------------ |
-| `/blog/page/12`                      | `https://budgetbeepro.com/blog/page/12`                      |
-| `/blog/page/3`                       | `https://budgetbeepro.com/blog/page/3`                       |
-| `/blog/page/4`                       | `https://budgetbeepro.com/blog/page/4`                       |
-| `/blog/category/credit-cards/page/1` | `https://budgetbeepro.com/blog/category/credit-cards/page/1` |
+| URL             | Canonical URL                           |
+| --------------- | --------------------------------------- |
+| `/blog/page/12` | `https://budgetbeepro.com/blog/page/12` |
+| `/blog/page/3`  | `https://budgetbeepro.com/blog/page/3`  |
+| `/blog/page/4`  | `https://budgetbeepro.com/blog/page/4`  |
 
 ### Ad Network URLs (Now Blocked)
 
@@ -135,12 +103,10 @@ Disallow: /23062212598/
 
 ### Files Modified
 
-1. `/src/pages/blog/category/[category].astro` - Added canonical URL logic
-2. `/src/pages/blog/category/[category]/page/[slug].astro` - Added canonical URL logic
-3. `/src/pages/blog/page/[slug].astro` - Fixed canonical URL format
-4. `/src/pages/personal-finance/page/[slug].astro` - Fixed canonical URL format
-5. `/src/pages/financial-solutions/page/[slug].astro` - Fixed canonical URL format
-6. `/public/robots.txt` - Added ad network URL blocking rules
+1. `/src/pages/blog/page/[slug].astro` - Fixed canonical URL format
+2. `/src/pages/personal-finance/page/[slug].astro` - Fixed canonical URL format
+3. `/src/pages/financial-solutions/page/[slug].astro` - Fixed canonical URL format
+4. `/public/robots.txt` - Added ad network URL blocking rules
 
 ### Validation Tools
 
@@ -148,7 +114,7 @@ Disallow: /23062212598/
 - **Usage**: `node scripts/validate-canonical-urls.js`
 - **Purpose**: Validate all fixes are properly implemented
 
-## 📊 Monitoring Recommendations
+## � Monitoring Recommendations
 
 ### Google Search Console
 

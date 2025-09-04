@@ -126,7 +126,6 @@ After successfully creating and saving a new blog post, **you must ensure the ar
    - Financial Solutions pagination: `/financial-solutions/page/[slug].astro`
 
 5. **Category Filter Pages**:
-   - Category-based filtering: `/blog/category/[category].astro`
 
 ### Technical Implementation Notes
 
