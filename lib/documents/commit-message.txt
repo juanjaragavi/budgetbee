@@ -1,21 +1,5 @@
-feat(ads): ensure reliable AdZep activation on Astro view transitions (SPA bridge)
+refactor: Clean up blog structure and update documentation
 
-- Add client-side bridge `src/lib/adzep-page-load-bridge.ts` that listens to Astro lifecycle events
-  (`astro:page-load`, `astro:after-swap`, `astro:page-start`, plus `visibilitychange` and `popstate`)
-  and re-runs activation when ad units are present
-- Integrate the bridge site-wide via `Base.astro` head script tag
-- Add `pageHasAdUnits()` helper to `adZepUtils.ts` to guard activation calls
-- Document the approach in `lib/documents/ADZEP_ACTIVATION_IMPLEMENTATION.md` (Astro View Transitions Bridge)
-- Update `CHANGELOG.md` entry for Sep 4, 2025
-- Minor log formatting cleanup in `scripts/generate-sitemap.js`
-
-Verification:
-- Tested navigating Home → Blog → Personal Finance article (and back/forward). AdZep Debug Panel shows activation attempts on relevant pages and “Activated: ✅” when ad zones exist.
-- Console logs contain `[AdZepBridge]` traces and successful activation messages.
-- Non-ad pages do not trigger activation thanks to `pageHasAdUnits()` guard.
-
-Files touched:
-- Added: src/lib/adzep-page-load-bridge.ts
-- Modified: src/layouts/Base.astro, src/lib/adZepUtils.ts,
-  lib/documents/ADZEP_ACTIVATION_IMPLEMENTATION.md, CHANGELOG.md,
-  scripts/generate-sitemap.js
+- Removed deprecated blog category and demo pages.
+- Updated project rules, canonical URL validation, and blog generation prompts.
+- Simplified blog routing by removing old category-based paths.

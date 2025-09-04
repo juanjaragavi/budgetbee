@@ -74,7 +74,6 @@ src/pages/
 - Main blog: `/blog/page/[slug].astro`
 - Personal finance: `/personal-finance/page/[slug].astro`
 - Financial solutions: `/financial-solutions/page/[slug].astro`
-- Category filtering: `/blog/category/[category].astro`
 
 ## Content Creation Workflow
 

@@ -34,18 +34,9 @@ console.log("");
 
 // Pages from Google Search Console error report that needed fixing
 const problematicUrls = [
-  "/blog/category/personal-loans",
-  "/blog/category/credit-cards/",
-  "/blog/category/credit-cards",
-  "/blog/category/financial-literacy",
-  "/blog/category/investment-products",
-  "/blog/category/banking-products",
-  "/blog/category/financial-planning",
-  "/blog/category/money-management",
   "/blog/page/12",
   "/blog/page/3/",
   "/blog/page/4/",
-  "/blog/category/credit-cards/page/1/",
   "/personal-finance/setting-financial-goals-a-begins-guide-to-planning-your-future",
 ];
 
@@ -64,15 +55,7 @@ console.log("✅ Expected Canonical URLs (should be generated):");
 console.log("---------------------------------------------------");
 
 // Category pages should have canonicals now
-const categoryPages = [
-  "/blog/category/personal-loans",
-  "/blog/category/credit-cards",
-  "/blog/category/financial-literacy",
-  "/blog/category/investment-products",
-  "/blog/category/banking-products",
-  "/blog/category/financial-planning",
-  "/blog/category/money-management",
-];
+const categoryPages = [];
 
 categoryPages.forEach((path) => {
   const canonical = hasTrailingSlash
@@ -82,12 +65,7 @@ categoryPages.forEach((path) => {
 });
 
 console.log("\n   Pagination pages:");
-const paginationPages = [
-  "/blog/page/12",
-  "/blog/page/3",
-  "/blog/page/4",
-  "/blog/category/credit-cards/page/1",
-];
+const paginationPages = ["/blog/page/12", "/blog/page/3", "/blog/page/4"];
 
 paginationPages.forEach((path) => {
   const canonical = hasTrailingSlash
@@ -105,12 +83,6 @@ adNetworkUrls.forEach((url) => {
 console.log("\n📋 Files Modified:");
 console.log("------------------");
 console.log(
-  "✅ /src/pages/blog/category/[category].astro - Added canonical URLs",
-);
-console.log(
-  "✅ /src/pages/blog/category/[category]/page/[slug].astro - Added canonical URLs",
-);
-console.log(
   "✅ /src/pages/blog/page/[slug].astro - Fixed canonical URL format",
 );
 console.log(
@@ -125,7 +97,7 @@ console.log("\n🎯 Next Steps:");
 console.log("--------------");
 console.log("1. 🚀 Deploy the changes to production");
 console.log("2. 📊 Submit updated sitemap to Google Search Console");
-console.log("3. 🔄 Request re-indexing for affected pages");
+console.log("3. � Request re-indexing for affected pages");
 console.log("4. 📈 Monitor indexation status for improvements");
 console.log("");
 console.log("Expected Resolution Time: 1-2 weeks after deployment");
