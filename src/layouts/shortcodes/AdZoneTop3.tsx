@@ -28,7 +28,7 @@ const AdZoneTop3: React.FC<Props> = ({
   return (
     <div
       id={id}
-      className={`ad-reset ad-zone-top ${className}`.trim()}
+      className={`min-w-auto flex justify-center items-center ${className}`.trim()}
       style={style}
     />
   );
