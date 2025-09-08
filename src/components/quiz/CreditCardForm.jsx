@@ -172,7 +172,7 @@ export default function CreditCardForm() {
       }
 
       // Redirect to credit card recommender page
-      window.location.href = "/credit-card-recommender-p1";
+      window.location.href = "https://linkly.link/2ERav";
     }
   };
 
