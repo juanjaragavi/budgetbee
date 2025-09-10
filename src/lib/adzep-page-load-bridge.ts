@@ -29,18 +29,17 @@ declare global {
  * Covers both legacy UK ids and new US ids, plus generic ad-zone containers.
  */
 function pageHasAdUnits(): boolean {
-  const selector =
-    [
-      "#us_budgetbeepro_3",
-      "#us_budgetbeepro_4",
-      "#uk_topfinanzas_3",
-      "#uk_topfinanzas_4",
-      // Any container that starts with our common id prefixes
-      '[id^="us_budgetbeepro_"]',
-      '[id^="uk_topfinanzas_"]',
-      // Generic containers we use around ads
-      ".ad-zone",
-    ].join(", ");
+  const selector = [
+    "#us_budgetbeepro_3",
+    "#us_budgetbeepro_4",
+    "#uk_topfinanzas_3",
+    "#uk_topfinanzas_4",
+    // Any container that starts with our common id prefixes
+    '[id^="us_budgetbeepro_"]',
+    '[id^="uk_topfinanzas_"]',
+    // Generic containers we use around ads
+    ".ad-zone",
+  ].join(", ");
 
   return !!document.querySelector(selector);
 }

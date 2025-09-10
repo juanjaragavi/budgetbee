@@ -1,27 +1,22 @@
-refactor: Clean up blog structure and update documentation
-Ad-aware CSS refinements: stronger mobile/desktop separators, spacing, and alignment fixes
+fix(ads): ensure AdZep activates on initial blog post load; remove early-return and document hotfix
 
-Summary
-- Normalize linear-gradient and repeating-linear-gradient syntax for readability and consistency
-- Increase ad-zone min-height to 300px and clarify visual separation between content and ad areas
-- Strengthen mobile ad separator styling and add subtle background buffers
-- Tighten selector spacing (combinators like + and >) to match project style and avoid PostCSS formatting diffs
-- Maintain CTA prominence with z-index and spacing; no behavioral changes to layout
+Context
+Direct loads of article pages sometimes missed `window.AdZepActivateAds()` because the article bootstrap exited early when ad slots weren’t immediately present. This caused no activation until a subsequent SPA transition.
 
-Files
-- src/styles/ad-aware-design.css
-	- Normalize gradient syntax; bump ad-zone min-height (280px -> 300px)
-	- Improve mobile/print/reduced-motion blocks formatting; keep semantics identical
-	- Normalize adjacent-sibling selector spacing (.ad-zone+* and *+.ad-zone)
+Changes
+- src/lib/article-loading-and-ad-init.ts
+	- Remove premature `pageHasAdUnits()` gate so the scheduler always installs and retries while DOM settles
+	- Keep safety: hide overlay quickly if no units; rely on adZepUtils idempotency
 
-- src/styles/blog-mobile.css
-	- Normalize selector combinator spacing (img+h1, :not(pre)>code)
-	- Keep smooth scrolling declaration while separating comment
-	- Remove redundant h-auto utility from iframes to defer to aspect-ratio
+- lib/documents/ADZEP_ACTIVATION_IMPLEMENTATION.md
+	- Add “Hotfix: Initial Blog Post Load Activation (Sep 10, 2025)” section with rationale and verification steps
 
-Notes
-- Visual changes limited to clearer ad/content boundaries and minor height tweak
-- No breaking class renames; utility-first intent preserved
-- Removed deprecated blog category and demo pages.
-- Updated project rules, canonical URL validation, and blog generation prompts.
-- Simplified blog routing by removing old category-based paths.
+- CHANGELOG.md
+	- Record fix: AdZep not triggering on direct blog/article loads due to early-return; verified on Amazon Rewards Visa article
+
+Verification
+- Dev server pages return 200 for recommender and target article
+- Post markup contains ad zones (#us_budgetbeepro_3 and #us_budgetbeepro_4)
+- Activation logs appear on first article load; SPA transitions continue to activate via the bridge
+
+
