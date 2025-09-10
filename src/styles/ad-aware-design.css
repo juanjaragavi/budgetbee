@@ -38,14 +38,12 @@
   @apply w-full my-8;
   height: 3px !important;
   /* Increased thickness for better visibility */
-  background: linear-gradient(
-    90deg,
-    transparent 0%,
-    #e2e8f0 20%,
-    #94a3b8 50%,
-    #e2e8f0 80%,
-    transparent 100%
-  );
+  background: linear-gradient(90deg,
+      transparent 0%,
+      #e2e8f0 20%,
+      #94a3b8 50%,
+      #e2e8f0 80%,
+      transparent 100%);
   border-radius: 2px;
 }
 
@@ -53,14 +51,12 @@
 .ad-separator-branded {
   @apply w-full my-8 relative;
   height: 4px !important;
-  background: linear-gradient(
-    90deg,
-    transparent 0%,
-    #fbbf24 20%,
-    #e7b739 50%,
-    #fbbf24 80%,
-    transparent 100%
-  );
+  background: linear-gradient(90deg,
+      transparent 0%,
+      #fbbf24 20%,
+      #e7b739 50%,
+      #fbbf24 80%,
+      transparent 100%);
   border-radius: 2px;
 }
 
@@ -116,14 +112,12 @@
 .ad-zone {
   @apply relative bg-gray-50 rounded-lg p-4 mb-6;
   border: 2px dashed #94a3b8;
-  min-height: 280px;
-  background-image: repeating-linear-gradient(
-    45deg,
-    transparent,
-    transparent 10px,
-    rgba(148, 163, 184, 0.1) 10px,
-    rgba(148, 163, 184, 0.1) 20px
-  );
+  min-height: 300px;
+  background-image: repeating-linear-gradient(45deg,
+      transparent,
+      transparent 10px,
+      rgba(148, 163, 184, 0.1) 10px,
+      rgba(148, 163, 184, 0.1) 20px);
 }
 
 .ad-zone::before {
@@ -135,6 +129,7 @@
 
 /* ===== ENHANCED MOBILE-SPECIFIC AD-AWARE DESIGN ===== */
 @media (max-width: 768px) {
+
   /* PRIORITY 1: Ensure CTAs are prominently positioned on mobile */
   .btn-primary {
     @apply relative mb-8;
@@ -206,13 +201,11 @@
     @apply w-full my-10 relative;
     height: 24px !important;
     /* Increased height for better visibility */
-    background: repeating-linear-gradient(
-      45deg,
-      #f1f5f9,
-      #f1f5f9 12px,
-      #e2e8f0 12px,
-      #e2e8f0 24px
-    );
+    background: repeating-linear-gradient(45deg,
+        #f1f5f9,
+        #f1f5f9 12px,
+        #e2e8f0 12px,
+        #e2e8f0 24px);
     border-top: 2px solid #94a3b8;
     border-bottom: 2px solid #94a3b8;
     border-radius: 4px;
@@ -449,13 +442,11 @@
   }
 
   .mobile-ad-separator {
-    background: repeating-linear-gradient(
-      45deg,
-      #000000,
-      #000000 8px,
-      #ffffff 8px,
-      #ffffff 16px
-    ) !important;
+    background: repeating-linear-gradient(45deg,
+        #000000,
+        #000000 8px,
+        #ffffff 8px,
+        #ffffff 16px) !important;
     border: 4px solid #000000 !important;
   }
 
@@ -468,6 +459,7 @@
 
 /* Reduced motion preferences */
 @media (prefers-reduced-motion: reduce) {
+
   .btn-primary,
   .primary-cta-mobile,
   .secondary-cta-mobile,
@@ -488,6 +480,7 @@
 
 /* ===== PRINT STYLES FOR AD-AWARE DESIGN ===== */
 @media print {
+
   .ad-zone,
   .mobile-ad-separator,
   .ad-separator,
@@ -589,8 +582,8 @@
   isolation: isolate;
 }
 
-.ad-zone + *,
-* + .ad-zone {
+.ad-zone+*,
+*+.ad-zone {
   text-align: left !important;
 }
 
