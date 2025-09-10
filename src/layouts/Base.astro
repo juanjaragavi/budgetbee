@@ -339,15 +339,15 @@ const isBlogPost =
       /* TODO: Confirm if 'anonymous' is the correct value for crossorigin with GPT. Usually it is. */
     }
 
-    {/* BudgetBee Ad Manager - Prevents duplicate tag calls */}
-    <script type="module" src="/src/lib/ad-manager.js"></script>
-    {/* AdZep activation bridge for Astro view transitions */}
-    <script type="module" src="/src/lib/adzep-page-load-bridge.ts"></script>
+  {/* BudgetBee Ad Manager - Prevents duplicate tag calls (bundled by Vite) */}
+  <script is:inline type="module">import "/src/lib/ad-manager.js";</script>
+  {/* AdZep activation bridge for Astro view transitions (bundled by Vite) */}
+  <script is:inline type="module">import "/src/lib/adzep-page-load-bridge.ts";</script>
 
     {/* Article-only AdZep bootstrap (CSS is global in ad-aware-design.css) */}
     {
       pageType === "article" && (
-        <script type="module" src="/src/lib/article-loading-and-ad-init.ts" />
+        <script is:inline type="module">import "/src/lib/article-loading-and-ad-init.ts";</script>
       )
     }
 

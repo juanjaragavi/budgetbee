@@ -1,3 +1,19 @@
+fix(ads/bootstrap): resolve module script MIME error by bundling /src imports via inline module scripts
+
+Context
+Console showed: "Failed to load module script: Expected a JavaScript module script but the server responded with a MIME type of 'text/html'." This happens when referencing /src/*.ts|js via <script src> in some prod/host contexts (serving HTML fallback). We now import inline so Vite bundles them into the page and serves with correct MIME.
+
+Changes
+- src/layouts/Base.astro
+	- Switch from <script type="module" src="/src/..."> to inline module imports for:
+		- /src/lib/ad-manager.js
+		- /src/lib/adzep-page-load-bridge.ts
+		- /src/lib/article-loading-and-ad-init.ts (article-only)
+
+Outcome
+- Eliminates MIME-type load error for module scripts
+- Ensures AdZep activators load on first article and on SPA transitions
+
 fix(ads): ensure AdZep activates on initial blog post load; remove early-return and document hotfix
 
 Context
