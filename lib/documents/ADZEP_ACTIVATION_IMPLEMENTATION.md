@@ -339,3 +339,21 @@ Client-side navigations with Astro’s View Transitions don’t fire traditional
 3. Check the console for `[AdZepBridge]` messages on transitions and that `window.AdZepActivateAds()` is invoked each time ad zones exist.
 
 This bridge ensures ads are re-activated consistently on SPA-like transitions without double-calling on pages that don’t contain ad units.
+
+## Hotfix: Initial Blog Post Load Activation (Sep 10, 2025)
+
+Symptom: On direct loads of blog/financial-solution articles, `window.AdZepActivateAds()` was sometimes not called because the article bootstrap script exited early if it didn’t immediately detect ad slots (the DOM for ad containers can mount slightly later).
+
+Change:
+
+- Removed the premature early-return guard in `src/lib/article-loading-and-ad-init.ts` so the scheduler always installs and performs staggered activation attempts as the DOM settles. The script still checks for ad units at activation-time and hides the overlay promptly when none exist.
+
+Why safe:
+
+- Activation is guarded by `adZepUtils` global state (prevents duplicates) and by the View Transitions Bridge, so multiple sources cannot over-trigger.
+
+Verification:
+
+1. Load any article directly (e.g., `/financial-solutions/amazon-rewards-visa-credit-card-benefits`).
+2. Observe console logs containing `[ArticleBootstrap] activation scheduled (initial)` and `[AdZep] Ads activated successfully`.
+3. Navigate between articles via internal links; activation attempts should re-run on `astro:page-load/after-swap` as needed without duplicates.

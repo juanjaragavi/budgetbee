@@ -7,7 +7,6 @@
 
 /* Mobile-first approach for blog content */
 @media (max-width: 768px) {
-
   /* Blog post container adjustments */
   .blog-post-single {
     @apply px-0;
@@ -42,9 +41,9 @@
   }
 
   /* First heading after image needs less top margin */
-  .blog-post-single img+h1,
-  .blog-post-single img+h2,
-  .blog-post-single img+h3 {
+  .blog-post-single img + h1,
+  .blog-post-single img + h2,
+  .blog-post-single img + h3 {
     @apply mt-4;
   }
 
@@ -82,7 +81,7 @@
   }
 
   /* Inline code */
-  .blog-post-single :not(pre)>code {
+  .blog-post-single :not(pre) > code {
     @apply text-sm px-1 py-0.5 rounded;
   }
 
@@ -114,7 +113,6 @@
 
 /* Very small devices */
 @media (max-width: 480px) {
-
   /* Further reduce font sizes */
   .blog-post-single .h2 {
     @apply !text-xl;
