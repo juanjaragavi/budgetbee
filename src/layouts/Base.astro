@@ -11,6 +11,10 @@ import AnalyticsWrapper from "../components/analytics/AnalyticsWrapper.tsx";
 import "@/styles/main.css";
 import { AstroFont } from "astro-font";
 import { ClientRouter } from "astro:transitions";
+// Ensure local module scripts are bundled and have correct MIME in production
+import adManagerUrl from "@/lib/ad-manager.js?url";
+import adzepBridgeUrl from "@/lib/adzep-page-load-bridge.ts?url";
+import articleLoaderUrl from "@/lib/article-loading-and-ad-init.ts?url";
 
 // font families
 const pf = theme.fonts.font_family.primary;
@@ -48,6 +52,8 @@ const {
   dateModified,
   pageType,
 } = Astro.props;
+
+// Scripts are imported inline as modules so Vite bundles them with correct MIME types
 
 // Check if we're on a blog article page
 const pathSegments = Astro.url.pathname.split("/").filter((segment) => segment);
@@ -339,15 +345,15 @@ const isBlogPost =
       /* TODO: Confirm if 'anonymous' is the correct value for crossorigin with GPT. Usually it is. */
     }
 
-  {/* BudgetBee Ad Manager - Prevents duplicate tag calls (bundled by Vite) */}
-  <script is:inline type="module">import "/src/lib/ad-manager.js";</script>
-  {/* AdZep activation bridge for Astro view transitions (bundled by Vite) */}
-  <script is:inline type="module">import "/src/lib/adzep-page-load-bridge.ts";</script>
+  {/* BudgetBee Ad Manager - served as built asset */}
+  <script type="module" src={adManagerUrl}></script>
+  {/* AdZep activation bridge for Astro view transitions - served as built asset */}
+  <script type="module" src={adzepBridgeUrl}></script>
 
     {/* Article-only AdZep bootstrap (CSS is global in ad-aware-design.css) */}
     {
       pageType === "article" && (
-        <script is:inline type="module">import "/src/lib/article-loading-and-ad-init.ts";</script>
+        <script type="module" src={articleLoaderUrl}></script>
       )
     }
 
