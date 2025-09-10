@@ -344,6 +344,13 @@ const isBlogPost =
     {/* AdZep activation bridge for Astro view transitions */}
     <script type="module" src="/src/lib/adzep-page-load-bridge.ts"></script>
 
+    {/* Article-only AdZep bootstrap (CSS is global in ad-aware-design.css) */}
+    {
+      pageType === "article" && (
+        <script type="module" src="/src/lib/article-loading-and-ad-init.ts" />
+      )
+    }
+
     {/* Backup GAM initialization for fallback */}
     <script
       async
