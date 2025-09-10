@@ -46,6 +46,38 @@ async function activateAdsWithSafety(): Promise<void> {
   setTimeout(() => hideOverlay(), 150);
 }
 
+function containerHasCreative(container: HTMLElement | null): boolean {
+  if (!container) return false;
+  // Consider an iframe or any non-empty child as a render signal
+  if (container.querySelector("iframe")) return true;
+  if (container.children.length > 0) return true;
+  return false;
+}
+
+function retryActivateIfEmpty(maxAttempts = 3): void {
+  let attempts = 0;
+  const targets = [
+    document.getElementById("us_budgetbeepro_3"),
+    document.getElementById("us_budgetbeepro_4"),
+  ];
+
+  const tick = async () => {
+    attempts++;
+    const anyEmpty = targets.some((el) => !containerHasCreative(el as HTMLElement));
+    if (!anyEmpty) return; // creatives present
+
+    // Force re-activation when empty despite slots present
+    await activateAdZep({ force: true, timeout: 5000, retryAttempts: 1, retryDelay: 300 });
+
+    if (attempts < maxAttempts) {
+      setTimeout(tick, 1500);
+    }
+  };
+
+  // schedule first check after initial activation likely completed
+  setTimeout(tick, 1200);
+}
+
 function schedule(reason: string): void {
   // Show the overlay immediately, then schedule activation attempts as DOM settles
   showOverlay();
@@ -58,6 +90,8 @@ function schedule(reason: string): void {
         return;
       }
       activateAdsWithSafety();
+  // If activation succeeded but creatives didn't land yet, try forced re-activation a few times
+  retryActivateIfEmpty(3);
       // eslint-disable-next-line no-console
       console.debug(
         `[ArticleBootstrap] activation scheduled (${reason}) @ ${d}ms`,

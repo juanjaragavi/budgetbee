@@ -1,3 +1,19 @@
+fix(ads): post-top ad reliability + module script MIME fix
+
+Context
+- Post-top ad under title was intermittently empty on article loads/transitions.
+- Console showed module script MIME errors when loading local TS/JS via /src paths.
+
+Changes
+- src/layouts/Base.astro
+	- Bundle local modules via Vite using `?url` and load with `<script type="module" src={...}>`:
+		- ad-manager.js, adzep-page-load-bridge.ts, article-loading-and-ad-init.ts
+- src/lib/article-loading-and-ad-init.ts
+	- Add `retryActivateIfEmpty` to force re-activation up to 3 times if `#us_budgetbeepro_3`/`_4` are still empty shortly after first activation.
+
+Outcome
+- Eliminates MIME errors and ensures our bootstrap/bridge run in prod.
+- Improves reliability of the post-top ad unit after initial load and SPA transitions.
 fix(scripts): bundle article/gam bridge scripts via ?url so prod serves JS with correct MIME
 
 Context
