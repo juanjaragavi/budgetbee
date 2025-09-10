@@ -1,3 +1,11 @@
+fix(quiz): update recommender redirect link in CreditCardForm.jsx
+
+Changes
+- src/components/quiz/CreditCardForm.jsx
+	- Update Linkly URL to latest target: https://linkly.link/2ERrA
+
+Reason
+- Correct destination for the “Accept Recommendation” action.
 fix(ads): post-top ad reliability + module script MIME fix
 
 Context
