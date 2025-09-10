@@ -1,5 +1,27 @@
 refactor: Clean up blog structure and update documentation
+Ad-aware CSS refinements: stronger mobile/desktop separators, spacing, and alignment fixes
 
+Summary
+- Normalize linear-gradient and repeating-linear-gradient syntax for readability and consistency
+- Increase ad-zone min-height to 300px and clarify visual separation between content and ad areas
+- Strengthen mobile ad separator styling and add subtle background buffers
+- Tighten selector spacing (combinators like + and >) to match project style and avoid PostCSS formatting diffs
+- Maintain CTA prominence with z-index and spacing; no behavioral changes to layout
+
+Files
+- src/styles/ad-aware-design.css
+	- Normalize gradient syntax; bump ad-zone min-height (280px -> 300px)
+	- Improve mobile/print/reduced-motion blocks formatting; keep semantics identical
+	- Normalize adjacent-sibling selector spacing (.ad-zone+* and *+.ad-zone)
+
+- src/styles/blog-mobile.css
+	- Normalize selector combinator spacing (img+h1, :not(pre)>code)
+	- Keep smooth scrolling declaration while separating comment
+	- Remove redundant h-auto utility from iframes to defer to aspect-ratio
+
+Notes
+- Visual changes limited to clearer ad/content boundaries and minor height tweak
+- No breaking class renames; utility-first intent preserved
 - Removed deprecated blog category and demo pages.
 - Updated project rules, canonical URL validation, and blog generation prompts.
 - Simplified blog routing by removing old category-based paths.
