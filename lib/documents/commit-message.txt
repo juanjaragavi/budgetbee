@@ -1,3 +1,19 @@
+fix(scripts): bundle article/gam bridge scripts via ?url so prod serves JS with correct MIME
+
+Context
+Production was still attempting to load /src/lib/article-loading-and-ad-init.ts directly, causing “module script MIME type text/html” errors and preventing the post-top AdZep unit from initializing reliably.
+
+Changes
+- src/layouts/Base.astro
+	- Import local modules as URLs with Vite’s `?url` and reference them via `<script type="module" src={...}>`:
+		- ad-manager.js
+		- adzep-page-load-bridge.ts
+		- article-loading-and-ad-init.ts (article-only)
+
+Outcome
+- Ensures built JS files are served with the correct content-type and hashed URLs in production
+- Removes MIME errors and allows AdZep init to run on initial loads and SPA transitions
+
 fix(ads/bootstrap): resolve module script MIME error by bundling /src imports via inline module scripts
 
 Context
