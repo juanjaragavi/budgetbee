@@ -1,22 +1,19 @@
 ---
 import Base from "@/layouts/Base.astro";
-import PostSingle from "@/layouts/PostSingle.astro";
 import { getSinglePage } from "@/lib/contentParser.astro";
+import PostSingle from "@/layouts/PostSingle.astro";
 
-export async function getStaticPaths() {
-  const posts = await getSinglePage("personal-finance");
+// For SSR mode, we need to fetch the data on each request
+const { single } = Astro.params;
+const posts = await getSinglePage("personal-finance");
+const post = posts.find((p) => p.id === single);
 
-  const paths = posts.map((post) => ({
-    params: {
-      single: post.id,
-    },
-    props: { post },
-  }));
-  return paths;
+// Handle 404 if post not found
+if (!post) {
+  return Astro.redirect("/404");
 }
 
-const { post } = Astro.props;
-const { title, meta_title, description, image, date } = post.data; // Assuming 'date' exists
+const { title, meta_title, description, image, date } = post.data;
 ---
 
 <Base
@@ -24,8 +21,8 @@ const { title, meta_title, description, image, date } = post.data; // Assuming '
   meta_title={meta_title}
   description={description}
   image={image}
-  datePublished={date ? date.toISOString() : undefined}
-  dateModified={date ? date.toISOString() : undefined}
+  datePublished={date ? new Date(date).toISOString() : undefined}
+  dateModified={date ? new Date(date).toISOString() : undefined}
   pageType="article"
 >
   <PostSingle post={post} />
