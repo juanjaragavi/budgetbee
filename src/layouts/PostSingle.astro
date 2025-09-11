@@ -18,7 +18,7 @@ const applyLeadingTight =
   categoriesNormalized.includes("personal-finance") ||
   categoriesNormalized.includes("financial-solutions");
 const isFinancialSolution = categoriesNormalized.includes(
-  "financial-solutions"
+  "financial-solutions",
 );
 const isPersonalFinance = categoriesNormalized.includes("personal-finance");
 ---
@@ -151,5 +151,6 @@ const isPersonalFinance = categoriesNormalized.includes("personal-finance");
   </div>
 </section>
 
-<script type="module" src="@/lib/article-loading-and-ad-init.ts" is:inline
-></script>
+<script type="module" is:inline>
+  import "@/lib/article-loading-and-ad-init.ts";
+</script>
