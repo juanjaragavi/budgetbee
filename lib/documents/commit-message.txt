@@ -1,5 +1,5 @@
 fix(quiz): update recommender redirect link in CreditCardForm.jsx
-
+ 
 Changes
 - src/components/quiz/CreditCardForm.jsx
 	- Update Linkly URL to latest target: https://linkly.link/2ERrA
@@ -74,5 +74,17 @@ Verification
 - Dev server pages return 200 for recommender and target article
 - Post markup contains ad zones (#us_budgetbeepro_3 and #us_budgetbeepro_4)
 - Activation logs appear on first article load; SPA transitions continue to activate via the bridge
+feat(contact): integrate SendGrid for contact form + robust API route, dev sandbox, and SMTP fallback
+
+- Implement /api/contact with @sendgrid/mail and server rendering (prerender=false)
+- Validate JSON body, handle invalid content-type/empty body, and return friendly errors
+- Add SendGrid dev sandbox mode to avoid quota usage during development
+- Map common SendGrid errors (quota exceeded, unverified sender) to clearer messages
+- Add optional SMTP fallback via Nodemailer when SendGrid credits are exceeded
+- Harden contact page client script to handle non-JSON error responses gracefully
+- Add env typings and examples: SENDGRID_* and SMTP_* variables
+- Update CHANGELOG and task list to reflect completed contact endpoint work
+
+Refs: #contact, #email, #infra
 
 

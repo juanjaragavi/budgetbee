@@ -1,10 +1,38 @@
 import type { APIRoute } from "astro";
+export const prerender = false;
+import sgMail from "@sendgrid/mail";
 import nodemailer from "nodemailer";
 
 export const POST: APIRoute = async ({ request }) => {
   try {
-    const data = await request.json();
-    const { name, email, subject, message } = data;
+    // Safely parse JSON body
+    const contentType = request.headers.get("content-type") || "";
+    if (!contentType.includes("application/json")) {
+      return new Response(
+        JSON.stringify({ message: "Content-Type must be application/json" }),
+        { status: 415, headers: { "Content-Type": "application/json" } },
+      );
+    }
+
+    const raw = await request.text();
+    if (!raw) {
+      return new Response(JSON.stringify({ message: "Empty request body" }), {
+        status: 400,
+        headers: { "Content-Type": "application/json" },
+      });
+    }
+
+    let data: any;
+    try {
+      data = JSON.parse(raw);
+    } catch {
+      return new Response(JSON.stringify({ message: "Invalid JSON" }), {
+        status: 400,
+        headers: { "Content-Type": "application/json" },
+      });
+    }
+
+    const { name, email, subject, message } = data ?? {};
 
     // Basic validation
     if (!name || !email || !subject || !message) {
@@ -25,10 +53,9 @@ export const POST: APIRoute = async ({ request }) => {
 
     // Get environment variables
     const apiKey = import.meta.env.SENDGRID_API_KEY;
-    const senderEmail =
-      import.meta.env.SENDER_EMAIL || "noreply@budgetbeepro.com";
+    const senderEmail = import.meta.env.SENDER_EMAIL || "info@topfinanzas.com";
     const recipientEmail =
-      import.meta.env.RECIPIENT_EMAIL || "info@budgetbeepro.com";
+      import.meta.env.RECIPIENT_EMAIL || "juan.jaramillo@topnetworks.co";
 
     if (!apiKey) {
       console.error("Missing SendGrid API key");
@@ -38,16 +65,13 @@ export const POST: APIRoute = async ({ request }) => {
       );
     }
 
-    // Configure nodemailer with SendGrid
-    const transporter = nodemailer.createTransport({
-      host: "smtp.sendgrid.net",
-      port: 587,
-      secure: false,
-      auth: {
-        user: "apikey",
-        pass: apiKey,
-      },
-    });
+    // Configure SendGrid SDK
+    sgMail.setApiKey(apiKey);
+    if (import.meta.env.SENDGRID_REGION === "eu") {
+      // Optional: enable EU data residency if using an EU regional subuser
+      // @ts-expect-error: setDataResidency exists at runtime for supported versions
+      sgMail.setDataResidency("eu");
+    }
 
     // Email HTML template
     const htmlMessage = `
@@ -80,34 +104,95 @@ export const POST: APIRoute = async ({ request }) => {
       </html>
     `;
 
-    const mailOptions = {
-      from: `"BudgetBee Contact" <${senderEmail}>`,
+    const useSandbox =
+      import.meta.env.DEV || import.meta.env.SENDGRID_SANDBOX === "true";
+
+    const msg: any = {
       to: recipientEmail,
-      replyTo: email,
+      from: {
+        email: senderEmail,
+        name: "BudgetBee Contact",
+      },
+      replyTo: { email },
       subject: `Contact Form: ${subject}`,
-      text: `
-        You received a new message from your contact form:
-
-        Name: ${name}
-        Email: ${email}
-        Subject: ${subject}
-
-        Message:
-        ${message}
-      `,
+      text: `You received a new message from your contact form:\n\nName: ${name}\nEmail: ${email}\nSubject: ${subject}\n\nMessage:\n${message}`,
       html: htmlMessage,
+      ...(useSandbox
+        ? { mailSettings: { sandboxMode: { enable: true } } }
+        : {}),
     };
 
-    // Send email
-    await transporter.sendMail(mailOptions);
+    // Send email via SendGrid; if quota exceeded and SMTP fallback is configured, try SMTP
+    try {
+      await sgMail.send(msg);
+    } catch (err: any) {
+      const sgBody = err?.response?.body;
+      const firstErrMsg: string | undefined = sgBody?.errors?.[0]?.message;
+      const quotaExceeded =
+        typeof firstErrMsg === "string" &&
+        firstErrMsg.toLowerCase().includes("maximum credits exceeded");
+
+      const smtpHost = import.meta.env.SMTP_HOST;
+      if (quotaExceeded && smtpHost) {
+        const smtpPort = Number(import.meta.env.SMTP_PORT || 587);
+        const smtpSecure =
+          String(import.meta.env.SMTP_SECURE || "false") === "true";
+        const smtpUser = import.meta.env.SMTP_USER;
+        const smtpPass = import.meta.env.SMTP_PASS;
+
+        const transporter = nodemailer.createTransport({
+          host: smtpHost,
+          port: smtpPort,
+          secure: smtpSecure,
+          auth:
+            smtpUser && smtpPass
+              ? { user: smtpUser, pass: smtpPass }
+              : undefined,
+        });
+
+        await transporter.sendMail({
+          from: `"BudgetBee Contact" <${msg.from.email}>`,
+          to: msg.to,
+          replyTo: email,
+          subject: msg.subject,
+          text: msg.text,
+          html: msg.html,
+        });
+      } else {
+        throw err;
+      }
+    }
 
     return new Response(
       JSON.stringify({ message: "Message sent successfully!" }),
       { status: 200, headers: { "Content-Type": "application/json" } },
     );
-  } catch (error) {
-    console.error("Error processing contact form:", error);
-    return new Response(JSON.stringify({ message: "Failed to send message" }), {
+  } catch (error: any) {
+    // Log extended SendGrid error body when available
+    const sgBody = error?.response?.body;
+    if (sgBody) {
+      console.error("SendGrid error:", sgBody);
+    } else {
+      console.error("Error processing contact form:", error);
+    }
+    // Map common SendGrid errors to clearer messages
+    let message = "Failed to send message";
+    const firstErrMsg: string | undefined = sgBody?.errors?.[0]?.message;
+    if (firstErrMsg?.toLowerCase().includes("maximum credits exceeded")) {
+      message = "Email provider quota exceeded. Please try again later.";
+    } else if (
+      firstErrMsg?.toLowerCase().includes("verified sender") ||
+      firstErrMsg?.toLowerCase().includes("sender identity")
+    ) {
+      message = "Sender email is not verified with SendGrid.";
+    }
+
+    const devDetails =
+      import.meta.env.DEV && (sgBody || error?.message)
+        ? { details: sgBody || String(error?.message || "") }
+        : undefined;
+    const body = { message, ...(devDetails || {}) };
+    return new Response(JSON.stringify(body), {
       status: 500,
       headers: { "Content-Type": "application/json" },
     });
