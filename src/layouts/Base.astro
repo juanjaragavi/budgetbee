@@ -39,6 +39,7 @@ export interface Props {
   dateModified?: string; // Expecting ISO 8601 format
   // Optionally, a type indicator if we want to be very explicit
   pageType?: "article" | "website";
+  hideHeaderFooter?: boolean;
 }
 
 const {
@@ -51,6 +52,7 @@ const {
   datePublished,
   dateModified,
   pageType,
+  hideHeaderFooter,
 } = Astro.props;
 
 // Scripts are imported inline as modules so Vite bundles them with correct MIME types
@@ -173,7 +175,7 @@ const isBlogPost =
     <meta
       name="description"
       content={plainify(
-        description ? description : config.metadata.meta_description,
+        description ? description : config.metadata.meta_description
       )}
     />
 
@@ -186,7 +188,7 @@ const isBlogPost =
     <meta
       property="og:title"
       content={plainify(
-        meta_title ? meta_title : title ? title : config.site.title,
+        meta_title ? meta_title : title ? title : config.site.title
       )}
     />
 
@@ -194,7 +196,7 @@ const isBlogPost =
     <meta
       property="og:description"
       content={plainify(
-        description ? description : config.metadata.meta_description,
+        description ? description : config.metadata.meta_description
       )}
     />
     <meta property="og:type" content="website" />
@@ -207,7 +209,7 @@ const isBlogPost =
     <meta
       name="twitter:title"
       content={plainify(
-        meta_title ? meta_title : title ? title : config.site.title,
+        meta_title ? meta_title : title ? title : config.site.title
       )}
     />
 
@@ -215,7 +217,7 @@ const isBlogPost =
     <meta
       name="twitter:description"
       content={plainify(
-        description ? description : config.metadata.meta_description,
+        description ? description : config.metadata.meta_description
       )}
     />
 
@@ -294,7 +296,7 @@ const isBlogPost =
             "@context": "https://schema.org",
             "@type": "Article",
             headline: plainify(
-              meta_title ? meta_title : title ? title : config.site.title,
+              meta_title ? meta_title : title ? title : config.site.title
             ),
             image: [
               `${config.site.base_url}${image ? image : config.metadata.meta_image}`,
@@ -318,7 +320,7 @@ const isBlogPost =
               "@id": `${config.site.base_url}${Astro.url.pathname}`,
             },
             description: plainify(
-              description ? description : config.metadata.meta_description,
+              description ? description : config.metadata.meta_description
             ),
           })}
         />
@@ -546,11 +548,11 @@ const isBlogPost =
       </div>
     </div>
 
-    <Header />
+    {!hideHeaderFooter && <Header />}
     <main id="main-content">
       <slot />
     </main>
-    {isBlogPost ? <CompactFooter /> : <Footer />}
+    {isBlogPost ? <CompactFooter /> : !hideHeaderFooter && <Footer />}
     <AnalyticsWrapper client:idle />
     <BackToTopButton />
   </body>
