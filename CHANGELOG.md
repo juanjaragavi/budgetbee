@@ -22,6 +22,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Blog-specific mobile styles (`blog-mobile.css`) (May 26, 2025)
 - Started migration of marketing-related components and custom scripts (e.g., Google Tag Manager, UTM persister) from TopFinanzas UK. (May 26, 2025)
 - Added AdZep ad units us_budgetbeepro_3 (post-top) and us_budgetbeepro_4 (in-article fallback) to all Personal Finance (TOFU/MOFU) articles by updating PostSingle layout with category-normalized detection. (Sep 1, 2025)
+- Contact form backend endpoint at `/api/contact` implemented using Twilio SendGrid SDK, with HTML/text templates, reply-to handling, and env-configurable sender/recipient. (Sep 11, 2025)
 
 ### Changed
 
@@ -46,7 +47,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Design and implement BudgetBee-specific features
 - Update images and visual assets
-- Configure contact form endpoint
+- Verify SendGrid verified sender domain and adjust SENDER_EMAIL/RECIPIENT_EMAIL per environment
 - Set up proper domain and base URL
 
 ---

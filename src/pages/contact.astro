@@ -113,7 +113,12 @@ const { title, description, info } = entry.data;
         body: JSON.stringify(data),
       });
 
-      const result = await response.json();
+      let result: any = null;
+      try {
+        result = await response.json();
+      } catch (_) {
+        // ignore JSON parsing error; we'll display a generic message below
+      }
 
       if (response.ok) {
         // Success
@@ -124,7 +129,8 @@ const { title, description, info } = entry.data;
       } else {
         // Error
         formMessage.textContent =
-          result.message || "Sorry, there was an error sending your message.";
+          (result && result.message) ||
+          "Sorry, there was an error sending your message.";
         formMessage.className = "mt-4 p-4 bg-red-100 text-red-700 rounded";
       }
     } catch (error) {

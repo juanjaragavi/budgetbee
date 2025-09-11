@@ -63,11 +63,18 @@ function retryActivateIfEmpty(maxAttempts = 3): void {
 
   const tick = async () => {
     attempts++;
-    const anyEmpty = targets.some((el) => !containerHasCreative(el as HTMLElement));
+    const anyEmpty = targets.some(
+      (el) => !containerHasCreative(el as HTMLElement),
+    );
     if (!anyEmpty) return; // creatives present
 
     // Force re-activation when empty despite slots present
-    await activateAdZep({ force: true, timeout: 5000, retryAttempts: 1, retryDelay: 300 });
+    await activateAdZep({
+      force: true,
+      timeout: 5000,
+      retryAttempts: 1,
+      retryDelay: 300,
+    });
 
     if (attempts < maxAttempts) {
       setTimeout(tick, 1500);
@@ -90,8 +97,8 @@ function schedule(reason: string): void {
         return;
       }
       activateAdsWithSafety();
-  // If activation succeeded but creatives didn't land yet, try forced re-activation a few times
-  retryActivateIfEmpty(3);
+      // If activation succeeded but creatives didn't land yet, try forced re-activation a few times
+      retryActivateIfEmpty(3);
       // eslint-disable-next-line no-console
       console.debug(
         `[ArticleBootstrap] activation scheduled (${reason}) @ ${d}ms`,
