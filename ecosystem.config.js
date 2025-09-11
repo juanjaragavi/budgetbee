@@ -1,7 +1,7 @@
 module.exports = {
   apps: [
     {
-      name: "budgetbee",
+      name: "budgetbee-ssr",
       script: "serve",
       args: "dist -s -l 3000",
       cwd: "/var/www/html/budgetbee",

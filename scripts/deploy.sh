@@ -19,7 +19,7 @@ sudo rm -rf .astro
 sudo pnpm build
 
 log "Step 3: Restarting the application with pm2..."
-sudo pm2 restart budgetbee
+sudo pm2 restart budgetbee-ssr
 
 log "Step 4: Waiting for the application to restart..."
 sleep 3
