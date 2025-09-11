@@ -75,8 +75,11 @@
 10. [ ] Update images and visual assets
     - **Important:** Use color palette from `.clinerules/5-BRANDING.md` - Warm Yellow (#E7B739), Fresh Green (#7ED321), Soft Blue (#4A90E2), Light Gray (#F5F5F5)
 
-11. [ ] Configure contact form endpoint
+11. [x] Configure contact form endpoint (Sep 11, 2025)
+    - Implemented `/api/contact` using @sendgrid/mail; uses env vars SENDGRID_API_KEY, SENDER_EMAIL, RECIPIENT_EMAIL; optional SENDGRID_REGION=eu.
+
 12. [ ] Set up proper domain and base URL
+
 13. [x] Fix ad unit visibility and CTA styling regressions _(Completed: Sep 1, 2025)_
 
 - Created shortcode `AdZoneTop3` and auto-injected `id="us_budgetbeepro_3"` directly below the H1 for posts in Personal Finance and Financial Solutions.
