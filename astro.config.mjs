@@ -4,6 +4,7 @@ import sitemap from "@astrojs/sitemap";
 import tailwindcss from "@tailwindcss/vite";
 import AutoImport from "astro-auto-import";
 import { defineConfig } from "astro/config";
+import node from "@astrojs/node";
 import remarkCollapse from "remark-collapse";
 import remarkToc from "remark-toc";
 import config from "./src/config/config.json";
@@ -19,6 +20,8 @@ async function getHighlighter() {
 
 // https://astro.build/config
 export default defineConfig({
+  output: "server",
+  adapter: node({ mode: "standalone" }),
   site: config.site.base_url
     ? config.site.base_url
     : "https://budgetbeepro.com",
