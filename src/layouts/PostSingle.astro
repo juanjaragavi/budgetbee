@@ -1,11 +1,12 @@
 ---
+import Base from "@/layouts/Base.astro";
 import { markdownify } from "@/lib/utils/textConverter";
 import { render } from "astro:content";
 import { AIContentDisclaimerStatic } from "@/components/ui/ai-content-disclaimer";
 
 const { post } = Astro.props;
 const { Content } = await render(post);
-const { title, image, categories, color } = post.data;
+const { title, image, categories, color, description, meta_title } = post.data;
 
 const normalizeCategory = (c: string) =>
   c.toLowerCase().replace(/[_\s]+/g, "-");
@@ -18,139 +19,143 @@ const applyLeadingTight =
   categoriesNormalized.includes("personal-finance") ||
   categoriesNormalized.includes("financial-solutions");
 const isFinancialSolution = categoriesNormalized.includes(
-  "financial-solutions",
+  "financial-solutions"
 );
 const isPersonalFinance = categoriesNormalized.includes("personal-finance");
 ---
 
-<style>
-  .content ul > li::before {
-    background-color: var(--product-color) !important;
-  }
-  /* Ensure all inline links (including nested strong/em) render yellow + underlined */
-  .content a:not(.btn),
-  .content a:not(.btn) * {
-    color: #e7b739 !important; /* Brand Yellow */
-    text-decoration: underline !important;
-    text-decoration-color: #e7b739 !important;
-  }
-  .content a:not(.btn):hover,
-  .content a:not(.btn):hover * {
-    text-decoration: underline !important;
-    text-decoration-color: #e7b739 !important;
-  }
+<Base
+  title={title}
+  meta_title={meta_title}
+  description={description}
+  image={image}
+  hideHeaderFooter={true}
+>
+  <style>
+    .content ul > li::before {
+      background-color: var(--product-color) !important;
+    }
+    /* Ensure all inline links (including nested strong/em) render yellow + underlined */
+    .content a:not(.btn),
+    .content a:not(.btn) * {
+      color: #e7b739 !important; /* Brand Yellow */
+      text-decoration: underline !important;
+      text-decoration-color: #e7b739 !important;
+    }
+    .content a:not(.btn):hover,
+    .content a:not(.btn):hover * {
+      text-decoration: underline !important;
+      text-decoration-color: #e7b739 !important;
+    }
 
-  /* Ensure CTA buttons are not underlined and have consistent spacing */
-  .content .btn {
-    text-decoration: none !important;
-    margin: 1rem 0;
-  }
-  .content .btn:hover {
-    text-decoration: none !important;
-  }
+    /* Ensure CTA buttons are not underlined and have consistent spacing */
+    .content .btn {
+      text-decoration: none !important;
+      margin: 1rem 0;
+    }
+    .content .btn:hover {
+      text-decoration: none !important;
+    }
 
-  /* Ensure content stays left-aligned with ad units present */
-  .blog-post-single .content,
-  .blog-post-single .content *:not(.ad-zone):not(.mobile-ad-separator) {
-    text-align: left !important;
-  }
+    /* Ensure content stays left-aligned with ad units present */
+    .blog-post-single .content,
+    .blog-post-single .content *:not(.ad-zone):not(.mobile-ad-separator) {
+      text-align: left !important;
+    }
 
-  /* Prevent ad zone flex properties from affecting content */
-  .blog-content-wrapper > *:not(.ad-zone) {
-    text-align: left !important;
-  }
+    /* Prevent ad zone flex properties from affecting content */
+    .blog-content-wrapper > *:not(.ad-zone) {
+      text-align: left !important;
+    }
 
-  /* Ensure PF ad unit 4 is visible and occupies space even before fill */
-  #us_budgetbeepro_4 {
-    display: block !important;
-    min-height: 50px; /* visible placeholder area before creative */
-    margin: 1.5rem 0;
-  }
-  /* If AdZep injects an iframe, let it size naturally */
-  #us_budgetbeepro_4 iframe {
-    display: block !important;
-    width: 100% !important;
-    max-width: 100% !important;
-    aspect-ratio: auto !important;
-  }
+    /* Ensure PF ad unit 4 is visible and occupies space even before fill */
+    #us_budgetbeepro_4 {
+      display: block !important;
+      min-height: 50px; /* visible placeholder area before creative */
+      margin: 1.5rem 0;
+    }
+    /* If AdZep injects an iframe, let it size naturally */
+    #us_budgetbeepro_4 iframe {
+      display: block !important;
+      width: 100% !important;
+      max-width: 100% !important;
+      aspect-ratio: auto !important;
+    }
 
-  /* Mirror rules for ad unit 3 */
-  #us_budgetbeepro_3 {
-    display: block !important;
-    min-height: 50px; /* visible placeholder area before creative */
-    margin: 1.5rem 0;
-  }
-  #us_budgetbeepro_3 iframe {
-    display: block !important;
-    width: 100% !important;
-    max-width: 100% !important;
-    aspect-ratio: auto !important;
-  }
-</style>
+    /* Mirror rules for ad unit 3 */
+    #us_budgetbeepro_3 {
+      display: block !important;
+      min-height: 50px; /* visible placeholder area before creative */
+      margin: 1.5rem 0;
+    }
+    #us_budgetbeepro_3 iframe {
+      display: block !important;
+      width: 100% !important;
+      max-width: 100% !important;
+      aspect-ratio: auto !important;
+    }
+  </style>
 
-<section class="section">
-  <div class="container">
-    <div class="row justify-center">
-      <div class="col-12 lg:col-10 xl:col-8">
-        <article
-          class="blog-post-single"
-          style={isFinancialSolution ? `--product-color: ${color};` : ""}
-        >
-          {
-            image && (
-              <div class="mb-6 overflow-hidden rounded-lg">
-                <img
-                  src={image}
-                  height="500"
-                  width="1000"
-                  alt={title}
-                  class="w-full h-auto object-cover"
-                />
-              </div>
-            )
-          }
-          <h1
-            set:html={markdownify(title)}
-            class:list={[
-              "h2 text-left my-4 md:my-6",
-              { "leading-tight": applyLeadingTight },
-            ]}
-          />
-
-          {
-            /* Autozep Ad: us_budgetbeepro_3 - Insert after title and first paragraph */
-          }
-          {
-            (isFinancialSolution || isPersonalFinance) && (
-              <div
-                id="us_budgetbeepro_3"
-                class="min-w-auto flex justify-center items-center"
-              />
-            )
-          }
-
-          <div
-            class:list={[
-              "content mb-16 text-left",
-              { "leading-tight": applyLeadingTight },
-            ]}
-            style="text-align: left !important;"
+  <section class="section">
+    <div class="container">
+      <div class="row justify-center">
+        <div class="col-12 lg:col-10 xl:col-8">
+          <article
+            class="blog-post-single"
+            style={isFinancialSolution ? `--product-color: ${color};` : ""}
           >
+            {
+              image && (
+                <div class="mb-6 overflow-hidden rounded-lg">
+                  <img
+                    src={image}
+                    height="500"
+                    width="1000"
+                    alt={title}
+                    class="w-full h-auto object-cover"
+                  />
+                </div>
+              )
+            }
+            <h1
+              set:html={markdownify(title)}
+              class:list={[
+                "h2 text-left my-4 md:my-6",
+                { "leading-tight": applyLeadingTight },
+              ]}
+            />
+
+            {
+              /* Autozep Ad: us_budgetbeepro_3 - Insert after title and first paragraph */
+            }
+            {
+              (isFinancialSolution || isPersonalFinance) && (
+                <div
+                  id="us_budgetbeepro_3"
+                  class="min-w-auto flex justify-center items-center"
+                />
+              )
+            }
+
             <div
-              class="blog-content-wrapper"
+              class:list={[
+                "content mb-16 text-left",
+                { "leading-tight": applyLeadingTight },
+              ]}
               style="text-align: left !important;"
             >
-              <Content />
-            </div>
+              <div
+                class="blog-content-wrapper"
+                style="text-align: left !important;"
+              >
+                <Content />
+              </div>
 
-            <AIContentDisclaimerStatic client:only="react" />
-          </div>
-        </article>
+              <AIContentDisclaimerStatic client:only="react" />
+            </div>
+          </article>
+        </div>
       </div>
     </div>
-  </div>
-</section>
-
-<script type="module" is:inline>
-  import "@/lib/article-loading-and-ad-init.ts";
-</script>
+  </section>
+</Base>
