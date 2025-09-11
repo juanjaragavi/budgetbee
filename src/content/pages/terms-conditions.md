@@ -117,7 +117,7 @@ These Terms are governed by and construed under the laws of the Republic of Pana
 
 ## 14. Notifications
 
-Notifications or messages to users regarding updates, changes, or other important information may be posted on the Site. For questions or issues, users may contact **TopNetworks Inc.** at: [info@topfinanzas.com](mailto:info@topfinanzas.com).
+Notifications or messages to users regarding updates, changes, or other important information may be posted on the Site. For questions or issues, users may contact **TopNetworks Inc.** at: [info@budgetbeepro.com](mailto:info@budgetbeepro.com).
 
 ## 15. General Provisions
 
@@ -129,5 +129,5 @@ For questions or concerns about these Terms, you may contact us at:
 
 **TopNetworks Inc.**
 
-- **Email:** <info@topfinanzas.com>
+- **Email:** <info@budgetbeepro.com>
 - **Address:** PANAMA, PANAMA CITY, AV. AQUILINO DE LA GUARDIA, OCEAN BUSINESS PLAZA BUILDING, FLOOR 12
