@@ -103,4 +103,4 @@ Copyright (c) 2025 - present, Designed & Developed by [TopFinanzas](https://topf
 
 ## Need Help?
 
-If you need help or have any questions about our platform, don't hesitate to reach out to us at [info@topfinanzas.com](mailto:info@topfinanzas.com).
+If you need help or have any questions about our platform, don't hesitate to reach out to us at [info@budgetbeepro.com](mailto:info@budgetbeepro.com).

@@ -13,7 +13,7 @@ draft: false
 
 **TopNetworks Inc.** operates [budgetbeepro.com](https://budgetbeepro.com) ("Platform" or "Site"), a financial information and product recommendation platform. Our mission is to provide users with personalized content about financial services and products. **TopNetworks Inc.** is incorporated in Panama, with operations in the United States, and we comply with applicable US federal and state regulations to protect your data.
 
-If you have any questions about this Privacy Policy or how we handle your data, please contact us at [info@topfinanzas.com](mailto:info@topfinanzas.com).
+If you have any questions about this Privacy Policy or how we handle your data, please contact us at [info@budgetbeepro.com](mailto:info@budgetbeepro.com).
 
 ## 2. Types of Information We Collect
 
@@ -88,7 +88,7 @@ Under applicable US data protection laws, you have several rights regarding your
 - **Right to Object:** Object to our processing of your information
 - **Right to Withdraw Consent:** Withdraw consent previously given
 
-To exercise these rights, please contact us at [info@topfinanzas.com](mailto:info@topfinanzas.com).
+To exercise these rights, please contact us at [info@budgetbeepro.com](mailto:info@budgetbeepro.com).
 
 ## 8. Data Security
 
@@ -116,7 +116,7 @@ Depending on your location, you may have certain rights regarding your personal 
 - **Portability:** Request a copy of your data in a commonly used electronic format.
 - **Withdraw Consent:** Where processing is based on consent, withdraw that consent at any time.
 
-To exercise these rights, please contact us at [info@topfinanzas.com](mailto:info@topfinanzas.com).
+To exercise these rights, please contact us at [info@budgetbeepro.com](mailto:info@budgetbeepro.com).
 
 ## 11. Children's Privacy
 
@@ -152,5 +152,5 @@ If you have any questions, comments, or requests regarding this Privacy Policy, 
 
 **TopNetworks Inc.**
 
-- **Email:** [info@topfinanzas.com](mailto:info@topfinanzas.com)
+- **Email:** [info@budgetbeepro.com](mailto:info@budgetbeepro.com)
 - **Address:** PANAMA, PANAMA CITY, AV. AQUILINO DE LA GUARDIA, OCEAN BUSINESS PLAZA BUILDING, FLOOR 12

@@ -76,9 +76,9 @@ The date at the top of this Cookie Policy indicates when it was last updated.
 
 ## 7. Where Can You Get Further Information?
 
-If you have any questions about our use of cookies or other technologies, please email us at [info@topfinanzas.com](mailto:info@topfinanzas.com) or contact us by post at:
+If you have any questions about our use of cookies or other technologies, please email us at [info@budgetbeepro.com](mailto:info@budgetbeepro.com) or contact us by post at:
 
 **TopNetworks Inc.**
 
-- **Email:** <info@topfinanzas.com>
+- **Email:** <info@budgetbeepro.com>
 - **Address:** PANAMA, PANAMA CITY, AV. AQUILINO DE LA GUARDIA, OCEAN BUSINESS PLAZA BUILDING, FLOOR 12
