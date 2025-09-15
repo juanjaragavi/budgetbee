@@ -25,6 +25,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Contact form backend endpoint at `/api/contact` implemented using Twilio SendGrid SDK, with HTML/text templates, reply-to handling, and env-configurable sender/recipient. (Sep 11, 2025)
 - Quiz submission backend migrated from ConvertKit to SendGrid Marketing Contacts with validation and idempotent upsert. (Sep 11, 2025)
 - Hidden enrichment fields (Brand, Country) added to credit card quiz form and API with future-proof custom field mapping scaffolding. (Sep 11, 2025)
+- Dynamic SendGrid custom field ID auto-discovery (fallback lookup when env IDs absent) plus top-level country assignment and dev logging for quiz submissions. (Sep 15, 2025)
 
 ### Changed
 

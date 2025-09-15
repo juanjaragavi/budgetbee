@@ -1,10 +1,11 @@
-feat(quiz): migrate to SendGrid & add brand/country enrichment
+feat(quiz): dynamic field discovery & brand/country enrichment
 
 Summary:
 - Replaced legacy ConvertKit quiz submission with SendGrid Marketing Contacts upsert (PUT /v3/marketing/contacts)
 - Added validation (email format, required name + consent) and normalized name splitting
 - Introduced hidden enrichment fields Brand=BudgetBee and Country=United States in `CreditCardForm.jsx`
 - Extended API handler to accept brand/country and scaffold dynamic custom field mapping via env-driven field IDs
+-- Added automatic SendGrid field definition lookup (with 10m cache) when env IDs missing; attaches top-level country and logs in dev
 - Implemented safe defaults + sanitation for enrichment fields
 - Prepared for future custom field IDs: SENDGRID_PREFERENCE_FIELD_ID, SENDGRID_INCOME_FIELD_ID, SENDGRID_CONSENT_FIELD_ID, SENDGRID_BRAND_FIELD_ID, SENDGRID_COUNTRY_FIELD_ID
 - Updated CHANGELOG with migration and enrichment entries
@@ -13,4 +14,4 @@ Why:
 Improves lead data quality and enables segmentation (e.g., Brand/Country filters) directly in SendGrid while deprecating ConvertKit dependency.
 
 Docs:
-CHANGELOG.md updated (Unreleased > Added).
+CHANGELOG.md updated (Unreleased > Added) with dynamic field discovery note.
