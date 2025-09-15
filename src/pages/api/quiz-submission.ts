@@ -1,73 +1,106 @@
 import type { APIRoute } from "astro";
 
+function isEmail(s: string) {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(s);
+}
+
+export const prerender = false;
+
 export const POST: APIRoute = async ({ request }) => {
   try {
-    const data = await request.json();
-    const { preference, income, email, name, acceptedTerms } = data;
+    const data = await request.json().catch(() => ({}));
+    const { preference, income, email, name, acceptedTerms, brand, country } = data as {
+      preference?: string;
+      income?: string;
+      email?: string;
+      name?: string;
+      acceptedTerms?: boolean;
+      brand?: string;
+      country?: string;
+    };
 
     // Basic validation
-    if (!email || !name || !acceptedTerms) {
+    if (!email || !name || !acceptedTerms || !isEmail(email)) {
       return new Response(
-        JSON.stringify({ message: "Missing required fields" }),
+        JSON.stringify({ message: "Invalid or missing fields" }),
         { status: 400, headers: { "Content-Type": "application/json" } },
       );
     }
 
-    const apiKey = import.meta.env.KIT_API_KEY;
-    const apiUrl = import.meta.env.KIT_API_URL;
+    // Normalize/sanitize enrichment fields (fallback to defaults so segmentation stays consistent)
+    const safeBrand = typeof brand === "string" && brand.trim() !== "" ? brand.trim() : "BudgetBee";
+    const safeCountry = typeof country === "string" && country.trim() !== "" ? country.trim() : "United States";
 
-    if (!apiKey || !apiUrl) {
-      console.error("Missing ConvertKit API credentials");
+    const API_KEY = import.meta.env.SENDGRID_API_KEY;
+    const LIST_ID = import.meta.env.SENDGRID_LIST_ID;
+    if (!API_KEY || !LIST_ID) {
       return new Response(
-        JSON.stringify({ message: "Server configuration error" }),
+        JSON.stringify({ message: "Server misconfiguration" }),
         { status: 500, headers: { "Content-Type": "application/json" } },
       );
     }
 
-    const payload = {
-      first_name: name,
-      email_address: email,
-      state: "active",
-      fields: {
-        acepto_politicas_de_tratamiento_de_datos_y_terminos_y_condiciones:
-          acceptedTerms ? "1" : "0",
-        cual_es_tu_ingreso_mensual: income,
-        date_created: new Date().toISOString().slice(0, 19).replace("T", " "),
-        pais: "Estados Unidos",
-        marca: "Budgetbee",
-        que_es_lo_que_mas_importante_en_una_tarjeta_de_credito: preference,
-        quiz_tarjetas: "SI",
-        utm_adgroup: "utm_adgroup",
-        utm_campaign: "22188538750",
-        utm_content: "172989200783",
-        utm_medium: "cpc",
-        utm_source: "adwords",
-        utm_term: "utm_term",
-      },
+    // Split full name
+    const [first_name, ...rest] = name.trim().split(/\s+/);
+    const last_name = rest.join(" ") || undefined;
+
+    // Optional custom field IDs (create in SendGrid UI, then set in deployment env)
+    const PREF_FIELD_ID = import.meta.env.SENDGRID_PREFERENCE_FIELD_ID;
+    const INCOME_FIELD_ID = import.meta.env.SENDGRID_INCOME_FIELD_ID;
+    const CONSENT_FIELD_ID = import.meta.env.SENDGRID_CONSENT_FIELD_ID;
+    const BRAND_FIELD_ID = import.meta.env.SENDGRID_BRAND_FIELD_ID;
+    const COUNTRY_FIELD_ID = import.meta.env.SENDGRID_COUNTRY_FIELD_ID;
+
+    const customFields: Record<string, string> = {};
+    if (PREF_FIELD_ID && preference) customFields[PREF_FIELD_ID] = String(preference).slice(0, 255);
+    if (INCOME_FIELD_ID && income) customFields[INCOME_FIELD_ID] = String(income).slice(0, 255);
+    if (CONSENT_FIELD_ID) customFields[CONSENT_FIELD_ID] = acceptedTerms ? "1" : "0";
+    if (BRAND_FIELD_ID && safeBrand) customFields[BRAND_FIELD_ID] = safeBrand;
+    if (COUNTRY_FIELD_ID && safeCountry) customFields[COUNTRY_FIELD_ID] = safeCountry;
+
+    // Prepare payload for SendGrid upsert
+    const contact: Record<string, unknown> = {
+      email: email.trim().toLowerCase(),
+      first_name,
+      last_name,
     };
-
-    const response = await fetch(apiUrl, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "X-Kit-Api-Key": apiKey,
-      },
-      body: JSON.stringify(payload),
-    });
-
-    if (!response.ok) {
-      const errorBody = await response.json();
-      console.error("ConvertKit API Error:", errorBody);
-      throw new Error("Failed to subscribe user");
+    // Only attach custom_fields if at least one mapping exists to avoid API errors
+    if (Object.keys(customFields).length > 0) {
+      contact.custom_fields = customFields;
     }
 
-    return new Response(
-      JSON.stringify({ message: "Successfully subscribed!" }),
-      { status: 200, headers: { "Content-Type": "application/json" } },
+    const payload: Record<string, unknown> = {
+      list_ids: [LIST_ID],
+      contacts: [contact],
+    };
+
+    const sgRes = await fetch(
+      "https://api.sendgrid.com/v3/marketing/contacts",
+      {
+        method: "PUT",
+        headers: {
+          Authorization: `Bearer ${API_KEY}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
+      },
     );
-  } catch (error) {
-    console.error("Error processing quiz submission:", error);
-    return new Response(JSON.stringify({ message: "Failed to subscribe" }), {
+
+    if (sgRes.status !== 202) {
+      const details = await sgRes.json().catch(() => ({}));
+      return new Response(
+        JSON.stringify({ message: "Failed to add subscriber", details }),
+        { status: 502, headers: { "Content-Type": "application/json" } },
+      );
+    }
+
+    return new Response(JSON.stringify({ ok: true }), {
+      status: 200,
+      headers: { "Content-Type": "application/json" },
+    });
+  } catch (err) {
+    console.error("Quiz submission error", err);
+    return new Response(JSON.stringify({ message: "Unexpected error" }), {
       status: 500,
       headers: { "Content-Type": "application/json" },
     });

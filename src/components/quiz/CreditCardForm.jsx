@@ -21,6 +21,8 @@ export default function CreditCardForm() {
     email: "",
     name: "",
     receiveMessages: false,
+    brand: "BudgetBee", // hidden preset
+    country: "United States", // hidden preset
   });
   const [isRegisteredUser, setIsRegisteredUser] = useState(false);
 
@@ -133,6 +135,8 @@ export default function CreditCardForm() {
         email: formData.email,
         name: formData.name,
         acceptedTerms: formData.receiveMessages,
+        brand: formData.brand,
+        country: formData.country,
         timestamp: new Date().toISOString(),
         source: "BudgetBee Quiz",
       };
@@ -202,6 +206,8 @@ export default function CreditCardForm() {
             className="px-4 pt-10 pb-20"
           >
             <form onSubmit={(e) => step === totalSteps && handleSubmit(e)}>
+              <input type="hidden" name="brand" value={formData.brand} />
+              <input type="hidden" name="country" value={formData.country} />
               {step === 1 && (
                 <Step1 formData={formData} updateFormData={updateFormData} />
               )}

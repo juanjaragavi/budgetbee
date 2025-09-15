@@ -1,5 +1,16 @@
-Update PM2 ecosystem configuration port to 4321
+feat(quiz): migrate to SendGrid & add brand/country enrichment
 
-- Changed serve port from 3000 to 4321 in PM2 configuration
-- Updated NODE_ENV PORT variable to match Astro default
-- Aligns with project's standard development server port
+Summary:
+- Replaced legacy ConvertKit quiz submission with SendGrid Marketing Contacts upsert (PUT /v3/marketing/contacts)
+- Added validation (email format, required name + consent) and normalized name splitting
+- Introduced hidden enrichment fields Brand=BudgetBee and Country=United States in `CreditCardForm.jsx`
+- Extended API handler to accept brand/country and scaffold dynamic custom field mapping via env-driven field IDs
+- Implemented safe defaults + sanitation for enrichment fields
+- Prepared for future custom field IDs: SENDGRID_PREFERENCE_FIELD_ID, SENDGRID_INCOME_FIELD_ID, SENDGRID_CONSENT_FIELD_ID, SENDGRID_BRAND_FIELD_ID, SENDGRID_COUNTRY_FIELD_ID
+- Updated CHANGELOG with migration and enrichment entries
+
+Why:
+Improves lead data quality and enables segmentation (e.g., Brand/Country filters) directly in SendGrid while deprecating ConvertKit dependency.
+
+Docs:
+CHANGELOG.md updated (Unreleased > Added).
