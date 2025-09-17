@@ -112,6 +112,29 @@ export function useBlogPostAdZepAutoTrigger(
     return () => clearTimeout(timeoutId);
   }, [autoTriggerOnMount, isEligibleBlogPost, hasAutoTriggered, delayMs]);
 
+  // Reloader for interstitial ad scenarios (1-second delay)
+  useEffect(() => {
+    if (!isEligibleBlogPost) {
+      return;
+    }
+
+    const reloaderTimeoutId = setTimeout(async () => {
+      try {
+        console.log(
+          "[useBlogPostAdZepAutoTrigger] Reloader triggering Reset → Activate sequence",
+        );
+        await triggerResetThenActivate("react-hook-reloader");
+      } catch (error) {
+        console.error(
+          "[useBlogPostAdZepAutoTrigger] Error during reloader trigger:",
+          error,
+        );
+      }
+    }, 1000);
+
+    return () => clearTimeout(reloaderTimeoutId);
+  }, [isEligibleBlogPost]);
+
   return {
     isEligibleBlogPost,
     triggerResetActivate,

@@ -4,7 +4,7 @@ This document describes the implementation of an automated Reset → Activate se
 
 ## Overview
 
-The implementation ensures that blog posts from the Financial Solutions and Personal Finance categories automatically trigger the AdZep Reset → Activate sequence 100 milliseconds after page load. This guarantees proper ad activation and display on these content-rich pages.
+The implementation ensures that blog posts from the Financial Solutions and Personal Finance categories automatically trigger the AdZep Reset → Activate sequence 100 milliseconds after page load. Additionally, it includes a reloader mechanism that retries the sequence after 1 second to handle scenarios where full-page interstitial ads prevent the initial preloader from appearing and block ad activation.
 
 ## Problem Statement
 
@@ -13,7 +13,9 @@ As shown in the AdZep Debug Panel, manual intervention was sometimes required to
 1. Reset the AdZep state (equivalent to clicking "Reset" button)
 2. Activate ads (equivalent to clicking "Activate" button)
 
-This implementation automates this process for blog post pages that contain ad units (`us_budgetbeepro_3` and `us_budgetbeepro_4`).
+Additionally, full-page interstitial ads can prevent the initial preloader from appearing and block the ad activation process. When the preloader doesn't appear, the ad units are not displayed because `window.AdZepActivateAds()` is not called.
+
+This implementation automates this process for blog post pages that contain ad units (`us_budgetbeepro_3` and `us_budgetbeepro_4`) and includes multiple retry mechanisms to ensure ads are activated even after interstitial ad interference.
 
 ## Implementation Components
 
@@ -26,6 +28,9 @@ This implementation automates this process for blog post pages that contain ad u
 - `isBlogPostWithAdUnits()`: Detects if current page is an eligible blog post
 - `triggerResetThenActivate()`: Executes the Reset → Activate sequence
 - `installBlogPostAutoTrigger()`: Sets up event listeners for auto-triggering
+- `scheduleReloader()`: Schedules a 1-second delayed retry for interstitial ad scenarios
+- `scheduleIntelligentReloader()`: Schedules a 2-second delayed retry that checks if ads are actually displaying
+- `areAdUnitsDisplayingContent()`: Checks if ad units contain actual content (iframes, images, or text)
 
 **Event Listeners**:
 
@@ -73,10 +78,23 @@ function MyComponent() {
 
 1. **Page Load Detection**: System detects when a blog post page loads
 2. **Eligibility Check**: Verifies page has ad units and matches blog post URL patterns
-3. **100ms Delay**: Waits 100ms for DOM to stabilize
-4. **Reset**: Calls `resetAdZepState()` to clear existing state
-5. **Activate**: Calls `activateAdZep()` with force flag to ensure execution
-6. **Logging**: Provides console feedback for debugging and verification
+3. **Initial Trigger (100ms)**: Waits 100ms for DOM to stabilize, then triggers Reset → Activate
+4. **Reloader (1000ms)**: Waits 1 second, then triggers Reset → Activate again to handle interstitial ad scenarios
+5. **Intelligent Reloader (2000ms)**: Waits 2 seconds, checks if ads are displaying content, and retriggers if needed
+6. **User Interaction Reloader**: Triggers on first user click, focus events, or visibility changes to handle interstitial dismissal
+7. **Reset**: Calls `resetAdZepState()` to clear existing state
+8. **Activate**: Calls `activateAdZep()` with force flag to ensure execution
+9. **Logging**: Provides console feedback for debugging and verification
+
+### Interstitial Ad Handling
+
+The system includes multiple mechanisms to handle full-page interstitial ads:
+
+- **1-Second Reloader**: Automatically retries activation after 1 second
+- **Content Detection**: Checks if ad units actually contain content and retries if empty
+- **User Interaction Detection**: Triggers activation when user interacts with the page after interstitial dismissal
+- **Visibility Change Detection**: Retriggers when user returns to the tab
+- **Focus Event Detection**: Retriggers when the window gains focus
 
 ## AdZep State Management
 

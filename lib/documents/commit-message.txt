@@ -1,9 +1,13 @@
-feat(ads): implement automatic AdZep reset-activate for blog posts
+feat(ads): enhance AdZep auto-trigger with reloader for interstitial ads
 
 - Add automated Reset → Activate sequence for Financial Solutions and Personal Finance blog posts
-- Implement blogPostAdZepAutoTrigger.ts with event-driven auto-trigger system
-- Create useBlogPostAdZepAutoTrigger React hook for component integration
+- Implement comprehensive reloader system to handle full-page interstitial ad interference
+- Create multiple retry mechanisms: 100ms initial, 1000ms reloader, 2000ms intelligent reloader
+- Add user interaction detection for interstitial dismissal (click, focus, visibility change)
+- Implement content detection to verify ad units are actually displaying content
+- Create useBlogPostAdZepAutoTrigger React hook with reloader functionality
+- Add AdZepAutoTriggerSummary component for debugging and monitoring
 - Integrate auto-trigger into PostSingle.astro layout for eligible posts
-- Add comprehensive documentation in BLOG_POST_ADZEP_AUTO_TRIGGER.md
-- Support Astro view transitions and SPA navigation patterns
-- Include debugging tools and error handling for robust ad activation
+- Support Astro view transitions, SPA navigation, and history navigation
+- Include comprehensive documentation and error handling for robust ad activation
+- Ensure ads activate reliably even when interstitials block initial preloader
