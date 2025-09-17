@@ -15,7 +15,22 @@ export async function getStaticPaths() {
   return paths;
 }
 
-const { page } = Astro.props;
+// Resolve page from static props when available; otherwise, fallback to params
+const { regular } = Astro.params;
+let page: any = Astro.props?.page as any;
+
+if (!page && regular) {
+  const pages = await getSinglePage("pages");
+  page = (pages as any[]).find(
+    (p) => p.slug === regular || p.id === regular,
+  ) as any;
+}
+
+if (!page) {
+  // Gracefully handle unknown slugs
+  return Astro.redirect("/404");
+}
+
 const { title, meta_title, description, image } = page.data;
 ---
 
