@@ -72,67 +72,6 @@
   font-weight: 600;
 }
 
-/* Enhanced ad zone separator with clear distinction */
-.ad-zone-separator {
-  @apply border-t-4 border-gray-300 pt-8 mt-8 relative;
-  background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
-  padding-bottom: 1rem;
-  border-radius: 8px 8px 0 0;
-}
-
-.ad-zone-separator::before {
-  content: "Advertisement Area";
-  @apply absolute -top-6 left-1/2 transform -translate-x-1/2;
-  @apply bg-gray-500 text-white text-xs uppercase tracking-wider px-4 py-2 rounded-full;
-  font-weight: 700;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-}
-
-/* Clear background color shift for ad zones */
-.ad-zone-separator::after {
-  content: "";
-  @apply absolute inset-x-0 -bottom-8 h-8 bg-gray-100;
-  z-index: -1;
-}
-
-/* ===== ENHANCED CONTENT AND AD ZONE DEFINITIONS ===== */
-
-/* Content zones with clear visual distinction */
-.content-zone {
-  @apply relative bg-white rounded-lg p-6 mb-6;
-  border: 2px solid #e7b739;
-  box-shadow: 0 4px 12px rgba(231, 183, 57, 0.1);
-}
-
-.content-zone::before {
-  content: "Content";
-  @apply absolute -top-3 left-4 bg-white text-primary text-xs uppercase tracking-wider px-3 py-1;
-  font-weight: 700;
-  border: 2px solid #e7b739;
-  border-radius: 12px;
-}
-
-/* Ad zones with distinct appearance */
-.ad-zone {
-  @apply relative bg-gray-50 rounded-lg p-4 mb-6;
-  border: 2px dashed #94a3b8;
-  min-height: 300px;
-  background-image: repeating-linear-gradient(
-    45deg,
-    transparent,
-    transparent 10px,
-    rgba(148, 163, 184, 0.1) 10px,
-    rgba(148, 163, 184, 0.1) 20px
-  );
-}
-
-.ad-zone::before {
-  content: "Advertisement";
-  @apply absolute top-3 left-3 text-xs text-gray-600 uppercase tracking-wide bg-gray-200 px-3 py-2 rounded;
-  font-weight: 700;
-  border: 1px solid #94a3b8;
-}
-
 /* ===== ENHANCED MOBILE-SPECIFIC AD-AWARE DESIGN ===== */
 @media (max-width: 768px) {
   /* PRIORITY 1: Ensure CTAs are prominently positioned on mobile */
