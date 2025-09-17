@@ -158,4 +158,11 @@ const isPersonalFinance = categoriesNormalized.includes("personal-finance");
       </div>
     </div>
   </section>
+
+  {
+    /* Blog Post AdZep Auto-Trigger: Reset → Activate sequence for Financial Solutions and Personal Finance posts */
+    (isFinancialSolution || isPersonalFinance) && (
+      <script>import "../lib/blogPostAdZepAutoTrigger";</script>
+    )
+  }
 </Base>
