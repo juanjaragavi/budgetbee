@@ -1,6 +1,7 @@
 ---
 import Base from "@/layouts/Base.astro";
 import { Image } from "astro:assets";
+import MinimalFooter from "@/layouts/partials/MinimalFooter.astro";
 
 const cards = [
   {
@@ -347,7 +348,25 @@ const selectedCard = cards[Math.floor(Math.random() * cards.length)];
       </div>
     </div>
   </section>
+
+  <footer class="quiz-min-footer">
+    <MinimalFooter />
+  </footer>
 </Base>
+
+<style is:global>
+  /* Hide any existing global footers rendered by Base (Footer/CompactFooter) */
+  footer,
+  .site-footer,
+  .compact-footer {
+    display: none !important;
+  }
+
+  /* Re-show our minimal footer on this page */
+  footer.quiz-min-footer {
+    display: block !important;
+  }
+</style>
 
 <script>
   document.addEventListener("DOMContentLoaded", () => {
