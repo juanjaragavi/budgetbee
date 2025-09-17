@@ -1,3 +1,9 @@
-feat(ai): add copilot instructions
+feat(ads): implement automatic AdZep reset-activate for blog posts
 
-
+- Add automated Reset → Activate sequence for Financial Solutions and Personal Finance blog posts
+- Implement blogPostAdZepAutoTrigger.ts with event-driven auto-trigger system
+- Create useBlogPostAdZepAutoTrigger React hook for component integration
+- Integrate auto-trigger into PostSingle.astro layout for eligible posts
+- Add comprehensive documentation in BLOG_POST_ADZEP_AUTO_TRIGGER.md
+- Support Astro view transitions and SPA navigation patterns
+- Include debugging tools and error handling for robust ad activation
