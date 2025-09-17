@@ -1,0 +1,78 @@
+/*
+  Ad Debug Stylesheet
+  Contains visual debugging aids for ad zones, content zones, and separators.
+  This file should ONLY be loaded in development environments.
+*/
+
+/* ===== ENHANCED CONTENT AND AD ZONE DEFINITIONS ===== */
+
+/* Content zones with clear visual distinction */
+.content-zone {
+  @apply relative bg-white rounded-lg p-6 mb-6;
+  border: 2px solid #e7b739;
+  box-shadow: 0 4px 12px rgba(231, 183, 57, 0.1);
+}
+
+.content-zone::before {
+  content: "Content";
+  @apply absolute -top-3 left-4 bg-white text-primary text-xs uppercase tracking-wider px-3 py-1;
+  font-weight: 700;
+  border: 2px solid #e7b739;
+  border-radius: 12px;
+}
+
+/* Ad zones with distinct appearance */
+.ad-zone {
+  @apply relative bg-gray-50 border-2 border-dashed border-gray-400 rounded-lg p-4 my-6;
+  min-height: 120px;
+  transition: all 0.3s ease;
+}
+
+.ad-zone:hover {
+  border-color: #e7b739;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.ad-zone::before {
+  content: "Advertisement";
+  @apply absolute -top-3 left-4 bg-gray-200 text-gray-700 text-xs uppercase tracking-wider px-3 py-1 rounded-full;
+  font-weight: 700;
+  border: 1px solid #ccc;
+}
+
+/* Separator for mobile ad units */
+.mobile-ad-separator {
+  @apply w-full my-10 relative;
+  height: 24px !important;
+  /* Increased height for better visibility */
+  background: repeating-linear-gradient(
+    45deg,
+    #f1f5f9,
+    #f1f5f9 12px,
+    #e2e8f0 12px,
+    #e2e8f0 24px
+  );
+  border-top: 2px solid #94a3b8;
+  border-bottom: 2px solid #94a3b8;
+  border-radius: 4px;
+}
+
+.mobile-ad-separator::before {
+  content: "Advertisement Zone";
+  @apply absolute inset-0 flex items-center justify-center text-xs text-gray-700 uppercase tracking-wider;
+  font-weight: 700;
+  font-size: 11px;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 4px;
+}
+
+.mobile-ad-separator::after {
+  content: "";
+  @apply hidden; /* Keep it clean */
+}
+
+/* Center the 'Ads' title for the us_budgetbeepro_4 ad unit */
+#us_budgetbeepro_4::before {
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+}
