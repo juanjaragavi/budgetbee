@@ -1,0 +1,132 @@
+---
+// Dynamic Quiz Link component for Astro pages
+// This component generates quiz URLs with appropriate UTM parameters at server-side
+// and enhances them with client-side logic for dynamic UTM handling
+
+export interface Props {
+  class?: string;
+  id?: string;
+  style?: string;
+  "aria-label"?: string;
+  children?: any;
+}
+
+const { class: className, id, style, "aria-label": ariaLabel } = Astro.props;
+
+// Server-side: Generate base quiz URL (clean by default)
+const baseQuizUrl = "/quiz";
+---
+
+<a
+  href={baseQuizUrl}
+  class={className}
+  id={id}
+  style={style}
+  aria-label={ariaLabel}
+  data-quiz-link="true"
+>
+  <slot />
+</a>
+
+<script>
+  // Client-side enhancement for dynamic UTM handling
+  // @ts-nocheck - Client-side script with dynamic typing
+
+  const UTM_PARAM_KEYS = [
+    "utm_source",
+    "utm_medium",
+    "utm_campaign",
+    "utm_term",
+    "utm_content",
+  ];
+
+  function extractUtmFromCurrentUrl() {
+    if (typeof window === "undefined") return {};
+
+    const params = new URLSearchParams(window.location.search);
+    const utmParams = {};
+
+    UTM_PARAM_KEYS.forEach((key) => {
+      const value = params.get(key);
+      if (value) {
+        utmParams[key] = value;
+      }
+    });
+
+    return utmParams;
+  }
+
+  function getStoredUtmParams() {
+    if (typeof window === "undefined") return {};
+
+    const storedParams = {};
+
+    UTM_PARAM_KEYS.forEach((key) => {
+      const value = sessionStorage.getItem(key);
+      if (value !== null) {
+        storedParams[key] = value;
+      }
+    });
+
+    return storedParams;
+  }
+
+  function getRelevantUtmParams() {
+    if (typeof window === "undefined") return {};
+
+    // First priority: UTM parameters in current URL
+    const currentUtms = extractUtmFromCurrentUrl();
+    if (Object.keys(currentUtms).length > 0) {
+      return currentUtms;
+    }
+
+    // Second priority: Stored UTM parameters from previous campaign visit
+    const storedUtms = getStoredUtmParams();
+    return storedUtms;
+  }
+
+  function buildQuizUrl(baseQuizUrl = "/quiz") {
+    if (typeof window === "undefined") return baseQuizUrl;
+
+    const relevantUtms = getRelevantUtmParams();
+
+    // If no UTM parameters are available, return clean URL
+    if (Object.keys(relevantUtms).length === 0) {
+      return baseQuizUrl;
+    }
+
+    const url = new URL(baseQuizUrl, window.location.origin);
+
+    Object.entries(relevantUtms).forEach(([key, value]) => {
+      if (value && typeof value === "string" && UTM_PARAM_KEYS.includes(key)) {
+        url.searchParams.set(key, value);
+      }
+    });
+
+    return url.toString();
+  }
+
+  function enhanceQuizLinks() {
+    const quizLinks = document.querySelectorAll('a[data-quiz-link="true"]');
+
+    quizLinks.forEach((link) => {
+      if (link instanceof HTMLAnchorElement) {
+        link.addEventListener("click", (e) => {
+          e.preventDefault();
+
+          // Generate dynamic quiz URL with appropriate UTM parameters
+          const dynamicQuizUrl = buildQuizUrl();
+
+          // Navigate to the dynamically generated URL
+          window.location.href = dynamicQuizUrl;
+        });
+      }
+    });
+  }
+
+  // Enhance links on initial page load
+  document.addEventListener("DOMContentLoaded", enhanceQuizLinks);
+
+  // Enhance links on Astro page transitions
+  document.addEventListener("astro:page-load", enhanceQuizLinks);
+</script>
