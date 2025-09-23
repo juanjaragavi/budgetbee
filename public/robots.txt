@@ -17,6 +17,10 @@ Disallow: /.well-known/
 Disallow: /YOUR_NETWORK_CODE/
 Disallow: /23062212598/
 
+# Block deprecated or test domains from indexing (if somehow accessed)
+Disallow: /mejoresfinanzas/
+Disallow: /financial-blog-template/
+
 # Block known bad bots and scrapers
 User-agent: AhrefsBot
 Disallow: /

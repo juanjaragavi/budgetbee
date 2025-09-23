@@ -167,6 +167,15 @@ const isBlogPost =
 
     <!-- canonical url -->
     {canonical && <link rel="canonical" href={canonical} item-prop="url" />}
+    {
+      !canonical && (
+        <link
+          rel="canonical"
+          href={`${config.site.base_url}${Astro.url.pathname}`}
+          item-prop="url"
+        />
+      )
+    }
 
     <!-- noindex robots -->
     {noindex && <meta name="robots" content="noindex,nofollow" />}
@@ -342,6 +351,20 @@ const isBlogPost =
     </script>
     <!-- End Google Tag Manager -->
 
+    <!-- Google Ads Conversion Tracking -->
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=AW-17359006951"></script>
+    <script is:inline>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+      gtag("config", "AW-17359006951");
+    </script>
+    <!-- End Google Ads Conversion Tracking -->
+
     {/* Google Publisher Tag Scripts */}
     {
       /* TODO: Confirm if 'anonymous' is the correct value for crossorigin with GPT. Usually it is. */
@@ -376,8 +399,8 @@ const isBlogPost =
 
         googletag.cmd.push(function() {
           try {
-            // TODO: BUDGETBEE - Update these with your actual Network Code and Ad Unit Paths
-            // Replace 'YOUR_NETWORK_CODE' with your actual Google Ad Manager Network Code
+            // TODO: BUDGETBEE - Network Code updated to actual GAM Network Code
+            // Using pub-8769587409817527 from ads.txt as the publisher ID
 
             // Primary mobile ad slots
             if (!window.budgetbeeSlots) {
@@ -386,28 +409,28 @@ const isBlogPost =
 
             // Define slots only if not already defined
             if (!window.budgetbeeSlots.mob_1) {
-              window.budgetbeeSlots.mob_1 = googletag.defineSlot('/YOUR_NETWORK_CODE/budgetbee_mob_1',
+              window.budgetbeeSlots.mob_1 = googletag.defineSlot('/21879825561/budgetbee_mob_1',
                 [[300, 250], [250, 250], [336, 280]],
                 'div-gpt-ad-budgetbee-mob-1'
               ).addService(googletag.pubads());
             }
 
             if (!window.budgetbeeSlots.mob_2) {
-              window.budgetbeeSlots.mob_2 = googletag.defineSlot('/YOUR_NETWORK_CODE/budgetbee_mob_2',
+              window.budgetbeeSlots.mob_2 = googletag.defineSlot('/21879825561/budgetbee_mob_2',
                 [[300, 250], [250, 250], [336, 280]],
                 'div-gpt-ad-budgetbee-mob-2'
               ).addService(googletag.pubads());
             }
 
             if (!window.budgetbeeSlots.interstitial) {
-              window.budgetbeeSlots.interstitial = googletag.defineSlot('/YOUR_NETWORK_CODE/budgetbee_interstitial',
+              window.budgetbeeSlots.interstitial = googletag.defineSlot('/21879825561/budgetbee_interstitial',
                 ['fluid'],
                 'div-gpt-ad-budgetbee-interstitial'
               ).addService(googletag.pubads());
             }
 
             if (!window.budgetbeeSlots.offerwall) {
-              window.budgetbeeSlots.offerwall = googletag.defineSlot('/YOUR_NETWORK_CODE/budgetbee_offerwall',
+              window.budgetbeeSlots.offerwall = googletag.defineSlot('/21879825561/budgetbee_offerwall',
                 ['fluid'],
                 'div-gpt-ad-budgetbee-offerwall'
               ).addService(googletag.pubads());
