@@ -86,7 +86,7 @@ class BudgetBeeAdManager {
           // Define BudgetBee ad slots with enhanced duplication checks
           this.defineAdSlot(
             "mob_1",
-            "/YOUR_NETWORK_CODE/budgetbee_mob_1",
+            "/21879825561/budgetbee_mob_1",
             [
               [300, 250],
               [250, 250],
@@ -97,7 +97,7 @@ class BudgetBeeAdManager {
 
           this.defineAdSlot(
             "mob_2",
-            "/YOUR_NETWORK_CODE/budgetbee_mob_2",
+            "/21879825561/budgetbee_mob_2",
             [
               [300, 250],
               [250, 250],
@@ -108,14 +108,14 @@ class BudgetBeeAdManager {
 
           this.defineAdSlot(
             "interstitial",
-            "/YOUR_NETWORK_CODE/budgetbee_interstitial",
+            "/21879825561/budgetbee_interstitial",
             ["fluid"],
             "div-gpt-ad-budgetbee-interstitial",
           );
 
           this.defineAdSlot(
             "offerwall",
-            "/YOUR_NETWORK_CODE/budgetbee_offerwall",
+            "/21879825561/budgetbee_offerwall",
             ["fluid"],
             "div-gpt-ad-budgetbee-offerwall",
           );
