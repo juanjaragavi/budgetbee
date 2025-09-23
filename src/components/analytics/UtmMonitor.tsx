@@ -5,14 +5,11 @@
   /* Intentionally using .tsx extension for React component */
 }
 import { useEffect } from "react";
-
-const UTM_PARAM_KEYS = [
-  "utm_source",
-  "utm_medium",
-  "utm_campaign",
-  "utm_term",
-  "utm_content",
-];
+import {
+  extractUtmFromCurrentUrl,
+  getStoredUtmParams,
+  UTM_PARAM_KEYS,
+} from "@/lib/utils/utmUtils";
 
 export default function UtmMonitor() {
   useEffect(() => {
@@ -25,27 +22,26 @@ export default function UtmMonitor() {
       console.log("\n===== UTM MONITOR =====");
       console.log(`Page: ${window.location.pathname}${window.location.search}`);
 
-      const urlParams = new URLSearchParams(window.location.search);
+      const currentUtms = extractUtmFromCurrentUrl();
       console.log("UTM Parameters in URL:");
-      let foundInUrl = false;
-      UTM_PARAM_KEYS.forEach((param) => {
-        if (urlParams.has(param)) {
-          console.log(`- ${param}: ${urlParams.get(param)}`);
-          foundInUrl = true;
-        }
-      });
-      if (!foundInUrl) console.log("- None found in URL");
+      if (Object.keys(currentUtms).length > 0) {
+        Object.entries(currentUtms).forEach(([key, value]) => {
+          console.log(`- ${key}: ${value}`);
+        });
+      } else {
+        console.log("- None found in URL");
+      }
 
+      const storedUtms = getStoredUtmParams();
       console.log("UTM Parameters in sessionStorage:");
-      let foundInStorage = false;
-      UTM_PARAM_KEYS.forEach((param) => {
-        const value = sessionStorage.getItem(param);
-        if (value !== null) {
-          console.log(`- ${param}: ${value}`);
-          foundInStorage = true;
-        }
-      });
-      if (!foundInStorage) console.log("- None found in sessionStorage");
+      if (Object.keys(storedUtms).length > 0) {
+        Object.entries(storedUtms).forEach(([key, value]) => {
+          console.log(`- ${key}: ${value}`);
+        });
+      } else {
+        console.log("- None found in sessionStorage");
+      }
+
       console.log("=======================\n");
     };
 
