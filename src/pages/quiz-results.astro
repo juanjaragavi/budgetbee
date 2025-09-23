@@ -1,6 +1,7 @@
 ---
 import Base from "@/layouts/Base.astro";
 import { getCollection } from "astro:content";
+import QuizLink from "@/components/ui/QuizLink.astro";
 
 // Get blog posts about credit cards
 const allPosts = await getCollection("blog");
@@ -120,7 +121,7 @@ const meta = {
               <a href="/blog" class="btn btn-primary me-4"
                 >Explore More Articles</a
               >
-              <a href="/quiz" class="btn btn-outline-primary">Retake Quiz</a>
+              <QuizLink class="btn btn-outline-primary">Retake Quiz</QuizLink>
             </div>
           </div>
 

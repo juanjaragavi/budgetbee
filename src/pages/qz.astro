@@ -1,11 +1,38 @@
 ---
-// Redirect /qz to /quiz
-export async function GET() {
+// Redirect /qz to /quiz with proper UTM parameter handling
+import type { APIRoute } from "astro";
+
+export const GET: APIRoute = async ({ url }) => {
+  // Extract UTM parameters from the request URL
+  const searchParams = url.searchParams;
+  const utmParams: string[] = [];
+
+  // Collect any UTM parameters from the original request
+  const utmKeys = [
+    "utm_source",
+    "utm_medium",
+    "utm_campaign",
+    "utm_term",
+    "utm_content",
+  ];
+  utmKeys.forEach((key) => {
+    const value = searchParams.get(key);
+    if (value) {
+      utmParams.push(`${key}=${encodeURIComponent(value)}`);
+    }
+  });
+
+  // Build the redirect URL
+  let redirectUrl = "/quiz";
+  if (utmParams.length > 0) {
+    redirectUrl += `?${utmParams.join("&")}`;
+  }
+
   return new Response(null, {
     status: 301,
     headers: {
-      Location: "/quiz",
+      Location: redirectUrl,
     },
   });
-}
+};
 ---
