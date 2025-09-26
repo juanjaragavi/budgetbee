@@ -125,8 +125,20 @@ export default function CreditCardForm() {
     };
 
     try {
-      // Here you would send data to your API endpoint
-      // For now, we'll just log it
+      // Collect UTM parameters and other tracking data
+      const urlParams = new URLSearchParams(window.location.search);
+      const trackingData = {
+        utm_source: urlParams.get("utm_source"),
+        utm_medium: urlParams.get("utm_medium"),
+        utm_campaign: urlParams.get("utm_campaign"),
+        utm_content: urlParams.get("utm_content"),
+        utm_term: urlParams.get("utm_term"),
+        referrer: document.referrer,
+        userAgent: navigator.userAgent,
+        pageUrl: window.location.href,
+      };
+
+      // Enhanced quiz data with tracking information for Google Sheets
       const quizData = {
         preference: formData.preferenceText || formData.preference,
         income: formData.incomeText || formData.income,
@@ -135,6 +147,7 @@ export default function CreditCardForm() {
         acceptedTerms: formData.receiveMessages,
         timestamp: new Date().toISOString(),
         source: "BudgetBee Quiz",
+        ...trackingData, // Include all UTM and tracking data
       };
 
       console.log("Quiz data to be sent:", quizData);
