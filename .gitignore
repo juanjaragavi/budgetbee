@@ -32,4 +32,9 @@ lib/documents/document.md
 .vercel
 sendgrid.env
 
+# Google Cloud service account credentials
+src/lib/absolute-brook-452020-d5-*.json
+src/lib/documents/absolute-brook-452020-d5-*.json
+**/absolute-brook-452020-d5-*.json
+
 .vscode/
