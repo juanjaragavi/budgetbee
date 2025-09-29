@@ -11,7 +11,7 @@ feat: Add SEO-optimized blog article on mindful spending and impulse buying cont
 
 ### Content Focus
 - **Main Keyword**: "personal finance" (naturally integrated throughout)
-- **Pillar**: Money Management  
+- **Pillar**: Money Management
 - **SEO Intent**: Informational
 - **Word Count**: ~1,000 words (appropriate for TOFU content)
 - **Market**: United States English
@@ -60,7 +60,7 @@ feat: Add SEO-optimized blog article on mindful spending and impulse buying cont
 
 ### Future Publication Flow
 - **Homepage integration**: Will appear in Latest News section
-- **Category listing**: Automatically included in Personal Finance section  
+- **Category listing**: Automatically included in Personal Finance section
 - **Pagination support**: Compatible with existing pagination system
 - **Search optimization**: Ready for internal site search indexing
 
