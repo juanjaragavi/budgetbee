@@ -14,6 +14,8 @@ import { resetAdZepState, activateAdZep } from "./adZepUtils";
 declare global {
   interface Window {
     __blogPostAdZepAutoTriggerInstalled?: boolean;
+    __blogPostAdZepDirectTimer?: number;
+    AdZepActivateAds?: () => void;
   }
 }
 
@@ -80,12 +82,44 @@ async function triggerResetThenActivate(reason: string): Promise<void> {
   }
 }
 
+const MAX_DIRECT_ACTIVATION_ATTEMPTS = 5;
+
+function invokeWindowAdZepActivateAds(reason: string, attempt = 1): void {
+  if (typeof window === "undefined") return;
+
+  try {
+    if (typeof window.AdZepActivateAds === "function") {
+      window.AdZepActivateAds();
+      console.log(
+        `[BlogPostAdZep] window.AdZepActivateAds() executed (${reason}, attempt ${attempt})`,
+      );
+    } else if (attempt < MAX_DIRECT_ACTIVATION_ATTEMPTS) {
+      window.__blogPostAdZepDirectTimer = window.setTimeout(() => {
+        invokeWindowAdZepActivateAds(reason, attempt + 1);
+      }, 100);
+    } else {
+      console.warn(
+        `[BlogPostAdZep] window.AdZepActivateAds() unavailable after ${attempt} attempts (${reason})`,
+      );
+    }
+  } catch (error) {
+    console.error(
+      `[BlogPostAdZep] Error executing window.AdZepActivateAds() (${reason}, attempt ${attempt}):`,
+      error,
+    );
+  }
+}
+
 /**
  * Schedule the auto-trigger sequence with a 100ms delay after page load
  */
 function scheduleAutoTrigger(reason: string): void {
   setTimeout(() => {
     if (isBlogPostWithAdUnits()) {
+      if (typeof window !== "undefined" && window.__blogPostAdZepDirectTimer) {
+        clearTimeout(window.__blogPostAdZepDirectTimer);
+      }
+      invokeWindowAdZepActivateAds(reason);
       triggerResetThenActivate(reason);
     }
   }, 100);
