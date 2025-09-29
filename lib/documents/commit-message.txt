@@ -1,7 +1,6 @@
-feat: implement Google Sheets upsert and refresh UTM assets
+fix: delay blog AdZep trigger by 100ms
 
-- refactor Sheets service, quiz API, and test harness to upsert rows per email
-- document the UTM refactor, validation results, and align automated test suites
-- add latest quiz registrations export and remove legacy ConvertKit prompt doc
-- regenerate pnpm-lock after dependency sync to capture current workspace state
+- call window.AdZepActivateAds() via blog auto trigger with 100ms load delay
+- add retry guard and cleanup for repeated page transitions
+
 
