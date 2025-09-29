@@ -202,7 +202,7 @@ export class UtmValidator {
       googleads: true, // Should be valid
       google: true, // Should be valid
       facebook: true, // Should be valid
-      convertkit: true, // Should be valid
+      sendgrid: true, // Should be valid
       invalid_source: false, // Should be invalid
       spam123: false, // Should be invalid
     };
@@ -212,7 +212,7 @@ export class UtmValidator {
     Object.entries(testSources).forEach(([source, expectedValid]) => {
       // Mock validation logic based on the allowedSources from utmUtils
       const allowedSources = [
-        "convertkit",
+        "sendgrid",
         "email",
         "adwords",
         "google",

@@ -31,9 +31,20 @@ interface QuizSubmission {
   submissionId: string;
 }
 
+export type UpsertAction = "inserted" | "updated";
+
+export interface UpsertResult {
+  success: boolean;
+  action?: UpsertAction;
+  rowNumber?: number;
+}
+
 export class GoogleSheetsService {
   private sheets;
   private auth;
+  private readonly fallbackSheetId =
+    "1VPUVv5eSeGxlcuKj3VoVSqwwHjFBjWxZLlbKQtVEhbQ";
+  private readonly fallbackSheetName = "registros";
 
   constructor() {
     try {
@@ -63,15 +74,63 @@ export class GoogleSheetsService {
     }
   }
 
+  private getSheetConfig() {
+    const sheetId = import.meta.env.GOOGLE_SHEET_ID || this.fallbackSheetId;
+    const sheetName =
+      import.meta.env.GOOGLE_SHEET_NAME || this.fallbackSheetName;
+
+    if (!sheetId) {
+      throw new Error("Google Sheets: GOOGLE_SHEET_ID not configured");
+    }
+
+    return { sheetId, sheetName };
+  }
+
+  private normalizeEmail(email: string) {
+    return email.toLowerCase().trim();
+  }
+
+  private buildRowData(submission: QuizSubmission) {
+    return [
+      submission.name,
+      submission.email,
+      submission.first_name,
+      submission.last_name || "",
+      submission.preference || "",
+      submission.income || "",
+      submission.acceptedTerms || false,
+      submission.country,
+      submission.external_id,
+      submission.brand,
+      submission.utm_source || "",
+      submission.utm_medium || "",
+      submission.utm_campaign || "",
+      submission.utm_content || "",
+      submission.utm_term || "",
+      submission.referrer || "",
+      submission.userAgent || "",
+      submission.pageUrl || "",
+      submission.timestamp,
+      submission.submissionId,
+    ];
+  }
+
+  private extractRowNumberFromRange(range?: string | null) {
+    if (!range) return undefined;
+
+    const match = range.match(/![A-Z]+(\d+)/i);
+    if (!match) return undefined;
+
+    const parsed = Number(match[1]);
+    return Number.isNaN(parsed) ? undefined : parsed;
+  }
+
   /**
    * Find the row number for a given email address
    */
   async findEmailRowNumber(email: string): Promise<number | null> {
     try {
-      const sheetId =
-        import.meta.env.GOOGLE_SHEET_ID ||
-        "1VPUVv5eSeGxlcuKj3VoVSqwwHjFBjWxZLlbKQtVEhbQ";
-      const sheetName = import.meta.env.GOOGLE_SHEET_NAME || "registros";
+      const { sheetId, sheetName } = this.getSheetConfig();
 
       // Read all email addresses (column B)
       const response = await this.sheets.spreadsheets.values.get({
@@ -80,14 +139,14 @@ export class GoogleSheetsService {
       });
 
       if (response.data.values) {
-        const normalizedEmail = email.toLowerCase().trim();
+        const normalizedEmail = this.normalizeEmail(email);
 
         // Find the row (accounting for 1-based indexing and header row)
         for (let i = 1; i < response.data.values.length; i++) {
-          const cellEmail = response.data.values[i][0]
-            ?.toString()
-            .toLowerCase()
-            .trim();
+          const cellValue = response.data.values[i]?.[0];
+          if (!cellValue) continue;
+
+          const cellEmail = this.normalizeEmail(cellValue.toString());
           if (cellEmail === normalizedEmail) {
             return i + 1; // Return 1-based row number
           }
@@ -104,16 +163,20 @@ export class GoogleSheetsService {
   /**
    * Update an existing submission in the Google Sheet
    */
-  async updateExistingSubmission(submission: QuizSubmission): Promise<boolean> {
+  async updateExistingSubmission(
+    submission: QuizSubmission,
+    rowNumber?: number,
+  ): Promise<boolean> {
     try {
-      const sheetId =
-        import.meta.env.GOOGLE_SHEET_ID ||
-        "1VPUVv5eSeGxlcuKj3VoVSqwwHjFBjWxZLlbKQtVEhbQ";
-      const sheetName = import.meta.env.GOOGLE_SHEET_NAME || "registros";
+      const { sheetId, sheetName } = this.getSheetConfig();
+      const normalizedSubmission: QuizSubmission = {
+        ...submission,
+        email: this.normalizeEmail(submission.email),
+      };
+      const resolvedRowNumber =
+        rowNumber ?? (await this.findEmailRowNumber(submission.email));
 
-      const rowNumber = await this.findEmailRowNumber(submission.email);
-
-      if (!rowNumber) {
+      if (!resolvedRowNumber) {
         console.log(
           "Google Sheets: Email not found for update, proceeding with new entry",
         );
@@ -121,37 +184,16 @@ export class GoogleSheetsService {
       }
 
       console.log(
-        `Google Sheets: Updating existing entry at row ${rowNumber} for email: ${submission.email}`,
+        `Google Sheets: Updating existing entry at row ${resolvedRowNumber} for email: ${normalizedSubmission.email}`,
       );
 
       // Prepare updated row data
-      const rowData = [
-        submission.name, // A: Name
-        submission.email, // B: Email
-        submission.first_name, // C: First Name
-        submission.last_name || "", // D: Last Name
-        submission.preference || "", // E: Preference
-        submission.income || "", // F: Income
-        submission.acceptedTerms || false, // G: Accepted Terms
-        submission.country, // H: Country
-        submission.external_id, // I: External ID
-        submission.brand, // J: Brand
-        submission.utm_source || "", // K: UTM Source
-        submission.utm_medium || "", // L: UTM Medium
-        submission.utm_campaign || "", // M: UTM Campaign
-        submission.utm_content || "", // N: UTM Content
-        submission.utm_term || "", // O: UTM Term
-        submission.referrer || "", // P: Referrer
-        submission.userAgent || "", // Q: User Agent
-        submission.pageUrl || "", // R: Page URL
-        submission.timestamp, // S: Timestamp (update with new timestamp)
-        submission.submissionId, // T: Submission ID (new ID for this update)
-      ];
+      const rowData = this.buildRowData(normalizedSubmission);
 
       // Update the specific row
       const result = await this.sheets.spreadsheets.values.update({
         spreadsheetId: sheetId,
-        range: `${sheetName}!A${rowNumber}:T${rowNumber}`,
+        range: `${sheetName}!A${resolvedRowNumber}:T${resolvedRowNumber}`,
         valueInputOption: "RAW",
         requestBody: {
           values: [rowData],
@@ -159,7 +201,7 @@ export class GoogleSheetsService {
       });
 
       console.log(
-        `Google Sheets: Successfully updated row ${rowNumber} for ${submission.email}`,
+        `Google Sheets: Successfully updated row ${resolvedRowNumber} for ${submission.email}`,
       );
       console.log(`Google Sheets: Updated range: ${result.data.updatedRange}`);
 
@@ -178,34 +220,13 @@ export class GoogleSheetsService {
    */
   async checkEmailExists(email: string): Promise<boolean> {
     try {
-      const sheetId =
-        import.meta.env.GOOGLE_SHEET_ID ||
-        "1VPUVv5eSeGxlcuKj3VoVSqwwHjFBjWxZLlbKQtVEhbQ";
-      const sheetName = import.meta.env.GOOGLE_SHEET_NAME || "registros";
+      const rowNumber = await this.findEmailRowNumber(email);
 
-      // Read all email addresses (column B)
-      const response = await this.sheets.spreadsheets.values.get({
-        spreadsheetId: sheetId,
-        range: `${sheetName}!B:B`,
-      });
-
-      if (response.data.values) {
-        // Convert email to lowercase for comparison (skip header row)
-        const existingEmails = response.data.values
-          .slice(1) // Skip header row
-          .map((row) => row[0]?.toString().toLowerCase().trim())
-          .filter((email) => email); // Remove empty values
-
-        const normalizedEmail = email.toLowerCase().trim();
-        const exists = existingEmails.includes(normalizedEmail);
-
-        if (exists) {
-          console.log(
-            `Google Sheets: Email ${email} already exists, skipping duplicate`,
-          );
-        }
-
-        return exists;
+      if (rowNumber) {
+        console.log(
+          `Google Sheets: Email ${email} already exists at row ${rowNumber}`,
+        );
+        return true;
       }
 
       return false;
@@ -219,65 +240,36 @@ export class GoogleSheetsService {
     }
   }
 
-  /**
-   * Append a new submission to the Google Sheet (with duplicate prevention)
-   */
-  async appendSubmission(submission: QuizSubmission): Promise<boolean> {
+  async upsertSubmission(submission: QuizSubmission): Promise<UpsertResult> {
     try {
-      // Use environment variables with fallback for testing
-      const sheetId =
-        import.meta.env.GOOGLE_SHEET_ID ||
-        "1VPUVv5eSeGxlcuKj3VoVSqwwHjFBjWxZLlbKQtVEhbQ";
-      const sheetName = import.meta.env.GOOGLE_SHEET_NAME || "registros";
+      const { sheetId, sheetName } = this.getSheetConfig();
+      const normalizedEmail = this.normalizeEmail(submission.email);
+      const normalizedSubmission: QuizSubmission = {
+        ...submission,
+        email: normalizedEmail,
+      };
 
-      console.log("Google Sheets: Using sheet ID:", sheetId);
-      console.log("Google Sheets: Using sheet name:", sheetName);
+      const existingRowNumber = await this.findEmailRowNumber(normalizedEmail);
 
-      if (!sheetId) {
-        console.error("Google Sheets: GOOGLE_SHEET_ID not configured");
-        return false;
-      }
-
-      // Check for duplicate email before adding
-      console.log(
-        `Google Sheets: Checking for duplicate email: ${submission.email}`,
-      );
-      const emailExists = await this.checkEmailExists(submission.email);
-
-      if (emailExists) {
-        console.log(
-          `Google Sheets: Skipping duplicate entry for email: ${submission.email}`,
+      if (existingRowNumber) {
+        const updated = await this.updateExistingSubmission(
+          normalizedSubmission,
+          existingRowNumber,
         );
-        // Optionally update existing entry instead of creating duplicate
-        return await this.updateExistingSubmission(submission);
+
+        if (!updated) {
+          return { success: false };
+        }
+
+        return {
+          success: true,
+          action: "updated",
+          rowNumber: existingRowNumber,
+        };
       }
 
-      // Prepare row data matching the enhanced schema (A-T columns)
-      const rowData = [
-        submission.name, // A: Name
-        submission.email, // B: Email
-        submission.first_name, // C: First Name
-        submission.last_name || "", // D: Last Name
-        submission.preference || "", // E: Preference
-        submission.income || "", // F: Income
-        submission.acceptedTerms || false, // G: Accepted Terms
-        submission.country, // H: Country
-        submission.external_id, // I: External ID
-        submission.brand, // J: Brand
-        submission.utm_source || "", // K: UTM Source
-        submission.utm_medium || "", // L: UTM Medium
-        submission.utm_campaign || "", // M: UTM Campaign
-        submission.utm_content || "", // N: UTM Content
-        submission.utm_term || "", // O: UTM Term
-        submission.referrer || "", // P: Referrer
-        submission.userAgent || "", // Q: User Agent
-        submission.pageUrl || "", // R: Page URL
-        submission.timestamp, // S: Timestamp
-        submission.submissionId, // T: Submission ID
-      ];
-
-      // Append the row to the sheet
-      const result = await this.sheets.spreadsheets.values.append({
+      const rowData = this.buildRowData(normalizedSubmission);
+      const appendResult = await this.sheets.spreadsheets.values.append({
         spreadsheetId: sheetId,
         range: `${sheetName}!A:T`,
         valueInputOption: "RAW",
@@ -287,27 +279,40 @@ export class GoogleSheetsService {
         },
       });
 
-      console.log(
-        `Google Sheets: Successfully appended submission ${submission.submissionId}`,
-      );
-      console.log(
-        `Google Sheets: Updated range: ${result.data.updates?.updatedRange}`,
+      const appendedRowNumber = this.extractRowNumberFromRange(
+        appendResult.data.updates?.updatedRange,
       );
 
-      return true;
+      console.log(
+        `Google Sheets: Inserted new entry for ${normalizedEmail} at row ${appendedRowNumber ?? "unknown"}`,
+      );
+
+      return {
+        success: true,
+        action: "inserted",
+        rowNumber: appendedRowNumber,
+      };
     } catch (error) {
-      console.error("Google Sheets API Error:", error);
+      console.error("Google Sheets: Upsert error:", error);
+      return { success: false };
+    }
+  }
 
-      // Log specific error details for debugging
-      if (error instanceof Error) {
-        console.error("Error message:", error.message);
-        if ("code" in error) {
-          console.error("Error code:", error.code);
-        }
-      }
+  /**
+   * Append a new submission to the Google Sheet (with duplicate prevention)
+   */
+  async appendSubmission(submission: QuizSubmission): Promise<boolean> {
+    const result = await this.upsertSubmission(submission);
 
+    if (!result.success) {
       return false;
     }
+
+    console.log(
+      `Google Sheets: Upsert completed with action ${result.action ?? "unknown"}`,
+    );
+
+    return true;
   }
 
   /**
@@ -315,16 +320,7 @@ export class GoogleSheetsService {
    */
   async initializeSheet(): Promise<boolean> {
     try {
-      // Use environment variables with fallback for testing
-      const sheetId =
-        import.meta.env.GOOGLE_SHEET_ID ||
-        "1VPUVv5eSeGxlcuKj3VoVSqwwHjFBjWxZLlbKQtVEhbQ";
-      const sheetName = import.meta.env.GOOGLE_SHEET_NAME || "registros";
-
-      if (!sheetId) {
-        console.error("Google Sheets: GOOGLE_SHEET_ID not configured");
-        return false;
-      }
+      const { sheetId, sheetName } = this.getSheetConfig();
 
       // Check if headers already exist
       const response = await this.sheets.spreadsheets.values.get({
@@ -390,16 +386,7 @@ export class GoogleSheetsService {
    */
   async testConnection(): Promise<boolean> {
     try {
-      // Use environment variables with fallback for testing
-      const sheetId =
-        import.meta.env.GOOGLE_SHEET_ID ||
-        "1VPUVv5eSeGxlcuKj3VoVSqwwHjFBjWxZLlbKQtVEhbQ";
-      const sheetName = import.meta.env.GOOGLE_SHEET_NAME || "registros";
-
-      if (!sheetId) {
-        console.error("Google Sheets: GOOGLE_SHEET_ID not configured");
-        return false;
-      }
+      const { sheetId, sheetName } = this.getSheetConfig();
 
       // Try to read a small range to test access
       await this.sheets.spreadsheets.values.get({

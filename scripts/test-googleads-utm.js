@@ -63,7 +63,7 @@ function validateUtmSource(utmParams) {
   if (!utmParams.utm_source) return true;
 
   const allowedSources = [
-    "convertkit",
+    "sendgrid",
     "email",
     "adwords",
     "google",

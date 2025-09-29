@@ -2,8 +2,6 @@
 
 interface ImportMetaEnv {
   readonly BYPASS_QUIZ_COOKIE_VALIDATION: string;
-  readonly KIT_API_KEY: string;
-  readonly KIT_API_URL: string;
   readonly SENDGRID_API_KEY: string;
   readonly SENDER_EMAIL?: string;
   readonly RECIPIENT_EMAIL?: string;
