@@ -97,11 +97,14 @@ export const POST: APIRoute = async ({ request }) => {
 
     // Initialize Google Sheets integration
     let googleSheetsSuccess = false;
+    let googleSheetsAction: string | undefined;
     try {
       console.log("Google Sheets: Starting integration...");
       await googleSheetsService.initializeSheet();
-      googleSheetsSuccess =
-        await googleSheetsService.appendSubmission(submissionData);
+      const upsertResult =
+        await googleSheetsService.upsertSubmission(submissionData);
+      googleSheetsSuccess = upsertResult.success;
+      googleSheetsAction = upsertResult.action;
       console.log(
         `Google Sheets: Integration ${googleSheetsSuccess ? "successful" : "failed"}`,
       );
@@ -173,6 +176,7 @@ export const POST: APIRoute = async ({ request }) => {
           submissionId,
           integrations: {
             googleSheets: googleSheetsSuccess,
+            googleSheetsAction,
             sendGrid: sendGridSuccess,
           },
         }),
