@@ -12,7 +12,7 @@ window.location.href = "/quiz";
 console.log("Test 2: Email campaign visit");
 console.log("Expected: UTM parameters preserved and propagated");
 window.location.href =
-  "/quiz?utm_source=convertkit&utm_medium=email&utm_campaign=us_tc_bc_44&utm_term=broadcast&utm_content=boton_1";
+  "/quiz?utm_source=sendgrid&utm_medium=email&utm_campaign=us_tc_bc_44&utm_term=broadcast&utm_content=boton_1";
 
 // Test 3: Visit from different campaign (should preserve different UTM parameters)
 console.log("Test 3: Different campaign visit");

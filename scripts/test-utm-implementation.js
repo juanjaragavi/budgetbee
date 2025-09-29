@@ -30,7 +30,7 @@ global.window = {
 
 // Mock implementation for testing
 const VALID_UTM_SOURCES = [
-  "convertkit",
+  "sendgrid",
   "mailchimp",
   "google",
   "facebook",
@@ -108,9 +108,9 @@ const testScenarios = [
   },
   {
     name: "Valid Email Campaign",
-    url: "https://budgetbeepro.com/?utm_source=convertkit&utm_medium=email&utm_campaign=us_tc_bc_44",
+    url: "https://budgetbeepro.com/?utm_source=sendgrid&utm_medium=email&utm_campaign=us_tc_bc_44",
     expected:
-      "https://budgetbeepro.com/quiz?utm_source=convertkit&utm_medium=email&utm_campaign=us_tc_bc_44",
+      "https://budgetbeepro.com/quiz?utm_source=sendgrid&utm_medium=email&utm_campaign=us_tc_bc_44",
     description: "Should preserve valid UTM parameters",
   },
   {

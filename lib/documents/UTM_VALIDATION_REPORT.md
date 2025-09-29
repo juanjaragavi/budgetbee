@@ -87,7 +87,7 @@ The `googleads` UTM source is properly validated against the allowed sources lis
 
 **Allowed Sources:**
 
-- convertkit, email, adwords, google, **googleads**
+- sendgrid, email, adwords, google, **googleads**
 - facebook, instagram, twitter, linkedin
 - newsletter, organic, direct, referral
 
