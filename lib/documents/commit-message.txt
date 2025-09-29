@@ -1,67 +1,7 @@
+feat: implement Google Sheets upsert and refresh UTM assets
 
-feat: Add SEO-optimized blog article on mindful spending and impulse buying control
+- refactor Sheets service, quiz API, and test harness to upsert rows per email
+- document the UTM refactor, validation results, and align automated test suites
+- add latest quiz registrations export and remove legacy ConvertKit prompt doc
+- regenerate pnpm-lock after dependency sync to capture current workspace state
 
-## 📝 New Blog Article
-
-**Article Title**: "Ditching the Impulse Buys: A Practical Guide to Mindful Spending"
-**Location**: `src/content/personal-finance/ditching-the-impulse-buys-a-practical-guide-to-mindful-spending.mdx`
-**Target Audience**: TOFU (Top of Funnel) - Millennials and Gen Z learning personal finance
-
-## 🎯 SEO & Content Strategy
-
-### Content Focus
-- **Main Keyword**: "personal finance" (naturally integrated throughout)
-- **Pillar**: Money Management  
-- **SEO Intent**: Informational
-- **Word Count**: ~1,000 words (appropriate for TOFU content)
-- **Market**: United States English
-
-### Article Structure
-- **Psychology-based approach** to understanding impulse buying triggers
-- **Practical framework** for mindful spending decisions (24-hour rule, values alignment)
-- **Actionable strategies** for environment design and habit formation
-- **Long-term habit building** techniques and alternative reward systems
-
-## 🔗 Strategic Internal Linking
-
-**High-value internal links integrated**:
-- `/personal-finance/what-is-personal-finance-and-why-does-it-matter`
-- `/personal-finance/what-is-an-emergency-fund-and-why-you-need-one`
-- `/personal-finance/budgeting-methods-compared-which-approach-fits-your-spending-style`
-- `/personal-finance/setting-financial-goals-a-beginners-guide-to-planning-your-future`
-- `/financial-solutions/citi-double-cash-credit-card-benefits`
-
-## 📊 Content Quality Features
-
-### Educational Value
-- **Evidence-based psychological insights** on emotional triggers and decision fatigue
-- **Practical tools**: 24-hour rule, financial priority hierarchy, shopping list strategy
-- **Behavioral change focus** rather than restrictive budgeting approach
-- **Real-world applications** for different spending scenarios
-
-### SEO Optimization
-- **Natural keyword integration** without stuffing
-- **Semantic keyword coverage**: budgeting, financial discipline, spending habits
-- **User intent alignment** for informational searches
-- **Proper heading hierarchy** (H2/H3 structure)
-
-### Content Marketing Integration
-- **Credit card recommendations** aligned with responsible spending message
-- **Cross-selling opportunities** through strategic internal links
-- **Brand positioning** as educational finance resource
-
-## 🚀 Technical Implementation
-
-### Blog Integration
-- **Proper frontmatter** with SEO metadata and categorization
-- **Astro content collection** integration for automatic listing inclusion
-- **Responsive design** following existing BudgetBee article structure
-- **Development server validated** - article successfully loaded and processed
-
-### Future Publication Flow
-- **Homepage integration**: Will appear in Latest News section
-- **Category listing**: Automatically included in Personal Finance section  
-- **Pagination support**: Compatible with existing pagination system
-- **Search optimization**: Ready for internal site search indexing
-
-This article strengthens BudgetBee's content pillar around Money Management while providing practical value to users struggling with impulse spending - a common financial challenge for the target demographic.

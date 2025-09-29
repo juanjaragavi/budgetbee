@@ -6,7 +6,7 @@ This document outlines the comprehensive refactor of UTM parameter handling in t
 
 ## Problem Statement
 
-The original implementation was appending static UTM parameters (`?utm_source=convertkit&utm_medium=email&utm_campaign=us_tc_bc_44&utm_term=broadcast&utm_content=boton_1`) to Quiz URLs regardless of the actual campaign source, undermining tracking data integrity.
+The original implementation was appending static UTM parameters (`?utm_source=sendgrid&utm_medium=email&utm_campaign=us_tc_bc_44&utm_term=broadcast&utm_content=boton_1`) to Quiz URLs regardless of the actual campaign source, undermining tracking data integrity.
 
 ## Solution Architecture
 
@@ -27,7 +27,7 @@ The original implementation was appending static UTM parameters (`?utm_source=co
 
 ```typescript
 const VALID_UTM_SOURCES = [
-  "convertkit",
+  "sendgrid",
   "mailchimp",
   "google",
   "facebook",
@@ -140,8 +140,8 @@ function buildQuizUrl(): string {
 
 ### Scenario 2: Email Campaign Visit
 
-- **URL**: `https://budgetbeepro.com/?utm_source=convertkit&utm_medium=email&utm_campaign=us_tc_bc_44`
-- **Expected**: Quiz link = `https://budgetbeepro.com/quiz?utm_source=convertkit&utm_medium=email&utm_campaign=us_tc_bc_44`
+- **URL**: `https://budgetbeepro.com/?utm_source=sendgrid&utm_medium=email&utm_campaign=us_tc_bc_44`
+- **Expected**: Quiz link = `https://budgetbeepro.com/quiz?utm_source=sendgrid&utm_medium=email&utm_campaign=us_tc_bc_44`
 - **Validation**: UTM parameters preserved from campaign
 
 ### Scenario 3: Invalid UTM Source

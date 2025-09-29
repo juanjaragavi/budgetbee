@@ -199,7 +199,7 @@ export function validateUtmSource(utmParams: UtmParams): boolean {
 
   // List of allowed UTM sources for BudgetBee
   const allowedSources = [
-    "convertkit",
+    "sendgrid",
     "email",
     "adwords",
     "google",

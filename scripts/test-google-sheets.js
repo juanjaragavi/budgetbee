@@ -52,6 +52,11 @@ async function testGoogleSheetsIntegration() {
         console.log(
           `   📊 Google Sheets: ${result.integrations.googleSheets ? "✅ Success" : "❌ Failed"}`,
         );
+        if (result.integrations.googleSheetsAction) {
+          console.log(
+            `      ↳ Action: ${result.integrations.googleSheetsAction}`,
+          );
+        }
         console.log(
           `   📧 SendGrid: ${result.integrations.sendGrid ? "✅ Success" : "❌ Failed"}`,
         );
