@@ -97,7 +97,7 @@ console.log("-".repeat(50));
 
 // Check if UTM source is in allowed list
 const allowedSources = [
-  "convertkit",
+  "sendgrid",
   "email",
   "adwords",
   "google",
