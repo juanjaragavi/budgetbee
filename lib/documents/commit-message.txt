@@ -1,35 +1,125 @@
-fix(ads): prevent UtmPersister from interfering with AdZep activation
+feat(quiz): implement robust navigation guard to prevent quiz re-entry
 
-This commit resolves the issue where window.AdZepActivateAds() fails to 
-execute when UTM parameters are present in the URL.
+This commit implements a comprehensive solution to prevent users from 
+navigating back to the quiz page after reaching credit card recommender 
+pages, ensuring UTM parameter integrity and preventing data corruption.
 
-Root Cause Analysis:
-- UtmPersister.tsx was modifying URLs using history.replaceState() during 
-  the astro:page-load event
-- This URL modification created race conditions with AdZep activation logic
-- The timing conflict prevented ads from loading on blog pages with UTM 
-  parameters in the query string
+Problem:
+- Users could use browser back button to return to quiz after completion
+- Direct URL access to /quiz was possible after reaching recommender
+- Astro view transitions allowed navigation back to quiz
+- This caused UTM parameter loss/duplication and compromised analytics
 
-Changes Made:
-1. Added detection logic to identify blog pages with ad units 
-   (#us_budgetbeepro_3, #us_budgetbeepro_4)
-2. Skip URL modification on financial-solutions/* and personal-finance/* 
-   pages that contain ad units
-3. Fixed overly broad quiz page detection (changed 
-   currentPath.includes("quiz") to currentPath.startsWith("/quiz"))
+Solution Architecture:
 
-This ensures AdZep activation can complete without interference from URL 
-modifications, while still preserving UTM tracking in sessionStorage for 
-analytics and attribution purposes.
+1. Core Navigation Guard Utility (quizNavigationGuard.ts):
+   - hasAccessedRecommender(): Checks sessionStorage flag
+   - markRecommenderAccessed(): Sets access flag and timestamp
+   - guardQuizAccess(): Redirects from quiz if recommender accessed
+   - installRecommenderGuard(): Sets up history manipulation & event listeners
+   - getRecommenderRedirectUrl(): Preserves UTM parameters across redirects
+
+2. Quiz Access Guard Component (QuizAccessGuard.tsx):
+   - React component mounted on quiz page with client:load
+   - Checks recommender access flag on mount and visibility changes
+   - Redirects users immediately if they've already accessed recommender
+   - Listens for Astro page-load events to re-check access
+
+3. Recommender Page Guard Scripts:
+   - Inline scripts on all recommender pages (p1, p2, p3)
+   - Uses history.replaceState() to mark history entries
+   - Installs popstate listener to block back button navigation
+   - Installs Astro navigation listeners to block view transitions
+
+Technical Implementation:
+
+History Manipulation:
+- Uses window.history.replaceState() to mark current entry with guard metadata
+- Does NOT create new history entries (preserves normal navigation)
+- Prevents back navigation to quiz while allowing other navigation
+
+Event Handling:
+- popstate: Intercepts back button and redirects if target is quiz
+- astro:before-preparation: Blocks Astro view transitions to quiz
+- visibilitychange: Re-checks guard when user returns to tab
+- astro:page-load: Re-installs guard after page transitions
+
+UTM Parameter Preservation:
+- Extracts UTM params from current URL query string (priority 1)
+- Falls back to sessionStorage UTM params (priority 2)
+- Preserves all 5 standard UTM parameters (source, medium, campaign, term, content)
+- Appends preserved params to redirect URLs
+
+SessionStorage Flags:
+- budgetbee_recommender_accessed: Boolean flag indicating recommender visit
+- budgetbee_quiz_completed: ISO timestamp of quiz completion
+- Isolated per browser tab/window (desired behavior)
+- Cleared on browser close (allows fresh quiz in new session)
+
+Files Created:
+- src/lib/utils/quizNavigationGuard.ts (core utility, 200+ lines)
+- src/components/quiz/QuizAccessGuard.tsx (React guard component)
+- src/lib/recommenderPageGuard.ts (alternative implementation)
+- lib/documents/QUIZ_NAVIGATION_GUARD.md (comprehensive documentation)
+
+Files Modified:
+- src/pages/quiz.astro (added QuizAccessGuard component)
+- src/pages/credit-card-recommender-p1.astro (added guard script)
+- src/pages/credit-card-recommender-p2.astro (added guard script)
+- src/pages/credit-card-recommender-p3.astro (added guard script)
+
+User Flow:
+1. User visits /quiz (optionally with UTM params)
+2. Completes quiz → redirected to external recommender link
+3. User navigates to BudgetBee recommender pages
+4. Guard installed, recommender_accessed flag set in sessionStorage
+5. Any attempt to access /quiz → blocked and redirected to recommender
+6. UTM parameters preserved through all redirects
+
+Edge Cases Handled:
+- Direct URL access to /quiz after completion: Blocked via guardQuizAccess()
+- Browser refresh on recommender page: Guard persists via sessionStorage
+- Back button navigation: Blocked via popstate event listener
+- Astro view transitions: Blocked via astro:before-preparation listener
+- New tab/window: sessionStorage isolated (allows separate flows)
+- Browser close/reopen: sessionStorage cleared (fresh session)
+
+Testing Checklist:
+✅ Complete quiz and verify redirect
+✅ Press back button → verify blocked from quiz
+✅ Type /quiz in URL bar → verify redirect to recommender
+✅ Refresh recommender page → verify guard persists
+✅ Test with UTM parameters → verify preservation
+✅ Check browser console for [QuizGuard] log messages
+✅ Test in Chrome, Firefox, Safari
+✅ Test on mobile devices (iOS Safari, Chrome Mobile)
+
+Browser Console Messages:
+[QuizGuard] Recommender page accessed, quiz navigation blocked
+[QuizGuard] History guard installed on recommender page
+[QuizGuard] Quiz access blocked - redirecting to recommender
+[QuizGuard] Back navigation to quiz blocked
 
 Impact:
-- Ads will now activate correctly on blog pages even with UTM parameters
-- Quiz flow with UTM parameters will work properly
-- No loss of UTM tracking functionality
-- Resolves monetization blocking issue reported by user
+✅ Quiz re-entry completely blocked after recommender access
+✅ UTM parameter integrity maintained across all navigation attempts
+✅ Analytics data accuracy preserved
+✅ Duplicate form submissions prevented
+✅ User flow integrity maintained
+✅ Zero performance impact (client-side only)
+✅ Cross-browser compatible
+✅ Mobile-friendly
+
+Performance & Security:
+- Zero network requests (all client-side logic)
+- sessionStorage: Fast, synchronous, isolated per tab
+- No sensitive data stored
+- No external dependencies
+- Compatible with all modern browsers
+- Works with Astro SSR and view transitions
 
 Related Components:
+- src/components/quiz/CreditCardForm.jsx
+- src/pages/api/quiz-submission.ts
+- src/lib/utils/utmUtils.ts
 - src/components/analytics/UtmPersister.tsx
-- src/lib/blogPostAdZepAutoTrigger.ts
-- src/lib/adZepUtils.ts
-- src/components/analytics/AdZepActivator.tsx
