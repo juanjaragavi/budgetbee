@@ -27,7 +27,7 @@ This caused:
 
 Provides centralized navigation guard logic:
 
-#### Key Functions:
+#### Key Functions
 
 - `hasAccessedRecommender()`: Checks sessionStorage flag
 - `markRecommenderAccessed()`: Sets recommender access flag and timestamp
@@ -38,7 +38,7 @@ Provides centralized navigation guard logic:
 - `installRecommenderGuard()`: Sets up history manipulation and event listeners
 - `clearGuardState()`: Clears guard state (for testing/logout)
 
-#### Storage Keys:
+#### Storage Keys
 
 - `budgetbee_recommender_accessed`: Boolean flag in sessionStorage
 - `budgetbee_quiz_completed`: ISO timestamp of quiz completion
@@ -132,7 +132,7 @@ This ensures UTM parameters persist across:
 
 Example:
 
-```
+```markdown
 User visits: /quiz?utm_source=google&utm_campaign=spring2025
 ↓
 Completes quiz → redirected to external link
@@ -144,7 +144,7 @@ Blocked and redirected to: /credit-card-recommender-p1?utm_source=google&utm_cam
 
 ## User Flow
 
-### Normal Flow (First Time Visitor):
+### Normal Flow (First Time Visitor)
 
 1. User accesses `/quiz` (optionally with UTM params)
 2. Completes quiz steps 1-3
@@ -153,7 +153,7 @@ Blocked and redirected to: /credit-card-recommender-p1?utm_source=google&utm_cam
 5. User may navigate to BudgetBee recommender pages
 6. Guard installed, quiz access blocked
 
-### Blocked Flow (Returning Visitor):
+### Blocked Flow (Returning Visitor)
 
 1. User has recommender access flag in sessionStorage
 2. Attempts to access `/quiz` directly or via back button
@@ -161,7 +161,7 @@ Blocked and redirected to: /credit-card-recommender-p1?utm_source=google&utm_cam
 4. User redirected to `/credit-card-recommender-p1` with UTM params
 5. Quiz page never displays
 
-### Edge Cases Handled:
+### Edge Cases Handled
 
 - **Direct URL access**: Guard checks on page load
 - **Browser refresh**: sessionStorage persists, guard remains active
@@ -173,7 +173,7 @@ Blocked and redirected to: /credit-card-recommender-p1?utm_source=google&utm_cam
 
 ## Testing Checklist
 
-### ✅ Primary Tests:
+### ✅ Primary Tests
 
 - [ ] Complete quiz → verify redirect to external link
 - [ ] Navigate to recommender p1/p2/p3 → verify guard installed
@@ -182,14 +182,14 @@ Blocked and redirected to: /credit-card-recommender-p1?utm_source=google&utm_cam
 - [ ] Refresh recommender page → verify guard persists
 - [ ] Check browser console for guard log messages
 
-### ✅ UTM Parameter Tests:
+### ✅ UTM Parameter Tests
 
 - [ ] Start quiz with UTM params → verify preserved through flow
 - [ ] Complete quiz → verify UTM params in sessionStorage
 - [ ] Attempt quiz access → verify UTM params in redirect URL
 - [ ] Test with multiple UTM params (source, medium, campaign, term, content)
 
-### ✅ Edge Case Tests:
+### ✅ Edge Case Tests
 
 - [ ] Open quiz in new tab after completing → verify guard works
 - [ ] Close browser and reopen → verify guard cleared (new session)
@@ -201,7 +201,7 @@ Blocked and redirected to: /credit-card-recommender-p1?utm_source=google&utm_cam
 
 When functioning correctly, you should see:
 
-```
+```markdown
 [QuizGuard] Recommender page accessed, quiz navigation blocked
 [QuizGuard] History guard installed on recommender page
 [QuizGuard] Quiz access blocked - redirecting to recommender
@@ -210,7 +210,7 @@ When functioning correctly, you should see:
 
 ## Maintenance Notes
 
-### Adding New Recommender Pages:
+### Adding New Recommender Pages
 
 1. Add the guard script block to the page:
 
@@ -224,7 +224,7 @@ When functioning correctly, you should see:
 </script>
 ```
 
-### Clearing Guard State (for testing):
+### Clearing Guard State (for testing)
 
 ```javascript
 // In browser console:
@@ -240,11 +240,11 @@ import { clearGuardState } from "@/lib/utils/quizNavigationGuard";
 clearGuardState();
 ```
 
-### Modifying Quiz Detection:
+### Modifying Quiz Detection
 
 Update the `isQuizPage()` function in `quizNavigationGuard.ts` to match new quiz route patterns.
 
-### Modifying Recommender Detection:
+### Modifying Recommender Detection
 
 Update the `isRecommenderPage()` function to match new recommender route patterns.
 
@@ -275,13 +275,13 @@ Update the `isRecommenderPage()` function to match new recommender route pattern
 
 ## Files Modified
 
-### New Files:
+### New Files
 
 - `src/lib/utils/quizNavigationGuard.ts`
 - `src/components/quiz/QuizAccessGuard.tsx`
 - `src/lib/recommenderPageGuard.ts` (alternative implementation, not currently used)
 
-### Modified Files:
+### Modified Files
 
 - `src/pages/quiz.astro`
 - `src/pages/credit-card-recommender-p1.astro`
