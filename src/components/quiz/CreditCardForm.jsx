@@ -184,8 +184,45 @@ export default function CreditCardForm() {
         );
       }
 
-      // Redirect to credit card recommender page
-      window.location.href = "https://linkly.link/2ERrA";
+      // Mark quiz as completed in sessionStorage (for navigation guard)
+      sessionStorage.setItem(
+        "budgetbee_quiz_completed",
+        new Date().toISOString(),
+      );
+
+      // Preserve UTM parameters in redirect URL
+      const currentParams = new URLSearchParams(window.location.search);
+      const utmParams = new URLSearchParams();
+
+      // Extract and preserve all UTM parameters
+      const utmKeys = [
+        "utm_source",
+        "utm_medium",
+        "utm_campaign",
+        "utm_term",
+        "utm_content",
+      ];
+      utmKeys.forEach((key) => {
+        const value = currentParams.get(key) || sessionStorage.getItem(key);
+        if (value) {
+          utmParams.set(key, value);
+          // Also save to sessionStorage for persistence
+          sessionStorage.setItem(key, value);
+        }
+      });
+
+      // Build redirect URL to internal recommender page
+      const redirectUrl = `/credit-card-recommender-p1${utmParams.toString() ? `?${utmParams.toString()}` : ""}`;
+
+      console.log(
+        "[Quiz] Redirecting to internal recommender page:",
+        redirectUrl,
+      );
+
+      // Redirect to internal credit card recommender page
+      // Using window.location.href (not replace) to maintain quiz in history
+      // The recommender page guard will prevent back navigation
+      window.location.href = redirectUrl;
     }
   };
 
