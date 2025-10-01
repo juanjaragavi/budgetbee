@@ -1,27 +1,18 @@
-style(quiz): apply code formatting to navigation guard implementation
+docs(quiz): improve markdown formatting in navigation guard documentation
 
-Applied Prettier formatting to quiz navigation guard files for consistency.
-This commit includes whitespace cleanup and code style improvements across
-the navigation guard implementation without any functional changes.
-
-Files formatted:
-- lib/documents/QUIZ_NAVIGATION_GUARD.md (markdown formatting)
-- lib/documents/commit-message.txt (whitespace cleanup)
-- src/components/quiz/QuizAccessGuard.tsx (prettier formatting)
-- src/lib/recommenderPageGuard.ts (prettier formatting)
-- src/lib/utils/quizNavigationGuard.ts (prettier formatting)
-- src/pages/credit-card-recommender-p1.astro (prettier formatting)
-- src/pages/credit-card-recommender-p2.astro (prettier formatting)
-- src/pages/credit-card-recommender-p3.astro (prettier formatting)
-- src/pages/quiz.astro (prettier formatting)
+Minor documentation improvements to QUIZ_NAVIGATION_GUARD.md for better
+readability and markdown standards compliance.
 
 Changes:
-- Fixed markdown list spacing and blank lines around headings
-- Standardized trailing commas in TypeScript/JavaScript
-- Normalized whitespace and indentation
-- Applied consistent code block formatting
+- Removed trailing colons from markdown headings (e.g., "Key Functions:" → "Key Functions")
+- Changed code block language from generic to "markdown" for example flows
+- Improved consistency across heading styles throughout document
 
-No functional changes - code behavior remains identical.
+Files changed:
+- lib/documents/QUIZ_NAVIGATION_GUARD.md
+
+This commit only affects documentation formatting with no code changes.
+
 
 - Appends preserved params to redirect URLs
 
