@@ -4,6 +4,8 @@
 
 This implementation prevents users from navigating back to the quiz page once they have reached any Credit Card Recommender landing page. The solution ensures UTM parameter preservation and blocks return navigation via browser history, direct links, and all other navigation methods.
 
+**Latest Update**: Enhanced with internal redirect flow, additional safeguards, and comprehensive testing utilities.
+
 ## Problem Statement
 
 The previous workflow allowed users to:
@@ -11,6 +13,7 @@ The previous workflow allowed users to:
 - Use the browser back button to return to the quiz after reaching recommender pages
 - Access the quiz directly via URL after completing it
 - Navigate back through Astro view transitions
+- **Original Issue**: Quiz redirected to external link, preventing automatic guard activation
 
 This caused:
 
@@ -38,6 +41,12 @@ Provides centralized navigation guard logic:
 - `installRecommenderGuard()`: Sets up history manipulation and event listeners
 - `clearGuardState()`: Clears guard state (for testing/logout)
 
+#### Enhanced Features (Latest Update)
+
+- **beforeunload Protection**: Maintains guard state on page unload
+- **Hash Change Handling**: Blocks hash-based navigation to quiz
+- **Enhanced State Persistence**: Additional safeguards for sessionStorage
+
 #### Storage Keys
 
 - `budgetbee_recommender_accessed`: Boolean flag in sessionStorage
@@ -56,7 +65,28 @@ React component that:
 
 **Usage**: Added to `src/pages/quiz.astro` with `client:load` directive
 
-### 3. Recommender Page Guard Scripts
+### 3. Quiz Form Enhancement (NEW)
+
+**File**: `src/components/quiz/CreditCardForm.jsx`
+
+**Critical Update**: Quiz now redirects to **internal recommender page** instead of external link:
+
+```javascript
+// Build redirect URL to internal recommender page
+const redirectUrl = `/credit-card-recommender-p1${utmParams.toString() ? `?${utmParams.toString()}` : ""}`;
+
+// Redirect to internal credit card recommender page
+window.location.href = redirectUrl;
+```
+
+**Benefits**:
+
+- Immediate guard activation upon quiz completion
+- Seamless UTM parameter flow
+- No loss of tracking data
+- Prevents external redirect interruption
+
+### 4. Recommender Page Guard Scripts
 
 **Files**:
 
@@ -70,6 +100,7 @@ Each page includes inline script that:
 - Installs history manipulation using `history.replaceState()`
 - Sets up `popstate` event listener for back button
 - Sets up Astro navigation event listeners
+- **NEW**: beforeunload and hashchange listeners
 - Prevents navigation back to quiz via any method
 
 ## Implementation Details
@@ -144,14 +175,16 @@ Blocked and redirected to: /credit-card-recommender-p1?utm_source=google&utm_cam
 
 ## User Flow
 
-### Normal Flow (First Time Visitor)
+### Normal Flow (First Time Visitor) - UPDATED
 
 1. User accesses `/quiz` (optionally with UTM params)
-2. Completes quiz steps 1-3
-3. Form submitted to `/api/quiz-submission`
-4. Redirected to external recommender link
-5. User may navigate to BudgetBee recommender pages
-6. Guard installed, quiz access blocked
+2. UTM parameters stored in sessionStorage
+3. User completes quiz steps 1-3
+4. Form submitted to `/api/quiz-submission`
+5. **NEW**: Quiz completion marked in sessionStorage
+6. **NEW**: User redirected to `/credit-card-recommender-p1` with UTM params
+7. Guard automatically installed on recommender page
+8. Quiz access now blocked for this session
 
 ### Blocked Flow (Returning Visitor)
 
@@ -168,6 +201,8 @@ Blocked and redirected to: /credit-card-recommender-p1?utm_source=google&utm_cam
 - **Back button**: popstate event prevents navigation
 - **Forward button**: Normal navigation allowed
 - **Astro view transitions**: Custom event listeners block navigation
+- **Hash-based routing**: hashchange event prevents navigation
+- **Page unload**: beforeunload maintains guard state
 - **New tab/window**: sessionStorage isolated per tab (desired behavior)
 - **Session expiration**: sessionStorage clears on browser close (allows new quiz)
 
@@ -175,17 +210,19 @@ Blocked and redirected to: /credit-card-recommender-p1?utm_source=google&utm_cam
 
 ### ✅ Primary Tests
 
-- [ ] Complete quiz → verify redirect to external link
+- [ ] Complete quiz → verify redirect to **internal recommender p1** (not external link)
 - [ ] Navigate to recommender p1/p2/p3 → verify guard installed
 - [ ] Press back button → verify blocked from quiz
 - [ ] Type `/quiz` in URL bar → verify redirect to recommender
 - [ ] Refresh recommender page → verify guard persists
 - [ ] Check browser console for guard log messages
+- [ ] Verify UTM parameters preserved throughout flow
 
 ### ✅ UTM Parameter Tests
 
 - [ ] Start quiz with UTM params → verify preserved through flow
 - [ ] Complete quiz → verify UTM params in sessionStorage
+- [ ] Complete quiz → verify UTM params in redirect URL to recommender
 - [ ] Attempt quiz access → verify UTM params in redirect URL
 - [ ] Test with multiple UTM params (source, medium, campaign, term, content)
 
@@ -196,6 +233,57 @@ Blocked and redirected to: /credit-card-recommender-p1?utm_source=google&utm_cam
 - [ ] Test with Astro view transitions enabled
 - [ ] Test back button multiple times rapidly
 - [ ] Test with browser developer tools (Network tab, Console)
+- [ ] Test hash-based navigation attempts
+- [ ] Test with beforeunload events
+
+### 🔧 Automated Testing (NEW)
+
+**File**: `scripts/test-quiz-navigation-guard.js`
+
+A comprehensive testing script with 10 automated tests:
+
+1. **Utility Functions Exist** - Verifies core functions are accessible
+2. **SessionStorage Accessibility** - Tests read/write operations
+3. **Current Page Detection** - Identifies quiz vs recommender pages
+4. **Guard State Management** - Tests state persistence
+5. **UTM Parameter Preservation** - Validates UTM param storage
+6. **URL Parameter Parsing** - Tests query string handling
+7. **History API Availability** - Checks browser API support
+8. **Event Listener Attachment** - Verifies event system
+9. **Current Guard State** - Displays active guard status
+10. **Guard Activation Simulation** - Tests guard enable/disable
+
+#### Usage in Browser Console
+
+```javascript
+// Copy and paste the script into browser console, then:
+
+// Run all automated tests
+testQuizGuard.runAllTests();
+
+// Show test results summary
+testQuizGuard.showSummary();
+
+// Manual testing utilities
+testQuizGuard.manualActivateGuard(); // Manually activate guard
+testQuizGuard.manualDeactivateGuard(); // Manually deactivate guard
+testQuizGuard.manualAddUtmParams(); // Add test UTM parameters
+
+// Get help
+testQuizGuard.help();
+```
+
+#### Expected Output
+
+```plaintext
+========================================
+QUIZ NAVIGATION GUARD TEST SUMMARY
+========================================
+Total Tests: 10
+Passed: 10 (100.0%)
+Failed: 0
+========================================
+```
 
 ## Browser Console Messages
 
@@ -287,6 +375,112 @@ Update the `isRecommenderPage()` function to match new recommender route pattern
 - `src/pages/credit-card-recommender-p1.astro`
 - `src/pages/credit-card-recommender-p2.astro`
 - `src/pages/credit-card-recommender-p3.astro`
+- **NEW**: `src/components/quiz/CreditCardForm.jsx` (redirect logic updated)
+
+### New Files Added
+
+- `scripts/test-quiz-navigation-guard.js` (testing utilities)
+
+## Latest Enhancements Summary
+
+### Date: October 1, 2025
+
+#### 1. Internal Redirect Flow
+
+**Problem**: Quiz redirected to external link (`https://linkly.link/2ERrA`), preventing automatic guard activation.
+
+**Solution**: Updated `CreditCardForm.jsx` to redirect to internal recommender page `/credit-card-recommender-p1` with UTM preservation.
+
+**Impact**:
+
+- Guard activates immediately after quiz completion
+- No loss of tracking data during redirect
+- Seamless user experience within BudgetBee domain
+- Complete UTM parameter preservation
+
+#### 2. Enhanced Navigation Protection
+
+**Added to `quizNavigationGuard.ts`**:
+
+- `maintainGuardState()` - Preserves guard state on page unload
+- `handleHashChange()` - Blocks hash-based navigation attempts
+- Additional event listeners for comprehensive coverage
+
+**Event Listeners**:
+
+- `popstate` - Back/forward button
+- `astro:before-preparation` - Astro view transitions
+- `beforeunload` - Page unload protection
+- `hashchange` - Hash navigation protection
+
+#### 3. Comprehensive Testing Suite
+
+**Created**: `scripts/test-quiz-navigation-guard.js`
+
+**Features**:
+
+- 10 automated test cases
+- Manual testing utilities
+- Real-time result tracking
+- Browser console integration
+- State manipulation tools
+
+**Test Coverage**:
+
+- SessionStorage operations
+- Page detection logic
+- UTM parameter preservation
+- History API functionality
+- Event listener system
+- Guard activation/deactivation
+
+#### 4. Enhanced Documentation
+
+**Updated**: `lib/documents/QUIZ_NAVIGATION_GUARD.md`
+
+**Additions**:
+
+- Internal redirect flow documentation
+- Testing script usage guide
+- Enhanced user flow diagrams
+- Additional edge cases
+- Console message examples
+
+### Implementation Validation
+
+#### Before Enhancement
+
+```mermaid
+Quiz → External Link (linkly.link) → User returns → Internal Recommender → Guard Active
+```
+
+**Issue**: Guard not active immediately after quiz completion
+
+#### After Enhancement
+
+```mermaid
+Quiz → Internal Recommender (/credit-card-recommender-p1) → Guard Active
+```
+
+**Result**: Guard active immediately, UTM params preserved throughout
+
+### Next Steps
+
+1. **Monitor Analytics**: Track UTM parameter preservation rate
+2. **User Testing**: Validate guard behavior across browsers
+3. **Performance**: Monitor sessionStorage impact
+4. **Documentation**: Keep implementation docs updated
+
+### Rollback Plan
+
+If issues arise, revert to external redirect:
+
+```javascript
+// In CreditCardForm.jsx, replace redirect URL with:
+window.location.href = "https://linkly.link/2ERrA";
+```
+
+Note: This will disable immediate guard activation but maintain basic functionality.
 
 ## Related Documentation
 
