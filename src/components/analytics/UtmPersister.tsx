@@ -61,7 +61,9 @@ export default function UtmPersister() {
 
       // CRITICAL: Prevent URL modification on blog pages with ad units
       // to avoid interfering with AdZep activation
-      const isFinancialSolutionPost = currentPath.includes("/financial-solutions/");
+      const isFinancialSolutionPost = currentPath.includes(
+        "/financial-solutions/",
+      );
       const isPersonalFinancePost = currentPath.includes("/personal-finance/");
       const hasBlogAdUnits = !!(
         document.querySelector("#us_budgetbeepro_3") ||
@@ -70,7 +72,10 @@ export default function UtmPersister() {
 
       // If this is a blog page with ad units, skip URL modification to prevent
       // race conditions with AdZep activation
-      if ((isFinancialSolutionPost || isPersonalFinancePost) && hasBlogAdUnits) {
+      if (
+        (isFinancialSolutionPost || isPersonalFinancePost) &&
+        hasBlogAdUnits
+      ) {
         // console.log("UTM Persister: Skipping URL modification on blog page with ad units to prevent AdZep interference");
         return;
       }
