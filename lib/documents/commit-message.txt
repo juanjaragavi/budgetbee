@@ -1,53 +1,28 @@
-feat(quiz): implement robust navigation guard to prevent quiz re-entry
+style(quiz): apply code formatting to navigation guard implementation
 
-This commit implements a comprehensive solution to prevent users from 
-navigating back to the quiz page after reaching credit card recommender 
-pages, ensuring UTM parameter integrity and preventing data corruption.
+Applied Prettier formatting to quiz navigation guard files for consistency.
+This commit includes whitespace cleanup and code style improvements across
+the navigation guard implementation without any functional changes.
 
-Problem:
-- Users could use browser back button to return to quiz after completion
-- Direct URL access to /quiz was possible after reaching recommender
-- Astro view transitions allowed navigation back to quiz
-- This caused UTM parameter loss/duplication and compromised analytics
+Files formatted:
+- lib/documents/QUIZ_NAVIGATION_GUARD.md (markdown formatting)
+- lib/documents/commit-message.txt (whitespace cleanup)
+- src/components/quiz/QuizAccessGuard.tsx (prettier formatting)
+- src/lib/recommenderPageGuard.ts (prettier formatting)
+- src/lib/utils/quizNavigationGuard.ts (prettier formatting)
+- src/pages/credit-card-recommender-p1.astro (prettier formatting)
+- src/pages/credit-card-recommender-p2.astro (prettier formatting)
+- src/pages/credit-card-recommender-p3.astro (prettier formatting)
+- src/pages/quiz.astro (prettier formatting)
 
-Solution Architecture:
+Changes:
+- Fixed markdown list spacing and blank lines around headings
+- Standardized trailing commas in TypeScript/JavaScript
+- Normalized whitespace and indentation
+- Applied consistent code block formatting
 
-1. Core Navigation Guard Utility (quizNavigationGuard.ts):
-   - hasAccessedRecommender(): Checks sessionStorage flag
-   - markRecommenderAccessed(): Sets access flag and timestamp
-   - guardQuizAccess(): Redirects from quiz if recommender accessed
-   - installRecommenderGuard(): Sets up history manipulation & event listeners
-   - getRecommenderRedirectUrl(): Preserves UTM parameters across redirects
+No functional changes - code behavior remains identical.
 
-2. Quiz Access Guard Component (QuizAccessGuard.tsx):
-   - React component mounted on quiz page with client:load
-   - Checks recommender access flag on mount and visibility changes
-   - Redirects users immediately if they've already accessed recommender
-   - Listens for Astro page-load events to re-check access
-
-3. Recommender Page Guard Scripts:
-   - Inline scripts on all recommender pages (p1, p2, p3)
-   - Uses history.replaceState() to mark history entries
-   - Installs popstate listener to block back button navigation
-   - Installs Astro navigation listeners to block view transitions
-
-Technical Implementation:
-
-History Manipulation:
-- Uses window.history.replaceState() to mark current entry with guard metadata
-- Does NOT create new history entries (preserves normal navigation)
-- Prevents back navigation to quiz while allowing other navigation
-
-Event Handling:
-- popstate: Intercepts back button and redirects if target is quiz
-- astro:before-preparation: Blocks Astro view transitions to quiz
-- visibilitychange: Re-checks guard when user returns to tab
-- astro:page-load: Re-installs guard after page transitions
-
-UTM Parameter Preservation:
-- Extracts UTM params from current URL query string (priority 1)
-- Falls back to sessionStorage UTM params (priority 2)
-- Preserves all 5 standard UTM parameters (source, medium, campaign, term, content)
 - Appends preserved params to redirect URLs
 
 SessionStorage Flags:
