@@ -1,6 +1,6 @@
 /**
  * Recommender Page Guard Script
- * 
+ *
  * Inline script that runs immediately on recommender pages to:
  * 1. Mark that user has accessed recommender
  * 2. Install history manipulation to prevent back navigation to quiz

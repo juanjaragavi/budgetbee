@@ -1,6 +1,6 @@
 /**
  * Quiz Navigation Guard
- * 
+ *
  * Prevents users from navigating back to the quiz page once they've reached
  * the credit card recommender pages. This ensures UTM parameter integrity
  * and prevents duplicate submissions or tracking issues.
@@ -50,19 +50,25 @@ export function isRecommenderPage(pathname?: string): boolean {
  */
 export function getRecommenderRedirectUrl(): string {
   if (typeof window === "undefined") return "/credit-card-recommender-p1";
-  
+
   const params = new URLSearchParams(window.location.search);
   const utmParams = new URLSearchParams();
-  
+
   // Preserve UTM parameters
-  const utmKeys = ["utm_source", "utm_medium", "utm_campaign", "utm_term", "utm_content"];
-  utmKeys.forEach(key => {
+  const utmKeys = [
+    "utm_source",
+    "utm_medium",
+    "utm_campaign",
+    "utm_term",
+    "utm_content",
+  ];
+  utmKeys.forEach((key) => {
     const value = params.get(key) || sessionStorage.getItem(key);
     if (value) {
       utmParams.set(key, value);
     }
   });
-  
+
   const queryString = utmParams.toString();
   return `/credit-card-recommender-p1${queryString ? `?${queryString}` : ""}`;
 }
@@ -72,9 +78,9 @@ export function getRecommenderRedirectUrl(): string {
  */
 export function guardQuizAccess(): void {
   if (typeof window === "undefined") return;
-  
+
   const currentPath = window.location.pathname;
-  
+
   // If user is on quiz page and has already accessed recommender, redirect
   if (isQuizPage(currentPath) && hasAccessedRecommender()) {
     console.log("[QuizGuard] Quiz access blocked - redirecting to recommender");
@@ -89,37 +95,37 @@ export function guardQuizAccess(): void {
  */
 export function installRecommenderGuard(): void {
   if (typeof window === "undefined") return;
-  
+
   const currentPath = window.location.pathname;
-  
+
   // Only run on recommender pages
   if (!isRecommenderPage(currentPath)) {
     return;
   }
-  
+
   // Mark that user has accessed recommender
   markRecommenderAccessed();
-  
+
   // Replace the current history entry to prevent back navigation
   // This makes the back button skip the quiz page
   if (window.history.state === null || !window.history.state.guardInstalled) {
     const currentUrl = window.location.href;
     const urlWithoutQuiz = currentUrl;
-    
+
     // Push a duplicate entry first, then replace it
     // This effectively removes quiz from history stack
     window.history.replaceState(
       { guardInstalled: true, timestamp: Date.now() },
       "",
-      urlWithoutQuiz
+      urlWithoutQuiz,
     );
-    
+
     console.log("[QuizGuard] History guard installed on recommender page");
   }
-  
+
   // Listen for popstate (back button) events
   window.addEventListener("popstate", handleBackNavigation);
-  
+
   // Also listen for Astro navigation events
   document.addEventListener("astro:before-preparation", handleAstroNavigation);
 }
@@ -131,7 +137,7 @@ function handleBackNavigation(event: PopStateEvent): void {
   // If user tries to go back and quiz is in history, redirect forward
   if (hasAccessedRecommender()) {
     const currentPath = window.location.pathname;
-    
+
     if (isQuizPage(currentPath)) {
       event.preventDefault();
       console.log("[QuizGuard] Back navigation to quiz blocked");
@@ -146,11 +152,11 @@ function handleBackNavigation(event: PopStateEvent): void {
  */
 function handleAstroNavigation(event: Event): void {
   if (typeof window === "undefined") return;
-  
+
   // Check if navigation target is quiz page
   const customEvent = event as CustomEvent;
   const targetUrl = customEvent.detail?.to || "";
-  
+
   if (targetUrl.includes("/quiz") && hasAccessedRecommender()) {
     event.preventDefault();
     console.log("[QuizGuard] Astro navigation to quiz blocked");
