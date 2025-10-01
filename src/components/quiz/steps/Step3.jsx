@@ -146,7 +146,7 @@ export default function Step3({ formData, updateFormData, onSubmit }) {
             onChange={handleEmailChange}
             onBlur={() => validateEmail(email)}
             required
-            className={`w-full h-9 px-3 text-sm rounded-md border ${
+            className={`w-full h-9 px-3 text-base rounded-md border ${
               errors.email
                 ? "border-red-500 focus:ring-red-500"
                 : "border-gray-300 focus:border-[#E7B739] focus:ring-[#E7B739]"
@@ -172,7 +172,7 @@ export default function Step3({ formData, updateFormData, onSubmit }) {
             onChange={handleNameChange}
             onBlur={() => validateName(name)}
             required
-            className={`w-full h-9 px-3 text-sm rounded-md border ${
+            className={`w-full h-9 px-3 text-base rounded-md border ${
               errors.name
                 ? "border-red-500 focus:ring-red-500"
                 : "border-gray-300 focus:border-[#E7B739] focus:ring-[#E7B739]"

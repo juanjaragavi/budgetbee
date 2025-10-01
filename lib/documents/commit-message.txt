@@ -1,6 +1,5 @@
-fix: delay blog AdZep trigger by 100ms
+fix: prevent iOS auto-zoom on quiz form inputs
 
-- call window.AdZepActivateAds() via blog auto trigger with 100ms load delay
-- add retry guard and cleanup for repeated page transitions
-
-
+- add maximum-scale=1 to viewport meta tag in Base layout
+- update quiz Step3 input font size from text-sm to text-base (16px)
+- ensure stable mobile UX without zoom when focusing email/name fields
