@@ -1,6 +1,7 @@
 ---
 import QuizLayout from "@/layouts/QuizLayout.astro";
 import CreditCardForm from "../components/quiz/CreditCardForm.jsx";
+import QuizAccessGuard from "../components/quiz/QuizAccessGuard.tsx";
 import config from "@/config/config.json";
 
 const meta = {
@@ -34,6 +35,9 @@ const meta = {
 </style>
 
 <QuizLayout meta_title={meta.title} description={meta.description}>
+  <!-- Quiz access guard - prevents access after recommender visit -->
+  <QuizAccessGuard client:load />
+  
   <CreditCardForm client:load />
 
   <!-- Minimal footer shown only on quiz page -->
