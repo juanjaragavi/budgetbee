@@ -1,5 +1,35 @@
-fix: prevent iOS auto-zoom on quiz form inputs
+fix(ads): prevent UtmPersister from interfering with AdZep activation
 
-- add maximum-scale=1 to viewport meta tag in Base layout
-- update quiz Step3 input font size from text-sm to text-base (16px)
-- ensure stable mobile UX without zoom when focusing email/name fields
+This commit resolves the issue where window.AdZepActivateAds() fails to 
+execute when UTM parameters are present in the URL.
+
+Root Cause Analysis:
+- UtmPersister.tsx was modifying URLs using history.replaceState() during 
+  the astro:page-load event
+- This URL modification created race conditions with AdZep activation logic
+- The timing conflict prevented ads from loading on blog pages with UTM 
+  parameters in the query string
+
+Changes Made:
+1. Added detection logic to identify blog pages with ad units 
+   (#us_budgetbeepro_3, #us_budgetbeepro_4)
+2. Skip URL modification on financial-solutions/* and personal-finance/* 
+   pages that contain ad units
+3. Fixed overly broad quiz page detection (changed 
+   currentPath.includes("quiz") to currentPath.startsWith("/quiz"))
+
+This ensures AdZep activation can complete without interference from URL 
+modifications, while still preserving UTM tracking in sessionStorage for 
+analytics and attribution purposes.
+
+Impact:
+- Ads will now activate correctly on blog pages even with UTM parameters
+- Quiz flow with UTM parameters will work properly
+- No loss of UTM tracking functionality
+- Resolves monetization blocking issue reported by user
+
+Related Components:
+- src/components/analytics/UtmPersister.tsx
+- src/lib/blogPostAdZepAutoTrigger.ts
+- src/lib/adZepUtils.ts
+- src/components/analytics/AdZepActivator.tsx

@@ -59,8 +59,24 @@ export default function UtmPersister() {
         return;
       }
 
+      // CRITICAL: Prevent URL modification on blog pages with ad units
+      // to avoid interfering with AdZep activation
+      const isFinancialSolutionPost = currentPath.includes("/financial-solutions/");
+      const isPersonalFinancePost = currentPath.includes("/personal-finance/");
+      const hasBlogAdUnits = !!(
+        document.querySelector("#us_budgetbeepro_3") ||
+        document.querySelector("#us_budgetbeepro_4")
+      );
+
+      // If this is a blog page with ad units, skip URL modification to prevent
+      // race conditions with AdZep activation
+      if ((isFinancialSolutionPost || isPersonalFinancePost) && hasBlogAdUnits) {
+        // console.log("UTM Persister: Skipping URL modification on blog page with ad units to prevent AdZep interference");
+        return;
+      }
+
       // For quiz pages, only apply UTM parameters if the user came from a campaign
-      if (currentPath.startsWith("/quiz") || currentPath.includes("quiz")) {
+      if (currentPath.startsWith("/quiz")) {
         // Special handling for quiz pages - be more conservative
         const storedUtms = getStoredUtmParams();
 
