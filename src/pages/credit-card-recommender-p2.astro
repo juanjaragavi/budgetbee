@@ -578,3 +578,16 @@ const cards = [
     }
   }
 </style>
+
+<!-- Quiz Navigation Guard: Prevent back navigation to quiz -->
+<script>
+  import { installRecommenderGuard } from "@/lib/utils/quizNavigationGuard";
+
+  // Install guard immediately
+  installRecommenderGuard();
+
+  // Re-install on Astro page transitions
+  document.addEventListener("astro:page-load", () => {
+    installRecommenderGuard();
+  });
+</script>
