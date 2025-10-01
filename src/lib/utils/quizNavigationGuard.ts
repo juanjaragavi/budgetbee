@@ -128,6 +128,12 @@ export function installRecommenderGuard(): void {
 
   // Also listen for Astro navigation events
   document.addEventListener("astro:before-preparation", handleAstroNavigation);
+
+  // Add beforeunload listener to maintain guard state
+  window.addEventListener("beforeunload", maintainGuardState);
+
+  // Additional hashchange protection for hash-based routing
+  window.addEventListener("hashchange", handleHashChange);
 }
 
 /**
@@ -160,6 +166,34 @@ function handleAstroNavigation(event: Event): void {
   if (targetUrl.includes("/quiz") && hasAccessedRecommender()) {
     event.preventDefault();
     console.log("[QuizGuard] Astro navigation to quiz blocked");
+    const redirectUrl = getRecommenderRedirectUrl();
+    window.location.replace(redirectUrl);
+  }
+}
+
+/**
+ * Maintain guard state on page unload
+ */
+function maintainGuardState(): void {
+  // Ensure guard state is preserved in sessionStorage
+  // This is mostly for safety as sessionStorage persists by default
+  if (hasAccessedRecommender()) {
+    sessionStorage.setItem(STORAGE_KEY, "true");
+    console.log("[QuizGuard] Guard state maintained on unload");
+  }
+}
+
+/**
+ * Handle hash change events (for hash-based routing)
+ */
+function handleHashChange(event: HashChangeEvent): void {
+  if (typeof window === "undefined") return;
+
+  // Extract path from hash if it's a hash-based route
+  const newUrl = event.newURL || "";
+
+  if (newUrl.includes("/quiz") && hasAccessedRecommender()) {
+    console.log("[QuizGuard] Hash navigation to quiz blocked");
     const redirectUrl = getRecommenderRedirectUrl();
     window.location.replace(redirectUrl);
   }
