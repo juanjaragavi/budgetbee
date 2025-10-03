@@ -1,12 +1,11 @@
-feat: Add SPA ad lifecycle and direct CTA flows
+feat: publish raise negotiation guide
 
 ## Summary
 
-- Extend `BudgetBeeAdManager` to handle Astro SPA navigations with slot refreshes, context updates, and cleanup, and configure GPT to disable initial load.
-- Refresh `Base.astro` initialization to issue slot refreshes on display and align with the updated ad manager defaults.
-- Simplify `credit-card-recommender-p2` and `-p3` to present direct CTA buttons with optional requirement links and alternate recommendations.
-- Document the GPT SPA workflow in `GOOGLE_ADS_IMPLEMENTATION.md` and log the related follow-up items in `.clinerules/3-TASKS.md`.
+- add a TOFU personal-finance article with scripts and cross-links for salary conversations
+- log the push workflow follow-up in `.clinerules/3-TASKS.md`
 
 ## Testing
 
 - pnpm check
+

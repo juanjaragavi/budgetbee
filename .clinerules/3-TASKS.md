@@ -97,6 +97,12 @@
    - Implement direct CTA buttons aligned with `credit-card-recommender-p1.astro` experience.
    - Ensure brand styling and ad placements remain consistent across pages.
 
+3. [x] Publish TOFU article: "How to Confidently Ask for a Raise (with Scripts and a Preparation Guide)" _(Completed: Oct 3, 2025)_
+   - Added a personal-finance post with preparation steps, ready-to-use scripts, and internal links supporting the Money Management pillar.
+
+4. [ ] Push latest local changes to remote _(Added: Oct 3, 2025)_
+   - Follow `.github/instructions/project-rules.instructions.md` workflow for clearing commit message, verifying status, and running `pnpm workflow` before pushing.
+
 ## Technical Improvements Needed
 
 1. [ ] Implement actual budgeting features (if this is a budgeting app)
