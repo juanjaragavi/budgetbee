@@ -1,6 +1,5 @@
 ---
 import Base from "@/layouts/Base.astro";
-import { Image } from "astro:assets";
 import MinimalFooter from "@/layouts/partials/MinimalFooter.astro";
 
 const cards = [
@@ -24,6 +23,8 @@ const cards = [
     color: "#80111b",
   },
 ];
+
+const [primaryCard, ...otherCards] = cards;
 ---
 
 <Base
@@ -39,69 +40,84 @@ const cards = [
           <div class="content">
             <h1 class="h2 mb-4">Discover Your Ideal Credit Card</h1>
 
-            <div id="recommendations-section" class="my-8">
-              <button
-                id="reveal-button"
-                class="btn btn-primary btn-lg primary-cta-mobile cta-accessible w-full sm:w-auto inline-flex items-center justify-center rounded-full"
-                style="background-color: #3B82F6; border-color: #3B82F6; color: white;"
-              >
-                <span>Unveil our suggested Financial Products</span>
-                <span
-                  class="bg-white rounded-full w-5 h-5 flex items-center justify-center"
-                >
-                  <svg
-                    width="12"
-                    height="12"
-                    viewBox="0 0 12 12"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
+            {
+              primaryCard && (
+                <div class="primary-recommendation my-8">
+                  <a
+                    href={primaryCard.url}
+                    class="btn btn-primary btn-lg primary-cta-mobile cta-accessible w-full sm:w-auto inline-flex items-center justify-center rounded-full"
+                    style={`background-color: ${primaryCard.color}; border-color: ${primaryCard.color}; color: white;`}
                   >
-                    <path
-                      d="M1 6H11M11 6L6 1M11 6L6 11"
-                      stroke="#3B82F6"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"></path>
-                  </svg>
-                </span>
-              </button>
-
-              <div id="recommendations-container" class="hidden space-y-4 mt-6">
-                {
-                  cards.map((card, index) => (
-                    <div
-                      class="recommendation-card opacity-0 transform translate-x-[-20px]"
-                      style={`animation-delay: ${(index + 1) * 0.1}s`}
-                    >
-                      <a
-                        href={card.url}
-                        class="btn btn-primary btn-lg primary-cta-mobile cta-accessible w-full sm:w-auto inline-flex items-center justify-center rounded-full"
-                        style={`background-color: ${card.color}; border-color: ${card.color}; color: white;`}
+                    <span>See Your Recommended Card: {primaryCard.name}</span>
+                    <span class="bg-white rounded-full w-5 h-5 flex items-center justify-center">
+                      <svg
+                        width="12"
+                        height="12"
+                        viewBox="0 0 12 12"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
                       >
-                        <span>{card.name}</span>
-                        <span class="bg-white rounded-full w-5 h-5 flex items-center justify-center">
-                          <svg
-                            width="12"
-                            height="12"
-                            viewBox="0 0 12 12"
-                            fill="none"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <path
-                              d="M1 6H11M11 6L6 1M11 6L6 11"
-                              stroke={card.color}
-                              stroke-width="2"
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
-                            />
-                          </svg>
-                        </span>
+                        <path
+                          d="M1 6H11M11 6L6 1M11 6L6 11"
+                          stroke={primaryCard.color}
+                          stroke-width="2"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                      </svg>
+                    </span>
+                  </a>
+
+                  {primaryCard.reqUrl && (
+                    <p class="mt-3 text-sm text-left text-gray-600">
+                      Prefer to review requirements first?&nbsp;
+                      <a
+                        class="font-semibold text-blue-500 hover:underline"
+                        href={primaryCard.reqUrl}
+                      >
+                        Check eligibility details
                       </a>
-                    </div>
-                  ))
-                }
-              </div>
-            </div>
+                    </p>
+                  )}
+                </div>
+              )
+            }
+
+            {
+              cards.length > 1 && (
+                <div class="alternate-recommendations space-y-4 mb-6">
+                  <h2 class="h3 text-left text-dark">
+                    Explore other strong matches
+                  </h2>
+                  {(otherCards.length > 0 ? otherCards : cards).map((card) => (
+                    <a
+                      href={card.url}
+                      class="btn btn-primary btn-lg primary-cta-mobile cta-accessible w-full sm:w-auto inline-flex items-center justify-center rounded-full"
+                      style={`background-color: ${card.color}; border-color: ${card.color}; color: white;`}
+                    >
+                      <span>{card.name}</span>
+                      <span class="bg-white rounded-full w-5 h-5 flex items-center justify-center">
+                        <svg
+                          width="12"
+                          height="12"
+                          viewBox="0 0 12 12"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M1 6H11M11 6L6 1M11 6L6 11"
+                            stroke={card.color}
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                          />
+                        </svg>
+                      </span>
+                    </a>
+                  ))}
+                </div>
+              )
+            }
 
             <p class="text-left text-lg text-dark mb-5">
               Finding the right card is simple. Maximize rewards, organize your
@@ -381,12 +397,6 @@ const cards = [
 
 <script>
   document.addEventListener("DOMContentLoaded", () => {
-    const revealButton = document.getElementById("reveal-button");
-    const recommendationsContainer = document.getElementById(
-      "recommendations-container",
-    );
-    let hasRevealed = false;
-
     // FAQ functionality
     const faqButtons = document.querySelectorAll(".faq-button");
     let openFaq = "benefits"; // Default open
@@ -471,35 +481,6 @@ const cards = [
         }
       });
     });
-
-    // Reveal recommendations functionality
-    if (revealButton && recommendationsContainer) {
-      revealButton.addEventListener("click", () => {
-        if (hasRevealed) return;
-
-        hasRevealed = true;
-        revealButton.style.opacity = "0";
-        revealButton.style.transform = "scale(0.8)";
-
-        setTimeout(() => {
-          revealButton.style.display = "none";
-          recommendationsContainer.classList.remove("hidden");
-
-          // Animate each recommendation card
-          const cards = recommendationsContainer.querySelectorAll(
-            ".recommendation-card",
-          );
-          cards.forEach((card, index) => {
-            setTimeout(() => {
-              if (card instanceof HTMLElement) {
-                card.style.opacity = "1";
-                card.style.transform = "translateX(0)";
-              }
-            }, index * 100);
-          });
-        }, 500);
-      });
-    }
   });
 </script>
 
@@ -511,12 +492,6 @@ const cards = [
   .btn:hover {
     transform: translateY(-2px);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-  }
-
-  .recommendation-card {
-    transition:
-      opacity 0.5s ease,
-      transform 0.5s ease;
   }
 
   .faq-button {
@@ -535,22 +510,6 @@ const cards = [
 
   .faq-content {
     transition: all 0.3s ease;
-  }
-
-  /* Animation for fade-in effect */
-  @keyframes fadeInUp {
-    from {
-      opacity: 0;
-      transform: translateY(20px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-
-  .recommendation-card {
-    animation: fadeInUp 0.5s ease forwards;
   }
 
   /* Ensure proper spacing and alignment */

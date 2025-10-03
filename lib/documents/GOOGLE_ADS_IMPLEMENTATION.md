@@ -136,6 +136,7 @@ if (tagState.displayed) {
 - **Performance Monitoring**: Measures initialization and display times
 - **Error Handling**: Comprehensive error tracking and reporting
 - **Diagnostic Tools**: Real-time monitoring and reporting capabilities
+- **SPA Lifecycle Management**: Handles Astro client-side navigations by disabling GPT initial load, refreshing slots after route changes, destroying obsolete slots, and keeping correlators/URL targeting in sync with the current page.
 
 #### Available Debug Commands
 
@@ -145,6 +146,7 @@ checkAdDuplicates(); // Check for duplicate tag issues
 generateDuplicateReport(); // Generate detailed duplicate report
 generatePerformanceReport(); // Generate performance metrics
 resetAdManager(); // Reset ad manager state
+refreshActiveSlots("manual-debug", { firstAttempt: true }); // Force refresh with correlator change
 ```
 
 ### Mobile-First Approach
