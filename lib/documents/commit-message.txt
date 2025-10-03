@@ -1,87 +1,12 @@
-feat: Enhanced Quiz Navigation Guard with Internal Redirect Flow and Comprehensive Testing
+feat: Add SPA ad lifecycle and direct CTA flows
 
 ## Summary
 
-Successfully enhanced the existing Quiz Navigation Guard system to provide seamless protection against backward navigation from Credit Card Recommender pages to the Quiz page, with complete UTM parameter preservation throughout the user journey.
+- Extend `BudgetBeeAdManager` to handle Astro SPA navigations with slot refreshes, context updates, and cleanup, and configure GPT to disable initial load.
+- Refresh `Base.astro` initialization to issue slot refreshes on display and align with the updated ad manager defaults.
+- Simplify `credit-card-recommender-p2` and `-p3` to present direct CTA buttons with optional requirement links and alternate recommendations.
+- Document the GPT SPA workflow in `GOOGLE_ADS_IMPLEMENTATION.md` and log the related follow-up items in `.clinerules/3-TASKS.md`.
 
-## Key Enhancements
+## Testing
 
-### 1. Internal Redirect Flow (Critical Enhancement)
-- **File**: `src/components/quiz/CreditCardForm.jsx`
-- **Change**: Quiz now redirects to internal `/credit-card-recommender-p1` instead of external `linkly.link` URL
-- **Impact**: Guard activates immediately after quiz completion, ensuring uninterrupted UTM tracking
-
-### 2. Enhanced Navigation Protection
-- **File**: `src/lib/utils/quizNavigationGuard.ts`
-- **Added**: `maintainGuardState()` and `handleHashChange()` functions
-- **New Event Listeners**: `beforeunload` and `hashchange` for comprehensive protection
-
-### 3. Comprehensive Testing Suite
-- **File**: `scripts/test-quiz-navigation-guard.js` (NEW)
-- **Features**: 10 automated tests + manual testing utilities
-
-### 4. Enhanced Documentation
-- **Updated**: `lib/documents/QUIZ_NAVIGATION_GUARD.md`
-- **New**: `lib/documents/QUIZ_NAVIGATION_GUARD_IMPLEMENTATION_SUMMARY.md`
-- **New**: `lib/documents/QUIZ_NAVIGATION_GUARD_QUICK_REFERENCE.md`
-
-## Testing Results
-
-✅ 10/10 automated tests passing
-✅ All manual tests completed successfully
-✅ 0 TypeScript compilation errors
-✅ 0 console errors in production
-✅ Cross-browser compatibility verified
-
-## Performance Impact
-
-- Page Load: <10ms guard installation time
-- Storage: ~200 bytes per session
-- Network: 0 additional requests
-- Render Blocking: None
-
-## Status
-
-✅ Production Ready - All tests passing, comprehensive documentation, minimal performance impact
-
-- Browser close/reopen: sessionStorage cleared (fresh session)
-
-Testing Checklist:
-✅ Complete quiz and verify redirect
-✅ Press back button → verify blocked from quiz
-✅ Type /quiz in URL bar → verify redirect to recommender
-✅ Refresh recommender page → verify guard persists
-✅ Test with UTM parameters → verify preservation
-✅ Check browser console for [QuizGuard] log messages
-✅ Test in Chrome, Firefox, Safari
-✅ Test on mobile devices (iOS Safari, Chrome Mobile)
-
-Browser Console Messages:
-[QuizGuard] Recommender page accessed, quiz navigation blocked
-[QuizGuard] History guard installed on recommender page
-[QuizGuard] Quiz access blocked - redirecting to recommender
-[QuizGuard] Back navigation to quiz blocked
-
-Impact:
-✅ Quiz re-entry completely blocked after recommender access
-✅ UTM parameter integrity maintained across all navigation attempts
-✅ Analytics data accuracy preserved
-✅ Duplicate form submissions prevented
-✅ User flow integrity maintained
-✅ Zero performance impact (client-side only)
-✅ Cross-browser compatible
-✅ Mobile-friendly
-
-Performance & Security:
-- Zero network requests (all client-side logic)
-- sessionStorage: Fast, synchronous, isolated per tab
-- No sensitive data stored
-- No external dependencies
-- Compatible with all modern browsers
-- Works with Astro SSR and view transitions
-
-Related Components:
-- src/components/quiz/CreditCardForm.jsx
-- src/pages/api/quiz-submission.ts
-- src/lib/utils/utmUtils.ts
-- src/components/analytics/UtmPersister.tsx
+- pnpm check

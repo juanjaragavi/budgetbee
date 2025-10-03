@@ -20,12 +20,64 @@ class BudgetBeeAdManager {
     this.maxHistorySize = 100;
     this.alertThreshold = 2; // Alert after 2 duplicate calls
 
+    // SPA navigation + refresh management
+    this.navigationHooksInstalled = false;
+    this.lastRefreshTime = 0;
+    this.refreshThrottleMs = 4000;
+    this.deferredRefreshTimer = null;
+    this.refreshDelays = [400, 1200, 2500];
+    this.lastNavigationReason = null;
+    this.cleanupTimer = null;
+
+    this.slotConfigs = [
+      {
+        tagId: "mob_1",
+        adUnitPath: "/21879825561/budgetbee_mob_1",
+        sizes: [
+          [300, 250],
+          [250, 250],
+          [336, 280],
+        ],
+        divId: "div-gpt-ad-budgetbee-mob-1",
+      },
+      {
+        tagId: "mob_2",
+        adUnitPath: "/21879825561/budgetbee_mob_2",
+        sizes: [
+          [300, 250],
+          [250, 250],
+          [336, 280],
+        ],
+        divId: "div-gpt-ad-budgetbee-mob-2",
+      },
+      {
+        tagId: "interstitial",
+        adUnitPath: "/21879825561/budgetbee_interstitial",
+        sizes: ["fluid"],
+        divId: "div-gpt-ad-budgetbee-interstitial",
+      },
+      {
+        tagId: "offerwall",
+        adUnitPath: "/21879825561/budgetbee_offerwall",
+        sizes: ["fluid"],
+        divId: "div-gpt-ad-budgetbee-offerwall",
+      },
+    ];
+
     // Bind methods to preserve context
     this.initializeGAM = this.initializeGAM.bind(this);
     this.defineAdSlot = this.defineAdSlot.bind(this);
     this.displayAd = this.displayAd.bind(this);
     this.trackTagCall = this.trackTagCall.bind(this);
     this.generateDuplicateReport = this.generateDuplicateReport.bind(this);
+    this.installNavigationHooks = this.installNavigationHooks.bind(this);
+    this.scheduleNavigationRefresh = this.scheduleNavigationRefresh.bind(this);
+    this.handleNavigationEvent = this.handleNavigationEvent.bind(this);
+    this.refreshActiveSlots = this.refreshActiveSlots.bind(this);
+    this.cleanupObsoleteSlots = this.cleanupObsoleteSlots.bind(this);
+    this.updatePageContext = this.updatePageContext.bind(this);
+    this.ensureSlotsForDom = this.ensureSlotsForDom.bind(this);
+    this.resolveTagIdForSlot = this.resolveTagIdForSlot.bind(this);
 
     // Initialize performance monitoring
     this.initializePerformanceMonitoring();
@@ -84,41 +136,20 @@ class BudgetBeeAdManager {
       window.googletag.cmd.push(() => {
         try {
           // Define BudgetBee ad slots with enhanced duplication checks
-          this.defineAdSlot(
-            "mob_1",
-            "/21879825561/budgetbee_mob_1",
-            [
-              [300, 250],
-              [250, 250],
-              [336, 280],
-            ],
-            "div-gpt-ad-budgetbee-mob-1",
-          );
+          this.slotConfigs.forEach((config) => {
+            this.defineAdSlot(
+              config.tagId,
+              config.adUnitPath,
+              config.sizes,
+              config.divId,
+            );
+          });
 
-          this.defineAdSlot(
-            "mob_2",
-            "/21879825561/budgetbee_mob_2",
-            [
-              [300, 250],
-              [250, 250],
-              [336, 280],
-            ],
-            "div-gpt-ad-budgetbee-mob-2",
-          );
-
-          this.defineAdSlot(
-            "interstitial",
-            "/21879825561/budgetbee_interstitial",
-            ["fluid"],
-            "div-gpt-ad-budgetbee-interstitial",
-          );
-
-          this.defineAdSlot(
-            "offerwall",
-            "/21879825561/budgetbee_offerwall",
-            ["fluid"],
-            "div-gpt-ad-budgetbee-offerwall",
-          );
+          // Page-level configuration to control request lifecycle (SPA compliant)
+          window.googletag.setConfig({
+            disableInitialLoad: true,
+            singleRequest: true,
+          });
 
           // Enhanced GAM configuration
           window.googletag.pubads().enableSingleRequest();
@@ -145,6 +176,11 @@ class BudgetBeeAdManager {
             `BudgetBee AdManager: Successfully initialized in ${initTime.toFixed(2)}ms`,
           );
           this.trackTagCall("GAM_INIT", "success", { initTime });
+
+          // Install SPA navigation listeners once GPT is ready
+          this.installNavigationHooks();
+          this.ensureSlotsForDom();
+          this.updatePageContext("initial");
         } catch (error) {
           console.error("BudgetBee AdManager: Initialization error:", error);
           this.handleInitError(error);
@@ -209,6 +245,8 @@ class BudgetBeeAdManager {
           timestamp: Date.now(),
           defineTime,
           slot: slot,
+          lastRefreshTime: null,
+          lastRefreshReason: null,
         });
 
         console.log(
@@ -293,15 +331,35 @@ class BudgetBeeAdManager {
         const displayCallTime = performance.now();
         window.googletag.display(divId);
 
+        const slotToRefresh = tagState.slot;
+        let refreshIssued = false;
+        if (slotToRefresh) {
+          window.googletag.pubads().refresh([slotToRefresh], {
+            changeCorrelator: true,
+          });
+          refreshIssued = true;
+          this.lastRefreshTime = Date.now();
+          this.lastNavigationReason = "initial-display";
+        } else {
+          console.warn(
+            `BudgetBee AdManager: Slot reference missing for ${tagId}, unable to refresh immediately`,
+          );
+        }
+
         const totalDisplayTime = performance.now() - displayStartTime;
         this.performanceMetrics.set(`${tagId}_display_time`, totalDisplayTime);
 
         // Update tag state to prevent duplicates
+        const timestamp = Date.now();
         this.tagStates.set(tagId, {
           ...tagState,
           displayed: true,
-          displayTimestamp: Date.now(),
+          displayTimestamp: timestamp,
           displayTime: totalDisplayTime,
+          lastRefreshTime: refreshIssued ? timestamp : tagState.lastRefreshTime,
+          lastRefreshReason: refreshIssued
+            ? "initial-display"
+            : tagState.lastRefreshReason,
         });
 
         console.log(
@@ -310,6 +368,12 @@ class BudgetBeeAdManager {
         this.trackTagCall(tagId, "displayed", {
           displayTime: totalDisplayTime,
         });
+
+        if (refreshIssued) {
+          this.trackTagCall(tagId, "refreshed", {
+            reason: "initial-display",
+          });
+        }
       });
 
       return true;
@@ -427,6 +491,253 @@ class BudgetBeeAdManager {
       "budgetbee_ad_calls",
       JSON.stringify(this.tagCallHistory),
     );
+  }
+
+  installNavigationHooks() {
+    if (this.navigationHooksInstalled) return;
+    if (typeof window === "undefined" || !window.googletag?.cmd) return;
+
+    ["astro:page-load", "astro:after-swap", "astro:page-start"].forEach(
+      (eventName) => {
+        document.addEventListener(eventName, () =>
+          this.handleNavigationEvent(eventName),
+        );
+      },
+    );
+    ["hashchange", "popstate"].forEach((eventName) => {
+      window.addEventListener(eventName, () =>
+        this.handleNavigationEvent(eventName),
+      );
+    });
+
+    document.addEventListener("visibilitychange", () => {
+      if (document.visibilityState === "visible") {
+        this.handleNavigationEvent("visibilitychange");
+      }
+    });
+
+    this.navigationHooksInstalled = true;
+  }
+
+  handleNavigationEvent(reason) {
+    if (typeof window === "undefined" || !window.googletag?.cmd) return;
+
+    this.lastNavigationReason = reason;
+    this.updatePageContext(reason);
+    this.ensureSlotsForDom();
+
+    if (this.cleanupTimer) {
+      clearTimeout(this.cleanupTimer);
+    }
+    this.cleanupTimer = setTimeout(() => {
+      this.cleanupObsoleteSlots(reason);
+    }, 1600);
+
+    this.scheduleNavigationRefresh(reason);
+  }
+
+  scheduleNavigationRefresh(reason) {
+    if (typeof window === "undefined") return;
+
+    const now = Date.now();
+    const elapsed = now - this.lastRefreshTime;
+
+    if (elapsed < this.refreshThrottleMs) {
+      const wait = this.refreshThrottleMs - elapsed + 250;
+      if (this.deferredRefreshTimer) {
+        clearTimeout(this.deferredRefreshTimer);
+      }
+      this.deferredRefreshTimer = setTimeout(() => {
+        this.refreshActiveSlots(`${reason}-throttled`, { firstAttempt: true });
+      }, wait);
+      return;
+    }
+
+    this.refreshDelays.forEach((delay, index) => {
+      setTimeout(() => {
+        this.refreshActiveSlots(reason, { firstAttempt: index === 0 });
+      }, delay);
+    });
+  }
+
+  refreshActiveSlots(reason, { firstAttempt = false } = {}) {
+    if (typeof window === "undefined" || !window.googletag?.cmd) return;
+
+    window.googletag.cmd.push(() => {
+      try {
+        const pubads = window.googletag.pubads();
+        if (!pubads) return;
+
+        this.ensureSlotsForDom();
+
+        const slots = pubads
+          .getSlots()
+          .filter((slot) =>
+            Boolean(document.getElementById(slot.getSlotElementId())),
+          );
+
+        if (!slots.length) {
+          this.trackTagCall("REFRESH", "skipped", {
+            reason,
+            detail: "no-slots-present",
+          });
+          return;
+        }
+
+        if (firstAttempt) {
+          pubads.updateCorrelator();
+        }
+
+        const refreshStart = performance.now();
+        pubads.refresh(slots, { changeCorrelator: true });
+        const refreshDuration = performance.now() - refreshStart;
+
+        const timestamp = Date.now();
+        this.lastRefreshTime = timestamp;
+
+        slots.forEach((slot) => {
+          const tagId = this.resolveTagIdForSlot(slot);
+          if (!tagId) return;
+          const tagState = this.tagStates.get(tagId) || {};
+          this.tagStates.set(tagId, {
+            ...tagState,
+            displayed: true,
+            lastRefreshTime: timestamp,
+            lastRefreshReason: reason,
+          });
+        });
+
+        this.trackTagCall("REFRESH", "success", {
+          reason,
+          slotCount: slots.length,
+          duration: refreshDuration,
+          firstAttempt,
+        });
+      } catch (error) {
+        console.error("BudgetBee AdManager: Refresh error", error);
+        this.trackTagCall("REFRESH", "error", {
+          reason,
+          error: error.message,
+        });
+      }
+    });
+  }
+
+  cleanupObsoleteSlots(reason = "navigation") {
+    if (typeof window === "undefined" || !window.googletag?.cmd) return;
+
+    window.googletag.cmd.push(() => {
+      try {
+        const pubads = window.googletag.pubads();
+        if (!pubads) return;
+
+        const obsoleteSlots = pubads
+          .getSlots()
+          .filter((slot) => !document.getElementById(slot.getSlotElementId()));
+
+        if (!obsoleteSlots.length) return;
+
+        window.googletag.destroySlots(obsoleteSlots);
+
+        obsoleteSlots.forEach((slot) => {
+          const tagId = this.resolveTagIdForSlot(slot);
+          if (!tagId) return;
+          this.initializedTags.delete(tagId);
+          this.tagStates.delete(tagId);
+          this.displayAttempts.delete(tagId);
+          this.performanceMetrics.delete(`${tagId}_define_time`);
+          this.performanceMetrics.delete(`${tagId}_display_time`);
+        });
+
+        this.trackTagCall("SLOT_CLEANUP", "destroy", {
+          reason,
+          count: obsoleteSlots.length,
+        });
+      } catch (error) {
+        console.error("BudgetBee AdManager: Cleanup error", error);
+        this.trackTagCall("SLOT_CLEANUP", "error", {
+          reason,
+          error: error.message,
+        });
+      }
+    });
+  }
+
+  ensureSlotsForDom() {
+    if (typeof window === "undefined" || !window.googletag?.cmd) return;
+
+    this.slotConfigs.forEach((config) => {
+      const container = document.getElementById(config.divId);
+      if (!container) return;
+
+      const state = this.tagStates.get(config.tagId);
+      if (!state || !state.defined) {
+        const slot = this.defineAdSlot(
+          config.tagId,
+          config.adUnitPath,
+          config.sizes,
+          config.divId,
+        );
+        if (slot) {
+          this.displayAd(config.tagId, config.divId);
+        }
+        return;
+      }
+
+      if (!state.displayed) {
+        this.displayAd(config.tagId, config.divId);
+      }
+    });
+  }
+
+  updatePageContext(reason = "navigation") {
+    if (typeof window === "undefined" || !window.googletag?.cmd) return;
+
+    const url = window.location.href;
+    const path = window.location.pathname;
+    const pageType = this.getPageType();
+
+    window.googletag.cmd.push(() => {
+      try {
+        window.googletag.setConfig({
+          targeting: {
+            page_path: path,
+            page_type: pageType,
+            nav_reason: reason,
+          },
+        });
+
+        const pubads = window.googletag.pubads();
+        if (pubads) {
+          pubads.setTargeting("page_path", path);
+          pubads.setTargeting("page_type", pageType);
+          pubads.setTargeting("page_url", url);
+          pubads.setTargeting("nav_reason", reason);
+        }
+
+        this.trackTagCall("PAGE_CONTEXT", "updated", {
+          url,
+          pageType,
+          reason,
+        });
+      } catch (error) {
+        console.error("BudgetBee AdManager: updatePageContext error", error);
+        this.trackTagCall("PAGE_CONTEXT", "error", {
+          reason,
+          error: error.message,
+        });
+      }
+    });
+  }
+
+  resolveTagIdForSlot(slot) {
+    for (const [tagId, state] of this.tagStates.entries()) {
+      if (!state) continue;
+      if (state.slot === slot || state.divId === slot.getSlotElementId()) {
+        return tagId;
+      }
+    }
+    return null;
   }
 
   /**
@@ -653,6 +964,14 @@ class BudgetBeeAdManager {
     // Clear intervals
     if (this.reportingInterval) {
       clearInterval(this.reportingInterval);
+    }
+    if (this.deferredRefreshTimer) {
+      clearTimeout(this.deferredRefreshTimer);
+      this.deferredRefreshTimer = null;
+    }
+    if (this.cleanupTimer) {
+      clearTimeout(this.cleanupTimer);
+      this.cleanupTimer = null;
     }
 
     // Reset all state
