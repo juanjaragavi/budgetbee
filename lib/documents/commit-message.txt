@@ -1,11 +1,10 @@
-feat: publish raise negotiation guide
+chore: record push workflow completion
 
 ## Summary
 
-- add a TOFU personal-finance article with scripts and cross-links for salary conversations
-- log the push workflow follow-up in `.clinerules/3-TASKS.md`
+- mark the new push-to-remote task as completed in `.clinerules/3-TASKS.md`
 
 ## Testing
 
-- pnpm check
+- not run (documentation-only update)
 
