@@ -436,7 +436,12 @@ const isBlogPost =
               ).addService(googletag.pubads());
             }
 
-            // Configure GAM settings
+            // Configure GAM settings (SPA-friendly defaults)
+            googletag.setConfig({
+              disableInitialLoad: true,
+              singleRequest: true,
+            });
+
             googletag.pubads().enableSingleRequest();
             googletag.pubads().collapseEmptyDivs();
             googletag.pubads().setCentering(true);
@@ -489,6 +494,7 @@ const isBlogPost =
               googletag.cmd.push(function() {
                 if (window.budgetbeeSlots && window.budgetbeeSlots.mob_1) {
                   googletag.display('div-gpt-ad-budgetbee-mob-1');
+                  googletag.pubads().refresh([window.budgetbeeSlots.mob_1]);
                 }
               });
             }
@@ -514,6 +520,7 @@ const isBlogPost =
               googletag.cmd.push(function() {
                 if (window.budgetbeeSlots && window.budgetbeeSlots.mob_2) {
                   googletag.display('div-gpt-ad-budgetbee-mob-2');
+                  googletag.pubads().refresh([window.budgetbeeSlots.mob_2]);
                 }
               });
             }
@@ -538,6 +545,7 @@ const isBlogPost =
               googletag.cmd.push(function() {
                 if (window.budgetbeeSlots && window.budgetbeeSlots.interstitial) {
                   googletag.display('div-gpt-ad-budgetbee-interstitial');
+                  googletag.pubads().refresh([window.budgetbeeSlots.interstitial]);
                 }
               });
             }
@@ -562,6 +570,7 @@ const isBlogPost =
               googletag.cmd.push(function() {
                 if (window.budgetbeeSlots && window.budgetbeeSlots.offerwall) {
                   googletag.display('div-gpt-ad-budgetbee-offerwall');
+                  googletag.pubads().refresh([window.budgetbeeSlots.offerwall]);
                 }
               });
             }

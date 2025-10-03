@@ -86,6 +86,17 @@
 - Normalized category matching in `PostSingle.astro` to avoid casing/spacing mismatches.
 - Standardized MDX link/CTA styles: inline links stay brand yellow/underlined; `.btn` CTAs are not underlined; ensured ad iframes size naturally.
 
+1. [ ] Implement GPT SPA lifecycle for Astro ads _(Added: Oct 2, 2025)_
+   - Integrate Google Publisher Tags with manual load disabled.
+   - Refresh or recreate ad slots on route change with updated correlator/URL.
+   - Destroy obsolete ad slots during navigation cleanup.
+   - Ensure ads render automatically without manual refresh on navigation.
+
+2. [ ] Simplify credit card recommender CTAs to single-click flows _(Added: Oct 2, 2025)_
+   - Refactor `credit-card-recommender-p2.astro` and `credit-card-recommender-p3.astro` to remove reveal steps.
+   - Implement direct CTA buttons aligned with `credit-card-recommender-p1.astro` experience.
+   - Ensure brand styling and ad placements remain consistent across pages.
+
 ## Technical Improvements Needed
 
 1. [ ] Implement actual budgeting features (if this is a budgeting app)
