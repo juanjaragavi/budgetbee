@@ -100,8 +100,8 @@
 3. [x] Publish TOFU article: "How to Confidently Ask for a Raise (with Scripts and a Preparation Guide)" _(Completed: Oct 3, 2025)_
    - Added a personal-finance post with preparation steps, ready-to-use scripts, and internal links supporting the Money Management pillar.
 
-4. [ ] Push latest local changes to remote _(Added: Oct 3, 2025)_
-   - Follow `.github/instructions/project-rules.instructions.md` workflow for clearing commit message, verifying status, and running `pnpm workflow` before pushing.
+4. [x] Push latest local changes to remote _(Completed: Oct 3, 2025)_
+   - Followed `.github/instructions/project-rules.instructions.md` workflow by clearing commit message, checking repo status, and running `pnpm workflow` with merges.
 
 ## Technical Improvements Needed
 
