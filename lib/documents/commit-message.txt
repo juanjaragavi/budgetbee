@@ -1,10 +1,21 @@
-chore: record push workflow completion
+feat: Add Brevo API integration configuration
 
 ## Summary
 
-- mark the new push-to-remote task as completed in `.clinerules/3-TASKS.md`
+- Add Brevo contact management API payload configuration
+- Include API endpoint setup for contact creation and management
+- Configure request headers with authentication via environment variables
+- Implement contact attributes for user data collection
+- Add error handling for API responses
+- Support for email contact management with external ID tracking
+- Use secure environment variable pattern for API key management
+
+## Files Added
+
+- `lib/documents/brevo-payload.js` - Brevo API integration configuration with secure API key handling
 
 ## Testing
 
-- not run (documentation-only update)
+- Configuration ready for integration with contact management system
+- API key should be set via BREVO_API_KEY environment variable
 
