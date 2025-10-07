@@ -1,11 +1,17 @@
 import type { APIRoute } from "astro";
 export const prerender = false;
-import sgMail from "@sendgrid/mail";
 import nodemailer from "nodemailer";
+
+const BREVO_CONTACT_URL = "https://api.brevo.com/v3/contacts";
+const BREVO_EMAIL_URL = "https://api.brevo.com/v3/smtp/email";
+const BREVO_LIST_IDS = [7, 5] as const;
+
+function generateBrevoExtId(): string {
+  return `budgetbee-contact-${Date.now()}-${Math.random().toString(36).slice(2, 10)}`;
+}
 
 export const POST: APIRoute = async ({ request }) => {
   try {
-    // Safely parse JSON body
     const contentType = request.headers.get("content-type") || "";
     if (!contentType.includes("application/json")) {
       return new Response(
@@ -34,7 +40,6 @@ export const POST: APIRoute = async ({ request }) => {
 
     const { name, email, subject, message } = data ?? {};
 
-    // Basic validation
     if (!name || !email || !subject || !message) {
       return new Response(
         JSON.stringify({ message: "Missing required fields" }),
@@ -42,7 +47,6 @@ export const POST: APIRoute = async ({ request }) => {
       );
     }
 
-    // Email validation
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
       return new Response(JSON.stringify({ message: "Invalid email format" }), {
@@ -51,29 +55,23 @@ export const POST: APIRoute = async ({ request }) => {
       });
     }
 
-    // Get environment variables
-    const apiKey = import.meta.env.SENDGRID_API_KEY;
+    const brevoApiKey = import.meta.env.BREVO_API_KEY;
     const senderEmail = import.meta.env.SENDER_EMAIL || "info@budgetbeepro.com";
     const recipientEmail =
       import.meta.env.RECIPIENT_EMAIL || "juan.jaramillo@topnetworks.co";
 
-    if (!apiKey) {
-      console.error("Missing SendGrid API key");
+    if (!brevoApiKey) {
+      console.error("Missing Brevo API key");
       return new Response(
         JSON.stringify({ message: "Server configuration error" }),
         { status: 500, headers: { "Content-Type": "application/json" } },
       );
     }
 
-    // Configure SendGrid SDK
-    sgMail.setApiKey(apiKey);
-    if (import.meta.env.SENDGRID_REGION === "eu") {
-      // Optional: enable EU data residency if using an EU regional subuser
-      // @ts-expect-error: setDataResidency exists at runtime for supported versions
-      sgMail.setDataResidency("eu");
-    }
+    const normalizedEmail = email.trim().toLowerCase();
+    const [firstName, ...restName] = name.trim().split(/\s+/);
+    const lastName = restName.join(" ");
 
-    // Email HTML template
     const htmlMessage = `
       <!DOCTYPE html>
       <html>
@@ -104,36 +102,117 @@ export const POST: APIRoute = async ({ request }) => {
       </html>
     `;
 
-    const useSandbox =
-      import.meta.env.DEV || import.meta.env.SENDGRID_SANDBOX === "true";
+    const textMessage = `You received a new message from your contact form:\n\nName: ${name}\nEmail: ${email}\nSubject: ${subject}\n\nMessage:\n${message}`;
 
-    const msg: any = {
-      to: recipientEmail,
-      from: {
-        email: senderEmail,
-        name: "BudgetBee Contact",
-      },
-      replyTo: { email },
-      subject: `Contact Form: ${subject}`,
-      text: `You received a new message from your contact form:\n\nName: ${name}\nEmail: ${email}\nSubject: ${subject}\n\nMessage:\n${message}`,
-      html: htmlMessage,
-      ...(useSandbox
-        ? { mailSettings: { sandboxMode: { enable: true } } }
-        : {}),
+    const useSandbox = Boolean(
+      import.meta.env.DEV ||
+        import.meta.env.BREVO_SANDBOX === "true" ||
+        import.meta.env.SENDGRID_SANDBOX === "true",
+    );
+
+    const brevoHeaders = {
+      accept: "application/json",
+      "content-type": "application/json",
+      "api-key": brevoApiKey,
     };
 
-    // Send email via SendGrid; if quota exceeded and SMTP fallback is configured, try SMTP
-    try {
-      await sgMail.send(msg);
-    } catch (err: any) {
-      const sgBody = err?.response?.body;
-      const firstErrMsg: string | undefined = sgBody?.errors?.[0]?.message;
-      const quotaExceeded =
-        typeof firstErrMsg === "string" &&
-        firstErrMsg.toLowerCase().includes("maximum credits exceeded");
+    let contactSynced = false;
+    if (useSandbox) {
+      contactSynced = true;
+      console.info("[Brevo] Sandbox mode enabled - skipping contact sync.");
+    } else {
+      try {
+        const contactPayload = {
+          email: normalizedEmail,
+          attributes: {
+            FIRSTNAME: firstName,
+            LASTNAME: lastName,
+            COUNTRIES: "United States",
+            SOURCE: "contact-form",
+          },
+          listIds: BREVO_LIST_IDS,
+          updateEnabled: true,
+          ext_id: generateBrevoExtId(),
+        };
 
+        const contactResponse = await fetch(BREVO_CONTACT_URL, {
+          method: "POST",
+          headers: brevoHeaders,
+          body: JSON.stringify(contactPayload),
+        });
+
+        if (contactResponse.status === 201 || contactResponse.status === 204) {
+          contactSynced = true;
+        } else {
+          const contactDetails = await contactResponse
+            .json()
+            .catch(() => undefined);
+          const duplicateError =
+            contactResponse.status === 400 &&
+            typeof contactDetails?.message === "string" &&
+            contactDetails.message.toLowerCase().includes("duplicate");
+
+          if (duplicateError) {
+            contactSynced = true;
+          } else {
+            console.error("Brevo contact sync failed:", {
+              status: contactResponse.status,
+              details: contactDetails,
+            });
+          }
+        }
+      } catch (error) {
+        console.error("Brevo contact sync threw:", error);
+      }
+    }
+
+    let emailSent = false;
+    let primaryEmailError: unknown;
+    if (useSandbox) {
+      emailSent = true;
+      console.info("[Brevo] Sandbox mode enabled - skipping outbound email.");
+    } else {
+      try {
+        const emailPayload = {
+          sender: { email: senderEmail, name: "BudgetBee Contact" },
+          to: [{ email: recipientEmail }],
+          replyTo: { email: normalizedEmail, name },
+          subject: `Contact Form: ${subject}`,
+          htmlContent: htmlMessage,
+          textContent: textMessage,
+          tags: ["budgetbee-contact-form"],
+          headers: {
+            "X-Contact-List-Ids": BREVO_LIST_IDS.join(","),
+          },
+        };
+
+        const emailResponse = await fetch(BREVO_EMAIL_URL, {
+          method: "POST",
+          headers: brevoHeaders,
+          body: JSON.stringify(emailPayload),
+        });
+
+        if (emailResponse.ok) {
+          emailSent = true;
+        } else {
+          const emailDetails = await emailResponse
+            .json()
+            .catch(() => undefined);
+          primaryEmailError = {
+            status: emailResponse.status,
+            details: emailDetails,
+          };
+          console.error("Brevo email send failed:", primaryEmailError);
+        }
+      } catch (error) {
+        primaryEmailError = error;
+        console.error("Brevo email send threw:", error);
+      }
+    }
+
+    if (!emailSent) {
       const smtpHost = import.meta.env.SMTP_HOST;
-      if (quotaExceeded && smtpHost) {
+      if (smtpHost) {
         const smtpPort = Number(import.meta.env.SMTP_PORT || 587);
         const smtpSecure =
           String(import.meta.env.SMTP_SECURE || "false") === "true";
@@ -150,49 +229,63 @@ export const POST: APIRoute = async ({ request }) => {
               : undefined,
         });
 
-        await transporter.sendMail({
-          from: `"BudgetBee Contact" <${msg.from.email}>`,
-          to: msg.to,
-          replyTo: email,
-          subject: msg.subject,
-          text: msg.text,
-          html: msg.html,
-        });
+        try {
+          await transporter.sendMail({
+            from: `"BudgetBee Contact" <${senderEmail}>`,
+            to: recipientEmail,
+            replyTo: normalizedEmail,
+            subject: `Contact Form: ${subject}`,
+            text: textMessage,
+            html: htmlMessage,
+          });
+          emailSent = true;
+        } catch (smtpError) {
+          const error = new Error("Failed to send message via Brevo or SMTP.");
+          (error as any).details = {
+            brevo: primaryEmailError,
+            smtp: smtpError,
+          };
+          throw error;
+        }
       } else {
-        throw err;
+        const error = new Error("Failed to send message via Brevo.");
+        (error as any).details = primaryEmailError;
+        throw error;
       }
     }
 
     return new Response(
-      JSON.stringify({ message: "Message sent successfully!" }),
+      JSON.stringify({
+        message: "Message sent successfully!",
+        integrations: {
+          brevo: {
+            contactSynced,
+            emailSent: !useSandbox ? emailSent : false,
+            sandbox: useSandbox,
+            listIds: BREVO_LIST_IDS,
+          },
+        },
+      }),
       { status: 200, headers: { "Content-Type": "application/json" } },
     );
   } catch (error: any) {
-    // Log extended SendGrid error body when available
-    const sgBody = error?.response?.body;
-    if (sgBody) {
-      console.error("SendGrid error:", sgBody);
+    if (error?.details) {
+      console.error("Contact form error:", error.details);
     } else {
-      console.error("Error processing contact form:", error);
-    }
-    // Map common SendGrid errors to clearer messages
-    let message = "Failed to send message";
-    const firstErrMsg: string | undefined = sgBody?.errors?.[0]?.message;
-    if (firstErrMsg?.toLowerCase().includes("maximum credits exceeded")) {
-      message = "Email provider quota exceeded. Please try again later.";
-    } else if (
-      firstErrMsg?.toLowerCase().includes("verified sender") ||
-      firstErrMsg?.toLowerCase().includes("sender identity")
-    ) {
-      message = "Sender email is not verified with SendGrid.";
+      console.error("Contact form error:", error);
     }
 
-    const devDetails =
-      import.meta.env.DEV && (sgBody || error?.message)
-        ? { details: sgBody || String(error?.message || "") }
-        : undefined;
-    const body = { message, ...(devDetails || {}) };
-    return new Response(JSON.stringify(body), {
+    const responseBody: Record<string, unknown> = {
+      message: "Failed to send message",
+    };
+
+    if (import.meta.env.DEV && error?.details) {
+      responseBody.details = error.details;
+    } else if (import.meta.env.DEV && error?.message && !error.details) {
+      responseBody.details = String(error.message);
+    }
+
+    return new Response(JSON.stringify(responseBody), {
       status: 500,
       headers: { "Content-Type": "application/json" },
     });

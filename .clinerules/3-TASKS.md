@@ -75,11 +75,8 @@
 10. [ ] Update images and visual assets
     - **Important:** Use color palette from `.clinerules/5-BRANDING.md` - Warm Yellow (#E7B739), Fresh Green (#7ED321), Soft Blue (#4A90E2), Light Gray (#F5F5F5)
 
-11. [x] Configure contact form endpoint (Sep 11, 2025)
-    - Implemented `/api/contact` using @sendgrid/mail; uses env vars SENDGRID_API_KEY, SENDER_EMAIL, RECIPIENT_EMAIL; optional SENDGRID_REGION=eu.
-
+11. [x] Configure contact form endpoint (Sep 11, 2025) — Implemented `/api/contact` using Brevo REST APIs; requires `BREVO_API_KEY`, `SENDER_EMAIL`, `RECIPIENT_EMAIL`, and supports optional sandbox flag plus SMTP fallback envs.
 12. [ ] Set up proper domain and base URL
-
 13. [x] Fix ad unit visibility and CTA styling regressions _(Completed: Sep 1, 2025)_
 
 - Created shortcode `AdZoneTop3` and auto-injected `id="us_budgetbeepro_3"` directly below the H1 for posts in Personal Finance and Financial Solutions.
@@ -102,6 +99,11 @@
 
 4. [x] Push latest local changes to remote _(Completed: Oct 3, 2025)_
    - Followed `.github/instructions/project-rules.instructions.md` workflow by clearing commit message, checking repo status, and running `pnpm workflow` with merges.
+
+5. [x] Migrate contact form integration to Brevo _(Completed: Oct 7, 2025)_
+   - Replaced SendGrid usage in `/src/pages/api/contact.ts` with Brevo contact creation and transactional email.
+   - Ensured new contacts are added to Brevo `listIds` `[7, 5]`.
+   - Preserved admin notification flow (SMTP fallback) and updated docs/ENV references.
 
 ## Technical Improvements Needed
 
