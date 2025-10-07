@@ -1,13 +1,13 @@
-feat: Migrate quiz submission from SendGrid to Brevo
+feat(api,brevo): migrate quiz submission to Brevo & add dual list targeting
 
 ## Summary
 
-Complete migration of the marketing contact management system from SendGrid to Brevo for the quiz submission API endpoint.
+Complete migration of the marketing contact management system from SendGrid to Brevo for the quiz submission API endpoint, plus update to target two Brevo lists (7 & 5) and addition of historical quiz submissions export CSV for analytics.
 
 ## Key Changes
 
 ### API Integration Migration
-- Replace SendGrid API calls with Brevo API integration in quiz-submission.ts
+- Replace SendGrid API calls with Brevo API integration in `quiz-submission.ts`
 - Update environment variable usage from SENDGRID_API_KEY to BREVO_API_KEY
 - Change API endpoint from SendGrid marketing contacts to Brevo contacts API
 - Update HTTP method from PUT to POST and adjust response status handling (201/204)
@@ -17,6 +17,7 @@ Complete migration of the marketing contact management system from SendGrid to B
 - Add required COUNTRIES attribute set to "United States"
 - Update contact attributes structure (FIRSTNAME, LASTNAME, COUNTRIES)
 - Configure list management with listIds array instead of list_ids
+- Expand list coverage from single list (7) to dual lists `[7, 5]` for segmentation test
 - Enable updateEnabled flag for contact updates
 
 ### Testing Infrastructure
@@ -27,14 +28,15 @@ Complete migration of the marketing contact management system from SendGrid to B
 
 ## Files Modified
 
-- `src/pages/api/quiz-submission.ts` - Core API endpoint migration from SendGrid to Brevo
-- `lib/documents/brevo-payload.js` - Updated API key configuration and list ID setup
+- `src/pages/api/quiz-submission.ts` - Core API endpoint migration from SendGrid to Brevo and dual list IDs
+- `lib/documents/brevo-payload.js` - Updated API key configuration and list ID setup (if present)
 
 ## Files Added
 
 - `scripts/test-brevo-integration.js` - Test script for validating Brevo integration
 - `scripts/test-brevo-payload-validation.js` - Enhanced payload inspection tooling
 - `scripts/verify-ext-id-format.js` - ext_id format validation utility
+- `lib/documents/registro-de-usuarios-quizes-budgetbee.csv` - Historical + current quiz submissions export (analytics & retention modeling)
 
 ## Testing
 
@@ -49,3 +51,7 @@ Complete migration of the marketing contact management system from SendGrid to B
 - SendGrid integration completely removed and replaced with Brevo
 - Environment variable SENDGRID_API_KEY and SENDGRID_LIST_ID no longer used
 - Response structure updated to reflect 'brevo' instead of 'sendGrid' in integrations object
+
+## Notes
+
+- Large CSV inclusion may increase repo size; consider future archival or moving to data storage bucket if it grows further.
