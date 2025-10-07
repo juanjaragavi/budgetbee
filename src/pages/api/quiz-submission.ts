@@ -113,63 +113,59 @@ export const POST: APIRoute = async ({ request }) => {
       // Continue with SendGrid even if Google Sheets fails
     }
 
-    // Continue with existing SendGrid logic
-    const API_KEY = import.meta.env.SENDGRID_API_KEY;
-    const LIST_ID = import.meta.env.SENDGRID_LIST_ID;
+    // Continue with Brevo logic
+    const BREVO_API_KEY = import.meta.env.BREVO_API_KEY;
 
-    let sendGridSuccess = false;
-    if (!API_KEY || !LIST_ID) {
+    let brevoSuccess = false;
+    if (!BREVO_API_KEY) {
       console.warn(
-        "SendGrid: API_KEY or LIST_ID not configured, skipping SendGrid integration",
+        "Brevo: BREVO_API_KEY not configured, skipping Brevo integration",
       );
     } else {
       try {
-        console.log("SendGrid: Starting integration...");
+        console.log("Brevo: Starting integration...");
 
-        // Build SendGrid upsert payload; use same external_id as Google Sheets
+        // Generate ext_id with timestamp (budgetbee-{timestamp})
+        const brevoExtId = `budgetbee-${Date.now()}`;
+
+        // Build Brevo payload
         const payload = {
-          list_ids: [LIST_ID],
-          contacts: [
-            {
-              email: email.trim().toLowerCase(),
-              first_name,
-              last_name,
-              country: "United States",
-              external_id: submissionId, // Use same ID as Google Sheets
-              custom_fields: {
-                brand: "BudgetBee",
-              },
-            },
-          ],
+          attributes: {
+            FIRSTNAME: first_name,
+            LASTNAME: last_name || "",
+            COUNTRIES: "United States",
+          },
+          updateEnabled: true, // Allow updates if contact already exists
+          listIds: [7], // Using list ID 7 as in the reference payload
+          email: email.trim().toLowerCase(),
+          ext_id: brevoExtId,
         };
 
-        const sgRes = await fetch(
-          "https://api.sendgrid.com/v3/marketing/contacts",
-          {
-            method: "PUT",
-            headers: {
-              Authorization: `Bearer ${API_KEY}`,
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify(payload),
+        const brevoRes = await fetch("https://api.brevo.com/v3/contacts", {
+          method: "POST",
+          headers: {
+            accept: "application/json",
+            "content-type": "application/json",
+            "api-key": BREVO_API_KEY,
           },
-        );
+          body: JSON.stringify(payload),
+        });
 
-        // SendGrid returns 202 on success
-        if (sgRes.status === 202) {
-          sendGridSuccess = true;
-          console.log("SendGrid: Integration successful");
+        // Brevo returns 201 on successful creation or 204 on successful update
+        if (brevoRes.status === 201 || brevoRes.status === 204) {
+          brevoSuccess = true;
+          console.log("Brevo: Integration successful");
         } else {
-          const details = await sgRes.json().catch(() => ({}));
-          console.error("SendGrid: Failed to add subscriber", details);
+          const details = await brevoRes.json().catch(() => ({}));
+          console.error("Brevo: Failed to add/update subscriber", details);
         }
       } catch (error) {
-        console.error("SendGrid integration failed:", error);
+        console.error("Brevo integration failed:", error);
       }
     }
 
     // Return success if at least one integration worked
-    if (googleSheetsSuccess || sendGridSuccess) {
+    if (googleSheetsSuccess || brevoSuccess) {
       return new Response(
         JSON.stringify({
           ok: true,
@@ -177,7 +173,7 @@ export const POST: APIRoute = async ({ request }) => {
           integrations: {
             googleSheets: googleSheetsSuccess,
             googleSheetsAction,
-            sendGrid: sendGridSuccess,
+            brevo: brevoSuccess,
           },
         }),
         {
