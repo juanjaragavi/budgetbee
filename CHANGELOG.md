@@ -22,7 +22,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Blog-specific mobile styles (`blog-mobile.css`) (May 26, 2025)
 - Started migration of marketing-related components and custom scripts (e.g., Google Tag Manager, UTM persister) from TopFinanzas UK. (May 26, 2025)
 - Added AdZep ad units us_budgetbeepro_3 (post-top) and us_budgetbeepro_4 (in-article fallback) to all Personal Finance (TOFU/MOFU) articles by updating PostSingle layout with category-normalized detection. (Sep 1, 2025)
-- Contact form backend endpoint at `/api/contact` implemented using Twilio SendGrid SDK, with HTML/text templates, reply-to handling, and env-configurable sender/recipient. (Sep 11, 2025)
+- Contact form backend endpoint at `/api/contact` implemented with Brevo REST APIs, including contact list sync, HTML/text templates, reply-to handling, and env-configurable sender/recipient. (Oct 7, 2025)
 
 ### Changed
 
@@ -32,6 +32,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Updated footer with legal texts and proper navigation (May 24, 2025)
 - Enhanced PostSingle layout for better mobile responsiveness (May 26, 2025)
 - Improved mobile CSS with comprehensive overflow fixes (May 26, 2025)
+- Migrated `/api/contact` service from Twilio SendGrid to Brevo, syncing submitters to Brevo lists `[7, 5]` and using Brevo transactional email with SMTP fallback. (Oct 7, 2025)
 
 ### Fixed
 
@@ -47,7 +48,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Design and implement BudgetBee-specific features
 - Update images and visual assets
-- Verify SendGrid verified sender domain and adjust SENDER_EMAIL/RECIPIENT_EMAIL per environment
+- Verify Brevo sender domain and adjust `SENDER_EMAIL`/`RECIPIENT_EMAIL` per environment
 - Set up proper domain and base URL
 
 ---
