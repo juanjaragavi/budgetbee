@@ -136,7 +136,7 @@ export const POST: APIRoute = async ({ request }) => {
             COUNTRIES: "United States",
           },
           updateEnabled: true, // Allow updates if contact already exists
-          listIds: [7], // Using list ID 7 as in the reference payload
+          listIds: [7, 5], // Using list ID 7 as in the reference payload
           email: email.trim().toLowerCase(),
           ext_id: brevoExtId,
         };
