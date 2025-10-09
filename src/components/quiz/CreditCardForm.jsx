@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import Step1 from "./steps/Step1";
 import Step2 from "./steps/Step2";
 import Step3 from "./steps/Step3";
+import { getBogotaTimestamp } from "../../lib/utils/timezone";
 
 // Cookie names for user tracking
 const COOKIE_NAMES = {
@@ -145,7 +146,7 @@ export default function CreditCardForm() {
         email: formData.email,
         name: formData.name,
         acceptedTerms: formData.receiveMessages,
-        timestamp: new Date().toISOString(),
+        timestamp: getBogotaTimestamp(),
         source: "BudgetBee Quiz",
         ...trackingData, // Include all UTM and tracking data
       };
@@ -185,10 +186,7 @@ export default function CreditCardForm() {
       }
 
       // Mark quiz as completed in sessionStorage (for navigation guard)
-      sessionStorage.setItem(
-        "budgetbee_quiz_completed",
-        new Date().toISOString(),
-      );
+      sessionStorage.setItem("budgetbee_quiz_completed", getBogotaTimestamp());
 
       // Preserve UTM parameters in redirect URL
       const currentParams = new URLSearchParams(window.location.search);
