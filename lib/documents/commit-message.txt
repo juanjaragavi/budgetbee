@@ -1,5 +1,5 @@
-fix(quiz): align registration timestamps to America/Bogota
+feat(content): add lifestyle creep personal finance article
 
-- add shared timezone utility powered by date-fns-tz
-- persist Bogota-formatted timestamps on quiz form and API submission
-- document timezone change and dependencies in changelog and task log
+- publish new TOFU post under personal finance with lifestyle creep guardrails
+- refresh task log to capture article completion checklist
+- update lockfile after formatting pass

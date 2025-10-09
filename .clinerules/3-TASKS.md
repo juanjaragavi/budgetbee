@@ -110,6 +110,11 @@
    - Ensure persisted registration records store dates in `America/Bogota (GMT-5)`.
    - Add validation or monitoring to prevent future timezone drift.
 
+7. [x] Publish TOFU article: "What is 'Lifestyle Creep' and How Is It Silently Draining Your Wallet?" _(Completed: Oct 9, 2025)_
+   - ✓ Created Money Management TOFU article targeting keyword "personal finance".
+   - ✓ Placed new content under `src/pages/personal-finance/` with proper frontmatter and links.
+   - ✓ Verified homepage, blog, and category listings update automatically.
+
 ## Technical Improvements Needed
 
 1. [ ] Implement actual budgeting features (if this is a budgeting app)
