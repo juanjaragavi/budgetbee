@@ -1,12 +1,13 @@
 import type { APIRoute } from "astro";
 import { googleSheetsService } from "../../lib/googleSheets";
+import { getBogotaTimestamp } from "../../lib/utils/timezone";
 
 function isEmail(s: string) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(s);
 }
 
 function generateUniqueId(): string {
-  return `budgetbee-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+  return `budgetbee-${Date.now()}-${Math.random().toString(36).slice(2, 11)}`;
 }
 
 export const prerender = false;
@@ -58,7 +59,7 @@ export const POST: APIRoute = async ({ request }) => {
 
     // Generate unique ID and timestamp
     const submissionId = generateUniqueId();
-    const timestamp = new Date().toISOString();
+    const timestamp = getBogotaTimestamp();
 
     // Split name into first/last (matching SendGrid logic)
     const [first_name, ...rest] = name.trim().split(/\s+/);
