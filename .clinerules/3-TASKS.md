@@ -105,6 +105,11 @@
    - Ensured new contacts are added to Brevo `listIds` `[7, 5]`.
    - Preserved admin notification flow (SMTP fallback) and updated docs/ENV references.
 
+6. [ ] Align quiz registration timestamps with America/Bogota timezone _(Added: Oct 9, 2025)_
+   - Audit quiz submission pipeline to locate timestamp generation.
+   - Ensure persisted registration records store dates in `America/Bogota (GMT-5)`.
+   - Add validation or monitoring to prevent future timezone drift.
+
 ## Technical Improvements Needed
 
 1. [ ] Implement actual budgeting features (if this is a budgeting app)

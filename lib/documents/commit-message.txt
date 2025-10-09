@@ -1,5 +1,5 @@
-feat(contact): migrate contact endpoint to Brevo
+fix(quiz): align registration timestamps to America/Bogota
 
-- replace SendGrid integration with Brevo contact and transactional APIs
-- update environment templates and types for Brevo configuration
-- refresh documentation, changelog, and task log to reflect migration
+- add shared timezone utility powered by date-fns-tz
+- persist Bogota-formatted timestamps on quiz form and API submission
+- document timezone change and dependencies in changelog and task log
