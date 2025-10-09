@@ -38,3 +38,7 @@ src/lib/documents/absolute-brook-452020-d5-*.json
 **/absolute-brook-452020-d5-*.json
 
 .vscode/
+
+# Google Cloud Service Account Credentials
+src/lib/absolute-brook-452020-d5-bfba282d0f42.json
+src/lib/*.json
