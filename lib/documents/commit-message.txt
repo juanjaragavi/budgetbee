@@ -1,6 +1,10 @@
 feat(marketing): standardize lead capture across submissions
-
 - introduce marketing lead model with normalized tracking metadata
 - sync quiz and contact endpoints with Google Sheets/Brevo upserts
 - persist UTM/session context on contact form for analytics parity
+chore: resolve astro check hints across analytics and layouts
+
+- remove unused imports and dead code from analytics components and contact API
+- add inline script directives and render missing social icons to satisfy Astro hints
+- tidy blog and category pages by dropping unused props and indices
 

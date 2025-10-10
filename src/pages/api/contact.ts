@@ -13,10 +13,6 @@ const BREVO_CONTACT_URL = "https://api.brevo.com/v3/contacts";
 const BREVO_EMAIL_URL = "https://api.brevo.com/v3/smtp/email";
 const BREVO_LIST_IDS = [7, 5] as const;
 
-function generateBrevoExtId(): string {
-  return `budgetbee-contact-${Date.now()}-${Math.random().toString(36).slice(2, 10)}`;
-}
-
 export const POST: APIRoute = async ({ request }) => {
   try {
     const contentType = request.headers.get("content-type") || "";

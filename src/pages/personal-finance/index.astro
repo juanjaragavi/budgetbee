@@ -60,7 +60,7 @@ const currentPosts = sortedPosts.slice(0, config.settings.pagination);
 
         <div class="row" id="post-grid">
           {
-            currentPosts.map((post, i) => (
+            currentPosts.map((post) => (
               <div
                 class="mb-14 md:col-6 post-card-wrapper article-card"
                 data-categories={JSON.stringify(post.data.categories || [])}

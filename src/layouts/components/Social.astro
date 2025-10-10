@@ -72,6 +72,62 @@ const {
 
 <ul class={className}>
   {
+    facebook && (
+      <li class="inline-block">
+        <a
+          aria-label="facebook"
+          href={facebook}
+          target="_blank"
+          rel="noopener noreferrer nofollow"
+        >
+          <IoLogoFacebook />
+        </a>
+      </li>
+    )
+  }
+  {
+    twitter && (
+      <li class="inline-block">
+        <a
+          aria-label="twitter"
+          href={twitter}
+          target="_blank"
+          rel="noopener noreferrer nofollow"
+        >
+          <IoLogoTwitter />
+        </a>
+      </li>
+    )
+  }
+  {
+    mastodon && (
+      <li class="inline-block">
+        <a
+          aria-label="mastodon"
+          href={mastodon}
+          target="_blank"
+          rel="noopener noreferrer nofollow"
+        >
+          <IoLogoMastodon />
+        </a>
+      </li>
+    )
+  }
+  {
+    linkedin && (
+      <li class="inline-block">
+        <a
+          aria-label="linkedin"
+          href={linkedin}
+          target="_blank"
+          rel="noopener noreferrer nofollow"
+        >
+          <IoLogoLinkedin />
+        </a>
+      </li>
+    )
+  }
+  {
     instagram && (
       <li class="inline-block">
         <a
