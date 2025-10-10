@@ -1,5 +1,6 @@
-feat(content): add lifestyle creep personal finance article
+feat(marketing): standardize lead capture across submissions
 
-- publish new TOFU post under personal finance with lifestyle creep guardrails
-- refresh task log to capture article completion checklist
-- update lockfile after formatting pass
+- introduce marketing lead model with normalized tracking metadata
+- sync quiz and contact endpoints with Google Sheets/Brevo upserts
+- persist UTM/session context on contact form for analytics parity
+

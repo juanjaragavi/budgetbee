@@ -147,8 +147,18 @@ export default function CreditCardForm() {
         name: formData.name,
         acceptedTerms: formData.receiveMessages,
         timestamp: getBogotaTimestamp(),
-        source: "BudgetBee Quiz",
+        formSource: "credit-card-quiz",
+        formName: "Credit Card Quiz",
+        Pais: "Estados Unidos",
+        Marca: "BudgetBee",
+        country: "United States",
+        brand: "BudgetBee",
         ...trackingData, // Include all UTM and tracking data
+        source: trackingData.utm_source || "BudgetBee Quiz",
+        medium: trackingData.utm_medium || undefined,
+        campaign: trackingData.utm_campaign || undefined,
+        content: trackingData.utm_content || undefined,
+        term: trackingData.utm_term || undefined,
       };
 
       console.log("Quiz data to be sent:", quizData);

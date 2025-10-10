@@ -1,13 +1,13 @@
 import type { APIRoute } from "astro";
 import { googleSheetsService } from "../../lib/googleSheets";
-import { getBogotaTimestamp } from "../../lib/utils/timezone";
+import {
+  buildBrevoAttributes,
+  createMarketingLeadRecord,
+} from "../../lib/marketing/lead";
+import type { MarketingLeadRecord } from "../../lib/marketing/lead";
 
 function isEmail(s: string) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(s);
-}
-
-function generateUniqueId(): string {
-  return `budgetbee-${Date.now()}-${Math.random().toString(36).slice(2, 11)}`;
 }
 
 export const prerender = false;
@@ -15,39 +15,22 @@ export const prerender = false;
 export const POST: APIRoute = async ({ request }) => {
   try {
     const data = await request.json().catch(() => ({}));
-    const {
-      preference,
-      income,
-      email,
-      name,
-      acceptedTerms,
-      // UTM and tracking data from frontend
-      utm_source,
-      utm_medium,
-      utm_campaign,
-      utm_content,
-      utm_term,
-      referrer,
-      userAgent,
-      pageUrl,
-    } = data as {
-      preference?: string;
-      income?: string;
-      email?: string;
-      name?: string;
-      acceptedTerms?: boolean;
-      utm_source?: string;
-      utm_medium?: string;
-      utm_campaign?: string;
-      utm_content?: string;
-      utm_term?: string;
-      referrer?: string;
-      userAgent?: string;
-      pageUrl?: string;
-    };
 
-    // Basic validation
-    if (!email || !name || !acceptedTerms || !isEmail(email)) {
+    const normalizeString = (value: unknown) =>
+      typeof value === "string" && value.trim().length > 0
+        ? value.trim()
+        : undefined;
+
+    const rawEmail = typeof data.email === "string" ? data.email : undefined;
+    const rawName = typeof data.name === "string" ? data.name : undefined;
+    const rawAcceptedTerms =
+      typeof data.acceptedTerms === "boolean"
+        ? data.acceptedTerms
+        : typeof data.acceptedTerms === "string"
+          ? data.acceptedTerms.toLowerCase() === "true"
+          : false;
+
+    if (!rawEmail || !rawName || !rawAcceptedTerms || !isEmail(rawEmail)) {
       return new Response(
         JSON.stringify({ message: "Invalid or missing fields" }),
         {
@@ -57,44 +40,46 @@ export const POST: APIRoute = async ({ request }) => {
       );
     }
 
-    // Generate unique ID and timestamp
-    const submissionId = generateUniqueId();
-    const timestamp = getBogotaTimestamp();
-
-    // Split name into first/last (matching SendGrid logic)
-    const [first_name, ...rest] = name.trim().split(/\s+/);
-    const last_name = rest.join(" ") || undefined;
-
-    // Prepare comprehensive submission data for Google Sheets
-    const submissionData = {
-      // Core form data
-      name: name.trim(),
-      email: email.trim().toLowerCase(),
-      preference,
-      income,
-      acceptedTerms,
-
-      // SendGrid-specific fields
-      first_name,
-      last_name,
-      country: "United States", // Hardcoded as in SendGrid payload
-      external_id: submissionId,
-      brand: "BudgetBee",
-
-      // UTM and tracking data
-      utm_source,
-      utm_medium,
-      utm_campaign,
-      utm_content,
-      utm_term,
-      referrer,
-      userAgent,
-      pageUrl,
-
-      // System fields
-      timestamp,
-      submissionId,
-    };
+    let leadRecord: MarketingLeadRecord;
+    try {
+      leadRecord = createMarketingLeadRecord({
+        name: rawName,
+        email: rawEmail,
+        preference: normalizeString(data.preference),
+        income: normalizeString(data.income),
+        acceptedTerms: rawAcceptedTerms,
+        Pais: normalizeString(data.Pais),
+        pais: normalizeString(data.pais),
+        Marca: normalizeString(data.Marca),
+        marca: normalizeString(data.marca),
+        country: normalizeString(data.country),
+        brand: normalizeString(data.brand),
+        utm_source: normalizeString(data.utm_source),
+        utm_medium: normalizeString(data.utm_medium),
+        utm_campaign: normalizeString(data.utm_campaign),
+        utm_content: normalizeString(data.utm_content),
+        utm_term: normalizeString(data.utm_term),
+        source: normalizeString(data.source),
+        medium: normalizeString(data.medium),
+        campaign: normalizeString(data.campaign),
+        content: normalizeString(data.content),
+        term: normalizeString(data.term),
+        referrer: normalizeString(data.referrer),
+        userAgent: normalizeString(data.userAgent),
+        pageUrl: normalizeString(data.pageUrl),
+        timestamp: normalizeString(data.timestamp),
+        submissionId: normalizeString(data.submissionId),
+        externalId: normalizeString(data.externalId),
+        formSource: normalizeString(data.formSource) ?? "credit-card-quiz",
+        formName: "Credit Card Quiz",
+      });
+    } catch (error) {
+      console.error("Quiz submission: failed to build marketing record", error);
+      return new Response(
+        JSON.stringify({ message: "Unable to process submission" }),
+        { status: 400, headers: { "Content-Type": "application/json" } },
+      );
+    }
 
     // Initialize Google Sheets integration
     let googleSheetsSuccess = false;
@@ -103,7 +88,7 @@ export const POST: APIRoute = async ({ request }) => {
       console.log("Google Sheets: Starting integration...");
       await googleSheetsService.initializeSheet();
       const upsertResult =
-        await googleSheetsService.upsertSubmission(submissionData);
+        await googleSheetsService.upsertSubmission(leadRecord);
       googleSheetsSuccess = upsertResult.success;
       googleSheetsAction = upsertResult.action;
       console.log(
@@ -126,20 +111,12 @@ export const POST: APIRoute = async ({ request }) => {
       try {
         console.log("Brevo: Starting integration...");
 
-        // Generate ext_id with timestamp (budgetbee-{timestamp})
-        const brevoExtId = `budgetbee-${Date.now()}`;
-
-        // Build Brevo payload
         const payload = {
-          attributes: {
-            FIRSTNAME: first_name,
-            LASTNAME: last_name || "",
-            COUNTRIES: "United States",
-          },
+          attributes: buildBrevoAttributes(leadRecord),
           updateEnabled: true, // Allow updates if contact already exists
-          listIds: [7, 5], // Using list ID 7 as in the reference payload
-          email: email.trim().toLowerCase(),
-          ext_id: brevoExtId,
+          listIds: [7, 5],
+          email: leadRecord.email,
+          ext_id: leadRecord.externalId,
         };
 
         const brevoRes = await fetch("https://api.brevo.com/v3/contacts", {
@@ -170,7 +147,7 @@ export const POST: APIRoute = async ({ request }) => {
       return new Response(
         JSON.stringify({
           ok: true,
-          submissionId,
+          submissionId: leadRecord.submissionId,
           integrations: {
             googleSheets: googleSheetsSuccess,
             googleSheetsAction,
