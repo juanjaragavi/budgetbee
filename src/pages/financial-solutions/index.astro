@@ -7,7 +7,6 @@ import { sortByDate } from "@/lib/utils/sortFunctions";
 import { markdownify } from "@/lib/utils/textConverter";
 import { getEntry } from "astro:content";
 
-const { summary_length } = config.settings;
 const postIndex = await getEntry("financial-solutions", "-index");
 const posts = await getSinglePage("financial-solutions");
 const sortedPosts = sortByDate(posts);

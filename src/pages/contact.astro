@@ -1,5 +1,4 @@
 ---
-import config from "@/config/config.json";
 import Base from "@/layouts/Base.astro";
 import { markdownify } from "@/lib/utils/textConverter";
 import type { CollectionEntry } from "astro:content";
@@ -9,7 +8,6 @@ const entry = (await getEntry(
   "contact",
   "-index",
 )) as CollectionEntry<"contact">;
-const { contact_form_action } = config.params;
 const { title, description, info } = entry.data;
 ---
 

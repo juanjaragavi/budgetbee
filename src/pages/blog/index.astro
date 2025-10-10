@@ -8,7 +8,6 @@ import { markdownify } from "@/lib/utils/textConverter";
 import type { CollectionEntry } from "astro:content";
 import { getEntry } from "astro:content";
 
-const { summary_length } = config.settings;
 const postIndex = (await getEntry(
   "personal-finance",
   "-index",
@@ -23,9 +22,6 @@ const totalPages = Math.ceil(allPosts.length / config.settings.pagination);
 const currentPosts = sortedPosts.slice(0, config.settings.pagination);
 
 // Get unique categories from all posts
-const allCategories = [
-  ...new Set(allPosts.flatMap((post) => post.data.categories || [])),
-];
 ---
 
 <Base title={postIndex?.data.title}>

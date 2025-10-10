@@ -4,11 +4,11 @@
  * Only use in development environment
  */
 
-import React, { useState, useEffect } from "react";
+import { useState, useEffect, type FC } from "react";
 import { useAdZep } from "../../hooks/useAdZep";
-import { getAdZepState, resetAdZepState } from "../../lib/adZepUtils";
+import { getAdZepState } from "../../lib/adZepUtils";
 
-const AdZepDebugger: React.FC = () => {
+const AdZepDebugger: FC = () => {
   const [debugInfo, setDebugInfo] = useState<any>(null);
   const [showDebugger, setShowDebugger] = useState(false);
 

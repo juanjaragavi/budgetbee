@@ -8,7 +8,6 @@ import { useEffect } from "react";
 import {
   extractUtmFromCurrentUrl,
   getStoredUtmParams,
-  UTM_PARAM_KEYS,
 } from "@/lib/utils/utmUtils";
 
 export default function UtmMonitor() {

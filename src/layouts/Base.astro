@@ -248,6 +248,7 @@ const isBlogPost =
     <meta name="twitter:card" content="summary_large_image" />
 
     <script
+      is:inline
       type="application/ld+json"
       set:html={JSON.stringify({
         "@context": "https://schema.org",
@@ -265,6 +266,7 @@ const isBlogPost =
 
     {/* Organization Schema */}
     <script
+      is:inline
       type="application/ld+json"
       set:html={JSON.stringify({
         "@context": "https://schema.org",
@@ -300,6 +302,7 @@ const isBlogPost =
     {
       pageType === "article" && datePublished && (
         <script
+          is:inline
           type="application/ld+json"
           set:html={JSON.stringify({
             "@context": "https://schema.org",
@@ -353,6 +356,7 @@ const isBlogPost =
 
     <!-- Google Ads Conversion Tracking -->
     <script
+      is:inline
       async
       src="https://www.googletagmanager.com/gtag/js?id=AW-17359006951"></script>
     <script is:inline>
@@ -371,17 +375,22 @@ const isBlogPost =
     }
 
     {/* BudgetBee Ad Manager - served as built asset */}
-    <script type="module" src={adManagerUrl}></script>
+    <script is:inline type="module" src={adManagerUrl}></script>
     {
       /* AdZep activation bridge for Astro view transitions - served as built asset */
     }
-    <script type="module" src={adzepBridgeUrl}></script>
+    <script is:inline type="module" src={adzepBridgeUrl}></script>
 
     {/* Article-only AdZep bootstrap (CSS is global in ad-aware-design.css) */}
-    {pageType === "article" && <script type="module" src={articleLoaderUrl} />}
+    {
+      pageType === "article" && (
+        <script is:inline type="module" src={articleLoaderUrl} />
+      )
+    }
 
     {/* Backup GAM initialization for fallback */}
     <script
+      is:inline
       async
       crossorigin="anonymous"
       id="gpt-js-main"

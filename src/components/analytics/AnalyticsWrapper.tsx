@@ -1,7 +1,6 @@
 {
   /* // src/components/analytics/AnalyticsWrapper.tsx */
 }
-import React from "react";
 import UtmPersister from "./UtmPersister";
 import UtmMonitor from "./UtmMonitor";
 import AdZepActivator from "./AdZepActivator";

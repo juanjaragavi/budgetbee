@@ -7,7 +7,7 @@
 import type { CollectionEntry } from "astro:content";
 import PostCardEnhanced from "@/layouts/partials/PostCardEnhanced.astro";
 import Pagination from "@/layouts/components/Pagination.astro";
-import { blogManager, type BlogPostFilters } from "@/lib/blogManager";
+import { blogManager } from "@/lib/blogManager";
 
 export interface Props {
   posts: CollectionEntry<"personal-finance" | "financial-solutions">[];
@@ -23,7 +23,6 @@ export interface Props {
   title?: string;
   description?: string;
   className?: string;
-  postsPerPage?: number;
 }
 
 const {
@@ -40,7 +39,6 @@ const {
   title,
   description,
   className = "",
-  postsPerPage = 9,
 } = Astro.props;
 
 // Get filter data
@@ -255,7 +253,6 @@ const getAnimationDelay = (index: number) => index * 100;
       posts.map((post, index) => (
         <PostCardEnhanced
           post={post}
-          index={index}
           variant={variant}
           animationDelay={getAnimationDelay(index)}
           showExcerpt={variant !== "compact"}
@@ -577,7 +574,7 @@ const getAnimationDelay = (index: number) => index * 100;
 
       try {
         const response = await fetch(`${basePath}/page/${nextPage}.json`);
-        const data = await response.json();
+        await response.json();
 
         // Add new posts to grid (this would need server-side JSON endpoint)
         // Implementation depends on your specific setup
