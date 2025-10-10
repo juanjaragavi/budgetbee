@@ -2,6 +2,13 @@ import type { APIRoute } from "astro";
 export const prerender = false;
 import nodemailer from "nodemailer";
 
+import { googleSheetsService } from "../../lib/googleSheets";
+import {
+  buildBrevoAttributes,
+  createMarketingLeadRecord,
+} from "../../lib/marketing/lead";
+import type { MarketingLeadRecord } from "../../lib/marketing/lead";
+
 const BREVO_CONTACT_URL = "https://api.brevo.com/v3/contacts";
 const BREVO_EMAIL_URL = "https://api.brevo.com/v3/smtp/email";
 const BREVO_LIST_IDS = [7, 5] as const;
@@ -38,9 +45,9 @@ export const POST: APIRoute = async ({ request }) => {
       });
     }
 
-    const { name, email, subject, message } = data ?? {};
+    const { name, email, subject, message: messageBody } = data ?? {};
 
-    if (!name || !email || !subject || !message) {
+    if (!name || !email || !subject || !messageBody) {
       return new Response(
         JSON.stringify({ message: "Missing required fields" }),
         { status: 400, headers: { "Content-Type": "application/json" } },
@@ -68,9 +75,28 @@ export const POST: APIRoute = async ({ request }) => {
       );
     }
 
+    const sanitizedMessage = String(messageBody);
     const normalizedEmail = email.trim().toLowerCase();
-    const [firstName, ...restName] = name.trim().split(/\s+/);
-    const lastName = restName.join(" ");
+
+    let leadRecord: MarketingLeadRecord;
+    try {
+      leadRecord = createMarketingLeadRecord({
+        name,
+        email: normalizedEmail,
+        subject,
+        message: sanitizedMessage,
+        formSource: "contact-form",
+        formName: "Contact Form",
+        Pais: "Estados Unidos",
+        Marca: "BudgetBee",
+      });
+    } catch (error) {
+      console.error("Contact: failed to build marketing record", error);
+      return new Response(
+        JSON.stringify({ message: "Invalid submission payload" }),
+        { status: 400, headers: { "Content-Type": "application/json" } },
+      );
+    }
 
     const htmlMessage = `
       <!DOCTYPE html>
@@ -94,7 +120,7 @@ export const POST: APIRoute = async ({ request }) => {
           <div class="info-row"><span class="label">Subject:</span> ${subject}</div>
           <div class="message-box">
             <span class="label">Message:</span>
-            <p>${message.replace(/\n/g, "<br>")}</p>
+            <p>${sanitizedMessage.replace(/\n/g, "<br>")}</p>
           </div>
           <div class="footer">This email was sent from the BudgetBee Contact Form.</div>
         </div>
@@ -102,7 +128,7 @@ export const POST: APIRoute = async ({ request }) => {
       </html>
     `;
 
-    const textMessage = `You received a new message from your contact form:\n\nName: ${name}\nEmail: ${email}\nSubject: ${subject}\n\nMessage:\n${message}`;
+    const textMessage = `You received a new message from your contact form:\n\nName: ${name}\nEmail: ${email}\nSubject: ${subject}\n\nMessage:\n${sanitizedMessage}`;
 
     const useSandbox = Boolean(
       import.meta.env.DEV ||
@@ -124,15 +150,10 @@ export const POST: APIRoute = async ({ request }) => {
       try {
         const contactPayload = {
           email: normalizedEmail,
-          attributes: {
-            FIRSTNAME: firstName,
-            LASTNAME: lastName,
-            COUNTRIES: "United States",
-            SOURCE: "contact-form",
-          },
+          attributes: buildBrevoAttributes(leadRecord),
           listIds: BREVO_LIST_IDS,
           updateEnabled: true,
-          ext_id: generateBrevoExtId(),
+          ext_id: leadRecord.externalId,
         };
 
         const contactResponse = await fetch(BREVO_CONTACT_URL, {
@@ -166,6 +187,21 @@ export const POST: APIRoute = async ({ request }) => {
       }
     }
 
+    let googleSheetsSuccess = false;
+    let googleSheetsAction: string | undefined;
+    try {
+      console.log("Contact: Starting Google Sheets integration...");
+      await googleSheetsService.initializeSheet();
+      const result = await googleSheetsService.upsertSubmission(leadRecord);
+      googleSheetsSuccess = result.success;
+      googleSheetsAction = result.action;
+      console.log(
+        `Contact: Google Sheets integration ${googleSheetsSuccess ? "successful" : "failed"}`,
+      );
+    } catch (error) {
+      console.error("Contact: Google Sheets integration failed", error);
+    }
+
     let emailSent = false;
     let primaryEmailError: unknown;
     if (useSandbox) {
@@ -183,6 +219,9 @@ export const POST: APIRoute = async ({ request }) => {
           tags: ["budgetbee-contact-form"],
           headers: {
             "X-Contact-List-Ids": BREVO_LIST_IDS.join(","),
+            "X-Lead-External-Id": leadRecord.externalId,
+            "X-Lead-Submission-Id": leadRecord.submissionId,
+            "X-Lead-Source": leadRecord.formSource,
           },
         };
 
@@ -237,6 +276,12 @@ export const POST: APIRoute = async ({ request }) => {
             subject: `Contact Form: ${subject}`,
             text: textMessage,
             html: htmlMessage,
+            headers: {
+              "X-Contact-List-Ids": BREVO_LIST_IDS.join(","),
+              "X-Lead-External-Id": leadRecord.externalId,
+              "X-Lead-Submission-Id": leadRecord.submissionId,
+              "X-Lead-Source": leadRecord.formSource,
+            },
           });
           emailSent = true;
         } catch (smtpError) {
@@ -257,7 +302,16 @@ export const POST: APIRoute = async ({ request }) => {
     return new Response(
       JSON.stringify({
         message: "Message sent successfully!",
+        lead: {
+          submissionId: leadRecord.submissionId,
+          externalId: leadRecord.externalId,
+          formSource: leadRecord.formSource,
+        },
         integrations: {
+          googleSheets: {
+            success: googleSheetsSuccess,
+            action: googleSheetsAction,
+          },
           brevo: {
             contactSynced,
             emailSent: !useSandbox ? emailSent : false,

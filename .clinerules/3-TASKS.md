@@ -115,6 +115,11 @@
    - ✓ Placed new content under `src/pages/personal-finance/` with proper frontmatter and links.
    - ✓ Verified homepage, blog, and category listings update automatically.
 
+8. [ ] Standardize marketing data capture across integrations _(Added: Oct 10, 2025)_
+   - Define canonical form submission schema including UTM fields plus Pais/Marca constants.
+   - Audit Brevo and Google Sheets endpoints for field mismatches and remediate mapping.
+   - Validate end-to-end submissions and document findings and changes.
+
 ## Technical Improvements Needed
 
 1. [ ] Implement actual budgeting features (if this is a budgeting app)

@@ -55,6 +55,23 @@ const { title, description, info } = entry.data;
                 placeholder="Your message"
                 required></textarea>
             </div>
+            <input type="hidden" name="utm_source" />
+            <input type="hidden" name="utm_medium" />
+            <input type="hidden" name="utm_campaign" />
+            <input type="hidden" name="utm_content" />
+            <input type="hidden" name="utm_term" />
+            <input type="hidden" name="source" />
+            <input type="hidden" name="medium" />
+            <input type="hidden" name="campaign" />
+            <input type="hidden" name="content" />
+            <input type="hidden" name="term" />
+            <input type="hidden" name="Pais" value="Estados Unidos" />
+            <input type="hidden" name="Marca" value="BudgetBee" />
+            <input type="hidden" name="referrer" />
+            <input type="hidden" name="userAgent" />
+            <input type="hidden" name="pageUrl" />
+            <input type="hidden" name="formSource" value="contact-form" />
+            <input type="hidden" name="formName" value="Contact Form" />
             <button type="submit" class="btn btn-primary" id="submit-btn"
               >Send Now</button
             >
@@ -87,17 +104,115 @@ const { title, description, info } = entry.data;
   const submitBtn = document.getElementById("submit-btn") as HTMLButtonElement;
   const formMessage = document.getElementById("form-message") as HTMLDivElement;
 
+  const UTM_KEYS = [
+    "utm_source",
+    "utm_medium",
+    "utm_campaign",
+    "utm_content",
+    "utm_term",
+  ];
+
+  const PLAIN_KEYS = ["source", "medium", "campaign", "content", "term"];
+
+  const STATIC_FIELDS: Record<string, string> = {
+    Pais: "Estados Unidos",
+    Marca: "BudgetBee",
+    formSource: "contact-form",
+    formName: "Contact Form",
+  };
+
+  const safeSessionGet = (key: string) => {
+    if (typeof window === "undefined") return null;
+    try {
+      return window.sessionStorage.getItem(key);
+    } catch (error) {
+      console.debug("sessionStorage unavailable", error);
+      return null;
+    }
+  };
+
+  function setHiddenField(name: string, value: string | null | undefined) {
+    const input = form.querySelector<HTMLInputElement>(`input[name="${name}"]`);
+    if (!input) return;
+    if (typeof value === "string" && value.trim().length > 0) {
+      input.value = value;
+    } else if (STATIC_FIELDS[name]) {
+      input.value = STATIC_FIELDS[name];
+    } else {
+      input.value = "";
+    }
+  }
+
+  function populateHiddenFields() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const storedUtms: Record<string, string> = {};
+
+    UTM_KEYS.forEach((key) => {
+      const stored = safeSessionGet(key);
+      if (stored) {
+        storedUtms[key] = stored;
+      }
+    });
+
+    UTM_KEYS.forEach((key) => {
+      const value =
+        urlParams.get(key) ?? storedUtms[key] ?? safeSessionGet(key);
+      setHiddenField(key, value);
+    });
+
+    // Mirror UTM values into plain source/medium/etc keys
+    PLAIN_KEYS.forEach((plainKey, index) => {
+      const utmValue = form.querySelector<HTMLInputElement>(
+        `input[name="${UTM_KEYS[index]}"]`,
+      )?.value;
+      setHiddenField(plainKey, utmValue || "");
+    });
+
+    setHiddenField("Pais", STATIC_FIELDS.Pais);
+    setHiddenField("Marca", STATIC_FIELDS.Marca);
+    setHiddenField("referrer", document.referrer || "");
+    setHiddenField("userAgent", navigator.userAgent || "");
+    setHiddenField("pageUrl", window.location.href);
+    setHiddenField("formSource", STATIC_FIELDS.formSource);
+    setHiddenField("formName", STATIC_FIELDS.formName);
+  }
+
+  populateHiddenFields();
+
+  document.addEventListener("astro:page-load", populateHiddenFields);
+
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
 
+    populateHiddenFields();
+
     // Get form data
     const formData = new FormData(form);
-    const data = {
-      name: formData.get("name"),
-      email: formData.get("email"),
-      subject: formData.get("subject"),
-      message: formData.get("message"),
-    };
+    const data: Record<string, unknown> = {};
+
+    formData.forEach((value, key) => {
+      if (typeof value === "string") {
+        data[key] = value;
+      }
+    });
+
+    // Ensure tracking fields mirror each other
+    UTM_KEYS.forEach((utmKey, index) => {
+      const plainKey = PLAIN_KEYS[index];
+      if (!data[utmKey] && data[plainKey]) {
+        data[utmKey] = data[plainKey];
+      } else if (data[utmKey] && !data[plainKey]) {
+        data[plainKey] = data[utmKey];
+      }
+    });
+
+    data.referrer = data.referrer || document.referrer || "";
+    data.userAgent = data.userAgent || navigator.userAgent || "";
+    data.pageUrl = data.pageUrl || window.location.href;
+    data.formSource = STATIC_FIELDS.formSource;
+    data.formName = STATIC_FIELDS.formName;
+    data.Pais = data.Pais || STATIC_FIELDS.Pais;
+    data.Marca = data.Marca || STATIC_FIELDS.Marca;
 
     // Disable submit button and show loading state
     submitBtn.disabled = true;

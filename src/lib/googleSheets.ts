@@ -1,35 +1,38 @@
 import { google } from "googleapis";
 import path from "path";
 
-interface QuizSubmission {
-  // Core form data
-  name: string;
-  email: string;
-  preference?: string;
-  income?: string;
-  acceptedTerms?: boolean;
+import type { MarketingLeadRecord } from "./marketing/lead";
 
-  // SendGrid-specific fields
-  first_name: string;
-  last_name?: string;
-  country: string;
-  external_id: string;
-  brand: string;
+const SHEET_HEADERS = [
+  "Name",
+  "Email",
+  "First Name",
+  "Last Name",
+  "Preference",
+  "Income",
+  "Accepted Terms",
+  "Country",
+  "External ID",
+  "Brand",
+  "Pais",
+  "Marca",
+  "UTM Source",
+  "UTM Medium",
+  "UTM Campaign",
+  "UTM Content",
+  "UTM Term",
+  "Referrer",
+  "User Agent",
+  "Page URL",
+  "Form Source",
+  "Subject",
+  "Message",
+  "Timestamp",
+  "Submission ID",
+];
 
-  // UTM and tracking data
-  utm_source?: string;
-  utm_medium?: string;
-  utm_campaign?: string;
-  utm_content?: string;
-  utm_term?: string;
-  referrer?: string;
-  userAgent?: string;
-  pageUrl?: string;
-
-  // System fields
-  timestamp: string;
-  submissionId: string;
-}
+const HEADER_RANGE = "A1:Y1";
+const DATA_RANGE = "A:Y";
 
 export type UpsertAction = "inserted" | "updated";
 
@@ -90,18 +93,20 @@ export class GoogleSheetsService {
     return email.toLowerCase().trim();
   }
 
-  private buildRowData(submission: QuizSubmission) {
+  private buildRowData(submission: MarketingLeadRecord) {
     return [
       submission.name,
       submission.email,
-      submission.first_name,
-      submission.last_name || "",
+      submission.firstName,
+      submission.lastName || "",
       submission.preference || "",
       submission.income || "",
-      submission.acceptedTerms || false,
+      submission.acceptedTerms,
       submission.country,
-      submission.external_id,
+      submission.externalId,
       submission.brand,
+      submission.pais,
+      submission.marca,
       submission.utm_source || "",
       submission.utm_medium || "",
       submission.utm_campaign || "",
@@ -110,6 +115,9 @@ export class GoogleSheetsService {
       submission.referrer || "",
       submission.userAgent || "",
       submission.pageUrl || "",
+      submission.formSource,
+      submission.subject || "",
+      submission.message || "",
       submission.timestamp,
       submission.submissionId,
     ];
@@ -164,12 +172,12 @@ export class GoogleSheetsService {
    * Update an existing submission in the Google Sheet
    */
   async updateExistingSubmission(
-    submission: QuizSubmission,
+    submission: MarketingLeadRecord,
     rowNumber?: number,
   ): Promise<boolean> {
     try {
       const { sheetId, sheetName } = this.getSheetConfig();
-      const normalizedSubmission: QuizSubmission = {
+      const normalizedSubmission: MarketingLeadRecord = {
         ...submission,
         email: this.normalizeEmail(submission.email),
       };
@@ -193,7 +201,7 @@ export class GoogleSheetsService {
       // Update the specific row
       const result = await this.sheets.spreadsheets.values.update({
         spreadsheetId: sheetId,
-        range: `${sheetName}!A${resolvedRowNumber}:T${resolvedRowNumber}`,
+        range: `${sheetName}!A${resolvedRowNumber}:Y${resolvedRowNumber}`,
         valueInputOption: "RAW",
         requestBody: {
           values: [rowData],
@@ -240,11 +248,13 @@ export class GoogleSheetsService {
     }
   }
 
-  async upsertSubmission(submission: QuizSubmission): Promise<UpsertResult> {
+  async upsertSubmission(
+    submission: MarketingLeadRecord,
+  ): Promise<UpsertResult> {
     try {
       const { sheetId, sheetName } = this.getSheetConfig();
       const normalizedEmail = this.normalizeEmail(submission.email);
-      const normalizedSubmission: QuizSubmission = {
+      const normalizedSubmission: MarketingLeadRecord = {
         ...submission,
         email: normalizedEmail,
       };
@@ -271,7 +281,7 @@ export class GoogleSheetsService {
       const rowData = this.buildRowData(normalizedSubmission);
       const appendResult = await this.sheets.spreadsheets.values.append({
         spreadsheetId: sheetId,
-        range: `${sheetName}!A:T`,
+        range: `${sheetName}!${DATA_RANGE}`,
         valueInputOption: "RAW",
         insertDataOption: "INSERT_ROWS",
         requestBody: {
@@ -301,7 +311,7 @@ export class GoogleSheetsService {
   /**
    * Append a new submission to the Google Sheet (with duplicate prevention)
    */
-  async appendSubmission(submission: QuizSubmission): Promise<boolean> {
+  async appendSubmission(submission: MarketingLeadRecord): Promise<boolean> {
     const result = await this.upsertSubmission(submission);
 
     if (!result.success) {
@@ -325,48 +335,41 @@ export class GoogleSheetsService {
       // Check if headers already exist
       const response = await this.sheets.spreadsheets.values.get({
         spreadsheetId: sheetId,
-        range: `${sheetName}!A1:T1`,
+        range: `${sheetName}!${HEADER_RANGE}`,
       });
 
-      // If no headers exist, create them
-      if (!response.data.values || response.data.values.length === 0) {
-        console.log("Google Sheets: No headers found, creating them...");
+      const headersNeedUpdate = (() => {
+        if (!response.data.values || response.data.values.length === 0) {
+          return true;
+        }
 
-        const headers = [
-          "Name", // A
-          "Email", // B
-          "First Name", // C
-          "Last Name", // D
-          "Preference", // E
-          "Income", // F
-          "Accepted Terms", // G
-          "Country", // H
-          "External ID", // I
-          "Brand", // J
-          "UTM Source", // K
-          "UTM Medium", // L
-          "UTM Campaign", // M
-          "UTM Content", // N
-          "UTM Term", // O
-          "Referrer", // P
-          "User Agent", // Q
-          "Page URL", // R
-          "Timestamp", // S
-          "Submission ID", // T
-        ];
+        const existingHeaders = response.data.values[0];
+        if (!existingHeaders) return true;
+
+        if (existingHeaders.length !== SHEET_HEADERS.length) {
+          return true;
+        }
+
+        return !SHEET_HEADERS.every(
+          (header, index) => existingHeaders[index] === header,
+        );
+      })();
+
+      if (headersNeedUpdate) {
+        console.log("Google Sheets: Updating headers to marketing schema...");
 
         await this.sheets.spreadsheets.values.update({
           spreadsheetId: sheetId,
-          range: `${sheetName}!A1:T1`,
+          range: `${sheetName}!${HEADER_RANGE}`,
           valueInputOption: "RAW",
           requestBody: {
-            values: [headers],
+            values: [SHEET_HEADERS],
           },
         });
 
-        console.log("Google Sheets: Headers created successfully");
+        console.log("Google Sheets: Headers updated successfully");
       } else {
-        console.log("Google Sheets: Headers already exist");
+        console.log("Google Sheets: Headers already up to date");
       }
 
       return true;
