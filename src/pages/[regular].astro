@@ -3,21 +3,12 @@ import Base from "@/layouts/Base.astro";
 import Default from "@/layouts/Default.astro";
 import { getSinglePage } from "@/lib/contentParser.astro";
 
-export async function getStaticPaths() {
-  const pages = await getSinglePage("pages");
+// In server/hybrid mode, getStaticPaths() is not needed for dynamic routes
+// Route params are resolved at request time
 
-  const paths = pages.map((page) => ({
-    params: {
-      regular: page.slug,
-    },
-    props: { page },
-  }));
-  return paths;
-}
-
-// Resolve page from static props when available; otherwise, fallback to params
+// Resolve page from params (no static props in server mode)
 const { regular } = Astro.params;
-let page: any = Astro.props?.page as any;
+let page: any = null;
 
 if (!page && regular) {
   const pages = await getSinglePage("pages");

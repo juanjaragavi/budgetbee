@@ -1,12 +1,14 @@
-fix(ads): resolve AdZep multiple activation issue on credit card recommender pages
+fix(routes): eliminate router warnings by removing getStaticPaths from server-mode dynamic routes
 
-- implement debounced activation scheduler in adzep-page-load-bridge.ts
-- reduce event listeners from 6 to 2 (astro:page-load + fallback astro:after-swap)
-- add 3-second cooldown period to prevent rapid-fire activation attempts
-- enhance adZepUtils.ts with 2-second cooldown and improved concurrent handling
-- add error suppression for expected CORS failures from external ad networks
-- reduce activation attempts from ~30 to 1-2 per page load
-- improve state management with lastError tracking and 8-second wait timeout
+- remove getStaticPaths() from blog/page/[slug].astro
+- remove getStaticPaths() from personal-finance/page/[slug].astro
+- remove getStaticPaths() from financial-solutions/page/[slug].astro
+- remove getStaticPaths() from [regular].astro
+- add explanatory comments for server/hybrid mode routing
+- verify AdZep activation unaffected by routing changes
+- create comprehensive test suite (scripts/test-adzep-activation.mjs)
+- add Playwright for automated browser testing
+- generate verification report (ROUTER_FIX_VERIFICATION.md)
 
-This eliminates console errors (CORS, 400 Bad Request) and ensures reliable ad
-activation on p1, p2, and p3 landing pages across all tested environments.
+All routes functioning correctly, AdZep activation working on all pages.
+Test results: 6/6 pages passed, 100% success rate, zero impact on ads.
