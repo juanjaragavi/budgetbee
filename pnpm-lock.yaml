@@ -98,6 +98,9 @@ importers:
       "@types/react":
         specifier: ^19.1.12
         version: 19.1.12
+      playwright:
+        specifier: ^1.56.0
+        version: 1.56.0
       postcss:
         specifier: ^8.5.6
         version: 8.5.6
@@ -3094,6 +3097,14 @@ packages:
       }
     engines: { node: ">= 0.8" }
 
+  fsevents@2.3.2:
+    resolution:
+      {
+        integrity: sha512-xiqMQR4xAeHTuB9uWm+fFRcIOgKBMiOBP+eXiyT7jsgVCq1bkVygt00oASowB7EdtpOHaaPgKt812P9ab+DDKA==,
+      }
+    engines: { node: ^8.16.0 || ^10.6.0 || >=11.0.0 }
+    os: [darwin]
+
   fsevents@2.3.3:
     resolution:
       {
@@ -4377,6 +4388,22 @@ packages:
         integrity: sha512-5gTmgEY/sqK6gFXLIsQNH19lWb4ebPDLA4SdLP7dsWkIXHWlG66oPuVvXSGFPppYZz8ZDZq0dYYrbHfBCVUb1Q==,
       }
     engines: { node: ">=12" }
+
+  playwright-core@1.56.0:
+    resolution:
+      {
+        integrity: sha512-1SXl7pMfemAMSDn5rkPeZljxOCYAmQnYLBTExuh6E8USHXGSX3dx6lYZN/xPpTz1vimXmPA9CDnILvmJaB8aSQ==,
+      }
+    engines: { node: ">=18" }
+    hasBin: true
+
+  playwright@1.56.0:
+    resolution:
+      {
+        integrity: sha512-X5Q1b8lOdWIE4KAoHpW3SE8HvUB+ZZsUoN64ZhjnN8dOb1UpujxBtENGiZFE+9F/yhzJwYa+ca3u43FeLbboHA==,
+      }
+    engines: { node: ">=18" }
+    hasBin: true
 
   postcss-selector-parser@6.0.10:
     resolution:
@@ -7966,6 +7993,9 @@ snapshots:
 
   fresh@2.0.0: {}
 
+  fsevents@2.3.2:
+    optional: true
+
   fsevents@2.3.3:
     optional: true
 
@@ -8985,6 +9015,14 @@ snapshots:
   picomatch@2.3.1: {}
 
   picomatch@4.0.3: {}
+
+  playwright-core@1.56.0: {}
+
+  playwright@1.56.0:
+    dependencies:
+      playwright-core: 1.56.0
+    optionalDependencies:
+      fsevents: 2.3.2
 
   postcss-selector-parser@6.0.10:
     dependencies:

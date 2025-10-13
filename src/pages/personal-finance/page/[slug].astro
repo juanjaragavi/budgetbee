@@ -9,19 +9,8 @@ import Post from "@/layouts/partials/Post.astro";
 import type { CollectionEntry } from "astro:content";
 import { getEntry } from "astro:content";
 
-export async function getStaticPaths() {
-  const posts = await getSinglePage("personal-finance");
-  const totalPages = Math.ceil(posts.length / config.settings.pagination);
-  const paths = [];
-  for (let i = 1; i < totalPages; i++) {
-    paths.push({
-      params: {
-        slug: (i + 1).toString(),
-      },
-    });
-  }
-  return paths;
-}
+// In server/hybrid mode, getStaticPaths() is not needed for dynamic routes
+// Route params are resolved at request time
 
 const { slug } = Astro.params;
 const postIndex = (await getEntry(
