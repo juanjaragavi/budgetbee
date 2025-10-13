@@ -17,10 +17,12 @@
 
 import { activateAdZep } from "./adZepUtils";
 
-// Extend window for an installation guard
+// Extend window for an installation guard and debouncing
 declare global {
   interface Window {
     __adzepBridgeInstalled?: boolean;
+    __adzepLastActivation?: number;
+    __adzepPendingActivation?: number | null;
   }
 }
 
@@ -46,29 +48,65 @@ function pageHasAdUnits(): boolean {
 
 /**
  * Attempt to activate AdZep if ad units are present.
+ * Implements cooldown period to prevent rapid-fire activations.
  */
 async function activateIfNeeded(reason: string): Promise<void> {
   try {
-    if (!pageHasAdUnits()) {
-      // No ad slots on this page; do nothing.
+    // Check cooldown period (minimum 3 seconds between activations)
+    const now = Date.now();
+    const lastActivation = window.__adzepLastActivation || 0;
+    const timeSinceLastActivation = now - lastActivation;
+    const cooldownPeriod = 3000; // 3 seconds
+
+    if (timeSinceLastActivation < cooldownPeriod) {
+      console.debug(
+        `[AdZepBridge] Activation throttled (${timeSinceLastActivation}ms since last, cooldown: ${cooldownPeriod}ms)`,
+      );
       return;
     }
+
+    if (!pageHasAdUnits()) {
+      // No ad slots on this page; do nothing.
+      console.debug(
+        "[AdZepBridge] No ad units found on page, skipping activation",
+      );
+      return;
+    }
+
+    // Update last activation timestamp
+    window.__adzepLastActivation = now;
 
     // Force activation on navigations to ensure the global SPA state doesn't skip us.
     await activateAdZep({
       force: true,
       timeout: 5000,
-      retryAttempts: 3,
-      retryDelay: 500,
+      retryAttempts: 2, // Reduced from 3 to minimize retry storms
+      retryDelay: 1000, // Increased from 500ms to spread out retries
     });
 
     // Helpful console trace for verification (visible in dev tools)
-    // eslint-disable-next-line no-console
-    console.debug(`[AdZepBridge] Activation attempted due to: ${reason}`);
+    console.log(`[AdZepBridge] Activation completed due to: ${reason}`);
   } catch (err) {
-    // eslint-disable-next-line no-console
     console.error("[AdZepBridge] Activation error:", err);
   }
+}
+
+/**
+ * Debounced activation scheduler to prevent multiple rapid calls.
+ * @param reason The reason for activation (for logging)
+ * @param delay Delay in ms before attempting activation
+ */
+function scheduleActivation(reason: string, delay: number = 300): void {
+  // Clear any pending activation
+  if (window.__adzepPendingActivation) {
+    clearTimeout(window.__adzepPendingActivation);
+  }
+
+  // Schedule new activation with debounce
+  window.__adzepPendingActivation = window.setTimeout(() => {
+    window.__adzepPendingActivation = null;
+    activateIfNeeded(reason);
+  }, delay);
 }
 
 /**
@@ -79,46 +117,34 @@ function installBridge(): void {
   if (window.__adzepBridgeInstalled) return;
   window.__adzepBridgeInstalled = true;
 
-  // Helper: schedule multiple checks as content settles after navigation
-  const scheduleActivation = (reason: string) => {
-    const delays = [0, 150, 350, 750, 1500];
-    for (const d of delays) {
-      setTimeout(() => activateIfNeeded(reason), d);
-    }
-  };
-
-  // Initial attempt (first load / hydration)
+  // Initial attempt (first load / hydration) - single attempt with longer delay
+  // to allow DOM and external scripts to fully load
   queueMicrotask(() => {
-    scheduleActivation("initial");
+    scheduleActivation("initial", 500);
   });
 
   // Fire after every client-side navigation completes
+  // astro:page-load is the primary event, others are redundant
   addEventListener("astro:page-load", () => {
-    scheduleActivation("astro:page-load");
+    scheduleActivation("astro:page-load", 400);
   });
 
-  // Defensive: also listen to after-swap in case some pages mount content later
+  // Only use after-swap as fallback if page-load doesn't fire
+  // This reduces duplicate activation attempts
+  let pageLoadFired = false;
+  addEventListener("astro:page-load", () => {
+    pageLoadFired = true;
+  });
+
   addEventListener("astro:after-swap", () => {
-    scheduleActivation("astro:after-swap");
-  });
-
-  // Extra safety nets for unusual navigation flows
-  addEventListener("astro:page-start", () => {
-    // page-start occurs before the swap; schedule follow-up checks
-    scheduleActivation("astro:page-start");
-  });
-
-  // When tab becomes visible again after backgrounding
-  document.addEventListener("visibilitychange", () => {
-    if (document.visibilityState === "visible") {
-      scheduleActivation("visibilitychange");
+    if (!pageLoadFired) {
+      scheduleActivation("astro:after-swap", 400);
     }
+    pageLoadFired = false; // Reset for next navigation
   });
 
-  // History navigations (back/forward)
-  window.addEventListener("popstate", () => {
-    scheduleActivation("popstate");
-  });
+  // Remove other event listeners that cause duplicate activations
+  // visibilitychange and popstate are handled by astro:page-load
 }
 
 // Auto-install
