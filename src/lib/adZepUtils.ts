@@ -247,15 +247,74 @@ async function safelyActivateAdZep(
 
 /**
  * Reset activation state (useful for testing or forced re-activation)
+ * This clears both our internal tracking AND AdZep's external state
  */
 export function resetAdZepState(): void {
-  if (typeof window !== "undefined" && window.__adZepState) {
-    window.__adZepState.activated = false;
-    window.__adZepState.activationInProgress = false;
-    window.__adZepState.lastActivation = null;
-    window.__adZepState.activationAttempts = 0;
-    window.__adZepState.lastError = null;
-    console.log("[AdZep] State reset");
+  if (typeof window !== "undefined") {
+    // Reset our internal state
+    if (window.__adZepState) {
+      window.__adZepState.activated = false;
+      window.__adZepState.activationInProgress = false;
+      window.__adZepState.lastActivation = null;
+      window.__adZepState.activationAttempts = 0;
+      window.__adZepState.lastError = null;
+      console.log("[AdZep] Internal state reset");
+    }
+
+    // Reset AdZep's external state by clearing relevant localStorage/sessionStorage
+    try {
+      // Clear AdZep's state tracking in localStorage
+      const adZepKeys = Object.keys(localStorage).filter(
+        (key) =>
+          key.includes("AdZep") ||
+          key.includes("adzep") ||
+          key.includes("offerwall") ||
+          key.includes("rewarded"),
+      );
+      adZepKeys.forEach((key) => {
+        localStorage.removeItem(key);
+        console.log(`[AdZep] Cleared localStorage key: ${key}`);
+      });
+
+      // Clear AdZep's state tracking in sessionStorage
+      const adZepSessionKeys = Object.keys(sessionStorage).filter(
+        (key) =>
+          key.includes("AdZep") ||
+          key.includes("adzep") ||
+          key.includes("offerwall") ||
+          key.includes("rewarded"),
+      );
+      adZepSessionKeys.forEach((key) => {
+        sessionStorage.removeItem(key);
+        console.log(`[AdZep] Cleared sessionStorage key: ${key}`);
+      });
+
+      // If AdZep exposes a reset function, call it
+      if (typeof (window as any).AdZepReset === "function") {
+        (window as any).AdZepReset();
+        console.log("[AdZep] Called AdZepReset()");
+      }
+
+      // Clear any AdZep-related window properties that might hold state
+      const adZepWindowProps = Object.keys(window).filter(
+        (key) =>
+          (key.includes("AdZep") || key.includes("adzep")) &&
+          !key.includes("AdZepActivateAds") && // Keep the activation function
+          !key.includes("__adZepState"), // Keep our state object
+      );
+      adZepWindowProps.forEach((key) => {
+        try {
+          delete (window as any)[key];
+          console.log(`[AdZep] Cleared window property: ${key}`);
+        } catch (e) {
+          // Some properties might be read-only
+        }
+      });
+
+      console.log("[AdZep] External AdZep state cleared");
+    } catch (error) {
+      console.warn("[AdZep] Error clearing external AdZep state:", error);
+    }
   }
 }
 
@@ -279,11 +338,12 @@ export function isAdZepActivated(): boolean {
 
 /**
  * Check if the current page is the Quiz page (should not activate ads)
+ * Uses strict detection to avoid false positives
  */
 function isQuizPage(): boolean {
   if (typeof window === "undefined") return false;
 
-  // Check URL path
+  // Check URL path - most reliable method
   const path = window.location.pathname;
   if (
     path === "/quiz" ||
@@ -294,12 +354,15 @@ function isQuizPage(): boolean {
     return true;
   }
 
-  // Check for quiz-specific elements
-  const hasQuizElements = !!document.querySelector(
-    '.quiz-min-footer, [class*="quiz"]',
+  // Check for quiz-specific footer element (more specific than before)
+  const hasQuizFooter = !!document.querySelector(".quiz-min-footer");
+
+  // Check for quiz step containers (very specific to Quiz page)
+  const hasQuizSteps = !!document.querySelector(
+    '.quiz-step-1, .quiz-step-2, [id^="quiz-step-"]',
   );
 
-  return hasQuizElements;
+  return hasQuizFooter || hasQuizSteps;
 }
 
 /**

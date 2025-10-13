@@ -1,24 +1,29 @@
-fix(quiz): exclude all ad systems from Quiz page to eliminate errors and delays
+fix(adzep): comprehensive external state reset to resolve ad display issues after navigation
 
-- add isQuizPage() detection to ad-manager.js to prevent GAM initialization
-- add server-side isQuizPage detection in Base.astro using Astro.url.pathname
-- conditionally load external AdZep script only on non-Quiz pages
-- conditionally load ad-manager.js module only on non-Quiz pages
-- conditionally load adzep-bridge.ts module only on non-Quiz pages
-- conditionally load backup GAM scripts only on non-Quiz pages
-- comprehensive four-layer ad exclusion (external script, modules, backup scripts, bridge)
+- enhance resetAdZepState() to clear localStorage, sessionStorage, and window properties
+- remove AdZep state persistence that prevented ads from displaying after SPA navigation
+- fix "offerwall abierto ou rewarded pronto" issue by clearing external AdZep state
+- improve isQuizPage() detection with specific selectors (remove overly broad [class*="quiz"])
+- add comprehensive logging for state reset debugging
+- maintain Quiz page ad exclusion with more precise detection logic
 
 Impact:
-- eliminates 2-3 second delay on Quiz page load
-- removes all CORS and network errors from Quiz console
-- prevents unnecessary ad initialization attempts (4 separate systems)
-- maintains full ad functionality on all other pages (recommender, product, blog)
-- improves Quiz user experience with instant option display
+- fixes ad display failures on product pages after recommender navigation
+- eliminates AdZep "Ignorado: offerwall" errors
+- restores full ad monetization on financial-solutions pages
+- prevents false positive Quiz detection on other pages
+- improves state management reliability across SPA navigations
+
+Files Modified:
+- src/lib/adZepUtils.ts: comprehensive state reset + improved Quiz detection
+- src/lib/adzep-page-load-bridge.ts: improved Quiz detection
+- src/lib/ad-manager.js: improved Quiz detection
 
 Technical Details:
-- Server-side detection prevents unnecessary resource loading
-- Client-side detection provides fallback via DOM inspection
-- Consistent isQuizPage() pattern across all ad systems
-- Zero breaking changes to existing ad functionality
+- Clears all AdZep-related localStorage keys (offerwall, rewarded, session)
+- Clears all AdZep-related sessionStorage keys
+- Removes AdZep window properties except AdZepActivateAds and our state
+- Calls window.AdZepReset() if available
+- Uses specific selectors (.quiz-min-footer, .quiz-step-*) instead of broad [class*="quiz"]
 
-Documentation: lib/documents/QUIZ_PAGE_COMPREHENSIVE_AD_EXCLUSION.md
+Documentation: lib/documents/ADZEP_STATE_RESET_FIX.md
