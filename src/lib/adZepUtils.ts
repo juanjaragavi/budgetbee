@@ -11,6 +11,7 @@ export interface AdZepState {
   activationInProgress: boolean;
   lastActivation: number | null;
   activationAttempts: number;
+  lastError: string | null;
 }
 
 // Initialize global state
@@ -20,6 +21,7 @@ if (typeof window !== "undefined") {
     activationInProgress: false,
     lastActivation: null,
     activationAttempts: 0,
+    lastError: null,
   };
 }
 
@@ -39,8 +41,8 @@ export async function activateAdZep(
   const {
     force = false,
     timeout = 5000,
-    retryAttempts = 3,
-    retryDelay = 500,
+    retryAttempts = 2,
+    retryDelay = 1000,
   } = options;
 
   // Only run in browser environment
@@ -50,6 +52,19 @@ export async function activateAdZep(
   }
 
   const state = window.__adZepState;
+  const now = Date.now();
+
+  // Implement cooldown period to prevent rapid successive calls
+  const cooldownPeriod = 2000; // 2 seconds minimum between activations
+  if (state.lastActivation && !force) {
+    const timeSinceLastActivation = now - state.lastActivation;
+    if (timeSinceLastActivation < cooldownPeriod) {
+      console.log(
+        `[AdZep] Activation throttled (${timeSinceLastActivation}ms since last, cooldown: ${cooldownPeriod}ms)`,
+      );
+      return state.activated;
+    }
+  }
 
   // Check if already activated (unless forced)
   if (!force && state.activated) {
@@ -61,16 +76,29 @@ export async function activateAdZep(
   if (state.activationInProgress) {
     console.log("[AdZep] Activation already in progress, waiting...");
 
-    // Wait for current activation to complete
+    // Wait for current activation to complete with timeout
+    const maxWaitTime = 8000; // 8 seconds max wait
+    const startWait = Date.now();
+
     return new Promise((resolve) => {
       const checkCompletion = () => {
+        const waitedTime = Date.now() - startWait;
+
         if (!state.activationInProgress) {
+          console.log(
+            `[AdZep] Activation completed after ${waitedTime}ms wait`,
+          );
           resolve(state.activated);
+        } else if (waitedTime >= maxWaitTime) {
+          console.warn(`[AdZep] Activation wait timeout after ${waitedTime}ms`);
+          // Reset the flag to allow retry
+          state.activationInProgress = false;
+          resolve(false);
         } else {
-          setTimeout(checkCompletion, 100);
+          setTimeout(checkCompletion, 200);
         }
       };
-      setTimeout(checkCompletion, 100);
+      setTimeout(checkCompletion, 200);
     });
   }
 
@@ -87,25 +115,35 @@ export async function activateAdZep(
     const adZepFunction = await waitForAdZepFunction(timeout);
 
     if (!adZepFunction) {
-      throw new Error("AdZepActivateAds function not available within timeout");
+      const errorMsg = "AdZepActivateAds function not available within timeout";
+      state.lastError = errorMsg;
+      throw new Error(errorMsg);
     }
 
-    // Activate the ads
+    // Activate the ads with error suppression for external ad networks
     console.log("[AdZep] Calling AdZepActivateAds...");
-    adZepFunction();
+    await safelyActivateAdZep(adZepFunction);
 
     // Mark as successfully activated
     state.activated = true;
-    state.lastActivation = Date.now();
+    state.lastActivation = now;
+    state.lastError = null;
 
     console.log("[AdZep] Ads activated successfully");
     return true;
   } catch (error) {
+    const errorMessage = error instanceof Error ? error.message : String(error);
+    state.lastError = errorMessage;
     console.error("[AdZep] Error during activation:", error);
 
-    // Retry logic
+    // Retry logic - but only if we haven't exceeded retry attempts
     if (state.activationAttempts < retryAttempts) {
-      console.log(`[AdZep] Retrying activation in ${retryDelay}ms...`);
+      console.log(
+        `[AdZep] Retrying activation in ${retryDelay}ms... (attempt ${state.activationAttempts + 1}/${retryAttempts})`,
+      );
+
+      // Clear the in-progress flag before retry
+      state.activationInProgress = false;
 
       return new Promise((resolve) => {
         setTimeout(() => {
@@ -114,6 +152,9 @@ export async function activateAdZep(
       });
     }
 
+    console.error(
+      `[AdZep] All activation attempts exhausted (${state.activationAttempts}/${retryAttempts})`,
+    );
     return false;
   } finally {
     // Always clear the in-progress flag
@@ -137,6 +178,9 @@ function waitForAdZepFunction(timeout: number): Promise<(() => void) | null> {
       }
 
       if (Date.now() - startTime >= timeout) {
+        console.warn(
+          "[AdZep] Timeout waiting for AdZepActivateAds function. This may be due to ad blockers or script loading issues.",
+        );
         resolve(null);
         return;
       }
@@ -150,6 +194,58 @@ function waitForAdZepFunction(timeout: number): Promise<(() => void) | null> {
 }
 
 /**
+ * Wrap AdZep activation with error boundary to gracefully handle external ad network failures
+ * @param activateFunction The AdZepActivateAds function to call
+ */
+async function safelyActivateAdZep(
+  activateFunction: () => void,
+): Promise<void> {
+  try {
+    // Suppress expected CORS and network errors from external ad services
+    const originalFetch = window.fetch;
+    const suppressedDomains = [
+      "secure.omeda.com",
+      "securepubads.g.doubleclick.net",
+    ];
+
+    // Temporarily wrap fetch to catch and suppress expected errors
+    window.fetch = async function (...args) {
+      try {
+        return await originalFetch.apply(this, args);
+      } catch (error) {
+        const url = args[0]?.toString() || "";
+        const isSuppressed = suppressedDomains.some((domain) =>
+          url.includes(domain),
+        );
+
+        if (isSuppressed) {
+          // Suppress expected ad network errors (ad blockers, CORS, etc.)
+          console.debug(
+            `[AdZep] External ad request failed (expected): ${url}`,
+          );
+          // Return a dummy response to prevent breaking the page
+          return new Response(null, { status: 204 });
+        }
+
+        // Re-throw other errors
+        throw error;
+      }
+    };
+
+    // Call the activation function
+    activateFunction();
+
+    // Restore original fetch after a short delay
+    setTimeout(() => {
+      window.fetch = originalFetch;
+    }, 2000);
+  } catch (error) {
+    console.error("[AdZep] Activation execution error:", error);
+    throw error;
+  }
+}
+
+/**
  * Reset activation state (useful for testing or forced re-activation)
  */
 export function resetAdZepState(): void {
@@ -158,6 +254,7 @@ export function resetAdZepState(): void {
     window.__adZepState.activationInProgress = false;
     window.__adZepState.lastActivation = null;
     window.__adZepState.activationAttempts = 0;
+    window.__adZepState.lastError = null;
     console.log("[AdZep] State reset");
   }
 }
