@@ -64,16 +64,29 @@ const isBlogPost =
   pathSegments.length === 2 &&
   !pathSegments[1].includes("page") &&
   !pathSegments[1].includes("category");
+
+// Check if we're on the Quiz page (should not load ads)
+const isQuizPage =
+  Astro.url.pathname === "/quiz" ||
+  Astro.url.pathname === "/qz" ||
+  Astro.url.pathname === "/quiz/" ||
+  Astro.url.pathname === "/qz/";
 ---
 
 <!doctype html>
 <html lang="en">
   <head>
-    <script
-      is:inline
-      data-cfasync="false"
-      src="https://autozep.adzep.io/paid/budgetbeepro.js"
-      async></script>
+    <!-- External AdZep script - Skip on Quiz pages -->
+    {
+      !isQuizPage && (
+        <script
+          is:inline
+          data-cfasync="false"
+          src="https://autozep.adzep.io/paid/budgetbeepro.js"
+          async
+        />
+      )
+    }
     <!-- favicon -->
     <link rel="shortcut icon" href={config.site.favicon} />
     <!-- theme meta -->
@@ -374,12 +387,14 @@ const isBlogPost =
       /* TODO: Confirm if 'anonymous' is the correct value for crossorigin with GPT. Usually it is. */
     }
 
-    {/* BudgetBee Ad Manager - served as built asset */}
-    <script is:inline type="module" src={adManagerUrl}></script>
     {
-      /* AdZep activation bridge for Astro view transitions - served as built asset */
+      /* BudgetBee Ad Manager - served as built asset (excluded from Quiz pages) */
     }
-    <script is:inline type="module" src={adzepBridgeUrl}></script>
+    {!isQuizPage && <script is:inline type="module" src={adManagerUrl} />}
+    {
+      /* AdZep activation bridge for Astro view transitions - served as built asset (excluded from Quiz pages) */
+    }
+    {!isQuizPage && <script is:inline type="module" src={adzepBridgeUrl} />}
 
     {/* Article-only AdZep bootstrap (CSS is global in ad-aware-design.css) */}
     {
@@ -388,16 +403,19 @@ const isBlogPost =
       )
     }
 
-    {/* Backup GAM initialization for fallback */}
-    <script
-      is:inline
-      async
-      crossorigin="anonymous"
-      id="gpt-js-main"
-      src="https://securepubads.g.doubleclick.net/tag/js/gpt.js"></script>
-    <script is:inline>
-      {
-        `
+    {/* Backup GAM initialization for fallback (excluded from Quiz pages) */}
+    {
+      !isQuizPage && (
+        <>
+          <script
+            is:inline
+            async
+            crossorigin="anonymous"
+            id="gpt-js-main"
+            src="https://securepubads.g.doubleclick.net/tag/js/gpt.js"
+          />
+          <script is:inline>
+            {`
       // BudgetBee GAM Configuration with Duplicate Prevention
       // This serves as backup if the ad-manager module fails
       window.googletag = window.googletag || {cmd: []};
@@ -469,9 +487,11 @@ const isBlogPost =
           }
         });
       }
-    `;
-      }
-    </script>
+    `}
+          </script>
+        </>
+      )
+    }
     {/* End BudgetBee Ad Manager Scripts */}
   </head>
   <body>
