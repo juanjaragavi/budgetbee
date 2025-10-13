@@ -1,29 +1,35 @@
-fix(adzep): comprehensive external state reset to resolve ad display issues after navigation
+fix(adzep): wait for external script before invoking AdZepActivateAds to ensure proper ad display
 
-- enhance resetAdZepState() to clear localStorage, sessionStorage, and window properties
-- remove AdZep state persistence that prevented ads from displaying after SPA navigation
-- fix "offerwall abierto ou rewarded pronto" issue by clearing external AdZep state
-- improve isQuizPage() detection with specific selectors (remove overly broad [class*="quiz"])
-- add comprehensive logging for state reset debugging
-- maintain Quiz page ad exclusion with more precise detection logic
+- add waitForExternalAdZepScript() to explicitly wait for budgetbeepro.js to load
+- increase MAX_DIRECT_ACTIVATION_ATTEMPTS from 5 to 20 (total 4 second wait)
+- increase retry interval from 100ms to 200ms for better script loading tolerance
+- increase initial delay from 100ms to 500ms before attempting activation
+- convert scheduleAutoTrigger to async function to properly await script loading
+- add comprehensive logging with emojis for better debugging visibility
+- add page detection logging to verify financial-solutions pages are recognized
 
 Impact:
-- fixes ad display failures on product pages after recommender navigation
-- eliminates AdZep "Ignorado: offerwall" errors
-- restores full ad monetization on financial-solutions pages
-- prevents false positive Quiz detection on other pages
-- improves state management reliability across SPA navigations
-
-Files Modified:
-- src/lib/adZepUtils.ts: comprehensive state reset + improved Quiz detection
-- src/lib/adzep-page-load-bridge.ts: improved Quiz detection
-- src/lib/ad-manager.js: improved Quiz detection
+- ensures window.AdZepActivateAds() is invoked AFTER external script is fully loaded
+- eliminates "function unavailable" errors that prevented ad display
+- fixes issue where users had to manually reload to see ads on product pages
+- provides up to 5 seconds for external script to load (vs previous 500ms)
+- adds detailed console logging to track script loading progress
 
 Technical Details:
-- Clears all AdZep-related localStorage keys (offerwall, rewarded, session)
-- Clears all AdZep-related sessionStorage keys
-- Removes AdZep window properties except AdZepActivateAds and our state
-- Calls window.AdZepReset() if available
-- Uses specific selectors (.quiz-min-footer, .quiz-step-*) instead of broad [class*="quiz"]
+- waitForExternalAdZepScript() checks every 100ms for up to 5 seconds
+- scheduleAutoTrigger now waits for script confirmation before proceeding
+- Enhanced logging shows: script load time, retry attempts, page detection results
+- Maintains all existing functionality including state reset and reloader mechanisms
 
-Documentation: lib/documents/ADZEP_STATE_RESET_FIX.md
+Console Output Examples:
+✅ Success: "[BlogPostAdZep] ✅ External AdZep script loaded (1234ms)"
+⏳ Waiting: "[BlogPostAdZep] ⏳ Waiting for AdZepActivateAds... (initial-load, attempt 3/20)"
+❌ Error: "[BlogPostAdZep] ❌ window.AdZepActivateAds() unavailable after 20 attempts"
+
+Files Modified:
+- src/lib/blogPostAdZepAutoTrigger.ts: enhanced script loading wait logic
+
+Related Issues:
+- Users reporting ads only display after manual page reload
+- "window.AdZepActivateAds is not a function" errors in console
+- Timing race condition between our activation code and external script loading
