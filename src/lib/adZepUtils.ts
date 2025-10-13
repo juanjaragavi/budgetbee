@@ -284,6 +284,8 @@ export function pageHasAdUnits(): boolean {
   if (typeof document === "undefined") return false;
 
   const selector = [
+    "#us_budgetbeepro_1",
+    "#us_budgetbeepro_2",
     "#us_budgetbeepro_3",
     "#us_budgetbeepro_4",
     "#uk_topfinanzas_3",
@@ -293,7 +295,17 @@ export function pageHasAdUnits(): boolean {
     ".ad-zone",
   ].join(", ");
 
-  return !!document.querySelector(selector);
+  const adElements = document.querySelectorAll(selector);
+  const hasAds = adElements.length > 0;
+
+  console.log(
+    `[AdZep Utils] Ad unit detection: found ${adElements.length} ad containers`,
+    hasAds
+      ? Array.from(adElements).map((el) => `#${el.id || el.className}`)
+      : [],
+  );
+
+  return hasAds;
 }
 
 // Extend window interface for TypeScript
