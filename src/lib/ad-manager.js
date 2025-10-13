@@ -6,11 +6,12 @@
 
 /**
  * Check if the current page is the Quiz page (should not load ads)
+ * Uses strict detection to avoid false positives
  */
 function isQuizPage() {
   if (typeof window === "undefined") return false;
 
-  // Check URL path
+  // Check URL path - most reliable method
   const path = window.location.pathname;
   if (
     path === "/quiz" ||
@@ -22,17 +23,22 @@ function isQuizPage() {
     return true;
   }
 
-  // Check for quiz-specific elements
-  const hasQuizElements = !!document.querySelector(
-    '.quiz-min-footer, [class*="quiz"]',
+  // Check for quiz-specific footer element (more specific than before)
+  const hasQuizFooter = !!document.querySelector(".quiz-min-footer");
+
+  // Check for quiz step containers (very specific to Quiz page)
+  const hasQuizSteps = !!document.querySelector(
+    '.quiz-step-1, .quiz-step-2, [id^="quiz-step-"]',
   );
-  if (hasQuizElements) {
+
+  if (hasQuizFooter || hasQuizSteps) {
     console.log(
       "[Ad Manager] Quiz elements detected, skipping ad initialization",
     );
+    return true;
   }
 
-  return hasQuizElements;
+  return false;
 }
 
 class BudgetBeeAdManager {
