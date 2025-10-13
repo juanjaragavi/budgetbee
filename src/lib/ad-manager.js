@@ -4,6 +4,37 @@
  * Prevents duplicate tag calls and ensures proper ad monetization
  */
 
+/**
+ * Check if the current page is the Quiz page (should not load ads)
+ */
+function isQuizPage() {
+  if (typeof window === "undefined") return false;
+
+  // Check URL path
+  const path = window.location.pathname;
+  if (
+    path === "/quiz" ||
+    path === "/qz" ||
+    path === "/quiz/" ||
+    path === "/qz/"
+  ) {
+    console.log("[Ad Manager] Quiz page detected, skipping ad initialization");
+    return true;
+  }
+
+  // Check for quiz-specific elements
+  const hasQuizElements = !!document.querySelector(
+    '.quiz-min-footer, [class*="quiz"]',
+  );
+  if (hasQuizElements) {
+    console.log(
+      "[Ad Manager] Quiz elements detected, skipping ad initialization",
+    );
+  }
+
+  return hasQuizElements;
+}
+
 class BudgetBeeAdManager {
   constructor() {
     this.initializedTags = new Set();
@@ -1025,13 +1056,23 @@ class BudgetBeeAdManager {
 // Create global instance with enhanced monitoring
 window.BudgetBeeAdManager = new BudgetBeeAdManager();
 
-// Auto-initialize when DOM is ready
+// Auto-initialize when DOM is ready (skip on Quiz pages)
 if (document.readyState === "loading") {
   document.addEventListener("DOMContentLoaded", () => {
-    window.BudgetBeeAdManager.initializeGAM();
+    if (!isQuizPage()) {
+      window.BudgetBeeAdManager.initializeGAM();
+    } else {
+      console.log(
+        "[Ad Manager] Quiz page detected - ad initialization skipped",
+      );
+    }
   });
 } else {
-  window.BudgetBeeAdManager.initializeGAM();
+  if (!isQuizPage()) {
+    window.BudgetBeeAdManager.initializeGAM();
+  } else {
+    console.log("[Ad Manager] Quiz page detected - ad initialization skipped");
+  }
 }
 
 // Enhanced diagnostic functions for debugging and monitoring
