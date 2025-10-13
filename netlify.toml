@@ -6,7 +6,10 @@ command = "yarn build"
 for = "/*" # This defines which paths this specific [[headers]] block will cover.
 
 [headers.values]
-X-Frame-Options = "DENY"
+# X-Frame-Options removed to allow ad iframes (AdZep, Google Ads)
+# Using CSP frame-ancestors instead for more granular control
 X-XSS-Protection = "1; mode=block"
 Referrer-Policy = "same-origin"
 Strict-Transport-Security = "max-age=31536000; includeSubDomains; preload"
+# Allow specific ad domains to frame content
+Content-Security-Policy = "frame-ancestors 'self' https://*.google.com https://*.doubleclick.net https://*.adzep.io https://*.omeda.com"

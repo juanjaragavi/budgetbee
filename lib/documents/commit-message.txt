@@ -1,14 +1,12 @@
-fix(routes): eliminate router warnings by removing getStaticPaths from server-mode dynamic routes
+fix(security): update Netlify headers to allow ad iframes while maintaining CSP protection
 
-- remove getStaticPaths() from blog/page/[slug].astro
-- remove getStaticPaths() from personal-finance/page/[slug].astro
-- remove getStaticPaths() from financial-solutions/page/[slug].astro
-- remove getStaticPaths() from [regular].astro
-- add explanatory comments for server/hybrid mode routing
-- verify AdZep activation unaffected by routing changes
-- create comprehensive test suite (scripts/test-adzep-activation.mjs)
-- add Playwright for automated browser testing
-- generate verification report (ROUTER_FIX_VERIFICATION.md)
+- remove X-Frame-Options: DENY header (too restrictive for ad serving)
+- add Content-Security-Policy with frame-ancestors directive
+- whitelist ad domains: *.google.com, *.doubleclick.net, *.adzep.io, *.omeda.com
+- maintain other security headers (X-XSS-Protection, Referrer-Policy, HSTS)
+- create comprehensive documentation (CSP_FRAME_OPTIONS_FIX.md)
+- explain report-only CSP violations from Google ad frames
 
-All routes functioning correctly, AdZep activation working on all pages.
-Test results: 6/6 pages passed, 100% success rate, zero impact on ads.
+This fix resolves console CSP errors on credit card recommender pages (p1, p2, p3)
+while maintaining security by only allowing whitelisted ad networks to embed content.
+More granular control than X-Frame-Options using modern CSP frame-ancestors directive.
