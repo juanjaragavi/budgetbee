@@ -1,31 +1,21 @@
-fix(revenue): restore UTM tracking and AdZep activation in user journey
+fix(adzep): exclude Quiz page from ad activation to prevent console errors
 
-Critical fixes to prevent revenue loss and restore tracking:
-
-UTM Propagation Fix:
-- create utm-link-appender.ts utility for automated UTM propagation
-- add UTM appender to all credit card recommender pages (p1, p2, p3)
-- implement MutationObserver for dynamic link processing
-- integrate with Astro view transitions for SPA navigation
-- persist UTMs in sessionStorage for cross-page reliability
-
-AdZep Activation Fix:
-- expand ad container detection to include IDs 1 & 2 (recommender pages)
-- add enhanced logging to adzep-page-load-bridge.ts
-- add enhanced logging to adZepUtils.ts
-- improve debugging with container list output
+- add isQuizPage() detection function to adzep-page-load-bridge.ts
+- add isQuizPage() detection function to adZepUtils.ts
+- update pageHasAdUnits() to skip Quiz pages (/quiz, /qz)
+- use dual detection: URL path check + DOM element check
+- add console logging for Quiz page detection
+- prevent unnecessary ad network requests on Quiz page
+- eliminate CORS and network errors from Quiz page console
 
 Impact:
-- restores ad display on financial-solutions product pages
-- enables full funnel UTM tracking (Quiz → Recommender → Product)
-- prevents revenue loss from missing ad impressions
-- restores attribution data for campaign performance measurement
+- cleaner console output on Quiz page
+- no wasted network requests to ad servers
+- better developer experience during debugging
+- improved page load performance on Quiz
+- ads still activate correctly on all other pages
 
 Files modified:
-- src/lib/utm-link-appender.ts (new)
-- src/pages/credit-card-recommender-p1.astro
-- src/pages/credit-card-recommender-p2.astro
-- src/pages/credit-card-recommender-p3.astro
 - src/lib/adzep-page-load-bridge.ts
 - src/lib/adZepUtils.ts
-- lib/documents/UTM_ADZEP_REVENUE_FIX.md (documentation)
+- lib/documents/QUIZ_PAGE_ADZEP_EXCLUSION_FIX.md (documentation)

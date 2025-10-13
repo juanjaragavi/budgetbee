@@ -27,10 +27,39 @@ declare global {
 }
 
 /**
+ * Check if the current page is the Quiz page (should not activate ads)
+ */
+function isQuizPage(): boolean {
+  // Check URL path
+  const path = window.location.pathname;
+  if (
+    path === "/quiz" ||
+    path === "/qz" ||
+    path === "/quiz/" ||
+    path === "/qz/"
+  ) {
+    return true;
+  }
+
+  // Check for quiz-specific elements
+  const hasQuizElements = !!document.querySelector(
+    '.quiz-min-footer, [class*="quiz"]',
+  );
+
+  return hasQuizElements;
+}
+
+/**
  * Detect whether the current page contains ad units that require AdZep activation.
  * Covers both legacy UK ids and new US ids, plus generic ad-zone containers.
  */
 function pageHasAdUnits(): boolean {
+  // Skip ad detection entirely on Quiz pages
+  if (isQuizPage()) {
+    console.log("[AdZepBridge] Quiz page detected, skipping ad activation");
+    return false;
+  }
+
   const selector = [
     "#us_budgetbeepro_1",
     "#us_budgetbeepro_2",
