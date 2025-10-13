@@ -278,10 +278,41 @@ export function isAdZepActivated(): boolean {
 }
 
 /**
+ * Check if the current page is the Quiz page (should not activate ads)
+ */
+function isQuizPage(): boolean {
+  if (typeof window === "undefined") return false;
+
+  // Check URL path
+  const path = window.location.pathname;
+  if (
+    path === "/quiz" ||
+    path === "/qz" ||
+    path === "/quiz/" ||
+    path === "/qz/"
+  ) {
+    return true;
+  }
+
+  // Check for quiz-specific elements
+  const hasQuizElements = !!document.querySelector(
+    '.quiz-min-footer, [class*="quiz"]',
+  );
+
+  return hasQuizElements;
+}
+
+/**
  * Detect whether current page contains AdZep ad units
  */
 export function pageHasAdUnits(): boolean {
   if (typeof document === "undefined") return false;
+
+  // Skip ad detection entirely on Quiz pages
+  if (isQuizPage()) {
+    console.log("[AdZep Utils] Quiz page detected, skipping ad activation");
+    return false;
+  }
 
   const selector = [
     "#us_budgetbeepro_1",
