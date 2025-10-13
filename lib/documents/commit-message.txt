@@ -1,12 +1,31 @@
-fix(security): update Netlify headers to allow ad iframes while maintaining CSP protection
+fix(revenue): restore UTM tracking and AdZep activation in user journey
 
-- remove X-Frame-Options: DENY header (too restrictive for ad serving)
-- add Content-Security-Policy with frame-ancestors directive
-- whitelist ad domains: *.google.com, *.doubleclick.net, *.adzep.io, *.omeda.com
-- maintain other security headers (X-XSS-Protection, Referrer-Policy, HSTS)
-- create comprehensive documentation (CSP_FRAME_OPTIONS_FIX.md)
-- explain report-only CSP violations from Google ad frames
+Critical fixes to prevent revenue loss and restore tracking:
 
-This fix resolves console CSP errors on credit card recommender pages (p1, p2, p3)
-while maintaining security by only allowing whitelisted ad networks to embed content.
-More granular control than X-Frame-Options using modern CSP frame-ancestors directive.
+UTM Propagation Fix:
+- create utm-link-appender.ts utility for automated UTM propagation
+- add UTM appender to all credit card recommender pages (p1, p2, p3)
+- implement MutationObserver for dynamic link processing
+- integrate with Astro view transitions for SPA navigation
+- persist UTMs in sessionStorage for cross-page reliability
+
+AdZep Activation Fix:
+- expand ad container detection to include IDs 1 & 2 (recommender pages)
+- add enhanced logging to adzep-page-load-bridge.ts
+- add enhanced logging to adZepUtils.ts
+- improve debugging with container list output
+
+Impact:
+- restores ad display on financial-solutions product pages
+- enables full funnel UTM tracking (Quiz → Recommender → Product)
+- prevents revenue loss from missing ad impressions
+- restores attribution data for campaign performance measurement
+
+Files modified:
+- src/lib/utm-link-appender.ts (new)
+- src/pages/credit-card-recommender-p1.astro
+- src/pages/credit-card-recommender-p2.astro
+- src/pages/credit-card-recommender-p3.astro
+- src/lib/adzep-page-load-bridge.ts
+- src/lib/adZepUtils.ts
+- lib/documents/UTM_ADZEP_REVENUE_FIX.md (documentation)
