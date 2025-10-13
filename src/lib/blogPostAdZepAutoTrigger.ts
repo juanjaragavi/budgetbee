@@ -20,6 +20,52 @@ declare global {
 }
 
 /**
+ * Wait for the external AdZep script to load before attempting activation
+ * This checks for both the script tag and the AdZepActivateAds function
+ */
+async function waitForExternalAdZepScript(
+  maxWaitTime: number = 5000,
+): Promise<boolean> {
+  const startTime = Date.now();
+
+  return new Promise((resolve) => {
+    const checkInterval = setInterval(() => {
+      const elapsedTime = Date.now() - startTime;
+
+      // Check if the function exists
+      if (typeof window.AdZepActivateAds === "function") {
+        clearInterval(checkInterval);
+        console.log(
+          `[BlogPostAdZep] ✅ External AdZep script loaded (${elapsedTime}ms)`,
+        );
+        resolve(true);
+        return;
+      }
+
+      // Check if we've exceeded max wait time
+      if (elapsedTime >= maxWaitTime) {
+        clearInterval(checkInterval);
+        console.error(
+          `[BlogPostAdZep] ⏱️ Timeout waiting for external AdZep script (${elapsedTime}ms)`,
+        );
+        console.error(
+          "[BlogPostAdZep] Check if budgetbeepro.js is loading correctly in Network tab",
+        );
+        resolve(false);
+        return;
+      }
+
+      // Log progress every second
+      if (elapsedTime % 1000 === 0) {
+        console.log(
+          `[BlogPostAdZep] ⏳ Still waiting for external AdZep script... (${elapsedTime}ms)`,
+        );
+      }
+    }, 100); // Check every 100ms
+  });
+}
+
+/**
  * Detect if the current page is a blog post page with Financial Solutions or Personal Finance content
  */
 function isBlogPostWithAdUnits(): boolean {
@@ -36,7 +82,18 @@ function isBlogPostWithAdUnits(): boolean {
   const isPersonalFinancePost =
     window.location.pathname.includes("/personal-finance/");
 
-  return hasAdUnits && (isFinancialSolutionPost || isPersonalFinancePost);
+  const result =
+    hasAdUnits && (isFinancialSolutionPost || isPersonalFinancePost);
+
+  console.log(`[BlogPostAdZep] 🔍 Page detection:`, {
+    pathname: window.location.pathname,
+    hasAdUnits,
+    isFinancialSolutionPost,
+    isPersonalFinancePost,
+    result,
+  });
+
+  return result;
 }
 
 /**
@@ -82,7 +139,7 @@ async function triggerResetThenActivate(reason: string): Promise<void> {
   }
 }
 
-const MAX_DIRECT_ACTIVATION_ATTEMPTS = 5;
+const MAX_DIRECT_ACTIVATION_ATTEMPTS = 20; // Increased from 5 to 20 (total 4 seconds wait)
 
 function invokeWindowAdZepActivateAds(reason: string, attempt = 1): void {
   if (typeof window === "undefined") return;
@@ -91,15 +148,22 @@ function invokeWindowAdZepActivateAds(reason: string, attempt = 1): void {
     if (typeof window.AdZepActivateAds === "function") {
       window.AdZepActivateAds();
       console.log(
-        `[BlogPostAdZep] window.AdZepActivateAds() executed (${reason}, attempt ${attempt})`,
+        `[BlogPostAdZep] ✅ window.AdZepActivateAds() executed successfully (${reason}, attempt ${attempt})`,
       );
     } else if (attempt < MAX_DIRECT_ACTIVATION_ATTEMPTS) {
+      // Wait 200ms between attempts (increased from 100ms)
       window.__blogPostAdZepDirectTimer = window.setTimeout(() => {
+        console.log(
+          `[BlogPostAdZep] ⏳ Waiting for AdZepActivateAds... (${reason}, attempt ${attempt}/${MAX_DIRECT_ACTIVATION_ATTEMPTS})`,
+        );
         invokeWindowAdZepActivateAds(reason, attempt + 1);
-      }, 100);
+      }, 200);
     } else {
-      console.warn(
-        `[BlogPostAdZep] window.AdZepActivateAds() unavailable after ${attempt} attempts (${reason})`,
+      console.error(
+        `[BlogPostAdZep] ❌ window.AdZepActivateAds() unavailable after ${attempt} attempts (${reason})`,
+      );
+      console.error(
+        "[BlogPostAdZep] External AdZep script may not be loaded. Check network tab for budgetbeepro.js",
       );
     }
   } catch (error) {
@@ -111,18 +175,45 @@ function invokeWindowAdZepActivateAds(reason: string, attempt = 1): void {
 }
 
 /**
- * Schedule the auto-trigger sequence with a 100ms delay after page load
+ * Schedule the auto-trigger sequence with increased delay to wait for external script
  */
-function scheduleAutoTrigger(reason: string): void {
-  setTimeout(() => {
-    if (isBlogPostWithAdUnits()) {
-      if (typeof window !== "undefined" && window.__blogPostAdZepDirectTimer) {
-        clearTimeout(window.__blogPostAdZepDirectTimer);
-      }
-      invokeWindowAdZepActivateAds(reason);
-      triggerResetThenActivate(reason);
-    }
-  }, 100);
+async function scheduleAutoTrigger(reason: string): Promise<void> {
+  // Initial delay to let DOM stabilize
+  await new Promise((resolve) => setTimeout(resolve, 500));
+
+  if (!isBlogPostWithAdUnits()) {
+    console.log(
+      `[BlogPostAdZep] ⏭️  Skipping auto-trigger - not a blog post with ad units (${reason})`,
+    );
+    return;
+  }
+
+  console.log(`[BlogPostAdZep] 🚀 Starting auto-trigger sequence (${reason})`);
+
+  // Wait for external AdZep script to be available
+  const scriptLoaded = await waitForExternalAdZepScript(5000);
+
+  if (!scriptLoaded) {
+    console.error(
+      `[BlogPostAdZep] ❌ Cannot proceed - external AdZep script not loaded (${reason})`,
+    );
+    return;
+  }
+
+  if (typeof window !== "undefined" && window.__blogPostAdZepDirectTimer) {
+    clearTimeout(window.__blogPostAdZepDirectTimer);
+  }
+
+  // External script is ready - proceed with activation
+  console.log(
+    `[BlogPostAdZep] 🎯 External script confirmed ready, proceeding with activation (${reason})`,
+  );
+
+  // First, try direct invocation of window.AdZepActivateAds
+  invokeWindowAdZepActivateAds(reason);
+
+  // Then, trigger our internal reset → activate sequence
+  triggerResetThenActivate(reason);
 }
 
 /**

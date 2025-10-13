@@ -16,11 +16,13 @@
 ### The State Persistence Issue
 
 AdZep's external script (`https://autozep.adzep.io/paid/budgetbeepro.js`) maintains its own internal state in:
+
 1. **localStorage** - Persistent across sessions
 2. **sessionStorage** - Persistent within session
 3. **Window properties** - Persistent during SPA navigation with Astro view transitions
 
 When users navigated from Recommender pages (which may show interstitial ads) to Product pages, AdZep's state indicated:
+
 - "Offerwall is currently open"
 - "Rewarded ad is ready/showing"
 
@@ -29,13 +31,14 @@ This caused AdZep to ignore subsequent `window.AdZepActivateAds()` calls, preven
 ### Why Internal Reset Wasn't Enough
 
 Our `resetAdZepState()` function only reset OUR internal tracking state:
+
 ```typescript
 window.__adZepState = {
   activated: false,
   activationInProgress: false,
   lastActivation: null,
   activationAttempts: 0,
-  lastError: null
+  lastError: null,
 };
 ```
 
@@ -44,8 +47,11 @@ This did NOT clear AdZep's external state, which is what actually controls ad di
 ### Quiz Detection False Positives (Secondary Issue)
 
 The Quiz page detection logic used overly broad selectors:
+
 ```typescript
-const hasQuizElements = !!document.querySelector('.quiz-min-footer, [class*="quiz"]');
+const hasQuizElements = !!document.querySelector(
+  '.quiz-min-footer, [class*="quiz"]',
+);
 ```
 
 The `[class*="quiz"]` selector would match ANY element with "quiz" anywhere in its class name, potentially causing false positives (though this didn't affect financial-solutions pages in practice).
@@ -57,12 +63,16 @@ The `[class*="quiz"]` selector would match ANY element with "quiz" anywhere in i
 Enhanced `resetAdZepState()` to clear AdZep's external state across all storage mechanisms:
 
 #### 1. localStorage Cleanup
+
 ```typescript
-const adZepKeys = Object.keys(localStorage).filter(key =>
-  key.includes('AdZep') || key.includes('adzep') ||
-  key.includes('offerwall') || key.includes('rewarded')
+const adZepKeys = Object.keys(localStorage).filter(
+  (key) =>
+    key.includes("AdZep") ||
+    key.includes("adzep") ||
+    key.includes("offerwall") ||
+    key.includes("rewarded"),
 );
-adZepKeys.forEach(key => {
+adZepKeys.forEach((key) => {
   localStorage.removeItem(key);
   console.log(`[AdZep] Cleared localStorage key: ${key}`);
 });
@@ -71,12 +81,16 @@ adZepKeys.forEach(key => {
 **Impact**: Clears persistent offerwall/rewarded ad state stored across sessions
 
 #### 2. sessionStorage Cleanup
+
 ```typescript
-const adZepSessionKeys = Object.keys(sessionStorage).filter(key =>
-  key.includes('AdZep') || key.includes('adzep') ||
-  key.includes('offerwall') || key.includes('rewarded')
+const adZepSessionKeys = Object.keys(sessionStorage).filter(
+  (key) =>
+    key.includes("AdZep") ||
+    key.includes("adzep") ||
+    key.includes("offerwall") ||
+    key.includes("rewarded"),
 );
-adZepSessionKeys.forEach(key => {
+adZepSessionKeys.forEach((key) => {
   sessionStorage.removeItem(key);
   console.log(`[AdZep] Cleared sessionStorage key: ${key}`);
 });
@@ -85,13 +99,15 @@ adZepSessionKeys.forEach(key => {
 **Impact**: Clears session-scoped state that persists during SPA navigation
 
 #### 3. Window Property Cleanup
+
 ```typescript
-const adZepWindowProps = Object.keys(window).filter(key =>
-  (key.includes('AdZep') || key.includes('adzep')) &&
-  !key.includes('AdZepActivateAds') && // Keep the activation function
-  !key.includes('__adZepState') // Keep our state object
+const adZepWindowProps = Object.keys(window).filter(
+  (key) =>
+    (key.includes("AdZep") || key.includes("adzep")) &&
+    !key.includes("AdZepActivateAds") && // Keep the activation function
+    !key.includes("__adZepState"), // Keep our state object
 );
-adZepWindowProps.forEach(key => {
+adZepWindowProps.forEach((key) => {
   try {
     delete (window as any)[key];
     console.log(`[AdZep] Cleared window property: ${key}`);
@@ -104,10 +120,11 @@ adZepWindowProps.forEach(key => {
 **Impact**: Clears runtime state objects that AdZep creates on window
 
 #### 4. External Reset Function Check
+
 ```typescript
-if (typeof (window as any).AdZepReset === 'function') {
+if (typeof (window as any).AdZepReset === "function") {
   (window as any).AdZepReset();
-  console.log('[AdZep] Called AdZepReset()');
+  console.log("[AdZep] Called AdZepReset()");
 }
 ```
 
@@ -118,17 +135,23 @@ if (typeof (window as any).AdZepReset === 'function') {
 Replaced overly broad `[class*="quiz"]` selector with specific detection:
 
 **Before (Problematic)**:
+
 ```typescript
-const hasQuizElements = !!document.querySelector('.quiz-min-footer, [class*="quiz"]');
+const hasQuizElements = !!document.querySelector(
+  '.quiz-min-footer, [class*="quiz"]',
+);
 ```
 
 **After (Specific)**:
+
 ```typescript
 // Check for quiz-specific footer element
-const hasQuizFooter = !!document.querySelector('.quiz-min-footer');
+const hasQuizFooter = !!document.querySelector(".quiz-min-footer");
 
 // Check for quiz step containers (very specific to Quiz page)
-const hasQuizSteps = !!document.querySelector('.quiz-step-1, .quiz-step-2, [id^="quiz-step-"]');
+const hasQuizSteps = !!document.querySelector(
+  '.quiz-step-1, .quiz-step-2, [id^="quiz-step-"]',
+);
 
 return hasQuizFooter || hasQuizSteps;
 ```
@@ -138,12 +161,15 @@ return hasQuizFooter || hasQuizSteps;
 ## Files Modified
 
 ### 1. `src/lib/adZepUtils.ts`
+
 **Changes**:
+
 - Enhanced `resetAdZepState()` with localStorage/sessionStorage/window cleanup
 - Improved `isQuizPage()` with specific selectors
 - Added comprehensive logging for debugging
 
 **Code Changes**:
+
 ```typescript
 export function resetAdZepState(): void {
   if (typeof window !== "undefined") {
@@ -161,20 +187,20 @@ export function resetAdZepState(): void {
     try {
       // Clear localStorage keys
       const adZepKeys = Object.keys(localStorage).filter(/* ... */);
-      adZepKeys.forEach(key => localStorage.removeItem(key));
+      adZepKeys.forEach((key) => localStorage.removeItem(key));
 
       // Clear sessionStorage keys
       const adZepSessionKeys = Object.keys(sessionStorage).filter(/* ... */);
-      adZepSessionKeys.forEach(key => sessionStorage.removeItem(key));
+      adZepSessionKeys.forEach((key) => sessionStorage.removeItem(key));
 
       // Call AdZepReset if available
-      if (typeof (window as any).AdZepReset === 'function') {
+      if (typeof (window as any).AdZepReset === "function") {
         (window as any).AdZepReset();
       }
 
       // Clear window properties
       const adZepWindowProps = Object.keys(window).filter(/* ... */);
-      adZepWindowProps.forEach(key => delete (window as any)[key]);
+      adZepWindowProps.forEach((key) => delete (window as any)[key]);
 
       console.log("[AdZep] External AdZep state cleared");
     } catch (error) {
@@ -185,18 +211,23 @@ export function resetAdZepState(): void {
 ```
 
 ### 2. `src/lib/adzep-page-load-bridge.ts`
+
 **Changes**:
+
 - Updated `isQuizPage()` with specific selectors
 - Consistent detection logic across all ad modules
 
 ### 3. `src/lib/ad-manager.js`
+
 **Changes**:
+
 - Updated `isQuizPage()` with specific selectors
 - Added return statement to prevent fall-through
 
 ## Expected Behavior
 
 ### Before Fix
+
 1. User navigates from Recommender page (may show interstitial ad)
 2. Interstitial ad sets AdZep state: "offerwall open" or "rewarded ready"
 3. User navigates to Product page
@@ -207,6 +238,7 @@ export function resetAdZepState(): void {
 8. **Ads do not display** → Revenue loss
 
 ### After Fix
+
 1. User navigates from Recommender page
 2. Interstitial ad sets AdZep state
 3. User navigates to Product page
@@ -222,9 +254,11 @@ export function resetAdZepState(): void {
 ### Development Testing
 
 1. **Test Recommender → Product Flow**:
+
    ```bash
    pnpm dev
    ```
+
    - Navigate to: `http://localhost:4321/credit-card-recommender-p1`
    - Complete recommender (may trigger interstitial)
    - Click through to product page
@@ -263,6 +297,7 @@ export function resetAdZepState(): void {
 ## Console Output Reference
 
 ### Successful State Reset & Activation
+
 ```
 [AdZep] Internal state reset
 [AdZep] Cleared localStorage key: AdZep_offerwall_state
@@ -276,12 +311,14 @@ export function resetAdZepState(): void {
 ```
 
 ### Quiz Page (Correct Exclusion)
+
 ```
 [AdZepBridge] Quiz page detected, skipping ad activation
 [Ad Manager] Quiz page detected - ad initialization skipped
 ```
 
 ### Previous Problematic Behavior (Now Fixed)
+
 ```
 [AdZ] activateAd() disparado manualmente
 [AdZ] Ignorado: offerwall abierto ou rewarded pronto  ← This should NO LONGER appear
@@ -290,11 +327,13 @@ export function resetAdZepState(): void {
 ## Performance Impact
 
 ### Before Fix
+
 - **Ad Display Rate**: ~60% (40% ignored due to state persistence)
 - **Revenue Loss**: Significant on Product pages after Recommender navigation
 - **User Experience**: Missing monetization opportunities
 
 ### After Fix (Expected)
+
 - **Ad Display Rate**: ~95% (only blocked by ad blockers)
 - **Revenue Recovery**: 100% on properly functioning ad network requests
 - **User Experience**: Consistent ad display across navigation flows
@@ -303,21 +342,26 @@ export function resetAdZepState(): void {
 ## Debugging Tools
 
 ### Check AdZep State in Console
+
 ```javascript
 // Check our internal state
 console.log(window.__adZepState);
 
 // Check localStorage for AdZep keys
-Object.keys(localStorage).filter(k => k.includes('AdZep') || k.includes('offerwall'));
+Object.keys(localStorage).filter(
+  (k) => k.includes("AdZep") || k.includes("offerwall"),
+);
 
 // Check sessionStorage for AdZep keys
-Object.keys(sessionStorage).filter(k => k.includes('AdZep') || k.includes('offerwall'));
+Object.keys(sessionStorage).filter(
+  (k) => k.includes("AdZep") || k.includes("offerwall"),
+);
 
 // Check window properties
-Object.keys(window).filter(k => k.includes('AdZep') || k.includes('adzep'));
+Object.keys(window).filter((k) => k.includes("AdZep") || k.includes("adzep"));
 
 // Manually trigger reset
-import { resetAdZepState } from './src/lib/adZepUtils';
+import { resetAdZepState } from "./src/lib/adZepUtils";
 resetAdZepState();
 ```
 
@@ -326,6 +370,7 @@ resetAdZepState();
 If issues arise:
 
 1. **Quick Rollback**: Revert adZepUtils.ts changes only
+
    ```bash
    git checkout HEAD~1 -- src/lib/adZepUtils.ts
    pnpm build
@@ -360,6 +405,7 @@ If issues arise:
 
 **Branch**: backup (current)
 **Pending Commit Message**:
+
 ```
 fix(adzep): comprehensive external state reset to resolve ad display issues after navigation
 
@@ -395,4 +441,4 @@ Technical Details:
 
 ---
 
-*This document serves as the comprehensive reference for the AdZep external state reset implementation.*
+_This document serves as the comprehensive reference for the AdZep external state reset implementation._
