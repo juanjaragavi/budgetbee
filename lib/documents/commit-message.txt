@@ -7,6 +7,6 @@ fix(security): update Netlify headers to allow ad iframes while maintaining CSP 
 - create comprehensive documentation (CSP_FRAME_OPTIONS_FIX.md)
 - explain report-only CSP violations from Google ad frames
 
-This fix resolves console CSP errors on credit card recommender pages (p1, p2, p3) 
+This fix resolves console CSP errors on credit card recommender pages (p1, p2, p3)
 while maintaining security by only allowing whitelisted ad networks to embed content.
 More granular control than X-Frame-Options using modern CSP frame-ancestors directive.
