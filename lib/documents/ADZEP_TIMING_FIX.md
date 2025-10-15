@@ -3,9 +3,11 @@
 ## Problem Statement
 
 ### Issue
+
 After navigating from the Credit Card Recommender to product pages (financial-solutions), the `window.AdZepActivateAds()` function was not being invoked automatically. Users had to manually reload the page to see ads display, causing significant revenue loss.
 
 ### Symptoms
+
 - Ads don't display on product pages after SPA navigation
 - Manual page reload required to see ads
 - Console shows no activation attempt or "function unavailable" errors
@@ -20,13 +22,14 @@ The external AdZep script is loaded asynchronously in `Base.astro`:
   is:inline
   data-cfasync="false"
   src="https://autozep.adzep.io/paid/budgetbeepro.js"
-  async  <!-- ASYNC LOADING = NO GUARANTEED TIMING -->
-/>
+  async></script>
 ```
+
+Note: ASYNC LOADING means NO GUARANTEED TIMING
 
 **Race Condition Timeline:**
 
-```
+```markdown
 1. User navigates to product page (SPA navigation via view transitions)
 2. Astro swaps content, fires astro:page-load event
 3. blogPostAdZepAutoTrigger.ts executes with 100ms delay
@@ -68,11 +71,15 @@ The fix implements a **wait-and-confirm** strategy instead of **hope-it's-ready*
  * @param maxWaitTime - Maximum time to wait in milliseconds (default: 5000ms)
  * @returns Promise<boolean> - true if script loaded, false if timeout
  */
-async function waitForExternalAdZepScript(maxWaitTime: number = 5000): Promise<boolean> {
+async function waitForExternalAdZepScript(
+  maxWaitTime: number = 5000,
+): Promise<boolean> {
   const startTime = Date.now();
-  
-  console.log(`[BlogPostAdZep] ⏳ Waiting for external AdZep script to load...`);
-  
+
+  console.log(
+    `[BlogPostAdZep] ⏳ Waiting for external AdZep script to load...`,
+  );
+
   return new Promise((resolve) => {
     // Check immediately first
     if (typeof window.AdZepActivateAds === "function") {
@@ -80,32 +87,36 @@ async function waitForExternalAdZepScript(maxWaitTime: number = 5000): Promise<b
       resolve(true);
       return;
     }
-    
+
     // Poll every 100ms
     const checkInterval = setInterval(() => {
       const elapsedTime = Date.now() - startTime;
-      
+
       // Check if function is now available
       if (typeof window.AdZepActivateAds === "function") {
         clearInterval(checkInterval);
-        console.log(`[BlogPostAdZep] ✅ External AdZep script loaded (${elapsedTime}ms)`);
+        console.log(
+          `[BlogPostAdZep] ✅ External AdZep script loaded (${elapsedTime}ms)`,
+        );
         resolve(true);
         return;
       }
-      
+
       // Check if we've exceeded max wait time
       if (elapsedTime >= maxWaitTime) {
         clearInterval(checkInterval);
         console.error(
-          `[BlogPostAdZep] ⏱️ Timeout waiting for external AdZep script after ${elapsedTime}ms`
+          `[BlogPostAdZep] ⏱️ Timeout waiting for external AdZep script after ${elapsedTime}ms`,
         );
         resolve(false);
         return;
       }
-      
+
       // Log progress every second
       if (elapsedTime % 1000 === 0 || elapsedTime >= 900) {
-        console.log(`[BlogPostAdZep] ⏳ Still waiting for external AdZep script... (${elapsedTime}ms elapsed)`);
+        console.log(
+          `[BlogPostAdZep] ⏳ Still waiting for external AdZep script... (${elapsedTime}ms elapsed)`,
+        );
       }
     }, 100); // Check every 100ms
   });
@@ -113,6 +124,7 @@ async function waitForExternalAdZepScript(maxWaitTime: number = 5000): Promise<b
 ```
 
 **Features**:
+
 - Polls every 100ms for function availability
 - Waits up to 5 seconds (50 checks)
 - Returns immediately if function already available
@@ -124,12 +136,13 @@ async function waitForExternalAdZepScript(maxWaitTime: number = 5000): Promise<b
 **Purpose**: Made async to properly await external script loading
 
 **Changes**:
+
 ```typescript
 // OLD: Synchronous function that hoped script was ready
 function scheduleAutoTrigger(reason: string): void {
   setTimeout(() => {
     if (!isBlogPostWithAdUnits()) return;
-    
+
     invokeWindowAdZepActivateAds(reason);
     triggerResetThenActivate(reason);
   }, 100);
@@ -138,30 +151,34 @@ function scheduleAutoTrigger(reason: string): void {
 // NEW: Async function that confirms script is ready
 async function scheduleAutoTrigger(reason: string): Promise<void> {
   console.log(`[BlogPostAdZep] 🚀 Starting auto-trigger sequence (${reason})`);
-  
+
   // Initial delay for DOM stabilization
-  await new Promise(resolve => setTimeout(resolve, 500));
-  
+  await new Promise((resolve) => setTimeout(resolve, 500));
+
   // Check if this is a blog/product page with ad units
   if (!isBlogPostWithAdUnits()) {
     console.log(`[BlogPostAdZep] ⏭️ Not a blog post with ad units, skipping`);
     return;
   }
-  
-  console.log(`[BlogPostAdZep] 🎯 Blog post with ad units detected, waiting for external script...`);
-  
+
+  console.log(
+    `[BlogPostAdZep] 🎯 Blog post with ad units detected, waiting for external script...`,
+  );
+
   // CRITICAL: Wait for external AdZep script to load
   const scriptLoaded = await waitForExternalAdZepScript(5000);
-  
+
   if (!scriptLoaded) {
     console.error(
-      `[BlogPostAdZep] ❌ Cannot proceed with activation - external AdZep script not loaded within timeout`
+      `[BlogPostAdZep] ❌ Cannot proceed with activation - external AdZep script not loaded within timeout`,
     );
     return;
   }
-  
-  console.log(`[BlogPostAdZep] 🎯 External script confirmed ready, proceeding with activation`);
-  
+
+  console.log(
+    `[BlogPostAdZep] 🎯 External script confirmed ready, proceeding with activation`,
+  );
+
   // Script is loaded and ready - proceed with activation
   invokeWindowAdZepActivateAds(reason);
   triggerResetThenActivate(reason);
@@ -169,6 +186,7 @@ async function scheduleAutoTrigger(reason: string): Promise<void> {
 ```
 
 **Key Improvements**:
+
 - Converted to async function
 - Initial 500ms delay (up from 100ms) for DOM stabilization
 - Explicit wait for external script with confirmation
@@ -180,20 +198,22 @@ async function scheduleAutoTrigger(reason: string): Promise<void> {
 **Purpose**: Allow more time for script loading and retries
 
 **Changes**:
+
 ```typescript
 // OLD: Very short retry window
-const MAX_DIRECT_ACTIVATION_ATTEMPTS = 5;  // 5 attempts
-setTimeout(invokeWindowAdZepActivateAds, 100) // 100ms intervals
+const MAX_DIRECT_ACTIVATION_ATTEMPTS = 5; // 5 attempts
+setTimeout(invokeWindowAdZepActivateAds, 100); // 100ms intervals
 // Total retry window: 5 × 100ms = 500ms
 
 // NEW: Extended retry window for network tolerance
 const MAX_DIRECT_ACTIVATION_ATTEMPTS = 20; // 20 attempts
-setTimeout(invokeWindowAdZepActivateAds, 200) // 200ms intervals
+setTimeout(invokeWindowAdZepActivateAds, 200); // 200ms intervals
 // Total retry window: 20 × 200ms = 4000ms (4 seconds)
 ```
 
 **Total Wait Time Calculation**:
-```
+
+```bash
 500ms (initial delay)
 + 5000ms (external script wait timeout)
 + 4000ms (retry window if activation fails)
@@ -201,6 +221,7 @@ setTimeout(invokeWindowAdZepActivateAds, 200) // 200ms intervals
 ```
 
 This provides ample time for:
+
 - DOM stabilization after navigation
 - External script download over slow networks
 - AdZep initialization
@@ -219,7 +240,7 @@ console.log(`[BlogPostAdZep] 🔍 Page detection:`, {
   hasAdUnits,
   isFinancialSolutionPost,
   isPersonalFinancePost,
-  result
+  result,
 });
 
 // Auto-trigger start
@@ -230,20 +251,29 @@ console.log(`[BlogPostAdZep] ⏳ Waiting for external AdZep script to load...`);
 console.log(`[BlogPostAdZep] ⏳ Still waiting... (${elapsedTime}ms elapsed)`);
 
 // Script load success
-console.log(`[BlogPostAdZep] ✅ External AdZep script loaded (${elapsedTime}ms)`);
+console.log(
+  `[BlogPostAdZep] ✅ External AdZep script loaded (${elapsedTime}ms)`,
+);
 
 // Activation attempts
-console.log(`[BlogPostAdZep] ⏳ Waiting for AdZepActivateAds... (${reason}, attempt ${attempt}/${MAX})`);
+console.log(
+  `[BlogPostAdZep] ⏳ Waiting for AdZepActivateAds... (${reason}, attempt ${attempt}/${MAX})`,
+);
 
 // Activation success
-console.log(`[BlogPostAdZep] ✅ window.AdZepActivateAds() executed successfully (${reason})`);
+console.log(
+  `[BlogPostAdZep] ✅ window.AdZepActivateAds() executed successfully (${reason})`,
+);
 
 // Errors with emojis for visibility
-console.error(`[BlogPostAdZep] ❌ window.AdZepActivateAds() unavailable after ${attempt} attempts`);
+console.error(
+  `[BlogPostAdZep] ❌ window.AdZepActivateAds() unavailable after ${attempt} attempts`,
+);
 console.error(`[BlogPostAdZep] ⏱️ Timeout waiting for external AdZep script`);
 ```
 
 **Emoji Key**:
+
 - 🔍 Detection/Analysis
 - 🚀 Starting process
 - ⏳ Waiting/In progress
@@ -258,6 +288,7 @@ console.error(`[BlogPostAdZep] ⏱️ Timeout waiting for external AdZep script`
 #### Local Development Testing
 
 1. **Start Development Server**:
+
    ```bash
    cd /Users/macbookpro/GitHub/budgetbee
    pnpm dev
@@ -266,7 +297,8 @@ console.error(`[BlogPostAdZep] ⏱️ Timeout waiting for external AdZep script`
 2. **Open Browser Console** (Chrome DevTools → Console tab)
 
 3. **Navigate to Recommender**:
-   ```
+
+   ```bash
    http://localhost:4321/credit-card-recommender-p1
    ```
 
@@ -277,7 +309,8 @@ console.error(`[BlogPostAdZep] ⏱️ Timeout waiting for external AdZep script`
    - Click through to product page
 
 5. **Watch Console Output** (should see):
-   ```
+
+   ```bash
    [BlogPostAdZep] 🚀 Starting auto-trigger sequence (astro:page-load)
    [BlogPostAdZep] 🔍 Page detection: {pathname: "/financial-solutions/...", ...}
    [BlogPostAdZep] 🎯 Blog post with ad units detected, waiting for external script...
@@ -298,16 +331,19 @@ console.error(`[BlogPostAdZep] ⏱️ Timeout waiting for external AdZep script`
 #### Success Criteria
 
 ✅ **Console shows successful sequence**:
+
 - Detection log showing financial-solutions page
 - Script load confirmation with timing
 - Activation success message
 
 ✅ **Ads display automatically**:
+
 - Preloader appears within 2-3 seconds
 - Ad content loads in containers
 - No manual reload required
 
 ✅ **Timing is reasonable**:
+
 - Script loads in 1-3 seconds typically
 - Total activation time under 5 seconds
 - No timeout errors
@@ -317,11 +353,13 @@ console.error(`[BlogPostAdZep] ⏱️ Timeout waiting for external AdZep script`
 **Issue**: Script timeout after 5 seconds
 
 **Possible Causes**:
+
 - Very slow network connection
 - AdZep script URL blocked/unavailable
 - Browser extension blocking script
 
 **Solutions**:
+
 - Check Network tab for script load status
 - Verify script URL is accessible
 - Test with extensions disabled
@@ -330,11 +368,13 @@ console.error(`[BlogPostAdZep] ⏱️ Timeout waiting for external AdZep script`
 **Issue**: Activation fails after script loads
 
 **Possible Causes**:
+
 - Ad containers not present in DOM
 - Page detection failing
 - AdZep internal error
 
 **Solutions**:
+
 - Verify `#us_budgetbeepro_3` and `#us_budgetbeepro_4` exist
 - Check page detection log output
 - Look for AdZep error messages in console
@@ -342,11 +382,13 @@ console.error(`[BlogPostAdZep] ⏱️ Timeout waiting for external AdZep script`
 **Issue**: Ads display on reload but not on navigation
 
 **Possible Causes**:
+
 - Fix not deployed
 - Caching issue
 - Browser console not showing logs
 
 **Solutions**:
+
 - Hard refresh (Cmd+Shift+R)
 - Clear browser cache
 - Verify commit is deployed
@@ -374,7 +416,8 @@ console.error(`[BlogPostAdZep] ⏱️ Timeout waiting for external AdZep script`
 **In Production**, look for these patterns:
 
 **Healthy Pattern**:
-```
+
+```bash
 [BlogPostAdZep] 🚀 Starting auto-trigger sequence
 [BlogPostAdZep] ✅ External AdZep script loaded (1856ms)
 [BlogPostAdZep] 🎯 External script confirmed ready
@@ -383,19 +426,23 @@ console.error(`[BlogPostAdZep] ⏱️ Timeout waiting for external AdZep script`
 ```
 
 **Warning Pattern** (slow network):
-```
+
+```bash
 [BlogPostAdZep] ⏳ Still waiting for external AdZep script... (1000ms elapsed)
 [BlogPostAdZep] ⏳ Still waiting for external AdZep script... (2000ms elapsed)
 [BlogPostAdZep] ✅ External AdZep script loaded (2847ms)
 ```
+
 Action: Monitor if common, consider CDN optimization
 
 **Error Pattern** (script blocked):
-```
+
+```bash
 [BlogPostAdZep] ⏳ Waiting for external AdZep script to load...
 [BlogPostAdZep] ⏳ Still waiting... (4000ms elapsed)
 [BlogPostAdZep] ⏱️ Timeout waiting for external AdZep script after 5000ms
 ```
+
 Action: Check script availability, network issues, or ad blockers
 
 ### Deployment Checklist
@@ -414,17 +461,20 @@ Action: Check script availability, network issues, or ad blockers
 ### Expected Impact
 
 #### Revenue Impact
+
 - **Baseline**: Users manually reload to see ads = 2+ page loads per view
 - **After Fix**: Ads display automatically = 1 page load per view
 - **Expected**: 50-90% increase in ad impressions from recommender flow
 - **Measurement**: Compare ad impressions 7 days before/after deployment
 
 #### User Experience
+
 - **Before**: Blank space where ads should be, requiring manual reload
 - **After**: Seamless ad display within 2-3 seconds of navigation
 - **Benefit**: Professional, polished experience
 
 #### Performance
+
 - **Additional Wait Time**: Up to 5 seconds max for script load
 - **Typical Case**: 1-2 seconds (script loads quickly on good connections)
 - **Acceptable**: Users expect some loading time for content-rich pages
@@ -440,14 +490,22 @@ Action: Check script availability, network issues, or ad blockers
 #### Potential Enhancements
 
 1. **Preload Script**: Use `<link rel="preload">` for external script
+
    ```astro
-   <link rel="preload" href="https://autozep.adzep.io/paid/budgetbeepro.js" as="script" />
+   <link
+     rel="preload"
+     href="https://autozep.adzep.io/paid/budgetbeepro.js"
+     as="script"
+   />
    ```
 
 2. **Script Load Event**: Listen for script load event instead of polling
+
    ```typescript
    const script = document.querySelector('script[src*="budgetbeepro.js"]');
-   script?.addEventListener('load', () => { /* activate */ });
+   script?.addEventListener("load", () => {
+     /* activate */
+   });
    ```
 
 3. **Service Worker Caching**: Cache external script for instant subsequent loads
@@ -467,9 +525,11 @@ Action: Check script availability, network issues, or ad blockers
 **Commit Message**: See `lib/documents/commit-message.txt`
 
 **Files Modified**:
+
 - `src/lib/blogPostAdZepAutoTrigger.ts` - Enhanced timing logic
 
 **Branch Strategy**:
+
 - Committed to: `dev` (primary)
 - Merged to: `main` (production)
 - Backed up: `backup` (safety)
@@ -479,6 +539,7 @@ Action: Check script availability, network issues, or ad blockers
 ### Support
 
 For issues or questions:
+
 1. Check console logs for diagnostic information
 2. Review this document's Troubleshooting section
 3. Verify external script is accessible

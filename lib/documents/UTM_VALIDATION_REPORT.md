@@ -32,12 +32,13 @@ The Quiz page correctly extracts all standard UTM parameters from incoming URLs:
 **Evidence:**
 
 ```javascript
-Extracted Parameters: {
-  utm_source: 'googleads',
-  utm_campaign: '22950333792',
-  utm_content: 'id22950333792-771621153085',
-  utm_medium: '-22950333792'
-}
+// Extracted Parameters:
+const params = {
+  utm_source: "googleads",
+  utm_campaign: "22950333792",
+  utm_content: "id22950333792-771621153085",
+  utm_medium: "-22950333792",
+};
 ```
 
 ### ✅ 2. UTM Naming Convention Compliance
