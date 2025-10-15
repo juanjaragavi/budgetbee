@@ -1,11 +1,7 @@
----
-/**
- * INTEGRATION GUIDE: Enhanced Blog Post System
- * Step-by-step guide to implement the enhanced blog post components
- */
----
-
 # Enhanced Blog Post System Integration Guide
+
+**INTEGRATION GUIDE: Enhanced Blog Post System**  
+_Step-by-step guide to implement the enhanced blog post components_
 
 ## Overview
 

@@ -118,11 +118,11 @@ The system includes multiple mechanisms to handle full-page interstitial ads:
 
 The implementation provides detailed console logging:
 
-```javascript
+```text
 [BlogPostAdZep] Auto-trigger system installed
-[BlogPostAdZep] Starting Reset → Activate sequence due to: astro:page-load
+[BlogPostAdZep] Starting Reset -> Activate sequence due to: astro:page-load
 [BlogPostAdZep] Reset completed
-[BlogPostAdZep] Reset → Activate sequence completed successfully
+[BlogPostAdZep] Reset -> Activate sequence completed successfully
 ```
 
 ### Debug Panel Integration

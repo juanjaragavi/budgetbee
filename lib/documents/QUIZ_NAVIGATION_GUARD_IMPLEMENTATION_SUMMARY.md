@@ -53,29 +53,34 @@ Successfully implemented a robust navigation guard system that prevents users fr
 
 **Key Functions**:
 
+````typescript
+
 ```typescript
+// API Functions
+
 // Check if user has accessed recommender
-hasAccessedRecommender(): boolean
+function hasAccessedRecommender(): boolean;
 
 // Mark recommender as accessed
-markRecommenderAccessed(): void
+function markRecommenderAccessed(): void;
 
 // Detect page types
-isQuizPage(pathname?: string): boolean
-isRecommenderPage(pathname?: string): boolean
+function isQuizPage(pathname?: string): boolean;
+function isRecommenderPage(pathname?: string): boolean;
 
 // Build redirect URL with UTM params
-getRecommenderRedirectUrl(): string
+function getRecommenderRedirectUrl(): string;
 
 // Guard quiz page access
-guardQuizAccess(): void
+````
 
 // Install protection on recommender pages
 installRecommenderGuard(): void
 
 // Clear guard state (testing)
 clearGuardState(): void
-```
+
+````markdown
 
 **Protection Mechanisms**:
 
@@ -110,7 +115,7 @@ clearGuardState(): void
 ```javascript
 // Redirected to external link
 window.location.href = "https://linkly.link/2ERrA";
-```
+````
 
 **After**:
 
@@ -355,7 +360,7 @@ testQuizGuard.manualDeactivateGuard(); // Manual deactivation
 [QuizGuard] Hash navigation to quiz blocked
 ```
 
-### State Management
+### State Management 2
 
 ```plaintext
 [QuizGuard] Guard state maintained on unload
@@ -442,25 +447,25 @@ testQuizGuard.manualDeactivateGuard(); // Manual deactivation
 
 1. Add guard script to new page:
 
-```astro
-<script>
-  import { installRecommenderGuard } from "@/lib/utils/quizNavigationGuard";
-  installRecommenderGuard();
-  document.addEventListener("astro:page-load", () => {
-    installRecommenderGuard();
-  });
-</script>
-```
+    ```astro
+    <script>
+      import { installRecommenderGuard } from "@/lib/utils/quizNavigationGuard";
+      installRecommenderGuard();
+      document.addEventListener("astro:page-load", () => {
+        installRecommenderGuard();
+      });
+    </script>
+    ```
 
 2. Update `isRecommenderPage()` if needed:
 
-```typescript
-export function isRecommenderPage(pathname?: string): boolean {
-  const path = pathname || window.location.pathname;
-  return path.includes("/credit-card-recommender-");
-  // Will match: /credit-card-recommender-p1, p2, p3, p4, etc.
-}
-```
+    ```typescript
+    export function isRecommenderPage(pathname?: string): boolean {
+      const path = pathname || window.location.pathname;
+      return path.includes("/credit-card-recommender-");
+      // Will match: /credit-card-recommender-p1, p2, p3, p4, etc.
+    }
+    ```
 
 ### Modifying Quiz Routes
 
@@ -564,19 +569,19 @@ utmKeys.forEach((key) => {
 
 1. **Revert Quiz Form Redirect**:
 
-```javascript
-// In src/components/quiz/CreditCardForm.jsx
-window.location.href = "https://linkly.link/2ERrA";
-```
+    ```javascript
+    // In src/components/quiz/CreditCardForm.jsx
+    window.location.href = "https://linkly.link/2ERrA";
+    ```
 
 2. **Disable Guard Checks** (temporary):
 
-```javascript
-// In src/lib/utils/quizNavigationGuard.ts
-export function hasAccessedRecommender(): boolean {
-  return false; // Temporarily disable
-}
-```
+    ```javascript
+    // In src/lib/utils/quizNavigationGuard.ts
+    export function hasAccessedRecommender(): boolean {
+      return false; // Temporarily disable
+    }
+    ```
 
 3. **Remove Guard Scripts** (if needed):
 

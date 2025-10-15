@@ -89,14 +89,14 @@ All URLs include complete sitemap metadata:
 ### **Advanced Features**
 
 ```javascript
-serialize(item) {
+function serialize(item) {
   // Dynamic metadata generation based on URL patterns
   const config = getSitemapConfig(item.url);
   return {
     url: item.url,
     changefreq: config.changefreq,
     priority: config.priority,
-    lastmod: config.lastmod
+    lastmod: config.lastmod,
   };
 }
 ```

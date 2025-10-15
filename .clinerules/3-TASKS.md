@@ -120,6 +120,11 @@
    - Audit Brevo and Google Sheets endpoints for field mismatches and remediate mapping.
    - Validate end-to-end submissions and document findings and changes.
 
+9. [x] Publish TOFU article: "Inflation-Proof Your Life: 7 Smart Money Moves to Make When Prices Are High" _(Completed: Oct 15, 2025)_
+   - ✓ Created a Money Management personal finance post with internal links to existing BudgetBee resources.
+   - ✓ Followed `.github/copilot-instructions.md` tone and TOFU structure requirements.
+   - ✓ Ensured frontmatter, categories, and sitemap visibility align with content guidelines.
+
 ## Technical Improvements Needed
 
 1. [ ] Implement actual budgeting features (if this is a budgeting app)

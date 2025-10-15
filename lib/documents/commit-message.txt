@@ -1,35 +1,7 @@
-fix(adzep): wait for external script before invoking AdZepActivateAds to ensure proper ad display
+content: publish inflation-proof personal finance article
 
-- add waitForExternalAdZepScript() to explicitly wait for budgetbeepro.js to load
-- increase MAX_DIRECT_ACTIVATION_ATTEMPTS from 5 to 20 (total 4 second wait)
-- increase retry interval from 100ms to 200ms for better script loading tolerance
-- increase initial delay from 100ms to 500ms before attempting activation
-- convert scheduleAutoTrigger to async function to properly await script loading
-- add comprehensive logging with emojis for better debugging visibility
-- add page detection logging to verify financial-solutions pages are recognized
+- add new TOFU personal-finance article covering inflation survival tips
+- mark the task tracker as complete for the latest post
+- tidy documentation code fences and formatting consistency
+- refresh integration guide intro to pure markdown copy
 
-Impact:
-- ensures window.AdZepActivateAds() is invoked AFTER external script is fully loaded
-- eliminates "function unavailable" errors that prevented ad display
-- fixes issue where users had to manually reload to see ads on product pages
-- provides up to 5 seconds for external script to load (vs previous 500ms)
-- adds detailed console logging to track script loading progress
-
-Technical Details:
-- waitForExternalAdZepScript() checks every 100ms for up to 5 seconds
-- scheduleAutoTrigger now waits for script confirmation before proceeding
-- Enhanced logging shows: script load time, retry attempts, page detection results
-- Maintains all existing functionality including state reset and reloader mechanisms
-
-Console Output Examples:
-✅ Success: "[BlogPostAdZep] ✅ External AdZep script loaded (1234ms)"
-⏳ Waiting: "[BlogPostAdZep] ⏳ Waiting for AdZepActivateAds... (initial-load, attempt 3/20)"
-❌ Error: "[BlogPostAdZep] ❌ window.AdZepActivateAds() unavailable after 20 attempts"
-
-Files Modified:
-- src/lib/blogPostAdZepAutoTrigger.ts: enhanced script loading wait logic
-
-Related Issues:
-- Users reporting ads only display after manual page reload
-- "window.AdZepActivateAds is not a function" errors in console
-- Timing race condition between our activation code and external script loading
