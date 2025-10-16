@@ -1,7 +1,10 @@
-content: publish inflation-proof personal finance article
+feat: add CIT Bank Home Loans articles and Loans category
 
-- add new TOFU personal-finance article covering inflation survival tips
-- mark the task tracker as complete for the latest post
-- tidy documentation code fences and formatting consistency
-- refresh integration guide intro to pure markdown copy
-
+- create comprehensive CIT Bank Home Loans Benefits article
+- create CIT Bank Home Loans Requirements article with accurate eligibility criteria
+- introduce new "Loans" category to Financial Solutions collection
+- update financial-solutions index description to include home loans and mortgages
+- add implementation documentation for CIT Bank Home Loans content
+- ensure US localization with proper en-US conventions
+- integrate AdZone components and internal linking structure
+- follow established article pattern (benefits + requirements)
