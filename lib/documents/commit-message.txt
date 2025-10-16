@@ -1,10 +1,5 @@
-feat: add CIT Bank Home Loans articles and Loans category
+fix: update CIT Bank Home Loans Requirements CTA link
 
-- create comprehensive CIT Bank Home Loans Benefits article
-- create CIT Bank Home Loans Requirements article with accurate eligibility criteria
-- introduce new "Loans" category to Financial Solutions collection
-- update financial-solutions index description to include home loans and mortgages
-- add implementation documentation for CIT Bank Home Loans content
-- ensure US localization with proper en-US conventions
-- integrate AdZone components and internal linking structure
-- follow established article pattern (benefits + requirements)
+- change button link from internal benefits page to official CIT Bank website
+- update button label to "Visit Official Website" for clarity
+- link to CIT Bank platinum savings page for direct access to product information
