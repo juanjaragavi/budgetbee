@@ -1,5 +1,15 @@
-fix: update CIT Bank Home Loans Requirements CTA link
+feat: Add comprehensive CIT Bank savings article with TOFU content strategy
 
-- change button link from internal benefits page to official CIT Bank website
-- update button label to "Visit Official Website" for clarity
-- link to CIT Bank platinum savings page for direct access to product information
+Created new educational article "Beyond Your Checking Account: 3 Smart Ways to Make Your Savings Grow" covering high-yield savings accounts, certificates of deposit (CDs), and money market accounts.
+
+Key additions:
+- New TOFU article in personal-finance collection (3,200+ words)
+- CIT Bank Platinum Savings Account featured with official link
+- Educational content on HYSA, CD laddering, and money market accounts
+- Strategic internal linking to 8 existing articles
+- AdZone integration and credit card recommendations
+- US market localization with FDIC compliance
+- SEO optimization for "CIT Investment and Savings Products" keyword
+- Implementation documentation in lib/documents/
+
+This article targets awareness-stage readers seeking to optimize savings beyond traditional checking accounts, positioned as commercial investigation content with informational value.
