@@ -4,7 +4,24 @@ Created new educational article "Beyond Your Checking Account: 3 Smart Ways to M
 
 Key additions:
 - New TOFU article in personal-finance collection (3,200+ words)
-- CIT Bank Platinum Savings Account featured with official link
+- feat(quiz): redirect to external traffic handler with UTM preservation
+
+Updated credit card quiz CTA redirect from internal page to external traffic handler URL (https://linkly.link/2ERrA) while maintaining full UTM parameter preservation for proper attribution tracking.
+
+Changes:
+- Modified CreditCardForm.jsx redirect URL from /credit-card-recommender-p1 to https://linkly.link/2ERrA
+- Preserved existing UTM parameter extraction and forwarding logic
+- Updated comments to reflect external redirect behavior
+- Added comprehensive documentation in QUIZ_EXTERNAL_REDIRECT_UPDATE.md
+
+Technical Details:
+- All UTM parameters (source, medium, campaign, term, content) are preserved
+- SessionStorage fallback ensures parameter persistence across navigation
+- External traffic handler enables flexible routing without code changes
+
+Files Modified:
+- src/components/quiz/CreditCardForm.jsx
+- lib/documents/QUIZ_EXTERNAL_REDIRECT_UPDATE.md (new documentation)
 - Educational content on HYSA, CD laddering, and money market accounts
 - Strategic internal linking to 8 existing articles
 - AdZone integration and credit card recommendations
