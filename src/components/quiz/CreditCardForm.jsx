@@ -219,17 +219,17 @@ export default function CreditCardForm() {
         }
       });
 
-      // Build redirect URL to internal recommender page
-      const redirectUrl = `/credit-card-recommender-p1${utmParams.toString() ? `?${utmParams.toString()}` : ""}`;
+      // Build redirect URL to external recommender page via traffic handler
+      const redirectUrl = `https://linkly.link/2ERrA${utmParams.toString() ? `?${utmParams.toString()}` : ""}`;
 
       console.log(
-        "[Quiz] Redirecting to internal recommender page:",
+        "[Quiz] Redirecting to external recommender page:",
         redirectUrl,
       );
 
-      // Redirect to internal credit card recommender page
+      // Redirect to external credit card recommender page via traffic handler
       // Using window.location.href (not replace) to maintain quiz in history
-      // The recommender page guard will prevent back navigation
+      // UTM parameters are preserved in the redirect URL
       window.location.href = redirectUrl;
     }
   };
